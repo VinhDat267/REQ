@@ -7,7 +7,8 @@
 
 ## 2. Phase Labels
 - Active default after `2026-04-16`: `final-project`.
-- Use `midterm-locked` only for the historical subset package built around the local `UC-01..UC-16` numbering.
+- Treat the repository itself as `final-project` by default.
+- Use `midterm-locked` only for explicitly historical subset artifacts built around the local `UC-01..UC-16` numbering.
 - Use `final-project` for current whole-system artifacts required by the official final brief.
 - Do not use these labels interchangeably.
 
@@ -19,35 +20,30 @@
 
 ## 4. Use Case Numbering
 
-### Full 74-UC System
-- Defined in [All_Use_Cases.md](../../All_Use_Cases.md)
-- Represents the final-project system inventory
-- Final-project whole-system artifacts should use this inventory as the primary reference
-- `UC-50` remains the explicit `Delivery` out-of-scope placeholder unless a later scope decision changes it
+### Master Whole-System Inventory
+- The official final-project master inventory is [All_Use_Cases.md](../../All_Use_Cases.md)
+- It keeps the original `UC-01..UC-74` inventory as the scope-check and full-system reference source
+- `UC-50` remains the explicit `Delivery` out-of-scope placeholder inside the master inventory unless a later scope decision changes it
+- `UC-74` is notification-only and must not be reused as an audit / override / exception catch-all
 
-### Canonical Final-Project Presentation Layer
-- Also defined in [All_Use_Cases.md](../../All_Use_Cases.md) as `CUC-xx`
-- Represents the recommended presentation layer for:
-  - full-system use case diagrams
-  - BRD functional overview sections
-  - primary final SRS use case specifications
-- Detailed `UC-01..UC-74` items remain the traceability / appendix layer behind the canonical `CUC-xx` set
-- Each detailed `UC-xx` should have one canonical owner in the `CUC-xx` layer with an explicit relation type such as `primary`, `subflow`, `exception`, or `support`
-- Apply the one-owner rule to active detailed UCs only; `UC-50` remains the excluded `Delivery` placeholder
-- Final-project diagrams and specs should follow the canonical relationship layer defined in `All_Use_Cases.md` instead of re-deriving include / extend / dependency ad hoc
-- In the canonical relationship layer:
-  - `include` = mandatory reused sub-behavior
-  - `extend` = conditional / variant behavior attached to a base CUC
-  - `dependency` = semantic prerequisite shown for readability, not strict UML reuse
-- `UC-74` is owned as support-only notification behavior and must not be reused as an audit / override / exception catch-all in final BRD / SRS mapping
-- Supporting or very small `UC-xx` items should normally be modeled as subflows, exception flows, or cross-cutting controls instead of being promoted to standalone canonical nodes
+### Current BRD Final V3 Lane
+- `BRD final v3` preserves the team's existing visible IDs by keeping `UC-01..UC-16`
+- The approved next extension is `UC-17+`, following [BRD_Final_V3_UC_Shortlist.md](../../BRD_Final_V3_UC_Shortlist.md)
+- Treat this as a curated authoring lane for the BRD, not as a replacement for the whole-system master inventory
+- Do not force original master IDs into the main BRD final v3 narrative unless the user explicitly asks for traceability or remapping
+
+### Relationship Notes
+- Use `include` when a use case contains mandatory reused sub-behavior
+- Use `extend` when a use case adds conditional / variant behavior to another use case
+- Keep relationship notes directly on the relevant artifact's `UC-xx` lane instead of introducing a third numbering layer just to explain structure
 
 ### Local 16-UC Midterm Set
-- Used in the historical midterm BRD / UC specification package
+- Originated in the historical midterm BRD / UC specification package
 - Numbered `UC-01` to `UC-16`
-- Midterm-only docs should use local numbering first
-- Original 74-UC identifiers should appear only through traceability fields such as `UC Goc` / `Original UC`
-- The canonical midterm use case diagram is `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
+- Those IDs are now also the preserved prefix of the approved local final BRD lane
+- The old midterm docs themselves remain historical artifacts
+- Original 74-UC identifiers should appear only when explicit traceability is needed
+- The primary midterm use case diagram is `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
 - `Usecasediagramreq.drawio` is a synced legacy review / submission artifact, not the primary logic source
 
 ## 5. Final-Project Narrative Rules
@@ -115,5 +111,5 @@
   - `USE CASE`
 - `REQ#` keeps the `FR-xx` / `NFR-xx` form
 - Midterm BRD uses the local 16-UC subset in the `USE CASE` column
-- Final-project whole-system BRD / SRS should use the original 74-UC inventory or another explicit full-system mapping as the primary reference
-- Final-project whole-system BRD / SRS should present the main narrative through the canonical `CUC-xx` layer while preserving mapping back to the original `UC-01..UC-74` inventory
+- Current BRD final v3 should use the approved local final BRD lane in the `USE CASE` column
+- If a later final SRS uses the master inventory directly, mark that choice explicitly instead of mixing the two lanes silently

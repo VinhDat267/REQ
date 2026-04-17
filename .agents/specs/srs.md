@@ -8,9 +8,9 @@
 
 ## Whole-System Scope Baseline
 - Active scope boundary: `Final_Project_Scope.md`
-- Primary use-case inventory: `All_Use_Cases.md` (`74` use cases)
-- Primary presentation layer for final BRD / SRS / use case diagram: canonical `CUC-xx` set in `All_Use_Cases.md` (`25` canonical use cases)
-- Midterm local subset `UC-01..UC-16` remains reference-only for the historical locked midterm package
+- Master inventory reference: original `UC-01..UC-74` in `All_Use_Cases.md`
+- Current BRD final v3 authoring lane: preserved local `UC-01..UC-16` plus selected `UC-17+`
+- The old midterm local subset survives as the preserved prefix of that BRD lane, while the old midterm artifacts themselves remain historical
 - Service models remain:
   - `Dine-in`
   - `Takeaway`
@@ -22,11 +22,11 @@
 - full-version functional requirements
 - full-version non-functional requirements
 - use case specifications with:
-  - canonical `CUC-xx` as the main spec layer
-  - detailed `UC-01..UC-74` as traceability / appendix support
-  - explicit canonical ownership and canonical relationship rules from `All_Use_Cases.md`
+  - an explicitly chosen visible numbering lane
+  - no silent mixing between the master inventory and the local final BRD lane
+  - relationship rules written directly on the chosen `UC-xx` lane where needed
 - modelling set chosen for the final package
-- traceability between business rules, UC inventory, and diagrams
+- traceability between business rules, use cases, and diagrams
 - operational policy coverage for shifts, cash drawer, reconciliation, promotions, complaint/remake, outage fallback, audit logs, receipts/invoices, and inventory-lite
 - role / permission boundaries across:
   - `Manager`
@@ -38,14 +38,13 @@
 ## Existing Inputs Already Present In Repo
 - BRD VN / EN draft
 - business rules VN / EN
-- full 74-UC inventory
+- detailed `UC-01..UC-74` source in `All_Use_Cases.md`
 - midterm UC specs part 1 / 2
 - elicitation notes under `docs/requirement-elicitation/`
 - prototype-style HTML screens under `src/frontend*`
 - whole-system ERD sources under `docs/diagrams/*/erd/`
 
 ## Gaps To Resolve For The Final SRS
-- canonical full-system use case diagram
 - canonical whole-system process diagram
 - promoted root SRS document for the final-project lane
 - explicit change / risk / scope management references if they are cited from the final SRS

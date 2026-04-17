@@ -2,6 +2,9 @@
 
 ---
 
+> **Ghi chú cho BRD final v3 (2026-04-17):** Các UC trong phần này vẫn giữ nguyên ID hiện tại và được xem là một phần của local final BRD lane. Khi bổ sung các UC mới cho bản final, nhóm sẽ đánh tiếp `UC-17+` thay vì đổi lại các ID đã có trong main BRD narrative.
+> **Ghi chú ownership:** Việc gắn từng UC cho từng thành viên trong bộ midterm không còn áp dụng cho `BRD final v3`. Bản final được xem là tài liệu chung của cả nhóm.
+
 ### 🔹 Đặng Khánh Huyền (2301040088)
 
 #### UC-05: Quản lý menu *(Tương ứng UC-26~31 trong hệ thống 74 UC)*

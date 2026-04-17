@@ -4,122 +4,17 @@
 
 ## 🧭 Cách dùng bộ use case này
 
-Tài liệu này được tổ chức theo **2 lớp granularity** để final BRD/SRS và full-system use case diagram không bị quá tải:
+Tài liệu này duy trì **inventory goc `UC-01..UC-74`** cho toan bo he thong.
 
-- **Lớp 1 - Canonical Use Cases (`CUC-xx`)**  
-  Dùng cho **full-system use case diagram**, phần **functional overview** trong BRD, và phần **primary use case specifications** trong final SRS.
-- **Lớp 2 - Detailed Use Case Inventory (`UC-01..UC-74`)**  
-  Giữ đầy đủ inventory chi tiết để **traceability**, **appendix**, **business-rule mapping**, và triển khai subflow / alternate flow / exception flow.
+- Day la nguon **scope source / master inventory** cho final-project baseline.
+- `UC-50` tiep tuc giu vai tro placeholder **out-of-scope** cho `Delivery`.
+- `BRD final v3` duoc phep dung mot bo local curated UC rieng de trinh bay, mien khong thay doi business baseline cua inventory nay.
+- Khi can doi chieu scope full-system, uu tien doi chieu voi chinh bo `UC-xx` trong tai lieu nay.
 
-> **Quy tắc trình bày đề xuất cho final package:**  
-> - Diagram tổng thể: ưu tiên vẽ `CUC-xx`, không nhồi cả `74 UC` lên cùng một sơ đồ.  
-> - BRD: mô tả theo `CUC-xx`, dùng `UC-xx` làm mapping tham chiếu.  
-> - SRS: viết full spec cho `CUC-xx`; các `UC-xx` nhỏ hơn được xử lý như subflow, supporting flow, exception flow hoặc appendix item.
-
----
-
-## 🎯 Canonical Use Case Layer (Dùng cho Diagram / BRD / SRS)
-
-### 📱 Client WebApp
-
-| CUC# | Canonical Use Case | Actor chính | Bao phủ từ detailed UC |
-|------|--------------------|-------------|-------------------------|
-| CUC-01 | Quản lý tài khoản khách hàng | Registered Customer | UC-01..UC-06 `[primary]` |
-| CUC-02 | Khám phá menu và tìm món | Registered Customer / Guest | UC-07..UC-08 `[primary]` |
-| CUC-03 | Tạo và cấu hình đơn hàng khách | Registered Customer / Guest | UC-09..UC-11 `[primary]`, UC-12 `[subflow]` |
-| CUC-04 | Thanh toán trước cho đơn Takeaway / Pickup | Registered Customer / Guest | UC-13 `[primary]` |
-| CUC-05 | Thanh toán đơn Dine-in tại quầy | Registered Customer / Guest | UC-14 `[primary]` |
-| CUC-06 | Theo dõi và quản lý đơn đang hoạt động | Registered Customer / Guest | UC-15 `[primary]`, UC-19 `[exception]`, UC-24 `[support]` |
-| CUC-07 | Xem lịch sử đơn và đặt lại món | Registered Customer | UC-16..UC-18 `[primary]`, UC-22 `[primary]` |
-| CUC-08 | Đặt và quản lý đơn Pickup | Registered Customer / Guest | UC-21..UC-23 `[primary]` |
-| CUC-09 | Gửi đánh giá sau đơn hàng | Registered Customer | UC-20 `[primary]` |
-
-### 🖥️ Admin WebApp - Quản lý
-
-| CUC# | Canonical Use Case | Actor chính | Bao phủ từ detailed UC |
-|------|--------------------|-------------|-------------------------|
-| CUC-10 | Theo dõi dashboard vận hành | Manager | UC-25 `[primary]` |
-| CUC-11 | Quản lý menu, danh mục, topping và availability | Manager | UC-26..UC-31 `[primary]` |
-| CUC-12 | Quản lý bàn của quán | Manager | UC-32..UC-35 `[primary]` |
-| CUC-13 | Quản lý lịch Pickup và Pickup exception | Manager | UC-36 `[primary]` |
-| CUC-14 | Quản lý nhân viên và phân quyền | Manager | UC-37..UC-40 `[primary]` |
-| CUC-15 | Truy cập không gian Admin và bảo mật cá nhân | All Admin Users | UC-71..UC-73 `[primary]`, UC-74 `[support]` |
-| CUC-16 | Xem báo cáo doanh thu, chốt ca và đối soát | Manager | UC-41..UC-45 `[primary]` |
-| CUC-17 | Quản lý khuyến mãi | Manager | UC-46..UC-48 `[primary]` |
-
-### 🧾 Admin WebApp - FOH Cashier
-
-| CUC# | Canonical Use Case | Actor chính | Bao phủ từ detailed UC |
-|------|--------------------|-------------|-------------------------|
-| CUC-18 | Tạo, tiếp nhận, điều phối và rà soát đơn FOH | FOH Cashier | UC-49 `[primary]`, UC-51 `[primary]`, UC-52 `[primary]`, UC-58 `[subflow]` |
-| CUC-19 | Xử lý hủy đơn và order exception | FOH Cashier / Manager | UC-53 `[primary]` |
-| CUC-20 | Xử lý thanh toán, hoàn tiền và chứng từ | FOH Cashier | UC-54..UC-57 `[primary]` |
-| CUC-21 | Quản lý gán bàn, chuyển bàn, giải phóng bàn | FOH Cashier | UC-59..UC-61 `[primary]` |
-
-### 👨‍🍳 Admin WebApp - BOH
-
-| CUC# | Canonical Use Case | Actor chính | Bao phủ từ detailed UC |
-|------|--------------------|-------------|-------------------------|
-| CUC-22 | Tiếp nhận và xác nhận đơn trong bếp | BOH Staff | UC-62..UC-64 `[primary]` |
-| CUC-23 | Thực hiện và cập nhật tiến độ chế biến | BOH Staff | UC-65..UC-66 `[primary]` |
-| CUC-24 | Quản lý availability phía bếp | BOH Staff | UC-67 `[primary]` |
-
-### 🍽️ Admin WebApp - FOH Service
-
-| CUC# | Canonical Use Case | Actor chính | Bao phủ từ detailed UC |
-|------|--------------------|-------------|-------------------------|
-| CUC-25 | Xử lý handoff và khép vòng đời phục vụ tại bàn | FOH Service | UC-68..UC-70 `[primary]` |
-
-### 🧩 Quy tắc ownership giữa detailed UC và canonical CUC
-
-- Mỗi `UC-xx` active chỉ có **một canonical owner chính** trong bảng phía trên.
-- `UC-50` là placeholder excluded cho `Delivery`, nên không cần canonical owner active.
-- Tag quan hệ dùng trong cột bao phủ:
-  - `[primary]`: detailed UC là nội dung chính của canonical use case
-  - `[subflow]`: detailed UC là bước con bắt buộc bên trong canonical use case
-  - `[exception]`: detailed UC là luồng ngoại lệ / điều kiện mở rộng do canonical owner quản lý
-  - `[support]`: detailed UC là hành vi hỗ trợ xuyên suốt nhưng vẫn thuộc ownership của canonical owner đó
-- Nếu một `UC-xx` được nhắc lại ở phần khác, đó chỉ là **secondary reference** để giải thích, không phải đổi owner.
-
-### 🔔 Ví dụ các detailed UC có relation type đặc biệt trong canonical layer
-
-| Detailed UC | Cách xử lý ở final package |
-|-------------|----------------------------|
-| UC-12 - Áp mã giảm giá | Owner chính là `CUC-03` dưới dạng subflow; rule về validity / usage / stacking vẫn tham chiếu sang `CUC-17` |
-| UC-24 - Nhận thông báo đơn hàng | Supporting flow cho `CUC-06`, không nhất thiết phải là node chính trên full-system diagram |
-| UC-57 - In hóa đơn | Nằm trong `CUC-20` như payment/document subflow, không cần tách thành canonical goal riêng |
-| UC-58 - In phiếu bếp | Nằm trong `CUC-18` như dispatch subflow, đồng thời là fallback khi outage |
-| UC-74 - Nhận thông báo vận hành | Owner chính là `CUC-15` dưới dạng support; chỉ dùng cho notification, không dùng như audit / override / exception catch-all |
-
-### 🔗 Canonical Relationship Layer (Dùng khi vẽ full-system diagram)
-
-> **Convention dùng thống nhất ở lớp canonical:**
-> - `include`: hành vi con bắt buộc được tái sử dụng bởi base CUC
-> - `extend`: hành vi điều kiện / biến thể gắn vào base CUC
-> - `dependency`: quan hệ tiền đề ngữ nghĩa để người đọc hiểu luồng, không phải reuse UML bắt buộc
-
-| Từ CUC | Quan hệ | Đến CUC | Ý nghĩa mô hình |
-|--------|---------|---------|-----------------|
-| CUC-03 | `include` | CUC-02 | Tạo đơn luôn dựa trên bước khám phá / chọn món |
-| CUC-04 | `extend` | CUC-03 | Prepayment là luồng điều kiện của quá trình đặt đơn khi service model yêu cầu trả trước |
-| CUC-08 | `extend` | CUC-03 | Pickup là biến thể của flow đặt món với slot/time handling |
-| CUC-08 | `include` | CUC-04 | Pickup luôn yêu cầu prepayment |
-| CUC-06 | `dependency` | CUC-03 | Theo dõi/quản lý đơn khách cần có order context đã được tạo |
-| CUC-06 | `dependency` | CUC-08 | Theo dõi/quản lý pickup đang hoạt động cần có pickup order context |
-| CUC-19 | `extend` | CUC-18 | Hủy đơn và order exception là luồng điều kiện của vòng đời đơn FOH |
-| CUC-20 | `dependency` | CUC-18 | Thanh toán/refund/chứng từ dùng chung order context của FOH |
-| CUC-22 | `dependency` | CUC-18 | Bếp chỉ tiếp nhận sau khi FOH điều phối đơn xuống bếp |
-| CUC-23 | `dependency` | CUC-22 | Tiến độ chế biến chỉ bắt đầu sau khi đơn được bếp nhận |
-| CUC-24 | `extend` | CUC-22 | Hết nguyên liệu / availability issue có thể phát sinh ngay khi bếp tiếp nhận và xác nhận đơn |
-| CUC-24 | `extend` | CUC-23 | Hết nguyên liệu / availability issue cũng có thể phát sinh trong lúc chế biến và cập nhật tiến độ |
-| CUC-25 | `dependency` | CUC-23 | Handoff và service closure chỉ diễn ra sau khi đơn được nấu xong / ready |
-
-### 📐 Chính sách gom UC nhỏ thành UC vừa phải
-
-- **CRUD atom** như thêm / sửa / xóa thường được gom thành một canonical management use case nếu cùng phục vụ một business goal.
-- **Payment artifact** như in hóa đơn, in lại, refund, partial refund nên nằm trong cùng canonical payment use case thay vì tách thành nhiều UC nhỏ.
-- **Operational exception** như complaint, wrong handoff, outage recovery, shift close nên ưu tiên viết thành **alternate / exception / named subflow** bên trong canonical use case.
-- **Notification** và **audit trail** là hỗ trợ xuyên suốt; chỉ tách riêng khi đề bài thực sự yêu cầu model chúng như use case độc lập.
+> **Quy tac su dung inventory nay:**  
+> - Xem day la bo master inventory cua he thong.  
+> - Khong sua inventory nay chi de ep phan main BRD phai liet ke du ca `74` UC.  
+> - Cac quan he `include` / `extend`, subflow, exception flow, support flow van duoc mo ta truc tiep tren bo `UC-xx` nay.
 
 ---
 
@@ -298,13 +193,12 @@ Tài liệu này được tổ chức theo **2 lớp granularity** để final B
 
 ## 📊 Tổng Kết
 
-### Tóm tắt 2 lớp use case
+### Tóm tắt inventory use case
 
-| Lớp | Số lượng | Mục đích sử dụng |
-|-----|----------|------------------|
-| Canonical presentation layer | 25 CUC | Full-system use case diagram, BRD functional overview, primary SRS specifications |
-| Detailed numbered inventory | 74 UC | Appendix, traceability, business-rule mapping, subflow / exception coverage |
-| Active in-scope detailed UC | 73 UC | Final baseline behavior |
+| Phân loại | Số lượng | Ghi chú |
+|-----------|----------|---------|
+| Total numbered inventory | 74 UC | Bộ use case đầy đủ toàn hệ thống |
+| Active in-scope UC | 73 UC | Hành vi thuộc baseline hiện tại |
 | Excluded placeholder | 1 UC (`UC-50`) | `Delivery` out-of-scope |
 
 ### Tóm tắt detailed inventory theo actor

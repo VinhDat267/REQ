@@ -4,6 +4,9 @@
 
 > **Hệ thống đánh số UC:** Trong bộ tài liệu midterm, 16 UC được **đánh lại mã cục bộ từ `UC-01` đến `UC-16`** để dễ theo dõi. Cột **"UC Gốc"** dùng để map ngược về hệ thống 74 UC tổng thể trong `All_Use_Cases.md`.
 
+> **Ghi chú cho BRD final v3 (2026-04-17):** Bộ `UC-01..UC-16` trong tài liệu này được giữ nguyên ID và được xem là phần prefix được bảo toàn của local final BRD lane. Khi mở rộng BRD final v3, nhóm sẽ đánh tiếp `UC-17+` thay vì remap các UC hiện tại sang mã gốc trong phần main narrative.
+> **Ghi chú ownership:** Bảng phân chia `8 thành viên x 2 UC` bên dưới chỉ còn là dấu vết của giai đoạn midterm. Với `BRD final v3`, nhóm làm một tài liệu chung và không còn chia cố định theo mỗi thành viên `2 UC`.
+
 | # | MSSV | Thành viên | UC thứ 1 | UC Gốc | UC thứ 2 | UC Gốc |
 |---|------|-----------|----------|--------|----------|--------|
 | 1 | 2301040126 | Nguyễn Thị Hải My | UC-01: Đặt món online | UC-09 | UC-07: Xem thống kê doanh thu | UC-41 |

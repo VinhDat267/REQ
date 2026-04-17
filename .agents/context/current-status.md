@@ -4,22 +4,26 @@
 `PHASE 2 - Final project alignment based on the official REQ final-project brief`
 
 ## What Is Stable
+- The repository should now be treated as a final-project whole-system workspace by default; the midterm package no longer defines active scope.
 - Active product scope is now the final whole-system baseline:
   - `Final_Project_Scope.md`
   - `All_Use_Cases.md`
-  - original `UC-01..UC-74` inventory, with `UC-50` kept as the explicit `Delivery` out-of-scope placeholder
-- The older root-document package remains available as midterm-era input until final replacements are promoted:
+  - `All_Use_Cases.md` remains the master whole-system inventory / scope-check source
+  - `BRD final v3` now uses a curated local visible lane that preserves `UC-01..UC-16` and extends with selected `UC-17+`
+  - the current recommended local final BRD set is `26` UCs (`UC-01..UC-16` + `UC-17..UC-26`)
+  - `BRD_Final_V3_UC_Shortlist.md` now includes a ready-to-paste `26`-UC BRD catalog with standardized titles, brief descriptions, and coverage clusters
+  - `BRD final v3` is now treated as a shared team-authored deliverable, not a per-member `2 UC` split document
+  - `UC-50` still serves as the internal `Delivery` out-of-scope placeholder
+- The older root-document package remains available only as historical source material / conversion input until final replacements are promoted:
   - `BRD_Ver0.md`
   - `BRD_Ver0_EN.md`
-  - `Business_Rules.md`
-  - `Business_Rules_EN.md`
   - `UC_Specifications_Part1.md`
   - `UC_Specifications_Part2.md`
-- Midterm canonical artifacts remain organized and usable only as historical / submission references:
+- Midterm primary artifacts remain organized and usable only as historical / submission references:
   - local `UC-01..UC-16` subset
-  - canonical midterm use case diagram
-  - canonical midterm activity sources
-  - canonical midterm ERD sources
+  - primary midterm use case diagram
+  - primary midterm activity sources
+  - primary midterm ERD sources
 - Core business scope is unchanged:
   - `Dine-in`, `Takeaway`, `Pickup`
   - `Delivery` remains out of scope
@@ -69,7 +73,7 @@
   - final work must not add new business capabilities or promote extension candidates without explicit user approval and a new ADR
   - scope-change candidates remain parked until intentionally reopened
 - `All_Use_Cases.md` was aligned with the locked business rules on `2026-04-17`:
-  - original `UC-01..UC-74` numbering remains unchanged
+  - detailed `UC-01..UC-74` source inventory remains unchanged inside the repo
   - new final operational policies are mapped into existing UCs through a Business Rule Coverage Addendum
   - extension candidates remain explicitly outside the baseline UC inventory
 - `All_Use_Cases.md` was review-hardened on `2026-04-17` so final readers do not need to rely only on the addendum:
@@ -77,25 +81,7 @@
   - shift close / reconciliation are surfaced directly in `UC-41..UC-45`
   - complaint / remake / wrong-handoff handling are surfaced directly in `UC-51`, `UC-53`, `UC-68..UC-70`
   - audit logging is treated as a cross-cutting control while `UC-74` remains notification-only
-- `All_Use_Cases.md` was structurally refactored on `2026-04-17` into two presentation layers:
-  - canonical `CUC-xx` for final diagram / BRD / SRS use
-  - detailed `UC-01..UC-74` inventory for traceability, appendix, and subflow coverage
-- The current recommendation for final deliverables is:
-  - draw and narrate the system through the `CUC-xx` layer
-  - keep the 74-UC inventory behind it as the detailed reference set
-- A follow-up review refinement on `2026-04-17` tightened the canonical model:
-  - merged the old kitchen-ticket-only canonical node back into the main FOH order lifecycle
-  - merged the old micro service-closure node back into the FOH handoff lifecycle
-  - split table management away from Pickup exception management at the canonical layer
-  - added explicit ownership tags and a canonical relationship layer so final SRS / diagram work can trace consistently
-- A second canonical cleanup pass on `2026-04-17` closed remaining traceability gaps:
-  - `UC-12` is now owned explicitly under `CUC-03` as a subflow
-  - `UC-74` is now owned explicitly under `CUC-15` as support-only notification behavior
-  - the canonical relationship convention now states `include` / `extend` / `dependency` semantics directly in `All_Use_Cases.md`
-  - the addendum was cleaned so `UC-74` no longer appears as the default sink for refund, outage, pickup exception, receipt adjustment, or similar operational exceptions
-- A final canonical polish pass on `2026-04-17` tightened the presentation layer further:
-  - `CUC-15` title was narrowed back to access/security so notification stays support-only in mapping, not in the goal name
-  - the canonical relationship table was split into one-edge-per-row entries where it had previously bundled multiple targets in a single line
+- `All_Use_Cases.md` is now back to a single-layer `UC-01..UC-74` structure for final-project work.
 - A final traceability sync on `2026-04-17` aligned `All_Use_Cases.md` with the newer business-rule ADR outcomes:
   - addendum rows now surface `Comp` and `Forfeited` explicitly instead of leaving them implicit behind reconciliation / complaint / pickup exception prose
   - final-spec emphasis now names the related subflows so BRD / SRS writers can see those outcomes directly from the use-case package
@@ -154,28 +140,28 @@
 - No dedicated final-project thesis package has been assembled yet in root docs.
 
 ## Critical Distinction
+- The repo itself is no longer a midterm-scoped workspace.
 - Active default after `2026-04-16`:
   - `final-project`
 - `midterm-locked`:
   - historical subset artifacts that use the local `UC-01..UC-16` numbering model
 - `final-project`:
   - current whole-system artifacts required by the official final brief
-  - original `UC-01..UC-74` numbering from `All_Use_Cases.md`
+  - master scope reference remains the original `UC-01..UC-74` inventory in `All_Use_Cases.md`
+  - current BRD final v3 authoring lane preserves the team's local `UC-01..UC-16` and extends with selected `UC-17+`
 - Do not silently rewrite midterm artifacts as if they were already the final full-system package.
-- Do not force final-project work back into the 16-UC local numbering model.
+- Do not force original master IDs into the main BRD final v3 narrative when the approved local final lane is being used.
 
 ## Repo Status
 - Active final scope source:
   - `Final_Project_Scope.md`
-- Active final UC inventory:
+- Active final use-case source:
   - `All_Use_Cases.md`
-- Canonical midterm use case source:
+- Primary midterm use case source:
   - `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
 - Existing whole-system ERD sources:
   - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
   - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
-- Existing whole-system canonical use case source:
-  - `docs/diagrams/plantuml/use-case/WontonPOS_FullSystem_Canonical_UseCase.puml`
 - Existing elicitation package:
   - `docs/requirement-elicitation/*.docx`
 - Existing prototype-style assets:
@@ -183,12 +169,14 @@
 - Current visible gap:
   - the repo does not yet show a dedicated final requirement-management artifact in root docs
   - the repo does not yet show an assembled final thesis package
+  - the repo does not yet show a promoted full-system use case diagram source aligned directly to `UC-01..UC-74`
 
 ## Next Actions
 - Promote root BRD / SRS / supporting docs from the midterm subset toward a final whole-system package.
+- Keep `All_Use_Cases.md` as the master scope source, but let `BRD final v3` stay on the approved local visible lane.
 - Keep exactly one problem statement across final BRD, thesis, and presentation material.
-- Decide which `3` whole-system diagram types will be the canonical final modelling set.
-- Use the canonical full-system use case diagram as the baseline for final BRD / SRS / presentation packaging, and add a canonical whole-system process diagram if it is still missing.
+- Decide which `3` whole-system diagram types will be the final modelling set.
+- Promote a full-system use case diagram source aligned directly to `UC-01..UC-74`, and add a whole-system process diagram if it is still missing.
 - Assemble literature-review tracking with at least `10` sources.
 - Consolidate requirement-management deliverables:
   - change
@@ -199,7 +187,8 @@
 
 ## Risks / Watchouts
 - Midterm numbering can leak into final full-system documents and damage traceability.
+- Parallel numbering schemes can damage readability / traceability if they are reintroduced into final artifacts.
 - Scope creep can reopen business decisions that were locked on `2026-04-17`; route any expansion through a new ADR before editing final deliverables.
-- The final brief changes deliverable scope; existing business rules still apply but must now be mapped against the whole-system inventory.
+- The final brief changes deliverable scope; existing business rules still apply and must still be checked against the master inventory in `All_Use_Cases.md`.
 - Existing BRD and UC specification files are still mostly midterm-oriented, so `.agents/` must describe the gap rather than pretend the final promotion is already finished.
 - The repo already has partial final-project evidence, but not yet a clearly assembled final submission lane.

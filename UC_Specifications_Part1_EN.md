@@ -3,6 +3,9 @@
 ## Use Case Assignment (8 members × 2 UCs = 16 UCs)
 > **UC numbering:** In the midterm document set, the 16 selected UCs are **renumbered locally from `UC-01` to `UC-16`** for readability. Use the table and mapping to trace each one back to the original 74-UC system.
 
+> **Final BRD v3 note (2026-04-17):** The existing `UC-01..UC-16` set is now preserved as the prefix of the local final BRD lane. When the team expands the final BRD, it should continue with `UC-17+` instead of remapping these visible IDs to the original master inventory inside the main BRD narrative.
+> **Ownership note:** The `8 members x 2 UCs` assignment table below is now historical midterm context only. For `BRD final v3`, the team is working on one shared document rather than splitting the final BRD into fixed per-member `2 UC` ownership blocks.
+
 
 | # | Student ID | Member | UC #1 | Original UC | UC #2 | Original UC |
 |---|-----------|--------|-------|-------------|-------|-------------|

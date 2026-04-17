@@ -3,8 +3,11 @@
 ## Decision Snapshot
 - Effective date: `2026-04-16`.
 - Active lane: `final-project`.
+- The repository should now be treated as full-system final-project work by default.
 - The project is no longer limited to the midterm `16`-use-case subset.
 - The final-project baseline is the whole-system inventory in [All_Use_Cases.md](All_Use_Cases.md).
+- `All_Use_Cases.md` remains the master scope source, but `BRD final v3` may use a curated local UC lane that preserves the current `UC-01..UC-16` set and extends it with selected additional UCs from `UC-17+`.
+- `BRD final v3` is a shared team-authored document; the older midterm-style per-member `2 UC` split no longer applies to the final BRD lane.
 - Midterm artifacts remain useful only as historical submission and traceability references until final replacements are promoted.
 - Business scope lock date: `2026-04-17`.
 - Business baseline is now locked for final documentation and diagram work.
@@ -25,30 +28,21 @@ Not allowed after lock without an explicit user decision and a new ADR:
 - adding new major actors or major modules
 - promoting candidate extensions into baseline
 - changing locked payment, refund, cancellation, pickup, table, KDS, shift, promotion, complaint, audit, receipt, or inventory-lite policies
-- changing the final numbering baseline away from original `UC-01..UC-74`
+- silently changing the approved visible numbering lane of `BRD final v3`
 
 Any future expansion must be recorded as a scope-change decision before the final BRD / SRS / diagram package is updated.
 
-## Canonical Scope Sources
-1. [All_Use_Cases.md](All_Use_Cases.md) is the primary final-project use-case inventory and also defines the canonical `CUC-xx` presentation layer for final diagram / BRD / SRS work.
-2. This file defines the current final-project boundary and explains how to treat older midterm artifacts.
+## Core Scope Sources
+1. [All_Use_Cases.md](All_Use_Cases.md) is the primary final-project inventory and keeps the original detailed `UC-01..UC-74` master set.
+2. This file defines the current final-project boundary and makes the older midterm artifacts archival references only.
 3. [Business_Rules.md](Business_Rules.md) and [Business_Rules_EN.md](Business_Rules_EN.md) define shared business behavior and operational exception rules.
-4. [BRD_Ver0.md](BRD_Ver0.md), [BRD_Ver0_EN.md](BRD_Ver0_EN.md), and the current UC specification files are midterm-era inputs until a final BRD / SRS / UC specification package is created.
+4. [BRD_Final_V3_UC_Shortlist.md](BRD_Final_V3_UC_Shortlist.md) defines the curated local authoring lane currently approved for `BRD final v3`.
+5. [BRD_Ver0.md](BRD_Ver0.md), [BRD_Ver0_EN.md](BRD_Ver0_EN.md), and the current UC specification files remain midterm-era inputs until final replacements are promoted.
 
 ## Final Baseline Coverage
-The final project should cover the original `UC-01..UC-74` inventory, with `UC-50` kept as an explicit `Delivery` exclusion rather than an implemented delivery workflow. For presentation and modelling purposes, the final package should prefer the canonical `CUC-xx` layer in `All_Use_Cases.md` and map it back to the detailed inventory.
-
-| Area | Use Cases | Final Scope Meaning |
-|------|-----------|---------------------|
-| Customer account and authentication | UC-01..UC-06 | Registration, login, logout, password reset, profile update, password change |
-| Customer menu, cart, promotions, and reorder | UC-07..UC-12, UC-16..UC-18, UC-20 | Menu browsing, search/filter, cart, service selection, discount code use, order history, reorder, rating |
-| Customer order, payment, pickup, and notification flow | UC-13..UC-15, UC-19, UC-21..UC-24 | Online/counter payment rules, tracking, cancellation, pickup scheduling/history/cancellation, real-time notifications |
-| Manager operations | UC-25..UC-48 | Dashboard, menu/category/topping management, table management, pickup exception handling, staff and permission management, reporting, promotions |
-| FOH cashier operations | UC-49, UC-51..UC-61 | In-store order creation, online order confirmation, order cancellation, cash/QR/online payment handling, invoice/kitchen ticket printing, table assignment/transfer/release |
-| Delivery placeholder | UC-50 | Explicitly out of scope unless a later decision reintroduces delivery |
-| BOH kitchen operations | UC-62..UC-67 | New-order queue, kitchen acceptance/rejection rules, item status updates, ready marking, 86'd ingredient/menu handling |
-| FOH serving operations | UC-68..UC-70 | Ready-order service, handoff confirmation, table cleanup status |
-| Admin common operations | UC-71..UC-74 | Admin login/logout, password change, operational notifications |
+The final project should cover the locked whole-system baseline defined by `All_Use_Cases.md`, `Business_Rules*.md`, and this scope file.
+Current repo work should be framed as full-system final-project work by default, not as a midterm-scoped package, unless the user explicitly asks to edit historical midterm artifacts.
+For `BRD final v3`, the approved visible numbering lane is the curated local set described in `BRD_Final_V3_UC_Shortlist.md`, not the full `74`-entry master inventory.
 
 ## Required Final Flow Coverage
 Final requirements, diagrams, and UC specifications must cover the full real system flow, not only the midterm happy path:
@@ -83,10 +77,10 @@ The following flows are realistic for a production restaurant POS but should rem
 - native mobile app and third-party delivery platform integration
 
 ## Final Deliverables To Promote Next
-- Final BRD that supersedes the midterm-oriented `BRD_Ver0*` files.
+- Final BRD v3 that supersedes the midterm-oriented `BRD_Ver0*` files while preserving local `UC-01..UC-16` and extending with selected `UC-17+`.
 - Final SRS with full functional and non-functional requirement coverage.
-- Final UC specifications mapped to original `UC-01..UC-74` numbering.
-- Canonical full-system use case diagram.
+- Decide explicitly later whether the final UC specification package follows the same curated local BRD lane or a broader master-inventory presentation lane; do not mix both silently.
+- Full-system use case diagram aligned to `UC-01..UC-74`.
 - At least two additional whole-system modelling types so the final package has `3` modelling types.
 - Requirement management artifacts for scope, change, and risk management.
 - Literature / online reference tracking with at least `10` sources.

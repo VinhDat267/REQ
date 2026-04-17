@@ -36,7 +36,10 @@ Read when relevant:
 - Keep the current deliverable tight. This is a documentation-first REQ repository; do not invent implementation, deployment, or production-readiness work unless the user asks for it or the phase changes.
 - Prefer end-to-end, reviewable progress over premature abstraction.
 - Update root requirement docs first when product truth changes, then sync `.agents/`, tool entrypoints, and navigation docs in the same work session.
-- Active final-project work uses the original `UC-01..UC-74` inventory in `All_Use_Cases.md`; the midterm `UC-01..UC-16` subset is historical / submission traceability only.
+- Treat the repository itself as `final-project` whole-system work by default. Only treat an artifact as `midterm-locked` when the user explicitly asks to inspect or maintain historical midterm submission materials.
+- `All_Use_Cases.md` remains the full-system master inventory and scope-check source for final-project work.
+- `BRD final v3` now preserves the team's local numbering by keeping the current `UC-01..UC-16` set and extending with selected additional UCs from `UC-17+`.
+- Treat that local final BRD set as a curated authoring layer, not as a scope reduction or a replacement for the whole-system inventory.
 - Business scope is locked as of `2026-04-17`; do not add new business capabilities or promote extension candidates without an explicit user instruction and a new ADR.
 - Keep `Delivery` out of scope through the explicit `UC-50` exclusion unless a later user decision changes it.
 - Follow terminology, numbering, diagram policy, and canonical artifact rules from `.agents/context/conventions.md`.

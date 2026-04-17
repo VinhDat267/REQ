@@ -74,7 +74,7 @@
 | BRD final | one problem statement, full-version requirements | `BRD_Ver0.md`, `BRD_Ver0_EN.md` | current root BRD is still midterm-oriented and needs promotion |
 | SRS | final submission artifact | `.agents/specs/srs.md` exists only as an internal memory note | final root SRS package is not yet visible |
 | Elicitation Notes | prepare + technique notes | `docs/requirement-elicitation/*.docx` | strongest existing final-project evidence already present |
-| Whole-system diagrams | `3` modelling types; explicitly whole-system | whole-system ERD exists; midterm use case / activity diagrams exist | canonical whole-system use case + process diagrams still need explicit tracking |
+| Whole-system diagrams | `3` modelling types; explicitly whole-system | whole-system ERD exists; midterm use case / activity diagrams exist | full-system use case + process diagrams still need explicit tracking |
 | Prototype | UI / UX evidence | HTML mockups under `src/frontend/` and `src/frontend-vi/` | packaging / export path for submission still needs a decision |
 | Requirement management | change / risk / scope | no dedicated root artifact tracked in `.agents` yet | needs explicit deliverable |
 | Literature review | at least `10` sources | not tracked yet in `.agents` | needs source log and thesis section |

@@ -2,6 +2,9 @@
 
 ---
 
+> **Final BRD v3 note (2026-04-17):** The UCs in this file keep their current IDs and are now treated as part of the local final BRD lane. When the team adds more UCs for the final version, it should continue with `UC-17+` rather than renumbering the existing visible IDs inside the main BRD narrative.
+> **Ownership note:** The earlier midterm member-to-UC allocation no longer applies to `BRD final v3`. The final BRD is now treated as one shared team-authored document.
+
 ### 🔹 Dang Khanh Huyen (2301040088)
 
 #### UC-05: Manage Menu

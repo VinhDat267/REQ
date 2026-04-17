@@ -17,13 +17,16 @@
    - `order_status` separate from `payment_status`
    - guest tracking via `Order Code + Phone Number`
 8. For `midterm-locked` artifacts:
+   - use this label only when the user explicitly asks to inspect or maintain historical midterm submission materials
    - use only the local `UC-01..UC-16` set for scope, FR / NFR references, and the main use case diagram
    - mention original 74-UC identifiers only through traceability fields such as `UC Goc` / `Original UC`
 9. For `final-project` whole-system artifacts:
-   - treat `final-project` as the active default after `2026-04-16`
+   - treat `final-project` as the repository-wide active default after `2026-04-16`
    - use `Final_Project_Scope.md` as the scope boundary
-   - use the original 74-UC inventory in `All_Use_Cases.md` as the primary reference
-   - explicitly label the work as `final-project`
+   - use `All_Use_Cases.md` as the master whole-system inventory / scope reference
+   - for `BRD final v3`, preserve the current local `UC-01..UC-16` set and extend the visible BRD lane with selected `UC-17+`
+   - do not force the original master IDs into the main BRD narrative unless the user explicitly asks for mapping or traceability
+   - explicitly label current work as `final-project` unless the task is archival midterm maintenance
    - do not pretend the current midterm-era BRD / UC spec files are already the final package
    - treat business scope as locked after `2026-04-17`; only clarify/map/package unless the user explicitly reopens scope and a new ADR records it
 10. When doing final-package work, keep exactly one client problem statement across BRD, thesis, and presentation material.

@@ -3,7 +3,7 @@
 ## Overview
 Wonton POS is a documentation-first project for the REQ course, focused on an **Order Management, Payment, and Revenue Analytics System** for a wonton noodle shop.
 
-The repository is currently in the **final-project requirements alignment phase**. The active scope is now the whole Wonton POS system, using the original `UC-01..UC-74` inventory as the baseline instead of the earlier 16-UC midterm subset, with a smaller canonical `CUC-xx` presentation layer for diagram / BRD / SRS use.
+The repository is currently in the **final-project requirements alignment phase**. The active scope is now the whole Wonton POS system. `All_Use_Cases.md` remains the whole-system master inventory, while the current `BRD final v3` lane preserves the team's local numbering by keeping `UC-01..UC-16` and extending with selected new UCs from `UC-17+`. The repo should be treated as a **final-project full-system workspace by default**; midterm materials are archival references only.
 
 ## Current Project Status
 - Project type: **documentation-first / requirements-first**
@@ -27,21 +27,22 @@ Important root documents:
 - `Business_Rules.md`
 - `Business_Rules_EN.md`
 - `All_Use_Cases.md`
+- `BRD_Final_V3_UC_Shortlist.md`
 - `UC_Specifications_Part1.md`
 - `UC_Specifications_Part1_EN.md`
 - `UC_Specifications_Part2.md`
 - `UC_Specifications_Part2_EN.md`
 
 ## Final Project Scope
-The active final-project scope uses the full original inventory in `All_Use_Cases.md`.
+The active final-project scope uses the locked whole-system baseline in `All_Use_Cases.md`.
 
-- Final-project numbering: original `UC-01` to `UC-74`
-- Final-project presentation layer: canonical `CUC-xx` set inside `All_Use_Cases.md`
-- Active functional coverage: all non-delivery use cases in the 74-UC inventory
-- Explicit exclusion: `UC-50` remains the `Delivery` out-of-scope placeholder
-- Historical midterm subset: local `UC-01` to `UC-16`, retained only for midterm submission / traceability artifacts
-- Current BRD and UC specification files are midterm-era inputs until final BRD / SRS / UC specifications are promoted
-- Business scope lock: locked as of `2026-04-17`; future work should package, map, clarify, and trace this scope, not add new business capabilities unless a new scope-change decision is made.
+- Whole-system master inventory / scope source: original `UC-01` to `UC-74` in `All_Use_Cases.md`
+- Current `BRD final v3` authoring lane: preserve local `UC-01..UC-16` and extend the visible BRD set with selected additional UCs from `UC-17+`
+- `BRD final v3` is now treated as one shared team document, not a per-member `2 UC` split artifact
+- Active functional coverage: the full locked non-delivery Wonton POS baseline represented through the original `74` numbered entries (`73` active + `UC-50` excluded placeholder)
+- Explicit exclusion: `Delivery` remains out of scope
+- The old midterm BRD and UC specification files remain historical inputs, but their existing `UC-01..UC-16` IDs are now also the preserved prefix of the curated final BRD lane
+- Business scope lock: locked as of `2026-04-17`; future work should package, clarify, and trace this scope, not add new business capabilities unless a new scope-change decision is made.
 
 ## Business Scope
 In-scope service models:
@@ -74,12 +75,12 @@ Out of scope:
 - Sensitive operational actions require Manager approval / audit logging when they affect money, order completion, refunds, discounts, write-offs, or shift cash differences.
 
 ## Diagram Policy
-- Existing canonical midterm use case diagram source, retained as historical / submission reference:
+- Existing primary midterm use case diagram source, retained as historical / submission reference:
   - `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
-- Existing canonical full-system ERD sources:
+- Existing full-system ERD sources:
   - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
   - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
-- Existing canonical midterm ERD sources, retained as historical / submission reference:
+- Existing midterm ERD sources, retained as historical / submission reference:
   - `docs/diagrams/mermaid/erd/WontonPOS_Midterm_16UC_ERD.md`
   - `docs/diagrams/plantuml/erd/WontonPOS_Midterm_16UC_ERD.puml`
 - Clearer high-level ERD overview for presentation/review:
@@ -87,9 +88,9 @@ Out of scope:
 - Legacy synced draw.io artifact kept at root for review/submission:
   - `Usecasediagramreq.drawio`
 - Current final-project diagram gap:
-  - a canonical full-system use case diagram still needs to be promoted
+  - a dedicated full-system use case diagram source aligned directly to `UC-01..UC-74` has not been promoted yet
   - at least two additional whole-system modelling types still need to be selected / finalized so the final package has `3` modelling types
-- If PlantUML and draw.io differ, follow the BRD and PlantUML canonical source first.
+- If PlantUML and draw.io differ, follow the BRD and PlantUML source first.
 - New `.drawio` files should be organized under `docs/diagrams/drawio/` rather than placed at root.
 
 ## Main Supporting Materials

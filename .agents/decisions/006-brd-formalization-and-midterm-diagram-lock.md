@@ -23,7 +23,7 @@ Các vấn đề chính đã được xử lý gồm:
    - `Nguyen Quang Anh`
    - role: `Stakeholder - CEO`
 4. Tên hệ thống trong repo được khóa là `Wonton POS`; không quay lại `WanTan`.
-5. Canonical Use Case Diagram source cho midterm là file PlantUML:
+5. Primary Use Case Diagram source cho midterm là file PlantUML:
    - `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
 6. File `Usecasediagramreq.drawio` ở root được giữ như artifact đã sync với BRD hiện tại và có thể dùng cho review/submission, nhưng khi chỉnh logic phải đối chiếu lại với BRD + PlantUML canonical.
 7. Supporting account/authentication UCs bắt buộc thể hiện trên overall use case diagram gồm:

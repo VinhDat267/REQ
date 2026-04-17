@@ -72,7 +72,8 @@ Client WebApp            Admin WebApp
 ### Current deliverable lanes
 - `final-project`
   - active official course final package after `2026-04-16`
-  - original `UC-01..UC-74` inventory from `All_Use_Cases.md`
+  - `All_Use_Cases.md` remains the master whole-system inventory / scope source
+  - `BRD final v3` currently uses a curated local visible lane that preserves `UC-01..UC-16` and extends with selected `UC-17+`
   - `Final_Project_Scope.md` boundary document
   - whole-system requirements and modelling work
   - thesis assembly and role-based submission packaging
@@ -95,7 +96,6 @@ Client WebApp            Admin WebApp
   - `src/frontend-vi/`
 
 ### Current gaps for the final lane
-- no canonical whole-system use case diagram source yet
 - no canonical whole-system process diagram source clearly tracked in `.agents/`
 - no assembled final thesis package in root docs
 - no clearly isolated requirement-management artifact set in root docs

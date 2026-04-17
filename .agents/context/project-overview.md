@@ -26,12 +26,14 @@ Wonton POS models an order-management, payment, and shop-operations system for a
 ## Phase Labels
 - Active default after `2026-04-16`:
   - `final-project`
+- Treat the repository itself as `final-project` by default; use `midterm-locked` only when explicitly editing archival midterm artifacts.
 - `midterm-locked`
   - historical root docs and diagrams built around the selected local `UC-01..UC-16` subset
 - `final-project`
   - current whole-system artifacts required by the official final brief
-  - uses the original `74`-UC inventory in `All_Use_Cases.md` as the primary reference
-  - uses the canonical `CUC-xx` layer in `All_Use_Cases.md` as the preferred presentation layer for final diagrams / BRD / SRS
+  - uses `All_Use_Cases.md` as the master whole-system inventory / scope source
+  - currently allows `BRD final v3` to preserve local `UC-01..UC-16` and extend the visible BRD lane with selected `UC-17+`
+  - treats `BRD final v3` as a shared team-authored document rather than a per-member `2 UC` split package
 
 ## Final-Project Expectations
 The reviewed brief now expects a final package that includes:
@@ -60,10 +62,10 @@ Submission date captured from the brief:
 - [Business_Rules.md](../../Business_Rules.md)
 - [Business_Rules_EN.md](../../Business_Rules_EN.md)
 - [All_Use_Cases.md](../../All_Use_Cases.md)
+- [BRD_Final_V3_UC_Shortlist.md](../../BRD_Final_V3_UC_Shortlist.md)
 - [UC_Specifications_Part1.md](../../UC_Specifications_Part1.md)
 - [UC_Specifications_Part2.md](../../UC_Specifications_Part2.md)
 - [docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml](../../docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml)
-- [docs/diagrams/plantuml/use-case/WontonPOS_FullSystem_Canonical_UseCase.puml](../../docs/diagrams/plantuml/use-case/WontonPOS_FullSystem_Canonical_UseCase.puml)
 - [docs/diagrams/mermaid/erd/WontonPOS_Midterm_16UC_ERD.md](../../docs/diagrams/mermaid/erd/WontonPOS_Midterm_16UC_ERD.md)
 - [docs/diagrams/plantuml/erd/WontonPOS_Midterm_16UC_ERD.puml](../../docs/diagrams/plantuml/erd/WontonPOS_Midterm_16UC_ERD.puml)
 - [docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md](../../docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md)
@@ -76,8 +78,8 @@ Submission date captured from the brief:
 - `AGENTS.md` is the shared cross-tool rule foundation for Codex, Claude Code, and Antigravity.
 - `GEMINI.md` and `CLAUDE.md` stay thin and must not fork the shared rules.
 - The root now has an explicit final-project scope baseline, but the current BRD and UC specification files are still mostly midterm-oriented until final replacements are promoted.
-- Whole-system ERD coverage already exists, and the repo now also has a canonical whole-system use case diagram source aligned to the `CUC-xx` layer.
-- The full-system use case diagram keeps semantic `dependency` relations in `All_Use_Cases.md` rather than drawing every dependency edge on the main UML canvas.
+- Whole-system ERD coverage already exists.
+- `All_Use_Cases.md` remains the master inventory, but the current BRD final v3 authoring lane is the curated local set documented in `BRD_Final_V3_UC_Shortlist.md`.
 
 ## Implementation Status
 - Repo is still documentation-first.
@@ -88,8 +90,9 @@ Submission date captured from the brief:
 ## Guidance For Future Updates
 - Update root requirement docs first when product truth changes.
 - Treat final-project work as whole-system work by default.
+- Describe current work as `final-project` unless the user explicitly redirects the session into historical midterm maintenance.
 - Treat business scope as locked after `2026-04-17`; use clarification and traceability work instead of scope expansion.
 - When doing final-project work, explicitly say whether the artifact is `midterm-locked` or `final-project`.
 - Preserve midterm artifacts as historical / submission references until final replacements are intentionally promoted.
 - Do not silently reintroduce out-of-scope items such as `Delivery`.
-- Keep final-project work aligned with the original `74`-UC inventory instead of forcing it into the local 16-UC aliases.
+- Keep `All_Use_Cases.md` as the scope-check source, but do not force the original master IDs into the main BRD final v3 narrative when the approved local final lane is being used.

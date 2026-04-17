@@ -13,7 +13,7 @@
 |-------|--------|
 | **ID & Name** | UC-05: Manage Menu |
 | **Primary Actor** | Manager |
-| **Description** | The manager adds, edits, and deletes menu items and categories, updates prices, images, and availability status |
+| **Description** | The manager adds, edits, archives/stops selling menu items and manages categories, updates prices, images, and availability status |
 | **Trigger** | The manager clicks "Menu Management" on the Admin WebApp |
 | **Pre-conditions** | 1. The manager is logged in with "Manager" privileges |
 | **Post-conditions** | The menu is successfully updated; changes are immediately reflected on the Client WebApp |
@@ -24,7 +24,7 @@
 | | 1.5. The manager enters the information, uploads an image, and clicks "Save" |
 | | 1.6. The system validates the data, saves the new item, and displays "Item added successfully!" |
 | **Alternative Flows** | 2a. Edit item: At step 1.2, the manager clicks "Edit" on an item → The system displays the edit form with current data → The manager edits and clicks "Update" → Success |
-| | 2b. Delete item: At step 1.2, clicks "Delete" → The system displays "Are you sure you want to delete this item?" → The manager confirms → Item is removed from the menu |
+| | 2b. Archive / stop selling item: At step 1.2, the manager clicks "Stop Selling" or "Archive" → The system displays a confirmation → The manager confirms → The item is hidden from the sellable menu but its order history and past reports are preserved. Only items that have never appeared in historical data may be physically deleted, and only when a higher-privileged Manager approves. |
 | | 2c. Mark as out of stock: At step 1.2, the manager toggles the item status to "Out of Stock" → The system updates; the Client WebApp shows "Out of Stock" for that item |
 | | 2d. Manage categories: The manager clicks "Manage Categories" → Add / edit / delete categories |
 | **Exceptions** | E1: Duplicate item name — At step 1.5, the system displays "Item name already exists in this category!" |
@@ -98,10 +98,12 @@
 | | 1.3. Kitchen staff clicks "Accept Order" |
 | | 1.4. The system updates the order status to `Cooking` |
 | | 1.5. The system sends a notification to the customer: "Order #X is now cooking" |
-| **Alternative Flows** | 2a. Reject order (only for Dine-in or unpaid Takeaway orders): At step 1.3, the kitchen clicks "Reject" → Enters a reason (e.g., out of ingredients) → The system notifies the cashier for handling. **Note:** Paid Pickup orders do not display a "Reject" button; if the kitchen cannot fulfil the order, the kitchen clicks "Report Issue" → The system sends an alert to the Manager for exception handling (substitute item / reschedule / refund). |
+| **Alternative Flows** | 2a. Report cannot fulfil before cooking starts: For a Dine-in order that has not yet entered production, the kitchen clicks "Report Cannot Fulfil" → Enters a reason (e.g., out of ingredients) → The system notifies the FOH/Manager to coordinate with the customer and continue handling. **Note:** `Paid` Takeaway/Pickup orders do not display a "Reject" button; if the kitchen cannot fulfil them, the kitchen clicks "Report Issue" → The system escalates to the Manager for exception handling (substitute item / reschedule / refund). |
 | | 2b. Multiple orders simultaneously: The kitchen accepts orders in FIFO order (oldest order first) |
+| | 2c. Only a portion of the order has an issue: If a single item in an accepted order runs out of ingredients or cannot be prepared, the kitchen flags an order issue on that specific item instead of silently dropping the entire order. The system notifies FOH/Manager to decide on substitution, partial refund, or full cancellation before continuing the remaining items. |
 | **Exceptions** | E1: Order cancelled before acceptance — At step 1.3, the system displays "Order has been cancelled by the customer" → The order is removed from the list |
 | | E2: Connection lost — The system displays "Connection lost! The order list may not be updated. Please verify!" |
+| | E3: An item is 86'd after the order has appeared on the KDS — The system locks the item for new orders and also raises an order-issue flag on the existing order so Manager/FOH can decide on substitution or refund; the kitchen must not silently drop the item while continuing to treat the order as normal. |
 | **Priority** | High |
 
 ---
@@ -124,7 +126,7 @@
 | | 1.4. The kitchen clicks "Confirm" |
 | | 1.5. The system updates the status to `Ready` |
 | | 1.6. The system sends notifications: service staff receives "Order #X is ready – Table Y" | customer receives "Your order is ready!" |
-| **Alternative Flows** | 2a. Group update: At step 1.2, kitchen specifies bulk dishes. |
+| **Alternative Flows** | 2a. Grouped / batch update: The system does not force the kitchen to tap "Done" per single bowl; the kitchen may group items prepared together across multiple orders and update their status in one action. |
 | | 2b. Add note for server: At step 1.2, the kitchen adds a note (e.g., "Hot dish, handle with care") → The server sees the note |
 | **Exceptions** | E1: Order already cancelled — At step 1.2, the system displays "Order has been cancelled. Cannot update!" |
 | | E2: Update error — The system displays "Update failed. Please try again!" |
@@ -138,20 +140,21 @@
 |-------|--------|
 | **ID & Name** | UC-12: Assign Order to Table |
 | **Primary Actor** | Front-of-House Staff (FOH) |
-| **Description** | The cashier assigns or transfers an order to a specific table on the floor plan, or moves the order to a different table when requested by the customer |
-| **Trigger** | The cashier needs to assign a new order to a table or the customer requests a table change |
-| **Pre-conditions** | 1. The cashier is logged in. 2. There is a "Dine-in" order. 3. The table layout has been configured |
-| **Post-conditions** | The order is linked to a table. The table status is updated to "Occupied" |
+| **Description** | The cashier assigns/transfers an order to a specific table on the floor plan, or attaches an additional order to an already-active table belonging to the same party |
+| **Trigger** | The cashier needs to assign a new order to a table, the customer requests a table change, or the same party requests an additional order |
+| **Pre-conditions** | 1. The cashier is logged in. 2. A Dine-in order exists that needs table assignment, transfer, or attachment to an active table. 3. The table layout has been configured |
+| **Post-conditions** | The order is linked to the appropriate table. If the table was previously Available, it transitions to "Occupied"; if the order is an additional order for the same party, the table remains "Occupied" |
 | **Normal Flow** | 1.1. The cashier opens the "Table Layout" section |
 | | 1.2. The system displays the floor plan with color-coded statuses (Green: Available, Red: Occupied) |
-| | 1.3. The cashier selects an available table (green) |
-| | 1.4. The system displays table information (Table Number, Seating Capacity) and the option "Assign Order" |
-| | 1.5. The cashier selects the order to assign from the list of unassigned orders |
-| | 1.6. The system links the order to the table and updates the table to "Occupied" (changes to red) |
-| | 1.7. Displays "Order #X assigned to Table Y successfully!" |
+| | 1.3. The cashier selects an appropriate table on the floor plan |
+| | 1.4. The system displays table information (Table Number, Seating Capacity, current status, open orders if any) and the appropriate options such as "Assign New Order", "Attach Additional Order", or "Transfer Table" |
+| | 1.5. The cashier selects an order to assign or confirms the additional order to attach to the selected table |
+| | 1.6. The system links the order to the selected table. If the table was Available, it transitions to "Occupied"; if the table is already serving the same party, the system adds the new order to the existing table and keeps "Occupied" |
+| | 1.7. The system displays a success message corresponding to the action taken |
 | **Alternative Flows** | 2a. Transfer table: The cashier selects an occupied table → Clicks "Transfer Table" → Selects a new available table → Confirms → Old table reverts to "Available", new table becomes "Occupied" |
-| | 2b. View table's order: The cashier clicks on an occupied table → The system displays the order currently assigned to that table |
-| **Exceptions** | E1: Table already occupied — At step 1.3, the table is "Occupied" → Displays "Table is already occupied. Please select another table!" |
+| | 2b. View table's orders: The cashier clicks on an occupied table → The system displays all orders currently attached to that table |
+| | 2c. Attach an additional order to an active table for the same party: The cashier selects the active table → Clicks "Attach Additional Order" → Picks the new order → The system adds it to the table without creating a new party |
+| **Exceptions** | E1: Table occupied by a different party — If the cashier attempts to assign a new party to an "Occupied" table that does not belong to the same party, the system displays "Table already has another party. Please select a different table or use the additional-order feature for the correct party." |
 | | E2: Party size exceeds capacity — At step 1.5, the Cashier enters the party size when assigning a Dine-in table → if the party exceeds the table's seating capacity, the system displays "Table capacity is X guests. The party has Y guests!" and suggests a larger table. Note: party size is optional input by the Cashier and is not required when orders are placed via Client WebApp (customer self-service QR scan). |
 | **Priority** | High |
 

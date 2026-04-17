@@ -100,6 +100,12 @@
   - `ADR-025` defined Reorder (UC-18) behavior under menu drift (delete/archive/price/topping/86'd) with inline notices and `Completed`-only source orders
   - `ADR-026` defined shift-span financial attribution (by event timestamp) and the inherited-exceptions hand-over set between shifts
   - all four ADRs were applied to `Business_Rules.md`, `Business_Rules_EN.md`, `BRD_Ver0.md`, and `BRD_Ver0_EN.md` in the same pass
+- `Group1_Tutorial01_BRD_Ver3.docx` was text-synced on `2026-04-17` against `UC_Specifications_Part1_EN.md` and `UC_Specifications_Part2_EN.md`:
+  - refreshed the cover date to `2026-4-17`
+  - aligned the BRD FR table wording with the current UC set
+  - resynced `UC-01..UC-16` specification tables, including the previously missed `UC-08`, `UC-09`, `UC-10`, and `UC-12` tables whose DOCX headings used `UC 08/09/10/12`
+  - removed the duplicate intermediate version-history row left by the first partial sync
+  - verification was completed at text/table level via `python-docx`; visual render validation is still pending because LibreOffice/Poppler tooling is unavailable in the current environment
 
 ## New Final-Project Reality
 - The official brief in `S2026_61FIT3REQ FINAL PROJECT.pdf` was reviewed on `2026-04-09`.

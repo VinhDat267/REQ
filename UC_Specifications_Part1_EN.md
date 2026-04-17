@@ -55,7 +55,7 @@
 | | 2b. Edit cart: Before step 1.10, the customer updates quantities or removes items in the cart. The system refreshes the cart total and the flow continues at step 1.8. |
 | | 2c. Registered checkout: At step 1.9, if the customer is already authenticated, Guest Checkout data entry is skipped and the flow continues at step 1.10. |
 | | 2d. Pickup order: At step 1.8, the customer selects `Pickup`. At step 1.11, the system routes the customer to UC-03 for slot validation and mandatory prepayment. |
-| | 2e. Additional Dine-in order: The customer who is already eating at the restaurant re-scans the table QR or selects "Order More" on the Client WebApp. The system creates a new order linked to the same table, and the flow continues from step 1.2. The new order keeps `payment_status = Unpaid` and is pushed to the kitchen immediately. |
+| | 2e. Additional Dine-in order: The customer who is already eating at the restaurant re-scans the table QR or selects "Order More" on the Client WebApp. The system creates a new order linked to the same table, and the flow continues from step 1.2. The new order keeps `payment_status = Unpaid` and is pushed to the kitchen immediately. If the customer scans the wrong QR or moves to a different table after ordering, FOH/Cashier can verify and reassign the order to the correct operational table. |
 | **Exceptions** | E1. Item unavailable: At step 1.4 or 1.5, if the selected item is no longer available, the system displays an out-of-stock message and keeps the customer on the menu/item-selection flow so another item can be selected. |
 | | E2. Empty cart: At step 1.11, if the cart does not contain any item, the system rejects the order request, displays an empty-cart message, and keeps the customer on the ordering flow so items can be added. |
 | **Priority** | Critical |
@@ -98,7 +98,7 @@
 | **Description** | FOH Staff use the Admin WebApp to create a walk-in order at the counter for Dine-in or Takeaway service. The FOH Staff selects the service type, adds items to the order, assigns a table when the order is Dine-in, and continues the order according to the payment rule of the selected service model. |
 | **Trigger** | The FOH Staff selects "Create New Order" in the Admin WebApp. |
 | **Pre-conditions** | 1. The FOH Staff is authenticated with permission to create in-store orders. 2. The menu is available for ordering. 3. For Dine-in orders, at least one table can be viewed for assignment from the current table layout. |
-| **Post-conditions** | **Success:** A new in-store order is created. If the order is Dine-in, the order is linked to the selected table, the table status is updated to `Occupied`, the kitchen ticket is sent immediately, and the order may remain valid with `payment_status = Unpaid`. If the order is Takeaway, the order is created with `payment_status = Pending Online Payment`, the FOH Staff is routed to the payment flow, and the kitchen ticket is not sent before payment succeeds. Counter Takeaway orders are exempt from the 15-minute auto-cancel because the Cashier controls the flow directly; the Cashier may cancel manually if the customer abandons the transaction. **Failure:** No incomplete or unintended order is committed, no table assignment is applied incorrectly, and the system displays the appropriate error message. |
+| **Post-conditions** | **Success:** A new in-store order is created. If the order is Dine-in, the order is linked to the selected table, the table status is updated to `Occupied`, the kitchen ticket is sent immediately, and the order may remain valid with `payment_status = Unpaid`. If the order is Takeaway, the order is created with `payment_status = Unpaid`, the FOH Staff is routed to the counter payment flow, and the kitchen ticket is not sent before payment succeeds. Counter Takeaway orders are exempt from the 15-minute auto-cancel because the Cashier controls the flow directly; the Cashier may collect payment immediately at the counter or cancel manually if the customer abandons the transaction. **Failure:** No incomplete or unintended order is committed, no table assignment is applied incorrectly, and the system displays the appropriate error message. |
 | **Normal Flow** | 1.1. The FOH Staff opens "Create New Order". |
 | | 1.2. The system displays the in-store order form with service-type options. |
 | | 1.3. The FOH Staff selects the service type. |
@@ -108,13 +108,16 @@
 | | 1.7. The FOH Staff reviews the order details and total amount. |
 | | 1.8. The FOH Staff confirms the order. |
 | | 1.9. If the order is Dine-in, the system creates the order, links it to the selected table, updates the table status to `Occupied`, sends the kitchen ticket, and displays a success message. |
-| | 1.10. If the order is Takeaway, the system creates the order with `payment_status = Pending Online Payment` and routes the FOH Staff to the payment flow. |
+| | 1.10. If the order is Takeaway, the system creates the order with `payment_status = Unpaid` and routes the FOH Staff to the counter payment flow. |
 | **Alternative Flows** | 2a. Takeaway order: At step 1.3, the FOH Staff selects "Takeaway". The table-selection step is skipped, and the flow continues at step 1.5. |
+| | 2a-2. Pay immediately at the counter for Takeaway: After step 1.10, the Cashier collects payment at the counter via cash, QR, or another supported method through UC-10. When payment succeeds, the order transitions to `Paid` and is then pushed to the kitchen. |
 | | 2b. Add more items: After step 1.6, the FOH Staff continues selecting additional items before proceeding to step 1.7. |
 | | 2c. Additional order for an occupied table: At step 1.4, the FOH Staff selects a table with status `Occupied` (already has a prior order). The system allows creating a new order linked to the same table. The table remains `Occupied`. The flow continues at step 1.5. |
+| | 2d. Edit right after creation but before kitchen acceptance: After step 1.9 or 1.10, if the customer changes their mind very early and the kitchen has not yet accepted the order, FOH/Cashier may reopen the order to edit items/quantities/notes or cancel and recreate. If the change causes a difference on a paid order, the difference is handled through the extra-collect or partial-refund flow before kitchen intake. |
 | **Exceptions** | E1. Table unavailable: At step 1.4, if the selected table is not available for assignment, the system displays an unavailable-table message and keeps the FOH Staff on the table-selection step so another table can be selected. |
 | | E2. Item unavailable: At step 1.6, if a selected item is out of stock or otherwise unavailable, the system displays an item-unavailable message and keeps the FOH Staff on the menu so another item can be selected. |
 | | E3. Empty order: At step 1.8, if no item has been added to the order, the system rejects the confirmation request, displays an empty-order message, and keeps the FOH Staff on the order form so items can be added. |
+| | E4. Customer abandons transaction and leaves: After step 1.10 or while awaiting counter payment, if the customer leaves, the Cashier cancels the Takeaway order manually. The order must not reach the kitchen; if staff mistakenly sent it to the kitchen, the Manager confirms the cancellation reason and records it as an internal operational loss. |
 | **Priority** | Critical |
 
 ---
@@ -153,21 +156,28 @@
 |-------|--------|
 | **ID & Name** | UC-02: Online Payment |
 | **Primary Actor** | Customer (Registered / Guest) |
-| **Description** | After creating an order that requires prepayment, the customer selects an online payment method (MoMo, VNPay, ZaloPay, or QR bank transfer) to complete payment |
+| **Description** | After creating an order that requires prepayment, the customer selects an appropriate online payment method (Payment Gateway QR or Bank Transfer QR with manual confirmation) to complete payment |
 | **Trigger** | The customer clicks "Pay Now" after cart confirmation or when the system requests payment before processing |
 | **Pre-conditions** | 1. The customer is logged in or has completed Guest Checkout with Name + Phone. 2. The cart contains at least 1 item. 3. The order has been created and belongs to a prepayment-required flow or the customer voluntarily chooses to prepay |
-| **Post-conditions** | Payment succeeds. The order changes to `Paid`. If it is Takeaway/Pickup, the order continues into operational processing |
+| **Post-conditions** | Payment succeeds via a valid gateway callback or a valid manual confirmation. The order changes to `Paid`. If it is Takeaway/Pickup, the system routes the order into the operational flow. The system must not create duplicate orders or duplicate kitchen tickets because of retry attempts or repeated callbacks |
 | **Normal Flow** | 1.1. The system displays the total order amount and available payment methods |
-| | 1.2. The customer selects a payment method (e.g., MoMo) |
-| | 1.3. The system redirects to the payment gateway page |
+| | 1.2. The customer selects a supported payment method |
+| | 1.3. If the selected method is Payment Gateway QR, the system redirects to the gateway payment page or widget |
 | | 1.4. The customer confirms payment on the MoMo/VNPay/ZaloPay application |
-| | 1.5. The payment gateway returns the result to the system |
-| | 1.6. The system displays "Payment successful!" and updates the order/payment status |
-| **Alternative Flows** | 2a. QR Bank Transfer: At step 1.2, the customer selects "QR Bank Transfer" -> The system displays a QR code with the amount -> The customer scans the QR using a banking app -> The system confirms after receiving the callback |
+| | 1.5. The payment gateway returns a valid result to the system |
+| | 1.6. The system displays "Payment successful!", updates the order status, and continues the order processing flow |
+| **Alternative Flows** | 2a. Payment Gateway QR: At step 1.2, the customer selects MoMo/VNPay/ZaloPay → The system generates a dynamic QR or redirects to the gateway → The customer confirms in the wallet app → The system receives a successful callback → The order transitions to `Paid` |
+| | 2a-2. Bank Transfer QR: At step 1.2, the customer selects "Bank Transfer QR" → The system displays a QR code with the shop's account and the amount → The customer transfers via a banking app → The system holds the order in manual-confirmation pending → The Cashier/Manager verifies receipt and taps "Confirm Received" → The order transitions to `Paid` |
 | | 2b. Dine-in pay later: If the order is Dine-in, the customer may skip online payment and keep the order in `Unpaid` status for counter settlement later |
-| **Exceptions** | E1: Payment failed -> At step 1.5, the gateway returns an error -> The system displays "Payment failed. Please try again!" -> The order remains in `Pending Online Payment` |
-| | E2: Payment timeout -> After 15 minutes without payment in a required prepayment flow via Client WebApp, the system automatically cancels the order and displays "Order cancelled due to payment timeout" |
-| | E3: Paid order cancelled -> If an order with `payment_status = Paid` is subsequently cancelled (by customer before kitchen accepts, or by Manager due to exception), the system creates a refund request, transitions `payment_status` to `Refund Pending`, and notifies the Manager for approval |
+| | 2c. Retry with different method after failure: If a payment attempt fails, the customer returns to the payment screen of **the same current order**, selects another method, and retries. The system must not create a new order just because the customer retries. |
+| **Exceptions** | E1: Payment failed — At step 1.5, the gateway returns an error → The system displays "Payment failed. Please try again!" → The order remains in `Pending Online Payment` |
+| | E2: Payment timeout — After 15 minutes without payment in a required prepayment flow via Client WebApp, the system automatically cancels the order and displays "Order cancelled due to payment timeout" |
+| | E3: Paid order cancelled — If an order with `payment_status = Paid` is subsequently cancelled (by the customer before kitchen accepts, or by the Manager due to an exception), the system creates a refund request, transitions `payment_status` to `Refund Pending`, and notifies the Manager for approval |
+| | E4: Bank Transfer QR amount mismatch — In Alt Flow 2a-2, if the shop cannot record the expected amount or cannot find a matching transaction within the waiting window, the system keeps the order in `Pending Online Payment`, shows "Awaiting payment confirmation" to the customer, and allows the Manager/Cashier to continue investigating or to let the order auto-cancel |
+| | E5: All online payment methods fail — The order remains in `Pending Online Payment` and is not pushed to the kitchen; the system lets the customer keep retrying on the same order until the hold window expires. If the hold window expires, the system auto-cancels per E2 |
+| | E6: Successful callback arrives after auto-cancel — The system must not reopen the order and must not push it to the kitchen. The system logs the anomaly, notifies the Manager, and transitions the payment side to `Refund Pending` for refund handling |
+| | E7: Duplicate successful callback or duplicate payment signal — The system must be idempotent: no new order, no new kitchen ticket, and no double payment recording for the same logical transaction. If an actual over-collection occurred, the Manager handles it through the refund flow |
+| | E8: Refund not completed on first attempt — The order remains in `Refund Pending`, does not return to the operational flow, and the Manager/Cashier continues to monitor until refund completion |
 | **Priority** | Critical |
 
 ---
@@ -207,7 +217,7 @@
 | **Description** | The cashier processes payment for an order, including Takeaway orders that must be paid before kitchen release and Dine-in orders settled after service |
 | **Trigger** | The cashier clicks "Pay" on the order to be processed |
 | **Pre-conditions** | 1. The cashier is logged in. 2. The order exists and is eligible for payment (counter Takeaway awaiting payment — exempt from auto-cancel because the Cashier controls the flow directly, or Dine-in awaiting settlement) |
-| **Post-conditions** | The order's `payment_status` changes to `Paid`. If it is Takeaway, the kitchen ticket is printed/sent after payment. If it is a completed Dine-in order, revenue is recorded and the table returns to "Available" |
+| **Post-conditions** | The order's `payment_status` changes to `Paid`. If it is Takeaway, the kitchen ticket is printed/sent after payment. If it is a completed Dine-in order, revenue is recorded and the table returns to "Available". The system must not create duplicate receipts or kitchen tickets if the payment gateway sends repeated callbacks |
 | **Normal Flow** | 1.1. The cashier selects the order to be paid from the list |
 | | 1.2. The system displays order details: item list, total amount |
 | | 1.3. The cashier selects a payment method (Cash / QR / Online) |
@@ -221,8 +231,9 @@
 | | 2a-2. Bank Transfer QR: At step 1.3, select "QR Bank Transfer" -> The system displays a QR with shop bank account + amount -> The customer scans with any banking app -> The cashier checks SMS/bank app to confirm receipt -> The cashier taps "Confirm Received" (manual confirmation, system logs the action) -> Complete |
 | | 2b. Print receipt: After successful payment, the cashier clicks "Print Receipt" -> The system sends the print command |
 | | 2c. Settle all orders by table: At step 1.1, the Cashier selects a table instead of an individual order -> The system displays all unpaid orders on that table with a combined total -> The Cashier processes payment for all orders at once -> The system updates `payment_status = Paid` for all orders and releases the table to "Available" |
-| **Exceptions** | E1: Insufficient amount -> At step 1.4, the system displays "Insufficient amount. Short by X VND!" |
-| | E2: Payment gateway error -> At step 2a, the system displays "Payment gateway error. Please try a different method!" |
+| **Exceptions** | E1: Insufficient amount — At step 1.4, the system displays "Insufficient amount. Short by X VND!" |
+| | E2: Payment gateway error — At step 2a, the system displays "Payment gateway error. Please try a different method!" |
+| | E3: Duplicate payment callback or transaction — The system must recognize the order is already `Paid`, must not create additional receipts or kitchen tickets, and must warn the Cashier if over-collection investigation is needed |
 | **Priority** | Critical |
 
 ---
@@ -232,20 +243,20 @@
 |-------|--------|
 | **ID & Name** | UC-03: Schedule Pickup Order (Pickup) |
 | **Primary Actor** | Customer (Registered / Guest) |
-| **Description** | The customer orders items online, selects a pickup timeslot, and relies on the system to validate kitchen capacity and auto-accept the order if the slot is valid |
+| **Description** | The customer orders items online and selects a pickup timeslot so the system can validate opening hours, the Pickup pause toggle, and slot-level service capacity before auto-accepting the order if it is valid |
 | **Trigger** | The customer selects the Pickup option while creating an online order |
-| **Pre-conditions** | The shop is open and at least one menu item is available |
-| **Post-conditions** | If the slot is valid and payment is completed, the Pickup order is created successfully, auto-accepted, and passed into the operational flow |
+| **Pre-conditions** | The shop is open. Pickup is not paused. At least one menu item is available |
+| **Post-conditions** | If the slot is valid and payment is completed, the Pickup order is created successfully, auto-accepted, and passed into the operational flow. The customer is informed of the exact pickup window, warned that arriving early may still require waiting until the order is `Ready`, and notified of the shop-configured holding window after the scheduled time |
 | **Normal Flow** | 1.1. The customer selects items (as in the standard online ordering flow) |
 | | 1.2. The customer selects the Pickup service model |
 | | 1.3. The system asks for the desired pickup date and time |
-| | 1.4. The system validates opening hours and kitchen capacity for the selected slot |
+| | 1.4. The system validates opening hours, the Pickup pause toggle, and slot capacity for the selected timeslot |
 | | 1.5. If the slot is valid, the customer confirms the date/time |
 | | 1.6. The system routes the customer to mandatory online payment |
-| | 1.7. After successful payment, the system auto-accepts the Pickup order and displays when preparation will begin |
+| | 1.7. After successful payment, the system auto-accepts the Pickup order, displays when preparation will begin, and reminds the customer about the holding window if they arrive late |
 | **Alternative Flows** | 2a. Nearly full slot: The system suggests nearby timeslots that still have capacity |
 | | 2b. Guest Checkout: A guest customer may continue with only Name + Phone |
-| **Exceptions** | E1: Invalid or overloaded timeslot -> The system displays a warning and does not allow payment to continue |
-| | E2: Payment not completed within 15 minutes -> The Pickup order is automatically cancelled |
+| **Exceptions** | E1: Invalid or overloaded timeslot, or Pickup is currently paused — The system displays a warning and does not allow payment to continue |
+| | E2: Payment not completed within 15 minutes — The Pickup order is automatically cancelled |
 | **Priority** | High |
 

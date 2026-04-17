@@ -1,0 +1,130 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Chuyển Bàn | Wonton POS Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+</style>
+<script src="../shared/admin-tailwind-config.js"></script>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 overflow-hidden">
+<div class="flex h-[calc(100vh-4rem)] gap-6">
+    <section class="max-w-[400px] w-full p-6 bg-surface-container-lowest rounded-2xl shadow-sm h-full flex flex-col overflow-y-auto hidden md:block">
+        <h2 class="text-xl font-bold mb-6 font-headline">Bàn T-02</h2>
+        <div class="bg-surface-container-low p-4 rounded-xl mb-6">
+            <div class="flex justify-between mb-2">
+                <span class="text-sm font-semibold text-secondary">Đơn Hàng:</span>
+                <span class="text-sm font-bold">WNT-028</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-sm font-semibold text-secondary">Số Khách:</span>
+                <span class="text-sm font-bold">2 Khách</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-sm font-semibold text-secondary">Thời Gian Vào:</span>
+                <span class="text-sm font-bold">18:45</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-sm font-semibold text-secondary">Trạng Thái:</span>
+                <span class="text-sm font-bold text-primary">Đang Dùng Bữa</span>
+            </div>
+        </div>
+        <div class="flex-grow">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-secondary mb-4">Các Món Đã Đặt</h3>
+            <ul class="space-y-3 relative before:absolute before:inset-y-0 before:left-2.5 before:-ml-[1px] before:w-[2px] before:bg-slate-200">
+                <li class="relative pl-8">
+                    <span class="absolute left-1 top-2 w-3 h-3 rounded-full bg-green-500 ring-4 ring-white"></span>
+                    <div class="text-sm font-bold">1x Mì Vằn Thắn Đặc Biệt</div>
+                    <div class="text-xs text-secondary">Đã Phục Vụ (10 phút trước)</div>
+                </li>
+                <li class="relative pl-8">
+                    <span class="absolute left-1 top-2 w-3 h-3 rounded-full bg-amber-500 ring-4 ring-white group-hover:bg-amber-400"></span>
+                    <div class="text-sm font-bold text-on-surface">1x Trà Đào Cam Sả</div>
+                    <div class="text-xs text-amber-600 font-semibold">Đang Pha Chế</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="min-w-0 flex-1 p-6 bg-surface-container-low rounded-2xl flex flex-col relative overflow-hidden">
+        <div class="absolute inset-0 bg-white/40 blur-md pointer-events-none"></div>
+        <div class="mb-8 flex justify-between items-center relative z-10">
+            <div>
+                <h2 class="text-xl font-bold text-on-surface font-headline">Sơ Đồ Bàn</h2>
+                <p class="text-slate-500 text-sm">Chọn một bàn trống cho đơn hàng</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-tertiary"></span>
+                    <span class="text-xs font-medium text-slate-600">Bàn Trống</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-slate-300"></span>
+                    <span class="text-xs font-medium text-slate-600">Đang Phục Vụ</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 2xl:grid-cols-3 gap-5 relative z-10 filter blur-[2px]">
+            <!-- Blurred Grid Dummy Content -->
+            <div class="group relative aspect-square bg-slate-200/50 rounded-2xl flex flex-col items-center justify-center cursor-not-allowed opacity-50 grayscale">
+                <span class="text-lg font-bold text-slate-500">T-02</span>
+                <span class="text-xs font-bold text-slate-500">SỨC CHỨA: 2</span>
+            </div>
+        </div>
+    </section>
+</div>
+</main>
+
+<!-- CHANGE TABLE MODAL OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-on-background/60 backdrop-blur-md">
+<div class="w-full max-w-md bg-surface rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.3)] overflow-hidden">
+    <div class="p-8">
+        <div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-6 mx-auto">
+            <span class="material-symbols-outlined text-on-surface text-3xl" data-icon="sync_alt">sync_alt</span>
+        </div>
+        <h3 class="text-2xl font-bold text-center text-on-surface font-headline mb-2">Chuyển Bàn</h3>
+        <p class="text-slate-500 text-center text-sm leading-relaxed mb-6">
+            Di chuyển đơn hàng <strong class="text-on-surface">#WNT-028</strong> từ Bàn <strong class="text-primary">T-02</strong> sang bàn mới.
+        </p>
+
+        <div class="flex flex-col gap-2 mb-8">
+            <label class="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Chọn bàn trống</label>
+            <div class="relative">
+                <select class="w-full bg-surface-container-lowest border-2 border-outline-variant/30 rounded-xl px-4 py-4 pr-10 text-on-surface font-bold text-lg focus:border-primary focus:ring-0 appearance-none cursor-pointer outline-none">
+                    <option value="" disabled="" selected="">-- Chọn Bàn --</option>
+                    <option value="T-03">T-03 (4 chỗ)</option>
+                    <option value="T-04">T-04 (2 chỗ) - Đang dọn</option>
+                    <option value="T-08">T-08 (6 chỗ)</option>
+                    <option value="T-09">T-09 (2 chỗ)</option>
+                </select>
+                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-secondary">expand_more</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <a class="w-full py-4 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.01] transition-all flex justify-center items-center gap-2" href="07-table-management---floor-plan-view.html" style="cursor: pointer;">
+                Xác Nhận Chuyển Bàn
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+            <a class="w-full py-4 text-slate-500 rounded-xl font-bold text-sm hover:bg-slate-100 transition-all focus:outline-none" href="07-table-management---floor-plan-view.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                Huỷ Bỏ
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

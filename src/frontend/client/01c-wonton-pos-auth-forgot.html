@@ -1,0 +1,144 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Wonton POS - Khôi Phục Mật Khẩu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#e4beb9",
+                        "surface-variant": "#e2e2e2",
+                        "primary": "#b7131a",
+                        "outline": "#906f6c",
+                        "tertiary": "#006578",
+                        "primary-fixed": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "primary-container": "#db322f",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-primary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#bb171c",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "background": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#93000d",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface-variant": "#5b403d",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary-fixed": "#410002",
+                        "surface-container": "#eeeeee",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#ffb4ac",
+                        "on-tertiary-container": "#f9fdff",
+                        "surface-bright": "#f9f9f9",
+                        "on-surface": "#1a1c1c",
+                        "tertiary-container": "#008097",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary-fixed-dim": "#72d4ef",
+                        "surface": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#afecff",
+                        "surface-container-high": "#e8e8e8",
+                        "inverse-surface": "#2f3131",
+                        "surface-dim": "#dadada",
+                        "secondary-container": "#e2dfde",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary-fixed": "#001f27",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-container": "#636262"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #b7131a 0%, #db322f 100%);
+        }
+        /* Custom layout for split screen */
+        .auth-container { min-height: 100vh; display: flex; }
+        .hero-section { flex: 1; position: relative; overflow: hidden; }
+        .form-section { width: 640px; background: #ffffff; display: flex; flex-direction: column; justify-content: center; padding: 0 80px; }
+        @media (max-width: 1024px) {
+            .hero-section { display: none; }
+            .form-section { width: 100%; padding: 40px; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<main class="auth-container">
+<!-- Hero Section -->
+<section class="hero-section hidden lg:block">
+<div class="absolute inset-0 bg-black/40 z-10"></div>
+<img alt="Artisan Wontons" class="absolute inset-0 w-full h-full object-cover" data-alt="Close-up of artisan shrimp wontons in clear broth with chili oil droplets, garnished with green onions on a dark textured ceramic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmWE6ba5RBrGvCp5SYy6GBmrK7KsOEt1imL5FRIQiL0sPOrWW5uGKihkFrtdHQq4rBdc5AzXes4Of42l09RDmbmTRLLwOJdVS5jT6YbIP6-RblRIPMYaNGGzIF4pP9uX4ip68uP0_cKymjTdXLgyygv0gviT55et4jyGmOlOfD5DSp1Oy6uvrvuZ6KB7LXfSkvdYvGwpbUYTrRmSLnlKqOBMh9CHnvqq7aLH1Lxq_KmfVeIjftOmPYDGScSFdgW7pOK2YmlzCCOk1a">
+<div class="absolute bottom-16 left-16 z-20 max-w-md">
+<h1 class="text-white text-5xl font-extrabold tracking-tighter mb-4 leading-tight">Wonton POS</h1>
+<p class="text-white/90 text-lg font-medium leading-relaxed italic">
+                    "Chúng tôi sẽ giúp bạn khôi phục lại mật khẩu một cách an toàn nhất."
+                </p>
+</div>
+</section>
+<!-- Form Section -->
+<section class="form-section">
+<div class="max-w-md w-full mx-auto">
+<!-- Logo Anchor -->
+<div class="mb-12">
+<span class="text-primary text-3xl font-black tracking-tighter">Wonton POS</span>
+</div>
+
+<div class="mb-8">
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface mb-2">Khôi Phục Mật Khẩu</h2>
+<p class="text-secondary text-sm">Nhập email của bạn để nhận liên kết đặt lại mật khẩu.</p>
+</div>
+
+<form class="space-y-6">
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">Địa Chỉ Email</label>
+<input class="w-full px-0 py-3 bg-transparent border-0 border-b border-surface-container-highest focus:ring-0 focus:border-primary transition-all text-on-surface placeholder:text-surface-variant" placeholder="customer@email.com" type="email">
+</div>
+<a class="w-full py-4 rounded-lg btn-gradient text-on-primary font-bold tracking-wide shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all" href="01-wonton-pos-auth-page.html" style="display: inline-block; text-align: center; cursor: pointer;">
+    Gửi liên kết khôi phục
+</a>
+<a class="w-full py-4 rounded-lg bg-surface-container-low text-on-surface font-bold tracking-wide hover:bg-surface-container-highest transition-all" href="01-wonton-pos-auth-page.html" style="display: inline-block; text-align: center; cursor: pointer;">
+    Quay lại Đăng Nhập
+</a>
+</form>
+
+<div class="mt-12 text-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-[0.2em]">
+    © 2026 Wonton POS. Hệ thống Đặt món Trực tuyến.
+</p>
+</div>
+
+</div>
+</section>
+</main>
+
+</body></html>

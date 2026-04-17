@@ -1,0 +1,210 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Thông Báo | Wonton POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f9f9f9",
+                    "error-container": "#ffdad6",
+                    "primary": "#b7131a",
+                    "tertiary-container": "#008097",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-container": "#eeeeee",
+                    "on-tertiary-fixed-variant": "#004e5d",
+                    "on-primary-fixed-variant": "#93000d",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#afecff",
+                    "outline": "#906f6c",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2f3131",
+                    "surface-tint": "#bb171c",
+                    "outline-variant": "#e4beb9",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "primary-fixed": "#ffdad6",
+                    "tertiary-fixed-dim": "#72d4ef",
+                    "on-surface-variant": "#5b403d",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "surface-dim": "#dadada",
+                    "surface-container-high": "#e8e8e8",
+                    "secondary-container": "#e2dfde",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#ffb4ac",
+                    "primary-container": "#db322f",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-primary-fixed": "#410002",
+                    "background": "#f9f9f9",
+                    "on-tertiary-container": "#f9fdff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#001f27",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e2",
+                    "on-secondary-container": "#636262",
+                    "tertiary": "#006578",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#5f5e5e",
+                    "on-surface": "#1a1c1c",
+                    "surface-container-highest": "#e2e2e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar Shell -->
+<!-- Client Nav Injected via nav-components.js -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 min-h-screen">
+<div class="max-w-[800px] mx-auto">
+<!-- Editorial Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Thông báo</h1>
+<p class="text-secondary font-medium tracking-wide">Cập nhật liên tục tiến trình chế biến trong bếp.</p>
+</div>
+<a class="text-primary font-semibold text-sm hover:underline flex items-center gap-1 transition-all" href="10-notifications-center.html" style="cursor: pointer;">
+                    Đánh dấu tất cả là Đã Đọc
+                </a>
+</header>
+<!-- Filter Tabs -->
+<div class="flex gap-2 mb-8 bg-surface-container-low p-1 rounded-xl w-fit">
+<button class="px-6 py-2 rounded-lg text-sm font-semibold bg-white text-primary shadow-sm transition-all">Tất Cả</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-secondary hover:text-on-surface transition-all">Đơn Hàng</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-secondary hover:text-on-surface transition-all">Hệ Thống</button>
+</div>
+<!-- Notification List -->
+<div class="space-y-4">
+<!-- Unread Notification 1 -->
+<div class="group relative bg-primary-container/5 hover:bg-primary-container/10 transition-all rounded-2xl p-6 flex gap-5 border-l-4 border-primary shadow-sm">
+<div class="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="restaurant">restaurant</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-lg text-on-surface">Đơn hàng đã lên mâm! 🎉</h3>
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+</div>
+<span class="text-xs font-medium text-secondary">2 phút trước</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Đơn hàng #WNT-20260407-032 của bạn đã hoàn thành chuẩn bị, mời bạn nhận món!</p>
+<div class="flex gap-4">
+<a class="text-xs font-bold uppercase tracking-wider text-primary bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 hover:scale-105 active:scale-95 transition-all" href="08-order-history-detail.html" style="display: inline-block; text-align: center; cursor: pointer;">Xem Đơn</a>
+</div>
+</div>
+</div>
+<!-- Unread Notification 2 -->
+<div class="group relative bg-primary-container/5 hover:bg-primary-container/10 transition-all rounded-2xl p-6 flex gap-5 border-l-4 border-primary shadow-sm">
+<div class="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-lg text-on-surface">Đã Xác Nhận Đơn Hàng</h3>
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+</div>
+<span class="text-xs font-medium text-secondary">15 phút trước</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Đơn hàng của bạn đã được xác nhận và chuyển thẳng xuống bếp</p>
+<div class="flex gap-4">
+<a class="text-xs font-bold uppercase tracking-wider text-primary bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 hover:scale-105 active:scale-95 transition-all" href="07-order-tracking.html" style="display: inline-block; text-align: center; cursor: pointer;">Theo Dõi Đơn</a>
+</div>
+</div>
+</div>
+<!-- Unread Notification 3 -->
+<div class="group relative bg-primary-container/5 hover:bg-primary-container/10 transition-all rounded-2xl p-6 flex gap-5 border-l-4 border-primary shadow-sm">
+<div class="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-lg text-on-surface">Đã Nhận Thanh Toán</h3>
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+</div>
+<span class="text-xs font-medium text-secondary">16 phút trước</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed">Hệ thống đã ghi nhận khoản thanh toán báo có ₫339,000</p>
+<div class="flex gap-4">
+<a class="text-xs font-bold uppercase tracking-wider text-primary bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 hover:scale-105 active:scale-95 transition-all" href="08-order-history-detail.html" style="display: inline-block; text-align: center; cursor: pointer;">Xem Biên Lai</a>
+</div>
+</div>
+</div>
+<!-- Read Notification 1 -->
+<div class="group bg-surface-container-lowest hover:bg-surface-container-low transition-all rounded-2xl p-6 flex gap-5 shadow-sm">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="task_alt">task_alt</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-lg text-on-surface opacity-70">Đơn Hàng Hoàn Tất</h3>
+<span class="text-xs font-medium text-secondary">Hôm qua</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed opacity-70">Mã đơn #WNT-20260405-028 đã thành công. Hãy để lại đánh giá nhé!</p>
+<div class="flex gap-4">
+<a class="text-xs font-bold uppercase tracking-wider text-secondary bg-surface-container-high px-4 py-2 rounded-lg hover:text-on-surface transition-all" href="09-order-rating-page.html" style="display: inline-block; text-align: center; cursor: pointer;">Đánh Giá Ngay</a>
+</div>
+</div>
+</div>
+<!-- Read Notification 2 -->
+<div class="group bg-surface-container-lowest hover:bg-surface-container-low transition-all rounded-2xl p-6 flex gap-5 shadow-sm">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="notifications_active">notifications_active</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-lg text-on-surface opacity-70">Đơn Hàng Sẵn Sàng</h3>
+<span class="text-xs font-medium text-secondary">Hôm qua</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-4 leading-relaxed opacity-70">Đơn hàng #WNT-20260405-028 của bạn đã lên mâm!</p>
+<div class="flex gap-4">
+<a class="text-xs font-bold uppercase tracking-wider text-secondary bg-surface-container-high px-4 py-2 rounded-lg hover:text-on-surface transition-all" href="08-order-history-detail.html" style="display: inline-block; text-align: center; cursor: pointer;">Chi Tiết</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Footer Callout -->
+<div class="mt-16 text-center border-t border-outline-variant/10 pt-10">
+<p class="text-secondary text-sm mb-4">Bạn đã đọc đến dòng thông báo mới nhất cuối cùng.</p>
+<div class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-inverse-surface text-inverse-on-surface rounded-full cursor-pointer hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="archive">archive</span>
+<span class="text-sm font-bold">Kho Lưu Trữ Thông Báo Cũ</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Design System Footer Branding -->
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Giỏ Hàng | Wonton POS</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+
+    .tonal-transition {
+      transition: background-color 0.3s ease;
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#e2e2e2",
+            "tertiary": "#006578",
+            "on-secondary-fixed": "#1b1c1c",
+            "inverse-primary": "#ffb4ac",
+            "tertiary-container": "#008097",
+            "tertiary-fixed": "#afecff",
+            "surface": "#f9f9f9",
+            "primary-fixed": "#ffdad6",
+            "primary-fixed-dim": "#ffb4ac",
+            "on-surface": "#1a1c1c",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#72d4ef",
+            "surface-container": "#eeeeee",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#474746",
+            "on-tertiary-container": "#f9fdff",
+            "on-secondary-container": "#636262",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "error": "#ba1a1a",
+            "secondary-fixed": "#e5e2e1",
+            "outline-variant": "#e4beb9",
+            "surface-dim": "#dadada",
+            "on-tertiary-fixed-variant": "#004e5d",
+            "primary": "#b7131a",
+            "on-background": "#1a1c1c",
+            "inverse-surface": "#2f3131",
+            "surface-container-highest": "#e2e2e2",
+            "on-primary-fixed-variant": "#93000d",
+            "on-tertiary-fixed": "#001f27",
+            "background": "#f9f9f9",
+            "secondary": "#5f5e5e",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#5b403d",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-primary-fixed": "#410002",
+            "on-primary-container": "#fffbff",
+            "outline": "#906f6c",
+            "surface-tint": "#bb171c",
+            "primary-container": "#db322f",
+            "surface-bright": "#f9f9f9",
+            "surface-container-high": "#e8e8e8",
+            "surface-container-low": "#f3f3f3",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#f1f1f1",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#e2dfde"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          }
+        },
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+  <!-- Top Navigation Bar -->
+  <!-- Client Nav Injected via nav-components.js -->
+  <!-- Main Content Canvas -->
+  <main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Giỏ Hàng | Wonton POSItems (65%) -->
+      <section class="lg:col-span-8">
+        <header class="mb-10 flex justify-between items-end">
+          <div>
+              <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">Giỏ hàng của bạn</h1>
+              <p class="text-secondary font-medium uppercase tracking-widest text-xs">4 MÓN ĐÃ CHỌN</p>
+          </div>
+        </header>
+
+        <!-- POPULATED STATE -->
+        <div class="space-y-6">
+          <!-- Item 1 -->
+          <div
+            class="flex items-center gap-6 p-4 bg-surface-container-lowest rounded-xl hover:shadow-sm transition-all duration-300">
+            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-stone-100">
+              <img class="w-full h-full object-cover"
+                data-alt="overhead shot of a bowl of classic wonton noodle soup with clear broth and green onions in a white ceramic bowl"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdgPcema1JqcZmEQjYJ-uy5-6QVTCGmpdvwPaBabMpokd1qivcQ3jT324MLaL-WXyRvXNIUF67Ga3RNXDBn_QFOuNk6EnuJHqyGGla0uLDMWjcXHkXGmJ30Jk816PiNaQ3Pbgba9NE2BlYhodaeqwDoDGLIbGfsL73_KLuHz7bud8_KvXLaZxAeGJnupgcCpVPNpawZvCIGP5s_hl9tUNYqEnOGGXyewm_KZYtlfdKL4X1frIcvzRJ6Vu6kG9ixKWHH31sO6zUN-xK" />
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-lg font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h3>
+                <span class="text-lg font-semibold text-on-surface">₫418,000</span>
+              </div>
+              <p class="text-secondary text-sm mt-1">Thêm Hoành Thánh, Ít cay</p>
+              <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center bg-surface-container rounded-full p-1 border border-transparent">
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-sm">remove</span>
+                  </button>
+                  <span class="px-4 font-bold text-on-surface">2</span>
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                  </button>
+                </div>
+                <button class="text-secondary hover:text-error transition-colors flex items-center gap-1 group">
+                  <span class="material-symbols-outlined text-lg">close</span>
+                  <span
+                    class="text-xs uppercase tracking-tighter font-bold opacity-0 group-hover:opacity-100 transition-opacity">Xóa</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div
+            class="flex items-center gap-6 p-4 bg-surface-container-lowest rounded-xl hover:shadow-sm transition-all duration-300">
+            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-stone-100">
+              <img class="w-full h-full object-cover"
+                data-alt="close-up of spicy szechuan wontons drizzled with red chili oil and topped with sesame seeds and cilantro"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvKtULcDPoLUa8ju9qnywMQbHZak5XuhPtz0lPg4zkbevle7zei7-4Ruz88_Ctu0hR3fsf2LyAMbt9HkmSXulZk9EPTWGRXHcFJ6BjHR1vQXH8feNUIl05CvZdBcLd0I3XnZf7Z-TnR2Hupkp8dumQN_of4Au4kpjA_F1aYioNgP2RObja8Frn5GFheXdXsIAixB8e10KAfOao3SXWLgMuOoz8TXtqVg1bvoLU8pb3lvPDzS4mdfLhnxrlGtWNTZaeTa82Hn6Sjalr" />
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-lg font-bold text-on-surface leading-tight">Sủi Cảo Tứ Xuyên Cay Tê</h3>
+                <span class="text-lg font-semibold text-on-surface">₫175,000</span>
+              </div>
+              <p class="text-secondary text-sm mt-1">Siêu Cay</p>
+              <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center bg-surface-container rounded-full p-1">
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-sm">remove</span>
+                  </button>
+                  <span class="px-4 font-bold text-on-surface">1</span>
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                  </button>
+                </div>
+                <button class="text-secondary hover:text-error transition-colors">
+                  <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div
+            class="flex items-center gap-6 p-4 bg-surface-container-lowest rounded-xl hover:shadow-sm transition-all duration-300 opacity-50 grayscale hover:grayscale-0 focus-within:grayscale-0 transition-all">
+            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-stone-100 relative">
+              <!-- Out of stock badge -->
+              <div class="absolute inset-x-0 bottom-0 bg-error/90 text-on-error text-[10px] font-bold uppercase tracking-widest py-1 text-center backdrop-blur-sm z-10">
+                Hết Hàng
+              </div>
+              <img class="w-full h-full object-cover"
+                data-alt="crispy fried wontons served with a side of sweet and sour dipping sauce"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnd6gH8V1L_JqU8S-l083jZ_a7dKk6KnyH_eIN24-1mE2eALcQ_wI-dO8Q25-Y54a1kR23v_h7uOq-h4_zGkYv_E92B602D51Y496p9rZ9IuU600d3W84T_4vH1tXY88_k_5C6_4H5sPzJ83v-U0N-W7bYy8N5zJvRMYwQ1I33-s9B1wP5m0q6h8m6b896W-q2y7F2rIUPR27h3yXfCg8J" />
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start">
+                <h3 class="text-lg font-bold text-on-surface leading-tight line-through decoration-error/50">Hoành Thánh Chiên Giòn</h3>
+                <span class="text-lg font-semibold text-secondary">₫85,000</span>
+              </div>
+              <p class="text-error font-medium text-sm mt-1">Xin lỗi, món này vừa hết nguyên liệu</p>
+              <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center bg-surface-container rounded-full p-1 opacity-50 pointer-events-none">
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full text-on-surface">
+                    <span class="material-symbols-outlined text-sm">remove</span>
+                  </button>
+                  <span class="px-4 font-bold text-on-surface">1</span>
+                  <button
+                    class="w-8 h-8 flex items-center justify-center rounded-full text-on-surface">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                  </button>
+                </div>
+                <button class="text-error hover:text-error-container transition-colors flex items-center gap-1">
+                  <span class="material-symbols-outlined text-lg">delete</span>
+                  <span
+                    class="text-xs uppercase tracking-tighter font-bold">Bỏ khỏi giỏ</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Tóm tắt Đơn hàng -->
+      <aside class="lg:col-span-4 lg:sticky lg:top-24 transition-opacity duration-300">
+        <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/15 shadow-sm">
+          <h2 class="text-2xl font-bold tracking-tight text-on-surface mb-8">Tóm tắt Đơn hàng</h2>
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between text-on-surface-variant font-medium">
+              <span>Tạm tính</span>
+              <span>₫593,000</span>
+            </div>
+            <div class="flex justify-between text-on-surface-variant font-medium">
+              <span>Thuế (8%)</span>
+              <span>₫47,440</span>
+            </div>
+          </div>
+          <!-- Promotion Input -->
+          <div class="mb-8">
+            <div class="relative group">
+              <input type="text"
+                class="w-full bg-surface-container-highest border-transparent rounded-xl px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all pr-12 text-on-surface"
+                placeholder="Nhập mã khuyến mãi..." />
+              <button
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-primary p-1.5 rounded-lg hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-[20px] block">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Loại Hình Dịch Vụ Selection -->
+          <div class="mb-8">
+            <label class="block text-xs uppercase tracking-widest font-bold text-secondary mb-4">Loại Hình Dịch Vụ</label>
+            <div class="grid grid-cols-3 gap-2 bg-surface-container p-1 rounded-xl">
+              <a href="06-wonton-pos-checkout.html"
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all bg-white text-on-surface shadow-sm text-center">Ăn tại quán</a>
+              <a href="06f-wonton-pos-checkout-takeaway.html"
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Mang đi</a>
+              <a href="06e-wonton-pos-checkout-pickup.html"
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Đến lấy</a>
+            </div>
+          </div>
+
+          <!-- Note input -->
+          <div class="mb-8 hidden">
+             <!-- Could toggle open a textarea here -->
+          </div>
+
+          <div class="pt-6 border-t border-outline-variant/20">
+            <div class="flex justify-between items-end mb-8">
+              <span class="text-secondary uppercase tracking-widest text-xs font-bold">Tổng cộng</span>
+              <span class="text-3xl font-extrabold text-primary">₫640,440</span>
+            </div>
+            <a href="06-wonton-pos-checkout.html"
+              class="w-full py-5 rounded-xl text-lg font-extrabold shadow-lg shadow-primary/20 flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-primary-container text-white hover:scale-[1.02] transition-transform tonal-transition group">
+              Tiến hành Thanh toán
+              <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">payments</span>
+            </a>
+          </div>
+        </div>
+        <div class="mt-6 flex items-center justify-center gap-4 text-secondary/60 hover:text-secondary transition-colors cursor-help">
+          <span class="material-symbols-outlined">security</span>
+          <span class="text-[10px] uppercase tracking-widest font-bold">Thanh Toán Bảo Mật SSL</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+
+</html>

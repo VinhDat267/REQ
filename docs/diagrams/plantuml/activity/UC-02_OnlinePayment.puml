@@ -1,0 +1,66 @@
+@startuml
+title UC-02: Online Payment
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Customer|
+start
+:Click "Pay";
+
+|System|
+:Display order total and available payment methods;
+if (Dine-in and pay later?) then (Yes)
+  :Keep the order in Unpaid status
+  for later counter payment;
+  detach
+else (No)
+endif
+
+|Customer|
+:Select a payment method;
+if (QR bank transfer?) then (Yes)
+
+  |System|
+  :Display QR code and amount;
+
+  |Customer|
+  :Scan QR code with banking app;
+
+  |System|
+  :Wait for confirmation callback;
+else (No)
+
+  |System|
+  :Redirect to payment gateway;
+
+  |Customer|
+  :Confirm payment in app;
+
+  |Payment Gateway|
+  :Process transaction;
+  :Return result to system;
+endif
+
+|System|
+if (Payment timeout after 15 minutes?) then (Yes)
+  :Cancel order automatically;
+  :Show payment-timeout cancellation message;
+  detach
+else (No)
+endif
+if (Payment failed?) then (Yes)
+  :Show payment failed message;
+  :Keep order in Pending Online Payment;
+  detach
+else (No)
+endif
+:Update payment_status = Paid;
+:Show payment success message;
+:Continue order processing flow;
+stop
+@enduml

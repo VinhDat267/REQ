@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e2e2",
+                    "surface": "#f9f9f9",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dadada",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffdad6",
+                    "primary-container": "#db322f",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1a1c1c",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1c",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-container": "#fffbff",
+                    "background": "#f9f9f9",
+                    "outline": "#906f6c",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary": "#006578",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "on-secondary-container": "#636262",
+                    "on-primary-fixed-variant": "#93000d",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#72d4ef",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary-container": "#e2dfde",
+                    "tertiary-fixed": "#afecff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#410002",
+                    "on-tertiary-fixed-variant": "#004e5d",
+                    "primary": "#b7131a",
+                    "inverse-on-surface": "#f1f1f1",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-secondary-fixed-variant": "#474746",
+                    "secondary": "#5f5e5e",
+                    "inverse-primary": "#ffb4ac",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-surface-variant": "#5b403d",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "surface-tint": "#bb171c",
+                    "on-tertiary-container": "#f9fdff",
+                    "tertiary-container": "#008097",
+                    "outline-variant": "#e4beb9",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2f3131"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .tonal-shift { transition: background-color 0.3s ease; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Client Nav Injected via nav-components.js -->
+<div class="flex pt-20 max-w-[1440px] mx-auto">
+<!-- SideNavBar -->
+<aside class="h-[calc(100vh-80px)] w-72 fixed left-auto border-r border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 flex flex-col gap-4 px-6 pt-12 overflow-y-auto">
+<div class="mb-6">
+<h2 class="text-on-surface font-bold text-xl tracking-tight">Danh mục</h2>
+<p class="text-secondary text-sm">Duyệt thực đơn của bạn</p>
+</div>
+<nav class="space-y-1 font-inter text-sm font-medium">
+<a class="flex items-center justify-between px-4 py-3 text-red-600 dark:text-red-500 bg-red-50/50 dark:bg-red-900/10 font-bold rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">list</span>
+<span>Tất cả món</span>
+</div>
+<span class="text-xs opacity-60">(42)</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">soup_kitchen</span>
+<span>Mì vằn thắn nước</span>
+</div>
+<span class="text-xs opacity-60">(8)</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">ramen_dining</span>
+<span>Mì vằn thắn khô</span>
+</div>
+<span class="text-xs opacity-60">(10)</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">restaurant</span>
+<span>Món phụ</span>
+</div>
+<span class="text-xs opacity-60">(12)</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">local_bar</span>
+<span>Đồ uống</span>
+</div>
+<span class="text-xs opacity-60">(8)</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl hover:translate-x-1 transition-transform" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">icecream</span>
+<span>Tráng miệng</span>
+</div>
+<span class="text-xs opacity-60">(4)</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 p-12 min-h-screen">
+<!-- Search and Filter Section -->
+<div class="mb-12 space-y-8">
+<div class="relative group max-w-2xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-neutral-400" placeholder="Tìm món ăn..." type="text">
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-medium hover:brightness-110 transition-all">Tất cả</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Cay</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Bán chạy</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Mới</button>
+</div>
+</div>
+<!-- Menu Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-32">
+<!-- Item 1: Bestseller -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Steaming bowl of wonton noodle soup with fresh bok choy and delicate shrimp dumplings in a clear savory broth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOEZ2I9dgkPDJGDbO6LvSbmsB-U5_F_yAaRj_1l-2JZAh2Z-Vguhe1JMEyQ7vSOPIClJG_KgIadP4j7imwMLqMzowU7Ox6v4fjJ02Gvtc0THby1wr_bGJdd40SepYNOKi1htQPlyvFAkWSZ7MDwWOQlUXL7BJFjFSB08wirvbzWeyQhWlnFoqsf65dyqpz2QnrHo9ur5UIzdqw_DUC1xmQXcEr3kbjS69q3IdTeC5pQc5yAuGpVHWF9UjCnabgr_LUsZRYZfa_WWoG">
+<span class="absolute top-4 left-4 bg-primary-container text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Bán chạy</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Mì Vằn Thắn Nước Truyền Thống</h3>
+<span class="text-primary font-bold">₫209,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Sợi mì mảnh đặc trưng dùng kèm hoành thánh tôm thịt bọc thủ công nhưng súp.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 2 -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Dry noodles topped with glossy soy sauce, minced pork, and crispy fried shallots served in a ceramic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNzNMjVLChkBQAWFOecktwg2T9o5zFBLlCrlf6dE5LlvvOeVG9IiTiPKljJPo9RvC6KzD0idXV_Tzn7YTp-oQVDW4vYQ14o3rsVIVipSp5cqzwPLS8jYLFylaEg8Dbbe9h34X1BS5Rmz0nW8S9RA2Pc73t5w54qFqXlR5SZLOpNpCOw4nXt-pP5xqqXuX6Rhe4WrSujR6igbvC6VU3c7KbV5T3kQPNH1v5RDvIVgvUzdcDrTI0oXwVC_9MeG0KuStFlizRhsyN8zxM">
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Mì Vằn Thắn Khô Xá Xíu</h3>
+<span class="text-primary font-bold">₫225,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Mì khô trộn sốt hắc xì dầu bí truyền, dùng kèm xá xíu thái lát và chén nước dùng...</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 3: Bestseller -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Szechuan style wontons drenched in bright red chili oil and topped with chopped cilantro and peanuts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2KXebkXfU0UJQIH89ZU4UOfy7qb-ev4Gtf6sisul-6636Ry0dFpxLqzYIALSJGCYrVMz9xnhmT2LqyGhNQlGPbQT_ffDOQ_dEDKDUicKUPf7y_vgiGXkvh_lLmDSQWh7hgSgsP0pKWG9Lbf1agcP0cbjksxW54WtdhArMopR-1wiYbXmCODSnuPlLJxG-XSrWDruLrE0R_Ke00l7Qox2zSzSYkMMlDJ-ViZNF5x6F1_OfHjN71EGx_0eRVRuXtovohV1O9JQ6MIlV">
+<span class="absolute top-4 left-4 bg-primary-container text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Bán chạy</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Sủi Cảo Tứ Xuyên Cay Tê</h3>
+<span class="text-primary font-bold">₫175,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">12 viên sủi cảo ú nu đâm mình trong dấm đen chua cay và sa tế tê tái do bếp nhà t...</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 4: Sold Out -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden grayscale opacity-70 cursor-not-allowed">
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Traditional dumplings wrapped in thin dough with visible steam" src="../assets/images/mi-van-than-chien.png">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="text-white font-bold text-lg uppercase tracking-widest border-2 border-white px-4 py-2">Hết hàng</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Hoành Thánh Thịt Heo Truyền Thống</h3>
+<span class="text-secondary font-bold">₫160,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Hoành thánh nhân thịt heo xay, gói thủ công, nước dùng xương hầm thơm ngọt.</p>
+<button class="w-full bg-neutral-300 text-neutral-500 py-3 rounded-lg font-bold cursor-not-allowed" disabled="">Tạm Thời Hết Hàng</button>
+</div>
+</div>
+<!-- Item 5: Bestseller -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Healthy bowl of thin egg noodles with roasted pork and fresh scallions in a light broth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1uWmgQWsrEKJU56kMa7eFtsjxWxMsgbL-pXemAj5DtXcWfBcpy74_87YE80ieUO4wuqszK0LKUGs8Tu40apJhbGqFu4Dg3C6qXfbVgqX58-S766IqN-iPnXE-jHW3Bteosc83VSjlq9vfyH3Wm0XlKWinxiem1vur8djRi_asSS0zVfd_6Yc-r5owVNpabM69bpu053oZZ3-7uxKC4F5BiQxVjUmgAP8Gv8Wa7UytTT79pmfHxthRF2KAHMl2ju-hDcraej0KDrk2">
+<span class="absolute top-4 left-4 bg-primary-container text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Bán chạy</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Mì Xá Xíu Thịt Nướng</h3>
+<span class="text-primary font-bold">₫225,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Mì trứng truyền thống chễm chệ cùng lớp xá xíu rim mật ong thơm nức.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 6 -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Artisanal ramen noodles with various toppings like bamboo shoots and marinated egg" src="../assets/images/mi-nam-chay.png">
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Mì Nấm Chay</h3>
+<span class="text-primary font-bold">₫120,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Niềm vui thanh đạm cho người ăn chay với ba loại nấm hương, mộc nhĩ, bào ngư.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 7 -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Stir-fried vegetables with sesame seeds and soy glaze in a white bowl" src="../assets/images/ha-cao-hai-san.png">
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Há Cảo Hải Sản</h3>
+<span class="text-primary font-bold">₫185,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Há cảo trong vắt nhân tôm, cua, mực tươi hấp xưởng tre dùng kèm nước tương gừng.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 8 -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Refreshing glass of iced Hong Kong style milk tea with condensed milk swirls" src="../assets/images/tra-sua-thai.png">
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Trà Sữa Thái</h3>
+<span class="text-primary font-bold">₫65,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Trà sữa Thái Lan đậm đà pha trà đen Ceylon, sữa đặc và đá bào mát lạnh.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<!-- Item 9 -->
+<div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
+
+<div class="relative h-56">
+<img class="w-full h-full object-cover" data-alt="Creamy coconut sago dessert with mango chunks in a glass bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaZ3zVr9qXeN2y1JnsaFK_-EayKQRWGpOI6m0z49Ls0YqhQPizSZYH4PP-uWNFo4QQ7JnmWh18Rwrv8rmTzcXNwOrLA2Ywd-SJ5vVkLlKHiefXuzKTU1288EBsB4BLnNtVBm5Vd6Y9KsQOA71EqtaC6MlOlWPEkb4kVDx1nD4FDM82Wv2l9gsfhuOFtTRmuMpEt8LM358RuMcxuoKFgWd5MaNvBhdRqhLETQR-EJSQq_snPtzT6ZN82h0Xt5DDUZf9ClcgKGosR1h1">
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-on-surface">Chè Xoài</h3>
+<span class="text-primary font-bold">₫65,000</span>
+</div>
+<p class="text-secondary text-sm mb-6 line-clamp-2">Súp cốt dừa bổ ngân lạnh ngọt lịm kèm trân châu sago bọc thêm xoài tươi xốp.</p>
+<button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
+  <a href="05-wonton-pos-cart-review.html" style="position:absolute;inset:0;text-decoration:none;" aria-label="Navigate"></a>
+  Thêm vào Giỏ
+</button>
+</div>
+<a href="04-wonton-item-detail-customize.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar / Floating Cart -->
+<div class="fixed bottom-8 right-8 z-50 flex items-center justify-center cursor-pointer bg-red-600 dark:bg-red-700 text-white font-inter font-bold text-lg rounded-full px-8 py-4 shadow-2xl shadow-red-900/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all" style="cursor: pointer;">
+
+
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span>3 món — ₫609,000 | Xem Giỏ Hàng</span>
+</div>
+<a href="05-wonton-pos-cart-review.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

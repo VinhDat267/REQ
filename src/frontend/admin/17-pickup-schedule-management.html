@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Q.Lý Lịch Hẹn Pickup | Wonton POS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="../shared/admin-tailwind-config.js"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen font-body antialiased overflow-hidden">
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col">
+    <div class="mb-8 flex justify-between items-end">
+        <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">Lịch Hẹn Lấy (Pickup) ⌛</h1>
+            <p class="text-sm text-on-surface-variant font-medium mt-1">Theo dõi mật độ và điều phối ngoại lệ khóa slot chống quá tải Bếp.</p>
+        </div>
+        <input type="date" class="bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-2 text-sm font-bold" value="2026-04-11">
+    </div>
+
+    <!-- Slot Calendar -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Slot Card: Safe -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/30 relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-black text-on-surface">11:00 - 11:30</h3>
+                    <p class="text-xs font-bold text-tertiary mt-1">Sáng Nay (An Toàn)</p>
+                </div>
+                <!-- Toggle -->
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked class="sr-only peer">
+                    <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
+                </label>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex justify-between text-sm mb-1 font-bold">
+                    <span>Mật độ đơn</span>
+                    <span>2 / 10 orders</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-tertiary h-2 rounded-full" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <button class="w-full py-2 bg-surface-container-low hover:bg-surface-container-high rounded font-bold text-xs uppercase tracking-wider transition-colors transition-colors">Xem 2 Đơn</button>
+        </div>
+
+        <!-- Slot Card: Warning -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/30 relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-black text-on-surface">11:30 - 12:00</h3>
+                    <p class="text-xs font-bold text-[#FF8C00] mt-1">Giờ Cao Điểm (Gần Đầy)</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked class="sr-only peer">
+                    <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
+                </label>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex justify-between text-sm mb-1 font-bold">
+                    <span>Mật độ đơn</span>
+                    <span>8 / 10 orders</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-[#FF8C00] h-2 rounded-full" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <button class="w-full py-2 bg-surface-container-low hover:bg-surface-container-high rounded font-bold text-xs uppercase tracking-wider transition-colors">Xem 8 Đơn</button>
+        </div>
+
+        <!-- Slot Card: Locked/Overloaded -->
+        <div class="bg-secondary/5 p-6 rounded-2xl shadow-sm border border-secondary/30 relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-black text-on-surface">12:00 - 12:30</h3>
+                    <p class="text-xs font-bold text-secondary mt-1">Giai Đoạn Kẹt Bếp (Khóa Mới)</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" onchange="alert('Ngừng khóa slot? Khách hàng sẽ có thể hẹn Pickup giờ này.')">
+                    <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
+                </label>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex justify-between text-sm mb-1 font-bold opacity-50">
+                    <span>Mật độ đơn</span>
+                    <span>10 / 10 orders</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-secondary h-2 rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <button class="w-full py-2 bg-white text-secondary font-bold text-xs uppercase tracking-wider border border-secondary/20 rounded hover:bg-secondary hover:text-white transition-colors">Xem & Điều Phối Đơn Ngay</button>
+        </div>
+    </div>
+</main>
+<script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

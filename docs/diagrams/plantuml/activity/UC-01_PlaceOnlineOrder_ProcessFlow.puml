@@ -1,0 +1,59 @@
+@startuml
+title UC-01: Place Online Order - Process Flow
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+start
+:Open online ordering page;
+:Browse menu categories and items;
+:Select item details;
+if (Selected item available?) then (No)
+  :Show out-of-stock message;
+  :Keep customer on menu and item-selection flow;
+else (Yes)
+  :Add items to cart;
+endif
+:Review current cart;
+
+if (Add more items?) then (Yes)
+  :Continue browsing and adding items;
+  :Review updated cart;
+else (No)
+endif
+
+if (Edit cart?) then (Yes)
+  :Update quantities or remove items;
+  :Refresh cart total;
+else (No)
+endif
+
+:Select service model;
+:Select "Place Order";
+if (Cart contains at least one item?) then (No)
+  :Show empty-cart message;
+  :Keep customer on ordering flow
+  so items can be added;
+else (Yes)
+  if (Service model?) then (Pickup)
+    :Continue to pickup scheduling
+and mandatory prepayment process;
+    stop
+  elseif (Dine-in)
+    :Create dine-in order;
+    :Display order code and
+open order tracking screen;
+    stop
+  else (Takeaway)
+    :Create takeaway order under
+mandatory prepayment rule;
+    :Continue to payment flow
+before kitchen release;
+    stop
+  endif
+endif
+@enduml

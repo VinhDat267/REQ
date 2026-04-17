@@ -1,0 +1,45 @@
+@startuml
+title UC-14: Update Dish Status
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|BOH Staff|
+start
+:View cooking orders;
+:Finish preparation;
+if (Add note for FOH staff?) then (Yes)
+  :Enter serving note;
+else (No)
+endif
+if (Batch completion?) then (Yes)
+  :Group orders for batch update;
+else (No)
+endif
+:Click "Complete";
+
+|System|
+if (Order already cancelled?) then (Yes)
+  :Show cancelled-order message;
+  detach
+else (No)
+  :Display ready-status confirmation;
+endif
+
+|BOH Staff|
+:Click "Confirm";
+
+|System|
+if (Update failed?) then (Yes)
+  :Show update-failed message;
+  detach
+else (No)
+endif
+:Update order status to Ready;
+:Notify FOH staff and customer;
+stop
+@enduml

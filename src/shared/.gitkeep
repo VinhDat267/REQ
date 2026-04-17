@@ -1,0 +1,4 @@
+# Shared Code
+
+> Thư mục này chứa code dùng chung giữa frontend và backend.
+> Ví dụ: types, constants, utils, validators.

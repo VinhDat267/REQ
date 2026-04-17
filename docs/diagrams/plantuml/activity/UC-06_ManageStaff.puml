@@ -1,0 +1,66 @@
+@startuml
+title UC-06: Manage Staff
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Manager|
+start
+:Open "Staff Management";
+
+|System|
+:Display staff list;
+
+|Manager|
+if (Add staff?) then (Yes)
+  :Click "Add Staff";
+
+  |System|
+  :Display staff form;
+
+  |Manager|
+  :Enter information and roles;
+  :Click "Save";
+
+  |System|
+  if (Phone number already exists?) then (Yes)
+    :Show duplicate-phone message;
+    detach
+  else (No)
+  endif
+  if (Invalid email?) then (Yes)
+    :Show invalid-email message;
+    detach
+  else (No)
+  endif
+  :Create staff account;
+  :Show staff-added message;
+else (No)
+  if (Edit staff?) then (Yes)
+    :Select staff member to edit;
+    :Update information;
+    :Click "Update";
+
+    |System|
+    :Save changes successfully;
+    if (Change role?) then (Yes)
+      :Update access permissions;
+    else (No)
+    endif
+  else (Deactivate)
+
+    |Manager|
+    :Select staff member;
+    :Click "Deactivate" and confirm;
+
+    |System|
+    :Lock the account;
+    :Prevent future login;
+  endif
+endif
+stop
+@enduml

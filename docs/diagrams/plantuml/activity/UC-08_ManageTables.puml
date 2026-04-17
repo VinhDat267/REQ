@@ -1,0 +1,113 @@
+@startuml
+title UC-08: Manage Tables
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Manager|
+start
+:Open "Table Management";
+
+|System|
+:Display current table layout
+with usage status;
+
+|Manager|
+if (Decision) then ([Add])
+  :Select "Add New Table";
+
+  |System|
+  :Display table form;
+
+  |Manager|
+  :Enter required table data;
+  :Click "Save";
+
+  |System|
+  :Validate submitted data;
+  if (Decision) then ([Input invalid])
+    :Show validation error message;
+    :Keep current form for correction;
+    stop
+  else ([Input valid])
+    if (Decision) then ([Persistence failure])
+      :Show save failure message;
+      :Preserve last committed table data;
+      stop
+    else ([Persistence succeeds])
+      :Save new table record;
+      :Refresh table layout and usage status;
+      :Show table added successfully message;
+      stop
+    endif
+  endif
+
+elseif ([Edit])
+  :Select table to edit;
+
+  |System|
+  :Display current table data;
+
+  |Manager|
+  :Update allowed fields;
+  :Click "Update";
+
+  |System|
+  :Validate submitted changes;
+  if (Decision) then ([Input invalid])
+    :Show validation error message;
+    :Keep current form for correction;
+    stop
+  else ([Input valid])
+    if (Decision) then ([Table currently in use])
+      :Block conflicting update;
+      :Keep existing table data unchanged;
+      :Show in-use message;
+      stop
+    else ([Table not in use])
+      if (Decision) then ([Persistence failure])
+        :Show update failure message;
+        :Preserve last committed table data;
+        stop
+      else ([Persistence succeeds])
+        :Save updated table record;
+        :Refresh table layout and usage status;
+        :Show table updated successfully message;
+        stop
+      endif
+    endif
+  endif
+
+else ([Delete])
+  :Select table to delete;
+
+  |System|
+  :Display delete confirmation;
+
+  |Manager|
+  :Confirm deletion;
+
+  |System|
+  if (Decision) then ([Table currently in use])
+    :Block deletion;
+    :Keep existing table data unchanged;
+    :Show in-use message;
+    stop
+  else ([Table not in use])
+    if (Decision) then ([Persistence failure])
+      :Show delete failure message;
+      :Preserve last committed table data;
+      stop
+    else ([Persistence succeeds])
+      :Delete table record;
+      :Refresh table layout and usage status;
+      :Show table deleted successfully message;
+      stop
+    endif
+  endif
+endif
+@enduml

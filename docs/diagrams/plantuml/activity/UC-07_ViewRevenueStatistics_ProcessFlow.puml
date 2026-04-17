@@ -1,0 +1,46 @@
+@startuml
+title UC-07: View Revenue Statistics - Process Flow
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+start
+:Open "Statistics & Reports";
+:Display dashboard overview;
+:Select time range;
+:Refresh revenue statistics;
+
+if (Data available for selected filters?) then (No)
+  :Show no-data message;
+  :Keep analytics screen for another
+  filter or time-range selection;
+else (Yes)
+endif
+
+if (Analytics loaded successfully?) then (No)
+  :Show loading-error message;
+  :Preserve last valid report state;
+else (Yes)
+endif
+
+:Review top-selling items;
+:Review peak-hour analytics;
+
+if (Filter by payment method?) then (Yes)
+  :Apply payment-method filter;
+  :Refresh analytics for current period;
+else (No)
+endif
+
+if (Export Report?) then (Yes)
+  :Generate PDF or Excel report;
+  :Download report file;
+  stop
+else (No)
+  stop
+endif
+@enduml

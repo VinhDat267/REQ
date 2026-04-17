@@ -1,0 +1,48 @@
+@startuml
+title UC-16: Receive Order Notifications
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|System|
+start
+:Detect order status change;
+if (Order cancelled?) then (Yes)
+  :Create cancellation warning notification;
+else (No)
+endif
+if (Realtime connection lost?) then (Yes)
+  :Store missed notification for later sync;
+  detach
+else (No)
+endif
+:Send realtime notification to Client WebApp;
+if (Browser push permission granted?) then (Yes)
+  :Send browser push notification;
+else (No)
+  :Display prompt to enable notifications;
+endif
+:Display popup or toast with sound;
+
+|Customer|
+if (Open notification?) then (Yes)
+  :Open order tracking screen;
+else (No)
+endif
+if (View notification history?) then (Yes)
+  :Open bell icon and notification list;
+else (No)
+endif
+if (Mark all as read?) then (Yes)
+  :Click "Mark all as read";
+else (No)
+endif
+
+|System|
+:Mark notification as read and save to history;
+stop
+@enduml

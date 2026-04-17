@@ -1,0 +1,360 @@
+@startuml
+title Wonton POS Midterm 16-UC ERD
+
+left to right direction
+hide methods
+hide stereotypes
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Identity & Access" {
+  entity "CUSTOMER_ACCOUNT" as CUSTOMER_ACCOUNT {
+    * customer_id : uuid <<PK>>
+    --
+    full_name : string <<NN>>
+    phone : string <<UK>>
+    email : string <<UK>>
+    password_hash : string <<NN>>
+    account_status : string <<NN>>
+    created_at : datetime <<NN>>
+    updated_at : datetime
+  }
+
+  entity "STAFF_ACCOUNT" as STAFF_ACCOUNT {
+    * staff_id : uuid <<PK>>
+    --
+    employee_code : string <<UK>>
+    full_name : string <<NN>>
+    phone : string <<UK>>
+    email : string <<UK>>
+    password_hash : string <<NN>>
+    is_active : boolean <<NN>>
+    created_at : datetime <<NN>>
+    updated_at : datetime
+  }
+
+  entity "ROLE" as ROLE {
+    * role_id : smallint <<PK>>
+    --
+    role_code : string <<UK>>
+    role_name : string <<UK>>
+  }
+
+  entity "STAFF_ROLE" as STAFF_ROLE {
+    * staff_role_id : uuid <<PK>>
+    --
+    staff_id : uuid <<FK>>
+    role_id : smallint <<FK>>
+    granted_at : datetime <<NN>>
+  }
+}
+
+package "Menu & Cart" {
+  entity "MENU_CATEGORY" as MENU_CATEGORY {
+    * category_id : uuid <<PK>>
+    --
+    category_name : string <<UK>>
+    display_order : int
+    is_active : boolean <<NN>>
+  }
+
+  entity "MENU_ITEM" as MENU_ITEM {
+    * menu_item_id : uuid <<PK>>
+    --
+    category_id : uuid <<FK>>
+    item_name : string <<NN>>
+    base_price : decimal <<NN>>
+    description : string
+    image_url : string
+    availability_status : string <<NN>>
+    is_active : boolean <<NN>>
+  }
+
+  entity "TOPPING" as TOPPING {
+    * topping_id : uuid <<PK>>
+    --
+    topping_name : string <<UK>>
+    extra_price : decimal <<NN>>
+    is_active : boolean <<NN>>
+  }
+
+  entity "MENU_ITEM_TOPPING" as MENU_ITEM_TOPPING {
+    * menu_item_topping_id : uuid <<PK>>
+    --
+    menu_item_id : uuid <<FK>>
+    topping_id : uuid <<FK>>
+  }
+
+  entity "CART" as CART {
+    * cart_id : uuid <<PK>>
+    --
+    customer_id : uuid <<FK>>
+    guest_session_key : string
+    service_type : string
+    created_at : datetime <<NN>>
+    updated_at : datetime <<NN>>
+  }
+
+  entity "CART_ITEM" as CART_ITEM {
+    * cart_item_id : uuid <<PK>>
+    --
+    cart_id : uuid <<FK>>
+    menu_item_id : uuid <<FK>>
+    quantity : int <<NN>>
+    unit_price_snapshot : decimal <<NN>>
+    note : string
+  }
+
+  entity "CART_ITEM_TOPPING" as CART_ITEM_TOPPING {
+    * cart_item_topping_id : uuid <<PK>>
+    --
+    cart_item_id : uuid <<FK>>
+    topping_id : uuid <<FK>>
+    quantity : int <<NN>>
+    extra_price_snapshot : decimal <<NN>>
+  }
+}
+
+package "Order & Payment" {
+  entity "CUSTOMER_ORDER" as CUSTOMER_ORDER {
+    * order_id : uuid <<PK>>
+    --
+    order_code : string <<UK>>
+    customer_id : uuid <<FK>>
+    guest_session_key : string
+    created_by_staff_id : uuid <<FK>>
+    order_source : string <<NN>>
+    service_type : string <<NN>>
+    party_size : int
+    order_status : string <<NN>>
+    payment_status : string <<NN>>
+    subtotal_amount : decimal <<NN>>
+    total_amount : decimal <<NN>>
+    placed_at : datetime <<NN>>
+    completed_at : datetime
+    cancelled_at : datetime
+    cancellation_reason : string
+  }
+
+  entity "ORDER_CONTACT" as ORDER_CONTACT {
+    * order_contact_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>><<UK>>
+    recipient_name : string <<NN>>
+    recipient_phone : string <<NN>>
+    recipient_email : string
+    is_guest_checkout : boolean <<NN>>
+  }
+
+  entity "ORDER_ITEM" as ORDER_ITEM {
+    * order_item_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>><<NN>>
+    menu_item_id : uuid <<FK>>
+    quantity : int <<NN>>
+    unit_price_snapshot : decimal <<NN>>
+    item_status : string <<NN>>
+    prepared_quantity : int <<NN>>
+    note : string
+  }
+
+  entity "ORDER_ITEM_TOPPING" as ORDER_ITEM_TOPPING {
+    * order_item_topping_id : uuid <<PK>>
+    --
+    order_item_id : uuid <<FK>>
+    topping_id : uuid <<FK>>
+    quantity : int <<NN>>
+    extra_price_snapshot : decimal <<NN>>
+  }
+
+  entity "PAYMENT_TRANSACTION" as PAYMENT_TRANSACTION {
+    * payment_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>>
+    processed_by_staff_id : uuid <<FK>>
+    payment_method : string <<NN>>
+    provider_code : string
+    amount : decimal <<NN>>
+    cash_received_amount : decimal
+    change_amount : decimal
+    transaction_status : string <<NN>>
+    gateway_reference : string <<UK>>
+    initiated_at : datetime <<NN>>
+    confirmed_at : datetime
+    expires_at : datetime
+  }
+
+  entity "ORDER_STATUS_HISTORY" as ORDER_STATUS_HISTORY {
+    * order_status_history_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>>
+    changed_by_staff_id : uuid <<FK>>
+    actor_type : string <<NN>>
+    from_order_status : string
+    to_order_status : string
+    from_payment_status : string
+    to_payment_status : string
+    change_reason : string
+    changed_at : datetime <<NN>>
+  }
+}
+
+package "Dine-in & Pickup" {
+  entity "DINING_TABLE" as DINING_TABLE {
+    * table_id : uuid <<PK>>
+    --
+    table_number : string <<UK>>
+    qr_token : string <<UK>>
+    capacity : int <<NN>>
+    area_name : string
+    layout_x : int
+    layout_y : int
+    table_status : string <<NN>>
+    is_active : boolean <<NN>>
+  }
+
+  entity "TABLE_ASSIGNMENT" as TABLE_ASSIGNMENT {
+    * assignment_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>>
+    table_id : uuid <<FK>>
+    assigned_by_staff_id : uuid <<FK>>
+    released_by_staff_id : uuid <<FK>>
+    party_size_snapshot : int <<NN>>
+    assigned_at : datetime <<NN>>
+    released_at : datetime
+    assignment_status : string <<NN>>
+  }
+
+  entity "PICKUP_SLOT" as PICKUP_SLOT {
+    * pickup_slot_id : uuid <<PK>>
+    --
+    slot_date : date <<NN>>
+    start_time : time <<NN>>
+    end_time : time <<NN>>
+    capacity_limit : int <<NN>>
+    current_bookings : int <<NN>>
+    slot_status : string <<NN>>
+  }
+
+  entity "PICKUP_SCHEDULE" as PICKUP_SCHEDULE {
+    * pickup_schedule_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>><<UK>>
+    pickup_slot_id : uuid <<FK>>
+    requested_pickup_at : datetime <<NN>>
+    accepted_at : datetime
+    actual_pickup_at : datetime
+    schedule_status : string <<NN>>
+  }
+}
+
+package "Feedback & Notifications" {
+  entity "ORDER_REVIEW" as ORDER_REVIEW {
+    * review_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>><<UK>>
+    customer_id : uuid <<FK>>
+    food_quality_score : int <<NN>>
+    service_speed_score : int <<NN>>
+    overall_experience_score : int <<NN>>
+    comment : string
+    reviewed_at : datetime <<NN>>
+  }
+
+  entity "WEB_PUSH_SUBSCRIPTION" as WEB_PUSH_SUBSCRIPTION {
+    * push_subscription_id : uuid <<PK>>
+    --
+    customer_id : uuid <<FK>>
+    guest_session_key : string
+    endpoint : string <<UK>>
+    p256dh_key : string <<NN>>
+    auth_secret : string <<NN>>
+    browser_name : string
+    is_active : boolean <<NN>>
+    granted_at : datetime <<NN>>
+    revoked_at : datetime
+  }
+
+  entity "NOTIFICATION" as NOTIFICATION {
+    * notification_id : uuid <<PK>>
+    --
+    order_id : uuid <<FK>>
+    menu_item_id : uuid <<FK>>
+    customer_id : uuid <<FK>>
+    staff_id : uuid <<FK>>
+    guest_session_key : string
+    event_scope : string <<NN>>
+    recipient_type : string <<NN>>
+    channel : string <<NN>>
+    notification_type : string <<NN>>
+    title : string <<NN>>
+    message : string <<NN>>
+    delivery_status : string <<NN>>
+    created_at : datetime <<NN>>
+    delivered_at : datetime
+    read_at : datetime
+  }
+}
+
+' Identity and access
+CUSTOMER_ACCOUNT |o--o{ CART : owns
+CUSTOMER_ACCOUNT |o--o{ CUSTOMER_ORDER : places
+CUSTOMER_ACCOUNT ||--o{ ORDER_REVIEW : writes
+CUSTOMER_ACCOUNT |o--o{ NOTIFICATION : receives
+CUSTOMER_ACCOUNT |o--o{ WEB_PUSH_SUBSCRIPTION : subscribes
+
+STAFF_ACCOUNT ||--o{ STAFF_ROLE : has
+ROLE ||--o{ STAFF_ROLE : grants
+STAFF_ACCOUNT |o--o{ CUSTOMER_ORDER : creates_counter
+STAFF_ACCOUNT |o--o{ PAYMENT_TRANSACTION : processes
+STAFF_ACCOUNT |o--o{ ORDER_STATUS_HISTORY : updates
+STAFF_ACCOUNT |o--o{ TABLE_ASSIGNMENT : assigns
+STAFF_ACCOUNT |o--o{ TABLE_ASSIGNMENT : releases
+STAFF_ACCOUNT |o--o{ NOTIFICATION : receives
+
+' Menu and cart
+MENU_CATEGORY ||--o{ MENU_ITEM : groups
+MENU_ITEM ||--o{ MENU_ITEM_TOPPING : offers
+TOPPING ||--o{ MENU_ITEM_TOPPING : available_for
+
+CART ||--o{ CART_ITEM : contains
+MENU_ITEM ||--o{ CART_ITEM : added_as
+CART_ITEM ||--o{ CART_ITEM_TOPPING : customizes
+TOPPING ||--o{ CART_ITEM_TOPPING : selected_as
+
+' Order and payment
+CUSTOMER_ORDER ||--o| ORDER_CONTACT : captures
+CUSTOMER_ORDER ||--|{ ORDER_ITEM : contains
+MENU_ITEM ||--o{ ORDER_ITEM : ordered_as
+ORDER_ITEM ||--o{ ORDER_ITEM_TOPPING : customizes
+TOPPING ||--o{ ORDER_ITEM_TOPPING : selected_as
+CUSTOMER_ORDER ||--o{ PAYMENT_TRANSACTION : has
+CUSTOMER_ORDER ||--o{ ORDER_STATUS_HISTORY : records
+
+' Dine-in and pickup
+DINING_TABLE ||--o{ TABLE_ASSIGNMENT : hosts
+CUSTOMER_ORDER ||--o{ TABLE_ASSIGNMENT : seats
+PICKUP_SLOT ||--o{ PICKUP_SCHEDULE : allocates
+CUSTOMER_ORDER ||--o| PICKUP_SCHEDULE : schedules
+
+' Feedback and notifications
+CUSTOMER_ORDER ||--o| ORDER_REVIEW : receives
+CUSTOMER_ORDER ||--o{ NOTIFICATION : triggers
+MENU_ITEM |o--o{ NOTIFICATION : triggers
+
+note "Midterm scope only.\nThis ERD is intentionally limited to the selected 16 use cases plus the smallest supporting identity/session pieces needed to make them work." as N_SCOPE
+N_SCOPE .. CUSTOMER_ORDER
+
+note "Deliberately omitted here:\n- promotions / discount redemption\n- delivery integrations\n- OTP / multi-provider auth submodels\n- inventory and 86'd audit tables\n- print logs and export tracking\n- loyalty, payroll, and other future modules" as N_EXCLUDED
+N_EXCLUDED .. MENU_ITEM
+
+note "Ownership and service rules:\n- Self-service orders use exactly one of {customer_id, guest_session_key}\n- Counter orders use created_by_staff_id and may leave customer data null\n- Guest trackability depends on order_code + ORDER_CONTACT.recipient_phone\n- Takeaway and Pickup must be Paid before Cooking / Ready / Completed\n- Pickup requires PICKUP_SCHEDULE; Dine-in requires TABLE_ASSIGNMENT; Takeaway uses neither" as N_RULES
+N_RULES .. CUSTOMER_ORDER
+
+note "Kitchen-progress and notification rules:\n- ORDER_ITEM.item_status + prepared_quantity support item-level and partial-ready progress without modeling each bowl as a separate row\n- NOTIFICATION stores one delivery row per target\n- event_scope distinguishes order events from menu-item events such as 86'd alerts\n- WEB_PUSH_SUBSCRIPTION is kept only because UC-16 explicitly includes browser push support" as N_NOTIFICATION
+N_NOTIFICATION .. NOTIFICATION
+
+@enduml

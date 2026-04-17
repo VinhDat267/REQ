@@ -1,0 +1,147 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Thêm/Sửa Khuyến Mãi | Wonton POS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script src="../shared/admin-tailwind-config.js"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen font-body antialiased overflow-hidden">
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col">
+    <!-- Breadcrumb & Header -->
+    <div class="mb-8">
+        <a class="flex items-center text-sm font-bold text-slate-500 hover:text-primary transition-colors mb-4" href="16-voucher-management-list.html" style="cursor: pointer;">
+            <span class="material-symbols-outlined text-sm mr-1">arrow_back</span>
+            Quay lại danh sách
+        </a>
+        <h1 class="text-2xl font-extrabold tracking-tight">Thêm Khuyến Mãi Mới</h1>
+        <p class="text-sm text-on-surface-variant font-medium mt-1">Cấu hình điều kiện áp dụng, phần trăm giảm giá và thời gian hiệu lực.</p>
+    </div>
+
+    <!-- Main Form Container -->
+    <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+        <form class="max-w-4xl mx-auto space-y-8 pb-10">
+            <!-- Basic Info Card -->
+            <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/10">
+                <h2 class="text-lg font-bold text-on-surface mb-6 flex items-center pb-4 border-b border-surface-container-highest">
+                    <span class="material-symbols-outlined text-primary mr-2">sell</span> Thông Tin Mã Code
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Mã Code (Tối đa 15 ký tự) <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="VD: FREESHIP20, MUDHE50" value="FREESHIP20">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Mô tả ngắn gọn</label>
+                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="Đại náo mùa hè giảm cực sốc...">
+                    </div>
+                </div>
+
+                <div class="mt-6 flex items-center space-x-3 bg-tertiary-container text-on-tertiary-container p-4 rounded-xl border-l-4 border-tertiary">
+                    <span class="material-symbols-outlined">info</span>
+                    <p class="text-sm font-medium">Mã code sẽ được in hoa toàn bộ khi khách hàng nhập vào hệ thống.</p>
+                </div>
+            </div>
+
+            <!-- Value & Limits Card -->
+            <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/10">
+                <h2 class="text-lg font-bold text-on-surface mb-6 flex items-center pb-4 border-b border-surface-container-highest">
+                    <span class="material-symbols-outlined text-secondary mr-2">savings</span> Hình Thức Tặng
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Loại Giảm Giá</label>
+                        <select class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface">
+                            <option value="amount">Giảm tiền trực tiếp (VNĐ)</option>
+                            <option value="percent" selected="">Giảm theo phần trăm (%)</option>
+                            <option value="item">Tặng Món MIỄN PHÍ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Giá Trị Giảm (%) <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface pl-4 pr-12" placeholder="0" value="20">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-500 font-bold">
+                                %
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Đơn tối thiểu điều kiện (VAT)</label>
+                        <div class="relative">
+                            <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface pl-4 pr-16" placeholder="0" value="150000">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-500 font-bold">
+                                VNĐ
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Giảm tối đa (VAT) (Dành cho %)</label>
+                        <div class="relative">
+                            <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface pl-4 pr-16" placeholder="0" value="50000">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-500 font-bold">
+                                VNĐ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validation Period Card -->
+            <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/10">
+                <h2 class="text-lg font-bold text-on-surface mb-6 flex items-center pb-4 border-b border-surface-container-highest">
+                    <span class="material-symbols-outlined text-error mr-2">date_range</span> Thời Gian Hiệu Lực
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Ngày Bắt Đầu</label>
+                        <input type="datetime-local" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" value="2026-04-11T00:00">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Ngày Kết Thúc</label>
+                        <input type="datetime-local" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" value="2026-05-15T23:59">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Tổng số lượt sử dụng được phép</label>
+                        <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="VD: 100" value="100">
+                        <p class="text-xs text-slate-500 mt-2">Bỏ trống nếu không giới hạn.</p>
+                    </div>
+                    
+                    <div class="flex items-center mt-6">
+                        <label class="relative flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked="">
+                            <div class="w-14 h-7 bg-surface-container-highest peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+                            <span class="ml-4 text-sm font-bold text-on-surface">Kích hoạt Mã Khuyến Mãi Ngay</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Action Bar -->
+            <div class="sticky bottom-4 z-10 flex items-center justify-end space-x-4 bg-surface-container-lowest/80 backdrop-blur-md p-4 rounded-2xl border border-outline-variant/10 shadow-lg">
+                <a class="px-6 py-3 border-2 border-outline-variant text-slate-500 font-bold rounded-xl hover:bg-surface-container-high transition-colors" href="16-voucher-management-list.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                    Hủy Bỏ
+                </a>
+                <a class="px-8 py-3 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all ml-4" href="16-voucher-management-list.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                    Lưu &amp; Kích Hoạt Voucher
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

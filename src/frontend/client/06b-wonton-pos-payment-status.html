@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trạng thái Thanh toán | Wonton POS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#b7131a",
+                        "primary-container": "#db322f",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5f5e5e",
+                        "on-surface": "#1a1c1c",
+                        "surface": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "surface-container-low": "#f3f3f3",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "error": "#ba1a1a",
+                        "success": "#16a34a",
+                        "success-container": "#dcfce7"
+                    },
+                    "fontFamily": {
+                        "body": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; color: #1a1c1c; }
+        .lacquered-btn { background: linear-gradient(135deg, #b7131a 0%, #db322f 100%); }
+    </style>
+</head>
+
+<body class="bg-surface font-body antialiased min-h-screen flex flex-col">
+    <header class="bg-white/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-8 py-5">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-bold text-primary tracking-tight">Wonton POS</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 text-secondary">
+                <span class="material-symbols-outlined text-xl" data-icon="lock">lock</span>
+                <span class="text-sm font-medium">Thanh Toán Bảo Mật</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-24 w-full max-w-[800px] mx-auto px-6 flex-grow flex items-center justify-center">
+        <!-- STATE: WAITING FOR QR SCAN -->
+        <section class="w-full bg-white rounded-3xl p-10 md:p-14 shadow-[0px_24px_48px_rgba(91,64,61,0.08)] flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-6 border-4 border-white shadow-sm">
+                <span class="material-symbols-outlined text-3xl text-secondary">qr_code_scanner</span>
+            </div>
+            <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Thanh Toán VNPay</h1>
+            <p class="text-secondary max-w-md mx-auto mb-8 font-medium">Vui lòng mở ứng dụng ngân hàng hoặc ví điện tử để quét mã QR bên dưới.</p>
+            
+            <div class="p-6 bg-surface-container rounded-2xl mb-8 border border-surface-container-high relative overflow-hidden group">
+                <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <!-- Mock link to success state for presentation flow -->
+                <a href="06c-wonton-pos-payment-success.html" title="Nhấn vào QR Code để giả lập thanh toán thành công">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=WontonPOSPaymentTest" alt="QR Code cho Thanh Toán" class="w-64 h-64 mix-blend-multiply opacity-90 mx-auto transition-transform hover:scale-105" />
+                </a>
+            </div>
+
+            <div class="flex flex-col gap-2 w-full max-w-sm mb-6">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary">Tổng thanh toán:</span>
+                    <span class="font-bold text-xl text-primary">₫658,000</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary">Mã đơn hàng:</span>
+                    <span class="font-bold">WNT-20260407-104</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-secondary-fixed-dim italic flex items-center gap-2">
+                <span class="material-symbols-outlined text-[14px] animate-spin">sync</span> 
+                Đang chờ thanh toán (04:59)
+            </p>
+        </section>
+    </main>
+</body>
+</html>

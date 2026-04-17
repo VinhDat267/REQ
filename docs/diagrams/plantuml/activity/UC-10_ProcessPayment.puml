@@ -1,0 +1,80 @@
+@startuml
+title UC-10: Process Payment
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|FOH Staff|
+start
+:Select order to pay;
+
+|System|
+:Display order details and total amount;
+
+|FOH Staff|
+:Select payment method;
+if (Cash?) then (Yes)
+  :Enter amount received;
+
+  |System|
+  if (Insufficient amount?) then (Yes)
+    :Show insufficient-cash message;
+    detach
+  else (No)
+    :Calculate and display change;
+  endif
+else (No)
+  if (QR?) then (Yes)
+
+    |System|
+    :Display QR code and amount;
+
+    |Customer|
+    :Scan QR and transfer payment;
+
+    |FOH Staff|
+    :Confirm payment received;
+  else (Online)
+
+    |Payment Gateway|
+    :Process payment transaction;
+
+    |System|
+    if (Gateway error?) then (Yes)
+      :Show gateway error;
+      detach
+    else (No)
+    endif
+  endif
+endif
+
+|FOH Staff|
+:Click "Confirm Payment";
+
+|System|
+:Update payment_status = Paid;
+if (Takeaway?) then (Yes)
+  :Send kitchen ticket
+  to start preparation;
+else (No)
+  if (Completed Dine-in?) then (Yes)
+    :Record revenue;
+    :Set table back to Available;
+  else (No)
+  endif
+endif
+
+|FOH Staff|
+if (Print receipt?) then (Yes)
+  :Click "Print Receipt";
+
+  |System|
+  :Send print command;
+else (No)
+endif
+stop
+@enduml

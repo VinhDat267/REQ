@@ -1,0 +1,101 @@
+@startuml
+title UC-01: Place Online Order
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Customer|
+start
+:Select "Order Now" or "View Menu";
+:Select a menu category;
+
+|System|
+:Display items in selected category
+with basic details;
+
+|Customer|
+:Select an item;
+
+|System|
+if (Decision) then ([Selected item unavailable])
+  :Show out-of-stock message;
+
+  |Customer|
+  :Select another item;
+
+  |System|
+  :Display item details,
+  quantity, toppings, and notes;
+else ([Selected item available])
+  :Display item details,
+  quantity, toppings, and notes;
+endif
+
+|Customer|
+:Add selected item to cart;
+
+|System|
+:Update cart item count
+and total amount;
+
+|Customer|
+if (Decision) then ([Add more items])
+  :Continue browsing menu;
+else ([No more items])
+endif
+if (Decision) then ([Edit cart])
+  :Update quantities or remove items;
+
+  |System|
+  :Refresh cart total;
+
+  |Customer|
+else ([Keep cart as is])
+endif
+:Select service model
+(`Dine-in` / `Takeaway` / `Pickup`);
+if (Decision) then ([Guest checkout])
+  :Enter Name and Phone Number;
+else ([Logged-in checkout])
+endif
+:Select "Place Order";
+
+|System|
+if (Decision) then ([Cart is empty])
+  :Show empty-cart message;
+
+  |Customer|
+  :Return to cart and add items;
+  :Select "Place Order" again;
+
+  |System|
+  if (Decision) then ([Cart contains at least one item after update])
+    :Create order according to
+    selected service model;
+  endif
+else ([Cart contains at least one item])
+  :Create order according to
+  selected service model;
+endif
+if (Decision) then ([Service model is Pickup])
+  :Route customer to UC-03 for
+  slot validation and mandatory prepayment;
+  detach
+else ([Service model is not Pickup])
+  if (Decision) then ([Dine-in])
+    :Create order with
+    payment_status = Unpaid;
+    :Display order code and open
+    order-tracking screen;
+    stop
+  else ([Takeaway])
+    :Route customer to mandatory payment
+    before kitchen release;
+    stop
+  endif
+endif
+@enduml

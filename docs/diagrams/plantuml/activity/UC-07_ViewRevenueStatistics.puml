@@ -1,0 +1,74 @@
+@startuml
+title UC-07: View Revenue Statistics
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Manager|
+start
+:Open "Statistics & Reports";
+
+|System|
+if (Decision) then ([No data for selected filters])
+  :Show "No data available for the selected time period";
+  :Keep analytics screen available
+  for another filter selection;
+else ([Data available for selected filters])
+  :Display dashboard overview
+  with revenue, order count,
+  and average order value;
+endif
+
+|Manager|
+:Select time range;
+
+|System|
+if (Decision) then ([Analytics loading failure])
+  :Show "Unable to load data.
+  Please try again";
+  :Preserve last valid report state;
+else ([Analytics loaded successfully])
+  :Refresh revenue chart;
+endif
+
+|Manager|
+:Open Top Selling Items section;
+
+|System|
+:Display top 10 best-selling items
+with quantities and revenue values;
+
+|Manager|
+:Open Peak Hours section;
+
+|System|
+:Display order-volume analytics
+by time slot;
+
+|Manager|
+if (Decision) then ([Filter by payment method])
+  :Select Cash, QR, or Online filter;
+
+  |System|
+  :Refresh analytics data
+  for current time range;
+else ([Do not filter by payment method])
+endif
+
+|Manager|
+if (Decision) then ([Export report])
+  :Select "Export Report";
+
+  |System|
+  :Generate PDF or Excel file
+  for current report context
+  and start download;
+  stop
+else ([Do not export report])
+  stop
+endif
+@enduml

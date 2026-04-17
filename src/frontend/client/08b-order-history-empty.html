@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e2e2e2",
+                    "surface-container-low": "#f3f3f3",
+                    "tertiary-container": "#008097",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "surface-tint": "#bb171c",
+                    "surface": "#f9f9f9",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#72d4ef",
+                    "secondary": "#5f5e5e",
+                    "on-primary-fixed": "#410002",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-secondary-container": "#636262",
+                    "on-primary-fixed-variant": "#93000d",
+                    "on-background": "#1a1c1c",
+                    "surface-bright": "#f9f9f9",
+                    "inverse-primary": "#ffb4ac",
+                    "secondary-container": "#e2dfde",
+                    "on-tertiary-fixed-variant": "#004e5d",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#afecff",
+                    "tertiary": "#006578",
+                    "surface-variant": "#e2e2e2",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface-variant": "#5b403d",
+                    "primary-fixed": "#ffdad6",
+                    "on-primary-container": "#fffbff",
+                    "inverse-surface": "#2f3131",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dadada",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#f9fdff",
+                    "outline-variant": "#e4beb9",
+                    "primary": "#b7131a",
+                    "primary-container": "#db322f",
+                    "inverse-on-surface": "#f1f1f1",
+                    "background": "#f9f9f9",
+                    "on-surface": "#1a1c1c",
+                    "outline": "#906f6c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased">
+<!-- Client Nav Injected via nav-components.js -->
+<!-- Main Content Canvas -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+<div class="flex gap-8 h-[calc(100vh-12rem)]">
+<!-- Left Column: Order History List (45%) -->
+<section class="w-[45%] flex flex-col space-y-6 overflow-hidden">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+    <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Lịch sử Đơn hàng</h1>
+</div>
+<!-- Tabs -->
+<div class="flex space-x-1 bg-surface-container p-1 rounded-xl">
+<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg bg-surface-container-lowest text-on-surface shadow-sm transition-all">Tất Cả</button>
+<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đang chọn</button>
+<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Hoàn tất</button>
+<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đã Hủy</button>
+</div>
+<!-- Search -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary group-focus-within:text-primary transition-colors">search</span>
+<input disabled class="w-full pl-10 pr-4 py-3 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-secondary/60 cursor-not-allowed" placeholder="Tìm kiếm theo mã đơn..." type="text"/>
+</div>
+</div>
+<!-- Order List Empty State -->
+<div class="flex flex-col items-center justify-center p-12 text-center border-2 border-dashed border-stone-200/50 rounded-2xl bg-stone-50/50 mt-4 h-full">
+    <div class="w-24 h-24 mb-4 relative flex items-center justify-center">
+        <span class="material-symbols-outlined text-[64px] text-stone-300 relative z-10" data-icon="receipt_long">receipt_long</span>
+    </div>
+    <h3 class="text-lg font-bold text-on-surface mb-2">Chưa có đơn hàng nào</h3>
+    <p class="text-sm text-secondary mb-6">Bạn chưa thực hiện giao dịch nào gần đây. Các đơn hàng mới sẽ xuất hiện tại đây.</p>
+    <a href="03-wonton-pos-menu-browse.html" class="bg-primary hover:bg-primary-container text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors cursor-pointer shadow-sm">
+        Bắt Đầu Đặt Món
+    </a>
+</div>
+</section>
+
+<!-- Right Column: Order Detail Empty (55%) -->
+<section class="w-[55%] bg-surface-container-lowest border border-outline-variant/10 rounded-3xl p-10 flex flex-col items-center justify-center shadow-sm relative overflow-hidden opacity-50 pointer-events-none">
+    <!-- Background Decorative Pattern -->
+    <div class="absolute -top-12 -right-12 w-48 h-48 opacity-5">
+    <img class="w-full h-full object-contain" data-alt="minimalist line art pattern of a chinese dumpling or wonton in a repetitive elegant sequence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCol0n52ucHsx_vlLPphiPqatZt9ILNynsocSVV5Bog46yLwZJpPNbWGt9Fo9C7_hZyeGpKsv94P4Q5TIdlZAl0VYx8ag3NT7Bw1s9TguA1rtXLM3VzvP-NS_yS8QlkFJapxsuisX5sYYWEKITCGpD1Q7ZlomOkdxsj-LgyHnKS911Ic29fNOZZoUZQj9q1TGlx1TtsaEqfwAy9zSlCjaHvmfFNHvLnE27qBPa01z2U79OWuIRvyvS9i8b9N50VavJIL7xox54C7s6p"/>
+    </div>
+    <div class="w-32 h-32 mb-6 opacity-20">
+        <span class="material-symbols-outlined text-[120px] text-stone-400">restaurant_menu</span>
+    </div>
+    <p class="text-xl font-bold tracking-tight text-secondary">Chọn một đơn hàng để xem chi tiết</p>
+</section>
+</div>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

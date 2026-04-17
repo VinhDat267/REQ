@@ -1,0 +1,240 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Hệ thống | Wonton POS Quản trị</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="../shared/admin-tailwind-config.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen antialiased">
+
+<!-- Shared admin sidebar injected via ../shared/nav-components.js -->
+<!-- Main Content -->
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100">
+<!-- TopNavBar -->
+
+<!-- Page Canvas -->
+<div class="p-8 max-w-[1440px] mx-auto">
+<!-- Heading & CTA -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface mb-2">Quản lý Nhân sự</h2>
+<div class="flex items-center gap-4 text-sm font-medium text-on-surface-variant">
+<span>Tổng cộng: <span class="text-on-surface">12</span></span>
+<span class="h-3 w-[1px] bg-outline-variant/30"></span>
+<span>Hoạt động: <span class="text-tertiary">10</span></span>
+<span class="h-3 w-[1px] bg-outline-variant/30"></span>
+<span>Đã khóa: <span class="text-error">2</span></span>
+</div>
+</div>
+<a class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg flex items-center gap-2 font-semibold shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform" href="12-add-new-staff-member-form.html" style="cursor: pointer;">
+<span class="material-symbols-outlined text-xl">person_add</span>
+                        Thêm Nhân Viên
+                    </a>
+</div>
+<!-- Bento-ish Stats Row (Subtle) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Hiệu Suất Làm Việc</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">94%</span>
+<span class="text-tertiary text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2.4%
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Ca Trực Hiện Tại</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">08</span>
+<span class="text-on-surface-variant text-xs font-medium">Đang chấm công</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Yêu Cầu Chờ Xử Lý</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">03</span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-xs font-bold">KHẨN CẤP</span>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-outline-variant/10">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Nhân Viên</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Liên Hệ</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Vai Trò</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Trạng Thái</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">Thao Tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover grayscale-[20%]" data-alt="Close up portrait of a smiling young Vietnamese man with short black hair in a clean casual polo shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsyFFaSzFCh3kXWUuB1mnufS2I78H_b1YK72xniUGen0EMOlMhn0bMib34F0o7QWSRtSj24K9u7SonPOfV0j7CjuvfetIzwVS1ekX_6XPRduPRYGL445L6rbfeteGDmQz59nYAr9VWU22MQwfPZcOTSqZk_tjNPdJ8TkNGc78wHSYvc-qqYEpUT_LC3aos7Z02yIc_L27wGEy0l9WWY9S3EPdqNzaSeVvV8n2crXclEEbLgBOcUaJZeJKTiadoURJi-oa3TDTr_lnr">
+<div>
+<p class="font-bold text-on-surface">Nguyen Van A</p>
+<p class="text-xs text-on-surface-variant">ID: WNT-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">
+<p class="text-on-surface font-medium">0912-345-678</p>
+<p class="text-xs text-on-surface-variant opacity-70">a@email.com</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700">Thu Ngân</span>
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-green-100 text-green-700">Phục Vụ</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-sm font-medium text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                        Hoạt động
+                                    </div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-3">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold" href="12-add-new-staff-member-form.html" style="display: inline-block; text-align: center; cursor: pointer;">Sửa</a>
+<button class="text-error/70 hover:text-error transition-colors text-sm font-semibold">Khóa</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover grayscale-[20%]" data-alt="Portrait of a professional young woman with tied back hair wearing a modern chef's coat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1yZBfvv2bNWUzkFxSyfxw3rzgALtuqBtroELq9OBE71p7yjKp4q-H2q372LT0oVv0QdBQ7s_zyG4rO-NtTM9zVrgkKaEJzssXjBfjhEjmrY6Au4WZ-oPKKCUzBxR9vtb5vfg85U0dCYL4CVOtbSn2RE762qjNtzFfrvw9wnVQZRcDOJn1-03_yl3Xly-fYV8GZq1lhlT40pPuPdzCg0Vc8t5vGx41pNAXt8lCR6-7dCFeV4IjaNASIoOUj0-1v1k2qnGrVFRcMVnF">
+<div>
+<p class="font-bold text-on-surface">Tran Thi B</p>
+<p class="text-xs text-on-surface-variant">ID: WNT-002</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">
+<p class="text-on-surface font-medium">0923-456-789</p>
+<p class="text-xs text-on-surface-variant opacity-70">b@email.com</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-orange-100 text-orange-700">Bếp</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-sm font-medium text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                        Hoạt động
+                                    </div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-3">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold" href="12-add-new-staff-member-form.html" style="display: inline-block; text-align: center; cursor: pointer;">Sửa</a>
+<button class="text-error/70 hover:text-error transition-colors text-sm font-semibold">Khóa</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover grayscale-[20%]" data-alt="Portrait of a middle aged man with glasses and a friendly expression, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEsDXQuDuhaSEBPKFyGM7Ni1WB22Da_cenFvllevLcQ0nrBSXZojMV6Ed4AoOFd2_2vd4MpTLWlVbZ-WbNUasRUvLvtWfTBFItN87VKfHf911m-VntZ6bFPoyiTi60Z0F9DHraTti6RGdvesNNrzc865zbrPQK4NTwdQ4qirAsmUIG8mJILpU3wg2aytigIJfZ--7QBLCt-Qb6YZ3nip6UMWrMX0wyY28HGR3yPcc-sV5kNMXGShy2uQsG9xIpPbOCVrEB5qGF4Oe4">
+<div>
+<p class="font-bold text-on-surface">Le Van C</p>
+<p class="text-xs text-on-surface-variant">ID: WNT-003</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">
+<p class="text-on-surface font-medium">0934-567-890</p>
+<p class="text-xs text-on-surface-variant opacity-70">c@email.com</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700">Thu Ngân</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-sm font-medium text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                        Hoạt động
+                                    </div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-3">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold" href="12-add-new-staff-member-form.html" style="display: inline-block; text-align: center; cursor: pointer;">Sửa</a>
+<button class="text-error/70 hover:text-error transition-colors text-sm font-semibold">Khóa</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors opacity-75">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="Business profile photo of a woman looking focused, sharp lighting and grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbZL3lhL5AzKrHSHJE_DhfC2-_uAg3UFqt2UqedNMNooKVd4rMFf0XzZYxbf24vufb5xcwx3MZEv5Rd6S0X0g8DKsDfl0og_-RNig_lgLOGuk1zHl7r3hEC6K7cvvVaXl-UL4pLuTpAa-mp7_hEe-CI79tODZaPj96iFOw5jzGxgB53ml0ngUq-3Gfd-YVcrRBejTpOSZPBTe8zJu_d-D-UpoS7QLQMSáng5ZxeldTcCoeFMuIpu7jYtmd4ke0ulxBGp20oBnb2uz6QP">
+<div>
+<p class="font-bold text-on-surface">Pham D</p>
+<p class="text-xs text-on-surface-variant">ID: WNT-004</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">
+<p class="text-on-surface font-medium">0945-678-901</p>
+<p class="text-xs text-on-surface-variant opacity-70">d@email.com</p>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-green-100 text-green-700">Phục Vụ</span>
+<span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-orange-100 text-orange-700">Bếp</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-sm font-medium text-error">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                                        Đã Khóa
+                                    </div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-3">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold" href="12-add-new-staff-member-form.html" style="display: inline-block; text-align: center; cursor: pointer;">Sửa</a>
+<button class="text-tertiary/70 hover:text-tertiary transition-colors text-sm font-semibold">Mở Khóa</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Pagination -->
+<div class="mt-6 flex justify-between items-center text-xs font-medium text-on-surface-variant/60 px-2">
+<p>Đang hiển thị 1-4 trên tổng số 12 Nhân viên</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors">Trang Trước</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors">Trang Sau</button>
+</div>
+</div>
+</div>
+</main>
+
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

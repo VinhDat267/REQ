@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.env
+.env.local
+.env.*.local
+.venv/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Python cache / tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local agent / editor state
+.claude/
+.claude_brd_extract.txt
+.antigravity/
+.cursor/
+task.md
+implementation_plan.md
+walkthrough.md
+
+# Temp
+tmp/
+temp/
+_tmp_template_md/

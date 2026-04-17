@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quản lý Danh Mục & Topping | Wonton POS Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="../shared/admin-tailwind-config.js"></script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e1e3e4; border-radius: 10px; }
+        body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen antialiased overflow-hidden">
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] flex flex-col gap-6">
+
+<div class="mb-2">
+    <h1 class="text-2xl font-bold tracking-tight text-on-surface">Quản lý Danh Mục & Topping</h1>
+    <p class="text-secondary text-sm mt-1">Tuỳ chỉnh danh mục món ăn và các tuỳ chọn gọi thêm</p>
+</div>
+
+<div class="flex gap-6 h-full min-h-[500px]">
+    <!-- COLUMN 1: CATEGORIES -->
+    <section class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col overflow-hidden border border-outline-variant/10">
+        <header class="p-5 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/50">
+            <h2 class="text-lg font-bold text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">category</span>
+                Danh Mục Món Ăn
+            </h2>
+            <button class="bg-surface-container-highest hover:bg-surface-variant text-on-surface px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1 shadow-sm">
+                <span class="material-symbols-outlined text-sm">add</span> Thêm Mới
+            </button>
+        </header>
+
+        <div class="overflow-y-auto custom-scrollbar flex-1 relative">
+            <table class="w-full text-left border-collapse">
+                <thead class="sticky top-0 bg-surface-container-lowest shadow-sm z-10">
+                    <tr class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">
+                        <th class="px-5 py-4 font-bold">Tên Danh Mục</th>
+                        <th class="px-5 py-4 font-bold text-center">Số Món</th>
+                        <th class="px-5 py-4 font-bold text-right">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y border-t border-outline-variant/10 text-sm">
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4 font-bold text-on-surface">MÓN NƯỚC</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-xs font-bold">12</span>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4 font-bold text-on-surface">MÓN KHÔ</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-xs font-bold">4</span>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4 font-bold text-on-surface">ĐỒ UỐNG</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-xs font-bold">6</span>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- COLUMN 2: TOPPINGS -->
+    <section class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col overflow-hidden border border-outline-variant/10">
+        <header class="p-5 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/50">
+            <h2 class="text-lg font-bold text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">add_circle</span>
+                Topping Bán Kèm
+            </h2>
+            <button class="bg-primary hover:bg-primary-container text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1 shadow-sm">
+                <span class="material-symbols-outlined text-sm">add</span> Thêm Mới
+            </button>
+        </header>
+
+        <div class="overflow-y-auto custom-scrollbar flex-1 relative">
+            <table class="w-full text-left border-collapse">
+                <thead class="sticky top-0 bg-surface-container-lowest shadow-sm z-10">
+                    <tr class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">
+                        <th class="px-5 py-4 font-bold">Tên Topping</th>
+                        <th class="px-5 py-4 font-bold">Giá Cấp</th>
+                        <th class="px-5 py-4 font-bold text-right">Cài Đặt</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y border-t border-outline-variant/10 text-sm">
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4">
+                            <div class="font-bold text-on-surface">Thêm Hoành Thánh</div>
+                            <div class="text-[10px] text-secondary">Mặc định: Phục vụ riêng</div>
+                        </td>
+                        <td class="px-5 py-4 text-primary font-bold">VND 15,000</td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm">visibility_off</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4">
+                            <div class="font-bold text-on-surface">Nhiều Rau / Hẹ</div>
+                        </td>
+                        <td class="px-5 py-4 text-primary font-bold">Miễn phí</td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm">visibility_off</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4">
+                            <div class="font-bold text-on-surface">Trân Châu Đen</div>
+                            <div class="text-[10px] text-secondary">Áp dụng: ĐỒ UỐNG</div>
+                        </td>
+                        <td class="px-5 py-4 text-primary font-bold">VND 10,000</td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm">visibility_off</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

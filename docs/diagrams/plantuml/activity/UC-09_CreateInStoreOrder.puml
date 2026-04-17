@@ -1,0 +1,95 @@
+@startuml
+title UC-09: Create In-Store Order
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|FOH Staff|
+start
+:Click "Create New Order";
+
+|System|
+:Display order form;
+
+|FOH Staff|
+:Select service type;
+if (Decision) then ([Takeaway])
+  :Skip table selection;
+else ([Dine-in])
+  while (Loop decision) is ([No valid table selected yet])
+    :Select a table from layout;
+
+    |System|
+    if (Decision) then ([Table already occupied])
+      :Show unavailable-table message;
+
+      |FOH Staff|
+    else ([Table available])
+      break
+    endif
+  endwhile ([Valid table selected])
+endif
+
+|System|
+:Display menu;
+
+while (Loop decision) is ([Not ready to confirm order])
+  |FOH Staff|
+  :Select items, quantity,
+  toppings, and notes;
+
+  |System|
+  if (Decision) then ([Item out of stock])
+    :Show item-unavailable message;
+  else ([Item available])
+    |FOH Staff|
+    :Click "Add Item";
+  endif
+endwhile ([Ready to confirm order])
+
+|FOH Staff|
+:Review order summary;
+:Click "Confirm Order";
+
+|System|
+while (Loop decision) is ([Order does not contain any item])
+  :Show empty-order message;
+
+  |FOH Staff|
+  :Return to order form and add items;
+
+  |System|
+  :Display menu;
+  |FOH Staff|
+  :Select items, quantity,
+  toppings, and notes;
+
+  |System|
+  if (Decision) then ([Item out of stock])
+    :Show item-unavailable message;
+  else ([Item available])
+    |FOH Staff|
+    :Click "Add Item";
+  endif
+endwhile ([Order contains at least one item])
+
+|System|
+if (Decision) then ([Dine-in])
+  :Create order with
+  payment_status = Unpaid;
+  :Link order to selected table,
+  send kitchen ticket,
+  and update table to Occupied;
+  :Show order-created success message;
+  stop
+else ([Takeaway])
+  :Create order with
+  payment_status = Pending Online Payment;
+  :Redirect to payment flow;
+  stop
+endif
+@enduml

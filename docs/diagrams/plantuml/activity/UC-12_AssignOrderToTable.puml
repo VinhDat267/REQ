@@ -1,0 +1,66 @@
+@startuml
+title UC-12: Assign Order to Table
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|FOH Staff|
+start
+:Open "Table Layout";
+
+|System|
+:Display table map with status colors;
+
+|FOH Staff|
+if (Move table?) then (Yes)
+  :Select occupied table;
+  :Click "Move Table";
+  :Select new available table;
+  :Confirm move;
+
+  |System|
+  :Set old table to Available
+  and new table to In Use;
+  detach
+else (No)
+  if (View table order?) then (Yes)
+
+    |FOH Staff|
+    :Click occupied table;
+
+    |System|
+    :Display the order assigned to that table;
+    detach
+  else (No)
+  endif
+endif
+
+|FOH Staff|
+:Select available table;
+
+|System|
+if (Table already occupied?) then (Yes)
+  :Show occupied-table message;
+  detach
+else (No)
+endif
+:Display table details and assignment option;
+
+|FOH Staff|
+:Select order without table;
+
+|System|
+if (Party size exceeds capacity?) then (Yes)
+  :Show capacity-limit message;
+  detach
+else (No)
+endif
+:Link order to table;
+:Set table status to In Use;
+:Show assignment success message;
+stop
+@enduml

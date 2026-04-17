@@ -1,0 +1,50 @@
+@startuml
+title UC-11: Track Order
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Customer|
+start
+:Open "Track Order";
+if (Opened from notification?) then (Yes)
+  :Open the matching order directly;
+else (No)
+endif
+
+|System|
+if (Registered customer?) then (Yes)
+  :Load active orders from account;
+else (No)
+  :Request order code and phone number;
+
+  |Customer|
+  :Enter order code and phone number;
+
+  |System|
+  if (Invalid tracking input?) then (Yes)
+    :Show order-not-found message;
+    detach
+  else (No)
+  endif
+endif
+:Display latest order status;
+if (Connection lost?) then (Yes)
+  :Show realtime-update unavailable message;
+  detach
+else (No)
+endif
+:Refresh status in real time
+when updates occur;
+
+|Customer|
+if (Track multiple orders?) then (Yes)
+  :Select another active order;
+else (No)
+endif
+stop
+@enduml

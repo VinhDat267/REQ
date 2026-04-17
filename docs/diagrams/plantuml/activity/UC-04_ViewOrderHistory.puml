@@ -1,0 +1,45 @@
+@startuml
+title UC-04: View Order History
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Registered Customer|
+start
+:Open "Order History";
+
+|System|
+:Display order list sorted by newest first;
+if (No previous orders?) then (Yes)
+  :Show no-order message
+  and suggest ordering food;
+  detach
+else (No)
+endif
+
+|Registered Customer|
+if (Filter by status?) then (Yes)
+  :Select status filter;
+
+  |System|
+  :Refresh filtered order list;
+else (No)
+endif
+
+|Registered Customer|
+:Select one order;
+
+|System|
+:Display order details:
+items, toppings, quantity,
+price, total, payment,
+service model, and order time;
+
+|Registered Customer|
+:Click "Back";
+stop
+@enduml

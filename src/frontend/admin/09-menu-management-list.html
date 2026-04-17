@@ -1,0 +1,337 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quản lý Thực đơn | Wonton POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="../shared/admin-tailwind-config.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(248, 249, 250, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e1e3e4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen font-body antialiased overflow-hidden">
+<!-- Sidebar Navigation Shell -->
+
+<!-- Main Canvas -->
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col">
+<!-- Header Section -->
+
+<!-- Stats Section (Bento Inspired) -->
+<section class="grid grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-primary shadow-sm">
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1">Tổng Số Món</p>
+<p class="text-3xl font-extrabold text-on-surface">24</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-tertiary shadow-sm">
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1">Đang Bán</p>
+<p class="text-3xl font-extrabold text-tertiary">20</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-secondary shadow-sm">
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1">Hết Hàng</p>
+<p class="text-3xl font-extrabold text-secondary">2</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-surface-container-highest shadow-sm">
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1">Đã Ẩn</p>
+<p class="text-3xl font-extrabold text-on-surface-variant">2</p>
+</div>
+</section>
+<!-- Toolbar Section -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="flex-1 min-w-[320px] max-w-md relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg pl-10 py-3 text-sm transition-all" placeholder="Tìm kiếm món ăn..." type="text">
+</div>
+<div class="flex gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg pl-4 pr-10 py-3 text-sm font-medium cursor-pointer">
+<option>Tất Cả Danh Mục</option>
+<option>Món Nước</option>
+<option>Món Khô</option>
+<option>Thức Uống</option>
+<option>Món Ăn Kèm</option>
+<option>Tráng Miệng</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">filter_list</span>
+</div>
+<button class="bg-surface-container-high text-on-surface px-5 py-3 rounded-md text-sm font-semibold hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">cloud_download</span>
+                    Xuất File CSV
+                </button>
+</div>
+</div>
+<!-- Data Table (The Precision Atelier approach: No dividers, color shifts) -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant text-xs font-bold uppercase tracking-[0.15em]">
+<th class="px-6 py-5 w-16">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</th>
+<th class="px-6 py-5">Chi Tiết Món</th>
+<th class="px-6 py-5">Danh Mục</th>
+<th class="px-6 py-5">Giá Bán</th>
+<th class="px-6 py-5">Trạng Thái</th>
+<th class="px-6 py-5 text-right">Thao Tác</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="close-up of classic wonton noodle soup in a ceramic bowl with steam rising and fresh scallions" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGrEJArewRuGh1_koH5PmOD4f9OQG5Sbce0UA2HGW6bPxvpkPw451DO5KK5qSD8BUQllLcjjc2hFgo_-hqJ-E-ux24Zy2hQxht5HzbcrvPvZrGexpBx9wEfILxux7LGE1emczVtbvOECZFP5GsvFjqH4f7qq1_BdiGtfAuEH22V_kq392Ypk2vjKdUfaujq09ZldYrzfX3EEtSpbNQGFWFIk62GiFurEjICRy8TDm-AsrHfnXgMfUEP-Di-E2phWxEug0xTha9YVLc">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Mì Vằn Thắn Nước Truyền Thống</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: WON-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">MÓN NƯỚC</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 209,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-tertiary font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Đang Bán
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+<button class="p-2 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility_off</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="spicy szechuan wontons drizzled in red chili oil with garlic and crushed peanuts on top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEaQOVZwKkn3nOmIR_zSfOkoKhhSJ4DmJUGZxiLaTuhAkkLefGV2OSOQrFBebaFAWXvFbeS2WEgHbBLfUiXdDCGgmXcV9kxBtbK88xtHfxcQdhVXuazdzx3sQJH9CxkielE_pnFVoz_p7eCpnB6i0SQAHgF8F6aV6CPUeFIPjeuohwN245YpIgGPGTPgJdr74riljMD1GTRzc0OhqgnchEfDLx2y1o-5s64re6iHskC4nNmVvhToAJXE9Rm-0p_tC26UJHzhD3KAKf">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Sủi Cảo Tứ Xuyên Cay Tê</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: WON-002</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">MÓN NƯỚC</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 175,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-tertiary font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Đang Bán
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+<button class="p-2 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility_off</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Sold Out State) -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors bg-secondary/5">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="dry wonton noodles with honey glazed char siu pork slices and bok choy on a dark plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfGXNnFsr6bM9NlL86SHctWI4_xRQ-OdX5VSaGN7nEVnsUYN8gWTFKvYQMqVOjc53TsLewLkyaz-p_GY2zXamvfyNB-7K8vti0DDzTPuSQ4fILbv5kEWqBr-KKsaV_WE4lBxkHQFfsv_rFIQqWWYwKNiVVsqiHjZvt1I2ssqrAFGHOXAYnCRWDudQOtAfHcR2ctyT64poI4JB-0YAqthlrP9ZLdV5DKjqVclj5nZ0BpFYf2pDRINu9LnJRJNS_DX_XsJqVQl2noQEj">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Mì Vằn Thắn Khô Xá Xíu</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: WON-003</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">MÓN KHÔ</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 225,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-secondary font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                    Hết Hàng
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="bg-secondary/10 text-secondary px-3 py-1.5 rounded text-xs font-extrabold uppercase tracking-widest hover:bg-secondary hover:text-white transition-all">Nhập Lại</button>
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="vibrant orange thai iced tea with a creamy milk layer on top in a tall glass with condensation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFGsMJzAgHve3yKAaWquedlQd7p5TuhSvGCupYSyBFizXc3JsRXVRR_IhYlW10LJHwu_bW8SsCKJfrIph1eIcN_8NuiaBQ59-3RR6Hp7QbXLgPGG0cQLYCq6V1z4KqyU2T1PF1Ux6gzeaVE8vRBjzbn5ts-mSW6yhW3f59JjN1wWg0T3kmTsMrrGSbX2-P2UBVAERvDfRcn1DNVJuXJv1nolFnXU4QyHH9xX8nhdkr93LV6-lWTzCI0YDbMvOB4Oi68M_zKMigjdG9">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Trà Sữa Thái</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: BEV-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">ĐỒ UỐNG</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 65,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-tertiary font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Đang Bán
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+<button class="p-2 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility_off</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="crispy golden fried wontons served with sweet and sour dipping sauce on a minimalist ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaNTU-DkZxlXpVBxuEAnZKxBqvgfgpo0-1I1OqLtktft78Ig7A97mtnY7LLd12s-J0pp9ZVkTYJNSuaa2gkZ2PeBcOee5V0PxhFRumUEfv7X7JRCJMTXf7ChiềuAtc77bSEj0aFQQqYTsXSxpQsB_K01jklGIHUT2KOyOhuOnaTHKqbD5eIrxnFLjBi22LjMR90t4SKgvK8u1F9-xC1u71EsG2K6xE08PyjaTvfenEU6SVLXyZWQnMrkrSl0xfcn_QppZH2Bb-tK46Cgd">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Mì Vằn Thắn Chiên</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: SID-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">MÓN KÈM</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 199,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-tertiary font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Đang Bán
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+<button class="p-2 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility_off</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 6 (Hidden State) -->
+<tr class="group hover:bg-surface-container-low/30 transition-colors opacity-60">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high flex-shrink-0 grayscale brightness-75">
+<img class="w-full h-full object-cover" data-alt="white coconut jelly cubes in a glass bowl with shredded fresh coconut meat on top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR0xbnuPU0FaTYNFKcQnntyKpthR4ZnkZucXO3hIsekYPGSpRvlBGXwW42BfsbCeq81qfHBIcRi8BlxfkynYCTg6jm6H0fnDTHeUXJ-S_nBW1yP-YwfiPB5rVVqZCN2WSdh4skFV4VELdMCQfXBmzCxwNdsKbS9z3ipvGRqdm0MTVk_AGOpJnpzOa34_8KrbPxBDNNoFLNriKnR0QCdgnPXCym97OIVv9pxW-63B8rLTdjsnMky1gbZ3RWIYQJnQZvBLTR1w9U4ZXx">
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm italic">Thạch Dừa</p>
+<p class="text-xs text-on-surface-variant font-medium">SKU: DES-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high text-on-surface text-xs px-2 py-1 rounded font-bold">TRÁNG MIỆNG</span>
+</td>
+<td class="px-6 py-4">
+<p class="font-bold text-sm">VND 20,000</p>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-on-surface-variant font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                                    Đã Ẩn
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="bg-primary/5 text-primary px-3 py-1.5 rounded text-xs font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Hiển Thị</button>
+<a class="p-2 hover:text-primary transition-colors" href="10-add-new-menu-item-form.html" style="display: inline-block; text-align: center; cursor: pointer;"><span class="material-symbols-outlined text-lg">edit</span></a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Bulk Thao Tác & Pagination -->
+<div class="mt-auto px-6 py-5 bg-surface-container-low flex items-center justify-between border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Thao Tác Hàng Loạt:</span>
+<button class="bg-white px-4 py-2 rounded border border-outline-variant/30 text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-colors active:scale-95">Báo Hết Hàng</button>
+<button class="bg-white px-4 py-2 rounded border border-outline-variant/30 text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-colors active:scale-95">Bật/Tắt Hiển Thị</button>
+<button class="text-secondary px-4 py-2 text-xs font-bold uppercase tracking-wider hover:bg-secondary/10 rounded transition-colors active:scale-95">Xóa Món Đã Chọn</button>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs text-on-surface-variant">Đang xem 1-6 trên tổng số 24 món</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-surface-container-high text-on-surface-variant cursor-not-allowed"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-primary text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-white text-on-surface text-xs font-medium hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-white text-on-surface text-xs font-medium hover:bg-surface-container-high transition-colors">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md bg-white text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Quick Add Button (Small) -->
+<a class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-40" href="10-add-new-menu-item-form.html" style="cursor: pointer;">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</a>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

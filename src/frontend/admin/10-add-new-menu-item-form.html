@@ -1,0 +1,209 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Wonton POS - Thêm Món Mới</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="../shared/admin-tailwind-config.js"></script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none !important;
+            border-bottom: 2px solid #b7131a !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen">
+<!-- SideNavBar Shell -->
+
+<!-- TopNavBar Shell -->
+
+<!-- Main Content Canvas -->
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex">
+<div class="w-full max-w-[960px] mx-auto">
+<!-- Breadcrumb & Header -->
+<div class="mb-10">
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-4 uppercase tracking-widest font-medium">
+<span style="cursor:pointer; position: relative; cursor: pointer;">Quản lý Thực đơn<a href="09-menu-management-list.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Thêm Món Mới</span>
+</nav>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Thêm Món Mới</h2>
+</div>
+<!-- Form Body -->
+<form class="space-y-12">
+<!-- Section: Thông Tin Cơ Bản -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="h-6 w-[3px] bg-primary"></div>
+<h3 class="text-lg font-bold tracking-tight">Thông Tin Cơ Bản</h3>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 bg-surface-container-lowest p-8 rounded-xl">
+<div class="col-span-2 md:col-span-1 space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Tên Món</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant py-3 text-lg font-medium placeholder:opacity-30" type="text" value="Mì Vằn Thắn Truyền Thống">
+</div>
+<div class="col-span-2 md:col-span-1 space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Danh Mục</label>
+<select class="w-full bg-transparent border-0 border-b-2 border-outline-variant py-3 text-lg font-medium appearance-none">
+<option>Món Nước</option>
+<option>Món Khô</option>
+<option>Món Kèm</option>
+<option>Thức Uống</option>
+<option>Tráng Miệng</option>
+</select>
+</div>
+<div class="col-span-2 md:col-span-1 space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Giá Bán (VND)</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant py-3 text-lg font-bold text-primary" placeholder="0" type="number">
+</div>
+<div class="col-span-2 space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Mô Tả</label>
+<textarea class="w-full bg-transparent border-0 border-b-2 border-outline-variant py-3 text-base resize-none" rows="3">Mì vằn thắn nhân tôm thịt làm thủ công, ăn kèm với nước dùng hầm xương ngọt thanh.</textarea>
+</div>
+</div>
+</section>
+<!-- Section: Images -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="h-6 w-[3px] bg-primary"></div>
+<h3 class="text-lg font-bold tracking-tight">Hình Ảnh</h3>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl">
+<div class="w-full h-48 border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-primary mb-2 transition-colors">cloud_upload</span>
+<p class="text-sm font-medium text-on-surface-variant">Kéo thả hình ảnh hoặc <span class="text-primary font-bold">Tải lên</span></p>
+<p class="text-xs opacity-40 mt-1 uppercase tracking-widest">Hỗ trợ định dạng JPG, PNG, WEBP (Tối đa 5MB)</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+<div class="relative group aspect-square rounded-lg overflow-hidden border border-outline-variant/15">
+<img class="w-full h-full object-cover" data-alt="steaming bowl of wonton soup with fresh green bok choy and delicate dumplings in a clear broth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb_hN9NK6gDGQTg9WB1qjTNT_nb8IYgRvrRRnx_MglmNDyAY1v3qZBz2Tw7Q6S9MNQmp2v3mab2KzonHtGa9oudmBok3BN0uf3N-V29VANu-fy6GL7-EER9PNvC9tJTWTZ84nKR7glvYrXWO-n0idvahUTvGV8UiIfNS4XCSZ7r85q3Zwe9RnBNkDFZJzXf6E1UXE4ZBsSQsBcEwS-dxfiRNErR9MGNsmGn26WN-DL6WIkhJFcvc7LcYYN6WGSPuXLfcl_0_hAo6ze">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white cursor-pointer">delete</span>
+</div>
+</div>
+<div class="relative group aspect-square rounded-lg overflow-hidden border border-outline-variant/15">
+<img class="w-full h-full object-cover" data-alt="close-up of golden brown fried wontons served with a bright red dipping sauce on a white ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQccOFGDizRFGtB4YAuSnV7k4Mlr-8P1z78aVDaFkLDpoKu4BhCNlTqiRq-mjJqLmYGaOVC5rxib9Us56BUOMmNyxN78w2H0e4lQcHU8cOYatN_2qhFlkiyaA-QxK7Y4zfbUa1V3ByOmWOC1ebGLrc59bumGHeiBEulQUdcrURs07JSLBt4tZt9hMmE2J9guAEoUpJ5NlKbsWMEtccCp9Ev2Sq3OP8l4pO2I5zHGPPk5srGXTSmBHed6i4Ef02mLgrQXQnfbXjblHV">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white cursor-pointer">delete</span>
+</div>
+</div>
+<div class="relative group aspect-square rounded-lg overflow-hidden border border-outline-variant/15">
+<img class="w-full h-full object-cover" data-alt="chén sủi cảo cay với sa tế và hành lá xắt nhỏ dọn trên bàn tối" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0yJgEVy1jM3gNOENxka132V6E92xQ06P8Lo7LG3q_YBXTWkDneHVgYj8IkAy6iVO8wBmCBW5Rg8VBNh5Sk1HeZpOlYpca_1p_BLL8nKaoRH_5awu75hH7ixN3xjfzMyuz9Chiềur_IopchWb3X51HdsP4sWwgJq8BpTgFRyd7FgnL6ioFK8DQB0k5raIaFjDR11dm3fR9h9Lv-xB67PJDeEHkKEWJqhfBfvpYkexM-8UO2mv-0ill__h__RkujmeuuV2E5XKkdmLII7y">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white cursor-pointer">delete</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Customization -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="h-6 w-[3px] bg-primary"></div>
+<h3 class="text-lg font-bold tracking-tight">Tuỳ Chọn Thêm</h3>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl space-y-10">
+<div class="space-y-4">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Topping Bán Kèm</label>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors" type="button">
+<span>Thêm Hoành Thánh</span>
+<span class="text-xs opacity-60 font-bold">+VND 15,000</span>
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors" type="button">
+<span>Há Cảo Hải Sản</span>
+<span class="text-xs opacity-60 font-bold">+VND 25,000</span>
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors" type="button">
+<span>Trứng</span>
+<span class="text-xs opacity-60 font-bold">+VND 8,000</span>
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors" type="button">
+<span>Xá Xíu</span>
+<span class="text-xs opacity-60 font-bold">+VND 20,000</span>
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-outline-variant rounded-full text-sm font-bold text-outline hover:border-primary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Thêm Tuỳ Chọn</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest">Mức Độ Cay</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-md checked:bg-primary checked:border-primary transition-all" type="checkbox">
+<span class="material-symbols-outlined text-white text-sm scale-0 peer-checked:scale-100 absolute transition-transform">check</span>
+</div>
+<span class="text-sm font-medium group-hover:text-primary">Không cay</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<input checked="" class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-md checked:bg-primary checked:border-primary transition-all" type="checkbox">
+<span class="material-symbols-outlined text-white text-sm scale-0 peer-checked:scale-100 absolute transition-transform">check</span>
+</div>
+<span class="text-sm font-medium group-hover:text-primary">Cay Vừa</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<input checked="" class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-md checked:bg-primary checked:border-primary transition-all" type="checkbox">
+<span class="material-symbols-outlined text-white text-sm scale-0 peer-checked:scale-100 absolute transition-transform">check</span>
+</div>
+<span class="text-sm font-medium group-hover:text-primary">Cay Nồng</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-md checked:bg-primary checked:border-primary transition-all" type="checkbox">
+<span class="material-symbols-outlined text-white text-sm scale-0 peer-checked:scale-100 absolute transition-transform">check</span>
+</div>
+<span class="text-sm font-medium group-hover:text-primary">Siêu Cay</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Availability -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="h-6 w-[3px] bg-primary"></div>
+<h3 class="text-lg font-bold tracking-tight">Trạng Thái Bán</h3>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-base font-bold">Đang Bán / Ẩn</p>
+<p class="text-xs text-on-surface-variant mt-1">Chuyển sang 'Ẩn' để ngừng bán món này trên thực đơn khách hàng.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</section>
+<!-- Action Area -->
+<div class="pt-8 flex items-center justify-end gap-4">
+<a class="px-8 py-3 rounded-md text-sm font-bold text-on-surface hover:bg-surface-container-high transition-colors" href="09-menu-management-list.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Huỷ
+                    </a>
+<a class="px-10 py-3 rounded-md text-sm font-bold text-white bg-[#E53935] bg-gradient-to-br from-[#b7131a] to-[#db322f] shadow-lg hover:opacity-90 transition-opacity" href="09-menu-management-list.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Lưu Món Mới
+                    </a>
+</div>
+</form>
+</div>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

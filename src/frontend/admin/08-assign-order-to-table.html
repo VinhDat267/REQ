@@ -1,0 +1,199 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<script src="../shared/admin-tailwind-config.js"></script>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 overflow-hidden">
+<div class="flex h-[calc(100vh-4rem)] gap-6">
+<section class="w-[42%] max-w-[34rem] min-w-0 p-6 overflow-y-auto border-r border-outline-variant/10">
+<div class="mb-8">
+<h1 class="text-2xl font-bold tracking-tight text-on-surface font-headline">Xếp Bàn Cho Đơn</h1>
+<p class="text-slate-500 text-sm mt-1">Các đơn dùng tại quán chưa được xếp bàn</p>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl border-2 border-primary shadow-sm relative overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="text-xs font-bold uppercase tracking-widest text-primary mb-1 block">Đơn Hàng Được Chọn</span>
+<h3 class="text-lg font-bold text-on-surface">#WNT-033</h3>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-surface-container-low px-2 py-1 rounded">5 phút trước</span>
+</div>
+<div class="flex items-center gap-6 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="groups">groups</span>
+<span class="text-sm font-semibold">3 khách</span>
+</div>
+<div class="text-primary font-bold text-lg">VND 135,000</div>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">2x Mì Vằn Thắn Truyền Thống</span>
+<span class="text-slate-500 dark:text-slate-400">VND 110,000</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">1x Trà Thái</span>
+<span class="text-slate-500 dark:text-slate-400">VND 25,000</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary-container transition-colors">
+                            Đổi Đơn Khác
+                        </button>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-transparent hover:border-outline-variant/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-on-surface">#WNT-035</h3>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-surface-container-low px-2 py-1 rounded">2 phút trước</span>
+</div>
+<div class="flex items-center gap-6 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="groups">groups</span>
+<span class="text-sm font-semibold">2 khách</span>
+</div>
+<div class="text-on-surface font-bold text-lg">VND 130,000</div>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">2x Sủi Cảo Tứ Xuyên</span>
+<span class="text-slate-500 dark:text-slate-400">VND 130,000</span>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-container-high text-on-surface rounded-lg font-bold text-sm hover:bg-surface-container-highest transition-colors">
+                            Chọn Đơn Này
+                        </button>
+</div>
+</div>
+</section>
+<section class="min-w-0 flex-1 p-6 bg-surface-container-low rounded-2xl">
+<div class="mb-8 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold text-on-surface font-headline">Sơ Đồ Bàn</h2>
+<p class="text-slate-500 text-sm">Chọn một bàn trống cho đơn hàng</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="text-xs font-medium text-slate-600">Bàn Trống</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-slate-300"></span>
+<span class="text-xs font-medium text-slate-600">Đang Phục Vụ</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 2xl:grid-cols-3 gap-5">
+<div class="group relative aspect-square bg-slate-200/50 rounded-2xl flex flex-col items-center justify-center cursor-not-allowed opacity-50 grayscale">
+<span class="text-lg font-bold text-slate-500">T-02</span>
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400">SỨC CHỨA: 2</span>
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-slate-300 rounded-2xl transition-all"></div>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-pointer border-2 border-transparent hover:border-tertiary/30 transition-all">
+<span class="text-lg font-bold text-on-surface">T-03</span>
+<div class="flex items-center gap-1 text-xs font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>4</span>
+</div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-pointer border-2 border-transparent hover:border-tertiary/30 transition-all">
+<span class="text-lg font-bold text-on-surface">T-04</span>
+<div class="flex items-center gap-1 text-xs font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>2</span>
+</div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-not-allowed border-2 border-error/20 bg-error/5">
+<span class="text-lg font-bold text-error">T-01</span>
+<div class="flex items-center gap-1 text-xs font-bold text-error">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>2</span>
+</div>
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-error text-white text-xs px-3 py-1.5 rounded-md font-bold whitespace-nowrap shadow-lg">
+                            Cần bàn 3 chỗ
+                            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-error rotate-45"></div>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-pointer border-2 border-primary shadow-[0_8px_20px_rgba(183,19,26,0.15)] ring-4 ring-primary/5">
+<span class="text-lg font-bold text-primary">T-07</span>
+<div class="flex items-center gap-1 text-xs font-bold text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>4</span>
+</div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-pointer border-2 border-transparent hover:border-tertiary/30 transition-all">
+<span class="text-lg font-bold text-on-surface">T-08</span>
+<div class="flex items-center gap-1 text-xs font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>6</span>
+</div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+<div class="group relative aspect-square bg-slate-200/50 rounded-2xl flex flex-col items-center justify-center cursor-not-allowed opacity-50 grayscale">
+<span class="text-lg font-bold text-slate-500">T-05</span>
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400">SỨC CHỨA: 4</span>
+</div>
+<div class="group relative aspect-square bg-slate-200/50 rounded-2xl flex flex-col items-center justify-center cursor-not-allowed opacity-50 grayscale">
+<span class="text-lg font-bold text-slate-500">T-06</span>
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400">SỨC CHỨA: 2</span>
+</div>
+<div class="group relative aspect-square bg-surface-container-lowest rounded-2xl flex flex-col items-center justify-center cursor-pointer border-2 border-transparent hover:border-tertiary/30 transition-all">
+<span class="text-lg font-bold text-on-surface">T-09</span>
+<div class="flex items-center gap-1 text-xs font-bold text-tertiary">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+<span>2</span>
+</div>
+<div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+</div>
+<div class="mt-12 p-6 bg-surface-container-highest rounded-xl border border-outline-variant/10">
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400" data-icon="info">info</span>
+<p class="text-sm text-slate-600 leading-relaxed italic">Các bàn được đánh dấu màu sắc theo trạng thái hiện tại. Bàn chuẩn bị xếp sẽ sáng viền đỏ. Tính năng vuốt chuyển bàn đang vô hiệu hoá trên thiết bị di động.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-on-background/40 backdrop-blur-sm">
+<div class="w-full max-w-md bg-surface rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden">
+<div class="p-8">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mb-6 mx-auto">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="table_restaurant">table_restaurant</span>
+</div>
+<h3 class="text-xl font-bold text-center text-on-surface font-headline mb-2">Xác Nhận Xếp Bàn</h3>
+<p class="text-slate-500 text-center text-sm leading-relaxed mb-8">
+                    Xếp Đơn Hàng <span class="font-bold text-on-surface">#WNT-033</span> (3 khách) vào <span class="font-bold text-on-surface">Bàn T-07</span> (sức chứa: 4)?
+                </p>
+<div class="space-y-3">
+<a class="w-full py-3.5 bg-primary text-white rounded-lg font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.01] transition-all" href="07-table-management---floor-plan-view.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Xác Nhận Xếp Bàn
+                    </a>
+<a class="w-full py-3.5 text-slate-500 rounded-lg font-bold text-sm hover:bg-slate-100 transition-all" href="07-table-management---floor-plan-view.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Huỷ
+                    </a>
+</div>
+</div>
+<div class="bg-surface-container-low px-8 py-4 flex justify-center">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold">Mã Giao Dịch: TR-9921-ASGN</p>
+</div>
+</div>
+</div>
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

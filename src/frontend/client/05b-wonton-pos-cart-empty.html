@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Giỏ Hàng Rỗng | Wonton POS</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+
+    .tonal-transition {
+      transition: background-color 0.3s ease;
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#e2e2e2",
+            "tertiary": "#006578",
+            "on-secondary-fixed": "#1b1c1c",
+            "inverse-primary": "#ffb4ac",
+            "tertiary-container": "#008097",
+            "tertiary-fixed": "#afecff",
+            "surface": "#f9f9f9",
+            "primary-fixed": "#ffdad6",
+            "primary-fixed-dim": "#ffb4ac",
+            "on-surface": "#1a1c1c",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#72d4ef",
+            "surface-container": "#eeeeee",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#474746",
+            "on-tertiary-container": "#f9fdff",
+            "on-secondary-container": "#636262",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "error": "#ba1a1a",
+            "secondary-fixed": "#e5e2e1",
+            "outline-variant": "#e4beb9",
+            "surface-dim": "#dadada",
+            "on-tertiary-fixed-variant": "#004e5d",
+            "primary": "#b7131a",
+            "on-background": "#1a1c1c",
+            "inverse-surface": "#2f3131",
+            "surface-container-highest": "#e2e2e2",
+            "on-primary-fixed-variant": "#93000d",
+            "on-tertiary-fixed": "#001f27",
+            "background": "#f9f9f9",
+            "secondary": "#5f5e5e",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#5b403d",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-primary-fixed": "#410002",
+            "on-primary-container": "#fffbff",
+            "outline": "#906f6c",
+            "surface-tint": "#bb171c",
+            "primary-container": "#db322f",
+            "surface-bright": "#f9f9f9",
+            "surface-container-high": "#e8e8e8",
+            "surface-container-low": "#f3f3f3",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#f1f1f1",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#e2dfde"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          }
+        },
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+  <!-- Top Navigation Bar -->
+  <!-- Client Nav Injected via nav-components.js -->
+  <!-- Main Content Canvas -->
+  <main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Giỏ Hàng -->
+      <section class="lg:col-span-8">
+        <header class="mb-10 flex justify-between items-end">
+          <div>
+              <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">Giỏ hàng của bạn</h1>
+              <p class="text-secondary font-medium uppercase tracking-widest text-xs">0 MÓN ĐÃ CHỌN</p>
+          </div>
+        </header>
+
+        <!-- EMPTY STATE -->
+        <div class="flex flex-col items-center justify-center py-20 text-center animate-fade-in border-2 border-dashed border-stone-200/50 rounded-3xl bg-stone-50/50">
+            <div class="w-48 h-48 mb-8 relative flex items-center justify-center">
+                <div class="absolute inset-0 bg-primary/5 rounded-full blur-2xl"></div>
+                <!-- Using a material icon as fallback if image isn't perfect for empty state -->
+                <span class="material-symbols-outlined text-[120px] text-stone-300 relative z-10" data-icon="ramen_dining">ramen_dining</span>
+            </div>
+            <h2 class="text-3xl font-extrabold tracking-tighter text-on-surface mb-4">Tô mì của bạn đang trống</h2>
+            <p class="text-secondary max-w-md mx-auto mb-10 leading-relaxed font-medium">Có vẻ như bạn chưa chọn món nào. Hãy khám phá thực đơn thủ công của chúng tôi và chọn cho mình một bữa ăn hoàn hảo.</p>
+            <a href="03-wonton-pos-menu-browse.html" class="bg-gradient-to-r from-primary to-primary-container text-white px-8 py-5 rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform flex items-center gap-3">
+                Khám phá Thực đơn
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </div>
+      </section>
+
+      <!-- Right Column: Tóm tắt Đơn hàng -->
+      <aside class="lg:col-span-4 lg:sticky lg:top-24 opacity-50 pointer-events-none">
+        <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/15">
+          <h2 class="text-2xl font-bold tracking-tight text-on-surface mb-8">Tóm tắt Đơn hàng</h2>
+          <div class="space-y-4 mb-8">
+            <div class="flex justify-between text-on-surface-variant font-medium">
+              <span>Tạm tính</span>
+              <span>₫0</span>
+            </div>
+            <div class="flex justify-between text-on-surface-variant font-medium">
+              <span>Thuế (0%)</span>
+              <span>₫0</span>
+            </div>
+          </div>
+          <!-- Loại Hình Dịch Vụ Selection -->
+          <div class="mb-8">
+            <label class="block text-xs uppercase tracking-widest font-bold text-secondary mb-4">Loại Hình Dịch Vụ</label>
+            <div class="grid grid-cols-3 gap-2 bg-surface-container p-1 rounded-xl">
+              <button
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all bg-white text-on-surface shadow-sm">Ăn tại quán</button>
+              <button
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary">Mang đi</button>
+              <button
+                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary">Đến lấy</button>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-outline-variant/20">
+            <div class="flex justify-between items-end mb-8">
+              <span class="text-secondary uppercase tracking-widest text-xs font-bold">Tổng cộng</span>
+              <span class="text-3xl font-extrabold text-on-surface">₫0</span>
+            </div>
+            <button type="button" class="w-full py-5 rounded-xl text-lg font-extrabold shadow-sm flex items-center justify-center gap-3 bg-surface-container-high text-secondary cursor-not-allowed">
+              Tiến hành Thanh toán
+            </button>
+          </div>
+        </div>
+        <div class="mt-6 flex items-center justify-center gap-4 text-secondary/40">
+          <span class="material-symbols-outlined">security</span>
+          <span class="text-[10px] uppercase tracking-widest font-bold">Thanh Toán Bảo Mật SSL</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

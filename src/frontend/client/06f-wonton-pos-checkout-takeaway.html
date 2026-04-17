@@ -1,0 +1,318 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Thanh Toán | Mua Mang Về | Wonton POS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#474746",
+                        "secondary": "#5f5e5e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "background": "#f9f9f9",
+                        "outline-variant": "#e4beb9",
+                        "on-background": "#1a1c1c",
+                        "surface-dim": "#dadada",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "surface-tint": "#bb171c",
+                        "primary-container": "#db322f",
+                        "on-tertiary-container": "#f9fdff",
+                        "outline": "#906f6c",
+                        "tertiary-container": "#008097",
+                        "surface": "#f9f9f9",
+                        "primary-fixed": "#ffdad6",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#5b403d",
+                        "primary": "#b7131a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "tertiary-fixed-dim": "#72d4ef",
+                        "tertiary-fixed": "#afecff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "tertiary": "#006578",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface": "#1a1c1c",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#93000d",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#636262",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-primary": "#ffb4ac",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed": "#410002",
+                        "secondary-container": "#e2dfde",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-tertiary-fixed": "#001f27"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+        }
+
+        .lacquered-btn {
+            background: linear-gradient(135deg, #b7131a 0%, #db322f 100%);
+        }
+
+        input:focus {
+            outline: none !important;
+            border-bottom: 2px solid #b7131a !important;
+            background-color: #ffffff !important;
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body antialiased">
+    <!-- TopNavBar Shell Visibility Suppression: Navigation is suppressed to prioritize focus on Thanh toán -->
+    <header class="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-8 py-5">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-bold text-primary tracking-tight">Wonton POS</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 text-secondary">
+                <span class="material-symbols-outlined text-xl" data-icon="lock">lock</span>
+                <span class="text-sm font-medium">Thanh Toán Bảo Mật</span>
+            </div>
+            <span class="material-symbols-outlined text-secondary hover:bg-stone-100 p-2 rounded-full cursor-pointer transition-colors" data-icon="help">help</span>
+        </div>
+    </header>
+    <main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 max-w-[1440px] flex flex-col lg:flex-row gap-12">
+        <!-- Left Column: Primary Actions -->
+        <div class="w-full lg:w-[60%] flex flex-col gap-16">
+            <!-- Section 1: Thông tin Liên lạc -->
+            <section class="animate-fade-in">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold tracking-tight text-on-surface mb-2">Thông tin Liên lạc</h2>
+                    <p class="text-secondary text-sm">Không cần tài khoản — thông tin này chỉ dùng để theo dõi đơn hàng.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Họ và Tên</label>
+                        <input class="bg-surface-container-low border-none p-4 rounded-lg transition-all border-b-2 border-transparent" placeholder="Nguyễn Văn A" type="text">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Số Điện Thoại</label>
+                        <input class="bg-surface-container-low border-none p-4 rounded-lg transition-all border-b-2 border-transparent" placeholder="+84 912 345 678" type="tel">
+                    </div>
+                </div>
+            </section>
+            <!-- Section 2: Loại Hình Dịch Vụ & Table -->
+            <section class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden flex flex-col gap-8">
+                <div class="flex justify-between items-center pb-8 border-b border-outline-variant/20">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-primary/10 p-3 rounded-full">
+                            <span class="material-symbols-outlined text-primary" data-icon="restaurant">restaurant</span>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Loại Hình Dịch Vụ</h3>
+                            <div class="flex items-center gap-3">
+                                <p class="text-lg font-semibold text-on-surface">Mua mang về (Takeaway)</p>
+                                <span class="bg-surface-container-high px-2 py-0.5 rounded text-xs font-bold text-on-surface-variant">Đang chọn</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="text-primary font-bold text-sm hover:underline" href="05-wonton-pos-cart-review.html" style="display: inline-block; text-align: center; cursor: pointer;">Thay đổi</a>
+                </div>
+                <!-- State Views for Different Service Models (Conceptual structure for frontend framework conditional rendering) -->
+                
+                <!-- Dine-in Specific: Số bàn -->
+                <div id="state-dine-in" class="animate-fade-in relative z-10 hidden">
+                    <div class="mb-6">
+                        <h2 class="text-lg font-bold tracking-tight text-on-surface mb-1">Thông tin Tại bàn</h2>
+                        <p class="text-secondary text-sm">Vui lòng nhập số bàn của bạn hoặc quét mã QR tự động để chọn chỗ ngồi.</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-full md:w-1/2 flex flex-col gap-2 relative group">
+                            <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Số bàn</label>
+                            <input class="bg-surface-container-lowest border-2 border-primary/20 p-4 rounded-lg transition-all focus:border-primary text-xl font-bold text-on-surface" placeholder="vd: 12" type="number" value="08">
+                            <span class="material-symbols-outlined absolute right-4 top-[38px] text-primary" data-icon="check_circle">check_circle</span>
+                        </div>
+                        <div class="hidden md:flex flex-col items-center justify-center gap-1 px-2">
+                            <span class="text-[10px] font-bold text-secondary-fixed-dim uppercase tracking-widest">HOẶC</span>
+                        </div>
+                        <a class="w-full md:w-[40%] bg-surface-container-highest hover:bg-surface-variant mt-6 p-4 rounded-lg flex items-center justify-center gap-2 border border-outline-variant/30 text-on-surface font-semibold transition-all shadow-sm" href="06-wonton-pos-checkout.html" style="cursor: pointer;">
+                            <span class="material-symbols-outlined text-primary" data-icon="qr_code_scanner">qr_code_scanner</span>
+                            Quét QR Bàn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pickup Specific: Giờ đến lấy (Hidden by default) -->
+                <div id="state-pickup" class="animate-fade-in relative z-10 hidden">
+                    <div class="mb-6">
+                        <h2 class="text-lg font-bold tracking-tight text-on-surface mb-1">Giờ Đến Nhận Món</h2>
+                        <p class="text-secondary text-sm">Vui lòng chọn khung giờ bạn sẽ đến nhận món. Để hoàn tất đặt chỗ giao nhận này, vui lòng tiến hành thanh toán trước 100%.</p>
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col gap-2 relative group">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Khung giờ hẹn</label>
+                        <input class="bg-surface-container-lowest border-2 border-primary/20 p-4 rounded-lg transition-all focus:border-primary text-xl font-bold text-on-surface cursor-pointer" type="time" value="12:30">
+                        <span class="material-symbols-outlined absolute right-4 top-[38px] text-primary" data-icon="schedule">schedule</span>
+                    </div>
+                </div>
+
+                <!-- Takeaway Specific (Hidden by default) -->
+                <div id="state-takeaway" class="animate-fade-in relative z-10 block">
+                    <div class="bg-secondary/10 border-l-4 border-secondary p-4 rounded">
+                        <h2 class="text-sm font-bold tracking-tight text-on-surface mb-2">Xác nhận Mua mang về</h2>
+                        <p class="text-secondary text-xs">Bếp sẽ chuẩn bị ngay sau khi bạn hoàn tất thanh toán. Vui lòng lấy món tại quầy khu vực Pick-up khi có số thứ tự.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Section 3: Phương thức Thanh toán -->
+            <section>
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold tracking-tight text-on-surface mb-6">Phương thức Thanh toán</h2>
+                    <!-- Alert Banner -->
+                    <div class="bg-primary/5 border-l-4 border-primary p-4 mb-8 flex gap-3 items-center">
+                        <span class="material-symbols-outlined text-primary text-xl" data-icon="info">info</span>
+                        <p class="text-sm text-primary font-medium">Đơn hành Mang Đi và Đến Lấy yêu cầu thanh toán trước khi Bếp nhận đơn</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <!-- Option: MoMo -->
+                        <div class="border-2 border-primary/20 bg-surface-container-lowest p-6 rounded-xl flex flex-col gap-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-5 h-5 rounded-full border-4 border-primary flex items-center justify-center">
+                                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                    </div>
+                                    <span class="font-bold text-on-surface">Ví MoMo</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="material-symbols-outlined text-secondary opacity-40" data-icon="account_balance_wallet">account_balance_wallet</span>
+                                </div>
+                            </div>
+                            <div class="md:col-span-4 flex flex-col gap-2">
+                                <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Số Điện Thoại MoMo</label>
+                                <input class="bg-surface-container border-none p-4 rounded-lg transition-all border-b-2 border-transparent" placeholder="+84 912 345 678" type="tel">
+                            </div>
+                            <div class="md:col-span-4">
+                                <p class="text-xs text-secondary italic">Bạn sẽ nhận được thông báo xác nhận
+                                    thanh toán MoMo trên điện thoại</p>
+                            </div>
+                        </div>
+                        <!-- Option: VNPay -->
+                        <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
+                            <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                            <span class="font-medium text-on-surface">VNPay (QR)</span>
+                            <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="qr_code_2">qr_code_2</span>
+                        </div>
+                        <!-- Option: ZaloPay -->
+                        <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
+                            <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                            <span class="font-medium text-on-surface">ZaloPay</span>
+                            <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="account_balance_wallet">account_balance_wallet</span>
+                        </div>
+                        <!-- Option: Cash (Disabled) -->
+                        <div class="border border-surface-container-highest bg-surface-container-low opacity-60 p-6 rounded-xl flex items-center justify-between cursor-not-allowed">
+                            <div class="flex items-center gap-4">
+                                <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                                <span class="font-medium text-secondary">Tiền Mặt Tại Quầy</span>
+                            </div>
+                            <span class="text-xs italic text-secondary-fixed-dim">Chỉ áp dụng cho đơn ăn tại quán</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Right Column: Sticky Tóm tắt Đơn hàng -->
+        <aside class="w-full lg:w-[40%]">
+            <div class="sticky top-28 bg-white p-8 rounded-2xl shadow-[0px_12px_32px_rgba(91,64,61,0.06)] flex flex-col gap-8">
+                <h3 class="text-xl font-bold tracking-tight border-b-0 pb-0">Tóm tắt Đơn hàng</h3>
+                <!-- Items List -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
+                                <img class="w-full h-full object-cover" data-alt="Close-up of classic wonton noodle soup with spring onions and clear golden broth in a white ceramic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8NEqBDiV9F0eGCqGdeZISTqrBfEIaTc-qDjhq91xhQMqrXCBzJElWgNdisbDnr6PFN6HTTi5Y2Ra-1-UKFCHrbH3xO7V-_VQ3_N3t6kQHaqPYkEtxKonujH4b3EMfT-9UxLYkdmB2jaONCmSI4S7-AQ7WGAUyEHnz2nSEBsnWNpOGWB9bpvjmEDVQ85Ul1IlyzFOBD-QpxE3Cl6_Gt-9PW1IbX5GSI5S-Mva2ca9y0MIhoDsRgBeXvOkSVfAzGE9HhV2FjGRPhzr">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h4>
+                                <p class="text-xs text-secondary mt-1">Kích Cỡ Vừa • Mì Kéo Tay</p>
+                                <p class="text-sm font-semibold mt-1">1 × ₫209,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
+                                <img class="w-full h-full object-cover" data-alt="Thai iced tea with vibrant orange color and white milk swirl in a glass with ice cubes" src="../assets/images/tra-sua-thai.png">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-on-surface leading-tight">Trà Sữa Thái</h4>
+                                <p class="text-xs text-secondary mt-1">Ít Đá • Thêm Trân Châu</p>
+                                <p class="text-sm font-semibold mt-1">2 × ₫65,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Price Breakdown -->
+                <div class="flex flex-col gap-4 border-t border-surface-container pt-6">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-secondary">Tạm tính</span>
+                        <span class="font-medium">₫339,000</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-secondary">Phí Dịch vụ (0%)</span>
+                        <span class="font-medium text-primary">Miễn phí</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-secondary">Đóng gói</span>
+                        <span class="font-medium">₫0</span>
+                    </div>
+                    <div class="flex justify-between items-end pt-4 mt-2">
+                        <span class="text-lg font-bold text-on-surface">Tổng cộng</span>
+                        <span class="text-3xl font-black text-primary tracking-tighter">₫339,000</span>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="flex flex-col gap-4 mt-4">
+                    <a class="lacquered-btn w-full py-5 rounded-xl text-white font-black text-lg tracking-wide uppercase shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform" href="07-order-tracking.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Chốt Đơn
+                    </a>
+                    <p class="text-[10px] text-center text-secondary-fixed-dim leading-relaxed px-4">
+                        Bằng việc đặt đơn hàng này, bạn đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của chúng tôi. Mọi giao dịch
+                        điện tử đều được mã hóa và bảo mật an toàn.
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

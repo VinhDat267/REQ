@@ -1,0 +1,93 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Cài Đặt &amp; Điểm Bán | Wonton POS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script src="../shared/admin-tailwind-config.js"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen font-body antialiased overflow-hidden">
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col gap-6">
+    <div class="mb-2">
+        <h1 class="text-2xl font-extrabold tracking-tight">Cài Đặt Hệ Thống &amp; Cá Nhân ⚙️</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Cấu Hình Chung Quán -->
+        <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/20">
+            <h2 class="text-lg font-black mb-6 border-b border-outline-variant/20 pb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">storefront</span> Thông Tin Quán
+            </h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Tên Quán (In trên bill)</label>
+                    <input type="text" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm font-medium" value="Wonton Noodle House Cầu Giấy">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Địa Chỉ Giao Dịch</label>
+                    <textarea class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm" rows="2">123 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Thuế VAT (%)</label>
+                        <input type="number" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm font-bold" value="8">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Mã Số Thuế</label>
+                        <input type="text" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm" value="0101234567">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-end">
+                <button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg text-sm font-bold shadow transition-all">Lưu Cấu Hình</button>
+            </div>
+        </div>
+
+        <!-- Đổi Mật Khẩu (UC-73) -->
+        <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/20">
+            <h2 class="text-lg font-black mb-6 border-b border-outline-variant/20 pb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary">lock_reset</span> Đổi Mật Khẩu Nhân Viên
+            </h2>
+            
+            <div class="space-y-5">
+                <div class="mb-6 p-4 bg-tertiary/10 rounded-lg flex gap-4 items-center">
+                    <img src="https://ui-avatars.com/api/?name=Admin+Staff&amp;background=0D8BFF&amp;color=fff" class="w-12 h-12 rounded-full">
+                    <div>
+                        <p class="font-bold text-sm text-on-surface">Nguyễn Văn Đạt (Quản Lý)</p>
+                        <p class="text-xs text-on-surface-variant mt-0.5">datnv@wonton.com</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Mật khẩu hiện tại</label>
+                    <input type="password" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm" placeholder="Nhập để xác thực">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Mật khẩu mới</label>
+                    <input type="password" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm" placeholder="Ít nhất 8 ký tự">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2">Xác nhận mật khẩu mới</label>
+                    <input type="password" class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg px-4 py-3 text-sm" placeholder="Nhập lại mật khẩu mới">
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-end">
+                <a class="bg-surface-container-highest hover:bg-outline text-on-surface px-6 py-3 rounded-lg text-sm font-bold shadow-sm transition-all text-secondary" href="01-wonton-pos-admin-login.html" style="display: inline-block; text-align: center; cursor: pointer;">Cập Nhật Mật Khẩu</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

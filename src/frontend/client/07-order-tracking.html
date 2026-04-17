@@ -1,0 +1,240 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#93000d",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-bright": "#f9f9f9",
+                        "secondary": "#5f5e5e",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "inverse-surface": "#2f3131",
+                        "primary": "#b7131a",
+                        "inverse-primary": "#ffb4ac",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-container": "#636262",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "primary-container": "#db322f",
+                        "outline": "#906f6c",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001f27",
+                        "inverse-on-surface": "#f1f1f1",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-background": "#1a1c1c",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed": "#afecff",
+                        "primary-fixed": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "tertiary": "#006578",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#410002",
+                        "tertiary-container": "#008097",
+                        "surface": "#f9f9f9",
+                        "outline-variant": "#e4beb9",
+                        "surface-tint": "#bb171c",
+                        "on-surface-variant": "#5b403d",
+                        "tertiary-fixed-dim": "#72d4ef",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-container": "#e2dfde",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-tertiary-container": "#f9fdff",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fffbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-pulse {
+            box-shadow: 0 0 0 0 rgba(183, 19, 26, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(183, 19, 26, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(183, 19, 26, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(183, 19, 26, 0); }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<!-- Client Nav Injected via nav-components.js -->
+<!-- Main Content Area -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow max-w-[1440px]">
+<!-- Track Đơn Hàng Của Bạn Lookup Card -->
+<section class="mb-12 flex justify-center">
+<div class="bg-surface-container-lowest p-10 rounded-xl max-w-2xl w-full shadow-[0px_12px_32px_rgba(91,64,61,0.03)]">
+<h1 class="text-2xl font-bold tracking-tight mb-8">Theo Dõi Đơn Hàng</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-secondary">Mã Đơn Hàng</label>
+<input class="bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="WNT-000000" type="text">
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-secondary">Số Điện Thoại</label>
+<input class="bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="0912 345 678" type="tel">
+</div>
+</div>
+<a class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-lg shadow-lg hover:opacity-90 transition-all mb-4" href="07-order-tracking.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                    Tra Cứu
+                </a>
+<div class="text-center">
+<a class="text-sm text-secondary hover:text-primary transition-colors" href="01-wonton-pos-auth-page.html">Hoặc đăng nhập để xem lại lịch sử đơn hàng</a>
+</div>
+</div>
+</section>
+<!-- Đang chọn Order Tracking View -->
+<section class="max-w-4xl mx-auto space-y-8">
+<!-- Header & Summary -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="text-xl font-bold tracking-tighter">Mã Đơn #WNT-20260407-032</h2>
+<p class="text-sm text-secondary mt-1">Đơn hàng Đến Lấy • Đặt lúc 12:15 PM</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold tracking-tight">
+                        Dự kiến Sẵn sàng: ~12:35 PM
+                    </div>
+</div>
+</div>
+<!-- Horizontal Trạng Thái Thời Gianline -->
+<div class="relative py-12 px-4">
+<!-- Line -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-highest -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 left-0 w-1/2 h-[2px] bg-primary -translate-y-1/2 z-0"></div>
+<div class="relative z-10 flex justify-between items-center">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-3 bg-surface">
+<div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold">Đã Tạo Đơn</p>
+<p class="text-[10px] text-secondary">12:15 PM</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-3 bg-surface">
+<div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold">Đã Xác Nhận</p>
+<p class="text-[10px] text-secondary">12:16 PM</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-3 bg-surface">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center status-pulse">
+<span class="material-symbols-outlined text-sm" data-icon="restaurant">restaurant</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-primary">Đang Chế Biến</p>
+<p class="text-[10px] text-secondary">Bắt đầu lúc 12:20 PM</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-3 bg-surface">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-stone-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-stone-400">Sẵn sàng</p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-3 bg-surface">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-stone-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-stone-400">Hoàn tất</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Trạng Thái Card & Tóm tắt Đơn hàng Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Message Card -->
+<div class="md:col-span-2 bg-white p-8 rounded-xl shadow-[0px_12px_32px_rgba(91,64,61,0.06)] border border-outline-variant/15 flex items-center gap-8 overflow-hidden relative">
+<div class="z-10">
+<h3 class="text-2xl font-bold tracking-tight mb-2">Đơn hàng của bạn đang được nổi lửa chế biến</h3>
+<p class="text-secondary body-md">Đội ngũ bếp trưởng đang tỉ mỉ gói từng viên hoành thánh tươi. Bạn sẽ nhận được thông báo ngay khi món ăn nóng hổi sẵn sàng.</p>
+</div>
+<div class="hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2 opacity-20">
+<img class="w-48 h-48 rounded-full object-cover" data-alt="close-up of steaming handmade shrimp wontons in a bamboo steamer basket with vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ruO-UMmrZHKTsDUrmtW3-kKW67JXBDcFwBANkc2nKKUjTSa_aeoSYboANAOTTKDiO0yBwhydXjSLNhUs-VWZsCP0ieE4IRMKW5V4pn84GV13RTSUpi9JT62vWeK1dmFp_m7U121kBRlzQQHdkf7mhUiWfs_pCNyaSfsnPsFRs0p1mGfwG_phvyRQVJ2jsdmhJD8bZAX90Tq2Dnr22K-71CCB4DSJenKopxmwm5iLye-IDOqp0-G9dNW3P8a2wtk1llnr2qrNVRT7">
+</div>
+</div>
+<!-- Chi Tiết Đơn Hàng (Expandable List) -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_12px_32px_rgba(91,64,61,0.03)]">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-bold tracking-tight">Chi Tiết Đơn Hàng</h4>
+<span class="material-symbols-outlined text-secondary cursor-pointer" data-icon="expand_more">expand_more</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="body-md font-medium text-on-surface">Mì Vằn Thắn Nước Truyền Thống</span>
+<span class="text-[11px] text-secondary">Thêm hành lá, sa tế</span>
+</div>
+<span class="title-sm font-bold">₫209,000</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="body-md font-medium text-on-surface">Trà Sữa Thái</span>
+<span class="text-[11px] text-secondary">Ít đá, 50% đường</span>
+</div>
+<span class="title-sm font-bold">₫65,000</span>
+</div>
+<div class="pt-4 mt-4 border-t border-dashed border-outline-variant/30">
+<div class="flex justify-between items-center font-bold">
+<span>Tổng cộng</span>
+<span class="text-primary text-lg">₫274,000</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Help Trợ Giúp -->
+<div class="text-center pt-8">
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:underline transition-all" href="10-notifications-center.html">
+<span class="material-symbols-outlined" data-icon="headset_mic">headset_mic</span>
+                    Cần hỗ trợ? Liên hệ trợ giúp
+                </a>
+</div>
+</section>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

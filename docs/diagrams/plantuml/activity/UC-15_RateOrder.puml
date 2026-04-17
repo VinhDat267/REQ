@@ -1,0 +1,47 @@
+@startuml
+title UC-15: Rate Order
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|System|
+start
+:Display rating popup after order completion;
+if (Already rated?) then (Yes)
+  :Show already-rated message
+  and previous rating content;
+  detach
+else (No)
+endif
+
+|Registered Customer|
+if (Rate later?) then (Yes)
+  :Close popup;
+  detach
+else (No)
+endif
+if (Rate from history?) then (Yes)
+  :Open Order History;
+  :Select unrated order;
+  :Click "Rate Order";
+else (No)
+endif
+:Choose star rating
+for each criterion;
+:Enter comment (optional);
+:Click "Submit Rating";
+
+|System|
+if (Rating expired?) then (Yes)
+  :Show rating-expired message;
+  detach
+else (No)
+endif
+:Validate and save rating;
+:Show thank-you message;
+stop
+@enduml

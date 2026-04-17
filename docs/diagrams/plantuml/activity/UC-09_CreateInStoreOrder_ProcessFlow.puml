@@ -1,0 +1,79 @@
+@startuml
+title UC-09: Create In-Store Order - Process Flow
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+start
+:Open create in-store order;
+:Choose service type;
+
+if (Service type?) then (Takeaway)
+  :Skip table assignment;
+else (Dine-in)
+  :Select table from current layout;
+  if (Table available for assignment?) then (No)
+    :Show unavailable-table message;
+    :Return to table selection;
+    :Select table from current layout;
+  else (Yes)
+  endif
+endif
+
+:View menu;
+:Select items, quantities,
+toppings, and notes;
+if (Selected item available?) then (No)
+  :Show item-unavailable message;
+  :Return to item selection;
+  :Select items, quantities,
+  toppings, and notes;
+else (Yes)
+  :Add selected items to order;
+endif
+
+if (Add more items?) then (Yes)
+  :Continue selecting items;
+else (No)
+endif
+
+:Review order details
+and total amount;
+:Confirm order;
+note right
+UC-09 covers in-store counter order creation
+for Dine-in and Takeaway only.
+Table assignment is applied only for Dine-in.
+Takeaway payment continues in the payment flow.
+Pickup orders belong to a separate process.
+end note
+if (Order contains at least one item?) then (No)
+  :Show empty-order message
+and continue adding items;
+  :Return to item selection;
+  :View menu;
+  :Select items, quantities,
+  toppings, and notes;
+  :Review order details
+  and total amount;
+  :Confirm order;
+else (Yes)
+  if (Service type?) then (Dine-in)
+    :Create dine-in order
+and assign selected table;
+    :Update table usage,
+send kitchen ticket,
+and show success message;
+    stop
+  else (Takeaway)
+    :Create takeaway order with
+pending online payment;
+    :Continue to payment flow;
+    stop
+  endif
+endif
+@enduml

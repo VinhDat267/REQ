@@ -1,0 +1,89 @@
+@startuml
+title UC-08: Manage Tables - Process Flow
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+start
+:Open table management;
+:View current table layout
+and usage status;
+note right
+FOH Staff may view layout and usage status
+for dine-in operations, but table configuration
+in this process remains Manager-only.
+end note
+note right
+UC-08 covers table master-data governance
+and layout/status visibility only.
+Order assignment, reassignment, and table moves
+belong to UC-12.
+end note
+:Choose table action;
+
+if (Action?) then (Add)
+  :Enter new table information;
+  if (Information complete and valid?) then (No)
+    :Show validation error
+and correct information;
+    stop
+  else (Yes)
+    :Create new table record;
+    if (Record created successfully?) then (No)
+      :Show create failure message;
+      stop
+    else (Yes)
+      :Display updated layout
+and usage status;
+      :Show add success message;
+      stop
+    endif
+  endif
+elseif (Edit)
+  :Select table to edit;
+  :Update allowed table information;
+  if (Information complete and valid?) then (No)
+    :Show validation error
+and correct information;
+    stop
+  else (Yes)
+    if (Table currently in use?) then (Yes)
+      :Block update and show in-use message;
+      stop
+    else (No)
+      :Save updated table record;
+      if (Update completed successfully?) then (No)
+        :Show update failure message;
+        stop
+      else (Yes)
+        :Display updated layout
+and usage status;
+        :Show update success message;
+        stop
+      endif
+    endif
+  endif
+else (Delete)
+  :Select table to delete;
+  :Confirm deletion request;
+  if (Table currently in use?) then (Yes)
+    :Block deletion and show in-use message;
+    stop
+  else (No)
+    :Delete selected table record;
+    if (Deletion completed successfully?) then (No)
+      :Show delete failure message;
+      stop
+    else (Yes)
+      :Display updated layout
+and usage status;
+      :Show delete success message;
+      stop
+    endif
+  endif
+endif
+@enduml

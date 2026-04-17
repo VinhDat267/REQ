@@ -1,0 +1,112 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Wonton POS Quản trị - Thêm/Cập nhật Bàn</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script src="../shared/admin-tailwind-config.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen">
+    
+    <!-- Shared admin sidebar injected via ../shared/nav-components.js -->
+    
+    <!-- Main Content Wrapper -->
+    <main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col items-center justify-center">
+
+        <!-- Add/Edit Table Modal Container -->
+        <div class="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-outline-variant/20 overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-8 py-6 border-b border-outline-variant/20 bg-surface-container-lowest flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-extrabold tracking-tight">Thêm Bàn Mới</h2>
+                    <p class="text-sm text-slate-500 mt-1">Thiết lập cấu hình bàn cho sơ đồ nhà hàng.</p>
+                </div>
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined h-6 w-6">table_restaurant</span>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <form class="p-8">
+                <div class="space-y-6">
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest block" for="table-number">Số Bàn / Tên Bàn <span class="text-error">*</span></label>
+                            <input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-medium py-3 px-4 rounded-t-md transition-colors" id="table-number" placeholder="Ví dụ: T-16" type="text" value="">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest block" for="capacity">Sức Chứa (Số Người) <span class="text-error">*</span></label>
+                            <input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-medium py-3 px-4 rounded-t-md transition-colors" id="capacity" min="1" placeholder="Ví dụ: 4" type="number" value="">
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest block" for="location">Khu Vực <span class="text-error">*</span></label>
+                        <div class="relative">
+                            <select class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface py-3 px-4 pr-10 rounded-t-md appearance-none font-medium transition-colors" id="location">
+                                <option disabled="" selected="">Chọn khu vực bố trí...</option>
+                                <option value="main">Khu bàn chính</option>
+                                <option value="window">Khu cửa sổ</option>
+                                <option value="entrance">Lối vào</option>
+                                <option value="kitchen_entrance">Lối vào bếp</option>
+                                <option value="vip">Phòng VIP</option>
+                            </select>
+                            <span class="material-symbols-outlined text-slate-500 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">expand_more</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 3 Options -->
+                    <div class="space-y-4 pt-4 border-t border-dashed border-outline-variant/30">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-2">Trạng Thái Bàn</label>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Option 1: Available -->
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="table_status" type="radio" value="available" checked="">
+                                <div class="p-4 bg-white border-2 border-outline-variant/30 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 transition-all text-center group">
+                                    <span class="material-symbols-outlined text-3xl mb-2 text-slate-400 peer-checked:text-primary transition-colors">check_circle</span>
+                                    <p class="font-bold text-sm text-on-surface group-hover:text-primary">Sẵn Sàng Phục Vụ</p>
+                                    <p class="text-xs text-slate-500 mt-1">Bàn có thể nhận khách ngay</p>
+                                </div>
+                            </label>
+                            
+                            <!-- Option 2: Unavailable (Bảo trì) -->
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="table_status" type="radio" value="unavailable">
+                                <div class="p-4 bg-white border-2 border-outline-variant/30 rounded-xl peer-checked:border-error peer-checked:bg-error/5 transition-all text-center group">
+                                    <span class="material-symbols-outlined text-3xl mb-2 text-slate-400 peer-checked:text-error transition-colors">block</span>
+                                    <p class="font-bold text-sm text-on-surface group-hover:text-error">Tạm Khóa / Bảo Trì</p>
+                                    <p class="text-xs text-slate-500 mt-1">Không hiển thị cho nhân viên gán bàn</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-8 flex items-center justify-end gap-3 pt-6 border-t border-outline-variant/20">
+                    <a class="px-6 py-2.5 font-bold text-sm text-slate-600 hover:text-slate-900 transition-colors" href="07-table-management---floor-plan-view.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Hủy Bỏ
+                    </a>
+                    <a class="px-8 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm rounded-lg shadow-lg hover:shadow-xl transition-all" href="07-table-management---floor-plan-view.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Lưu Thông Tin
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

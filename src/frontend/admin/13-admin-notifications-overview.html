@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Wonton Admin | Thông Báo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script src="../shared/admin-tailwind-config.js"></script>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen">
+<!-- SideNavBar Component -->
+
+<!-- TopAppBar -->
+
+<!-- Main Content -->
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100">
+<div class="p-8 max-w-[1040px] mx-auto">
+<!-- Header Section -->
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface mb-2">Thông báo</h2>
+<div class="flex items-center gap-4">
+<button class="text-sm font-medium text-primary hover:underline transition-all">Đánh Dấu Đã Đọc</button>
+<span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
+<span class="text-sm text-slate-500">5 Chưa Đọc</span>
+</div>
+</div>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<!-- Filter Tabs -->
+<div class="flex gap-2 mb-8 overflow-x-auto pb-2">
+<button class="px-6 py-2.5 text-sm font-bold bg-slate-900 text-white rounded-full transition-all">Tất Cả</button>
+<button class="px-6 py-2.5 text-sm font-medium text-slate-500 hover:bg-surface-container-high rounded-full transition-all">Đơn Hàng</button>
+<button class="px-6 py-2.5 text-sm font-medium text-slate-500 hover:bg-surface-container-high rounded-full transition-all">Bếp</button>
+<button class="px-6 py-2.5 text-sm font-medium text-slate-500 hover:bg-surface-container-high rounded-full transition-all">Hệ Thống</button>
+</div>
+<!-- Notifications List -->
+<div class="space-y-4">
+<!-- 1. Urgent -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-surface-container-lowest transition-all hover:bg-white border-l-4 border-primary shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined font-bold" data-icon="priority_high">priority_high</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-on-surface">Có Đơn Hàng Mới</h3>
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400">1 phút trước</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+<span class="font-bold">#WNT-036</span> Mang đi, 4 món, VND 210,000. Thanh toán: Đã trả. Sẵn sàng báo bếp.
+                        </p>
+<a class="px-4 py-1.5 text-xs font-bold bg-primary text-white rounded-md hover:bg-primary-container transition-colors" href="03-order-management.html" style="display: inline-block; text-align: center; cursor: pointer;">Xem Đơn Cụ Thể</a>
+</div>
+</div>
+<!-- 2. Unread Order -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-surface-container-lowest transition-all hover:bg-white relative shadow-sm">
+<div class="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"></div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-on-surface">Đơn Hàng Chờ Lấy</h3>
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400">5 phút trước</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+<span class="font-bold">#WNT-034</span> đã xong. Khách hàng: Nguyen A. Lấy lúc: 12:30 Chiều
+                        </p>
+<a class="px-4 py-1.5 text-xs font-bold text-slate-700 bg-surface-container-high rounded-md hover:bg-slate-200 transition-colors" href="03-order-management.html" style="display: inline-block; text-align: center; cursor: pointer;">Xem</a>
+</div>
+</div>
+<!-- 3. Alert Orange -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-surface-container-lowest transition-all hover:bg-white border-l-4 border-amber-500 shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-on-surface">Báo Hết Hàng</h3>
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400">12 phút trước</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+<span class="text-amber-700 font-medium">Mì Vằn Thắn Khô Xá Xíu</span> đã được bếp đánh dấu hết hàng. Đã khóa trên mọi thực đơn.
+                        </p>
+<a class="px-4 py-1.5 text-xs font-bold text-amber-700 bg-amber-50 rounded-md hover:bg-amber-100 transition-colors" href="09-menu-management-list.html" style="display: inline-block; text-align: center; cursor: pointer;">Quản Lý Thực Đơn</a>
+</div>
+</div>
+<!-- 4. Payment Pending -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-surface-container-lowest transition-all hover:bg-white relative shadow-sm">
+<div class="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"></div>
+<div class="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-on-surface">Chờ Thanh Toán</h3>
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400">20 phút trước</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
+                            Dùng tại quán <span class="font-bold">#WNT-032</span> (Bàn 5) đã ăn xong nhưng <span class="text-primary font-semibold">Chưa Thanh Toán</span>. Vui lòng thu tiền khách.
+                        </p>
+<a class="px-4 py-1.5 text-xs font-bold bg-slate-900 text-white rounded-md hover:bg-slate-800 transition-colors" href="05-process-payment---order-wnt-032.html" style="display: inline-block; text-align: center; cursor: pointer;">Thu Tiền</a>
+</div>
+</div>
+<!-- 5. New Nhận Món -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-surface-container-lowest transition-all hover:bg-white relative shadow-sm">
+<div class="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"></div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-on-surface">Đơn Đặt Giờ Nhận Mới</h3>
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400">25 phút trước</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+<span class="font-bold">#WNT-035</span> đặt lúc 1:00 Chiều. Đã tự động nhận.
+                        </p>
+</div>
+</div>
+<!-- 6. Read Muted - Cancelled -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-transparent opacity-60 transition-all hover:opacity-100">
+<div class="w-12 h-12 rounded-lg bg-slate-200 flex items-center justify-center text-slate-500 flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="cancel">cancel</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-slate-500">Đơn Hàng Đã Hủy</h3>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">1 giờ trước</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+<span class="font-bold">#WNT-029</span> bị hủy trước khi chuyển xuống bếp.
+                        </p>
+</div>
+</div>
+<!-- 7. Tổng Kết Ngày -->
+<div class="group flex items-start gap-5 p-5 rounded-xl bg-transparent opacity-60 transition-all hover:opacity-100">
+<div class="w-12 h-12 rounded-lg bg-slate-200 flex items-center justify-center text-slate-500 flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-base font-bold text-slate-500">Tổng Kết Ngày</h3>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">8 giờ trước</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Hôm qua: <span class="font-semibold text-slate-600">VND 4,250,000</span> từ 87 đơn hàng
+                        </p>
+</div>
+</div>
+</div>
+<!-- Pagination/Footer hint -->
+<div class="mt-12 text-center">
+<button class="text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors uppercase tracking-widest flex items-center justify-center mx-auto gap-2">
+                    Tải Thêm Thông Báo Cũ
+                    <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on context rules, but adding a functional floating assist button if needed) -->
+<!-- Suppressing FAB on this Notifications page as per rules -->
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

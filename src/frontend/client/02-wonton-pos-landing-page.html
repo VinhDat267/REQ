@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="vi"><head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Wonton POS - Đặt Món Trực Tuyến</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <script id="tailwind-config">
+                tailwind.config = {
+                        darkMode: "class",
+                        theme: {
+                                extend: {
+                                        "colors": {
+                                                "secondary-fixed": "#e5e2e1",
+                                                "on-primary-fixed-variant": "#93000d",
+                                                "secondary-container": "#e2dfde",
+                                                "inverse-primary": "#ffb4ac",
+                                                "on-tertiary-fixed": "#001f27",
+                                                "on-secondary-fixed": "#1b1c1c",
+                                                "surface-container": "#eeeeee",
+                                                "on-secondary": "#ffffff",
+                                                "on-error": "#ffffff",
+                                                "on-surface-variant": "#5b403d",
+                                                "background": "#f9f9f9",
+                                                "inverse-surface": "#2f3131",
+                                                "surface-container-lowest": "#ffffff",
+                                                "error": "#ba1a1a",
+                                                "on-error-container": "#93000a",
+                                                "tertiary": "#006578",
+                                                "primary-fixed": "#ffdad6",
+                                                "inverse-on-surface": "#f1f1f1",
+                                                "surface-container-highest": "#e2e2e2",
+                                                "on-tertiary-container": "#f9fdff",
+                                                "on-secondary-fixed-variant": "#474746",
+                                                "surface-variant": "#e2e2e2",
+                                                "tertiary-fixed": "#afecff",
+                                                "surface": "#f9f9f9",
+                                                "outline": "#906f6c",
+                                                "tertiary-container": "#008097",
+                                                "surface-bright": "#f9f9f9",
+                                                "secondary-fixed-dim": "#c8c6c5",
+                                                "tertiary-fixed-dim": "#72d4ef",
+                                                "on-primary-fixed": "#410002",
+                                                "on-primary": "#ffffff",
+                                                "on-tertiary-fixed-variant": "#004e5d",
+                                                "primary": "#b7131a",
+                                                "surface-container-high": "#e8e8e8",
+                                                "primary-fixed-dim": "#ffb4ac",
+                                                "on-primary-container": "#fffbff",
+                                                "surface-tint": "#bb171c",
+                                                "error-container": "#ffdad6",
+                                                "primary-container": "#db322f",
+                                                "secondary": "#5f5e5e",
+                                                "outline-variant": "#e4beb9",
+                                                "on-background": "#1a1c1c",
+                                                "surface-dim": "#dadada",
+                                                "on-surface": "#1a1c1c",
+                                                "surface-container-low": "#f3f3f3",
+                                                "on-tertiary": "#ffffff"
+                                        },
+                                        "borderRadius": {
+                                                "DEFAULT": "0.25rem",
+                                                "lg": "0.5rem",
+                                                "xl": "0.75rem",
+                                                "full": "9999px"
+                                        },
+                                        "fontFamily": {
+                                                "headline": ["Inter"],
+                                                "body": ["Inter"],
+                                                "label": ["Inter"]
+                                        }
+                                },
+                        },
+                }
+        </script>
+        <style>
+                body {
+                        font-family: 'Inter', sans-serif;
+                        background-color: #f9f9f9;
+                }
+
+                .material-symbols-outlined {
+                        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+                }
+
+                .tonal-shift-no-border {
+                        border: none !important;
+                }
+
+                .glass-nav {
+                        background: rgba(255, 255, 255, 0.8);
+                        backdrop-filter: blur(24px);
+                }
+
+                .hero-gradient {
+                        background: linear-gradient(135deg, #b7131a 0%, #db322f 100%);
+                }
+        </style>
+</head>
+
+<body class="text-on-surface antialiased">
+        <!-- Client Nav Injected via nav-components.js -->
+        <main class="pt-28 pb-24 ">
+                <!-- Hero Section -->
+                <section class="max-w-[1440px] mx-auto px-12 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-8">
+                                <h1 class="text-6xl md:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight">
+                                        Mì Vằn Thắn Tươi, <span class="text-primary">Theo Cách Của Bạn</span>
+                                </h1>
+                                <p class="text-xl text-secondary leading-relaxed max-w-lg">
+                                        Dùng tại bàn, Mang đi, hay Hẹn lịch lấy — tất cả thao tác ngay trên trình duyệt.
+                                        Nhanh chóng, nóng hổi và tiện lợi.
+                                </p>
+                                <div class="flex items-center space-x-4">
+                                        <a class="hero-gradient text-white px-10 py-5 rounded-xl text-lg font-bold shadow-xl hover:opacity-90 transition-all active:scale-95" href="03-wonton-pos-menu-browse.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                                                Đặt Ngay
+                                        </a>
+                                        <a class="bg-surface-container-highest text-on-surface px-10 py-5 rounded-xl text-lg font-bold hover:bg-secondary-fixed transition-all active:scale-95" href="03-wonton-pos-menu-browse.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                                                Xem Thực Đơn
+                                        </a>
+                                </div>
+                        </div>
+                        <div class="relative group">
+                                <div class="absolute -inset-4 bg-primary/5 rounded-[2rem] blur-3xl group-hover:bg-primary/10 transition-colors">
+                                </div>
+                                <img alt="Artisan Noodle Bowl" class="relative z-10 w-full aspect-square object-cover rounded-[2rem] shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500" data-alt="Close-up of a steaming bowl of artisanal wonton noodles with bok choy and chili oil on a dark ceramic table with soft atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiNhPE7Q-cUIrFAiKaAzVSgg9dNL47VTshXstu_ShPnmcO_qPZl6Rlz3HlYKmERHXVoYjg8q5HMVOGWF5j6QiT6kUmnp1WkHgfyZg9qOfZefDCHcl2LpHZA_pCO6jyS-Z_YLtqtzJdEELj_t0Mj8k4jtjYCSCMTcv-7T3UA_veW6McIbXtw31hHCCt3y4rKp7HwiiVDgiJ_dCS-Y_OitRjYSY2tquhA2adrLv3HwHTQppjRilVrLGX3KqlfiyuwZY0TDqQOQbLgF7A">
+                        </div>
+                </section>
+                <!-- Loại Hình Dịch Vụs Section -->
+                <section class="bg-surface-container-low py-24">
+                        <div class="max-w-[1440px] mx-auto px-12">
+                                <div class="mb-16">
+                                        <h2 class="text-4xl font-bold tracking-tight mb-4">Dịch Vụ Linh Hoạt</h2>
+                                        <p class="text-secondary max-w-md">Trải nghiệm đặt món mượt mà, phù hợp với mọi
+                                                lịch trình của bạn.</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <!-- Dine-in -->
+                                        <a href="03-wonton-pos-menu-browse.html" class="bg-surface-container-lowest p-10 rounded-xl shadow-[0px_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/15 flex flex-col items-start group hover:shadow-lg transition-all cursor-pointer no-underline">
+                                                <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors">
+                                                        <span class="material-symbols-outlined text-3xl" data-icon="restaurant">restaurant</span>
+                                                </div>
+                                                <h3 class="text-2xl font-bold mb-4">Ăn tại quán</h3>
+                                                <p class="text-secondary leading-relaxed mb-6">Quét mã QR tại bàn để gọi
+                                                        món ngay lập tức mà không cần di chuyển.</p>
+                                                <span class="text-primary font-semibold flex items-center group-hover:translate-x-2 transition-transform">
+                                                        Chọn Bàn <span class="material-symbols-outlined ml-2">arrow_forward</span>
+                                                </span>
+                                        </a>
+                                        <!-- Takeaway -->
+                                        <a href="03-wonton-pos-menu-browse.html" class="bg-surface-container-lowest p-10 rounded-xl shadow-[0px_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/15 flex flex-col items-start group hover:shadow-lg transition-all cursor-pointer no-underline">
+                                                <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors">
+                                                        <span class="material-symbols-outlined text-3xl" data-icon="takeout_dining">takeout_dining</span>
+                                                </div>
+                                                <h3 class="text-2xl font-bold mb-4">Mang đi</h3>
+                                                <p class="text-secondary leading-relaxed mb-6">Đặt trước và đến lấy khi
+                                                        món vừa ra lò. Nóng hổi, tươi ngon và đóng gói cẩn thận.</p>
+                                                <span class="text-primary font-semibold flex items-center group-hover:translate-x-2 transition-transform">
+                                                        Đặt Món Ngay <span class="material-symbols-outlined ml-2">arrow_forward</span>
+                                                </span>
+                                        </a>
+                                        <!-- Nhận Món -->
+                                        <a href="03-wonton-pos-menu-browse.html" class="bg-surface-container-lowest p-10 rounded-xl shadow-[0px_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/15 flex flex-col items-start group hover:shadow-lg transition-all cursor-pointer no-underline">
+                                                <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors">
+                                                        <span class="material-symbols-outlined text-3xl" data-icon="schedule">schedule</span>
+                                                </div>
+                                                <h3 class="text-2xl font-bold mb-4">Đến lấy</h3>
+                                                <p class="text-secondary leading-relaxed mb-6">Hẹn lịch lấy món sau. Tô
+                                                        mì vằn thắn của bạn sẽ sẵn sàng chính xác vào lúc bạn muốn.</p>
+                                                <span class="text-primary font-semibold flex items-center group-hover:translate-x-2 transition-transform">
+                                                        Hẹn Lịch <span class="material-symbols-outlined ml-2">arrow_forward</span>
+                                                </span>
+                                        </a>
+                                </div>
+                        </div>
+                </section>
+                <!-- Signature Dishes / Bento Grid Style -->
+                <section class="max-w-[1440px] mx-auto px-12 py-24">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <div class="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-[2rem] bg-stone-900 group cursor-pointer" style="position: relative; cursor: pointer;">
+                                        <img alt="Signature Wonton Soup" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" data-alt="Detailed overhead view of traditional shrimp wonton soup with clear broth and green onions in a white bowl on a textured table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfeqzBQFw8U9c4nyPY1vBy6xvTnqtKXfmbpd0C3SGnuJ2Oe_pMwukDjwq2TlZSq6jn6RPVAMjWwRgbC3B8ojQ2VEcY6DDJo_YLa08yiCxzU8CUdyZb2aY9A1SFupMLqV2BQA6NKV5feJBoTDCB0xmbJKTIHFJJJbtf8DVxpF6Q5Es3Khzc36YRTwsn5IAWD_XpWBkpgWeRKbLe3f8Cy0q1s5HDNR5yvMm_SGE4AEO6raFJtNrgbJHMqlOGFsd1NmXgjx_dZl7O5dgt">
+                                        <div class="absolute bottom-0 left-0 p-12 w-full bg-gradient-to-t from-black/80 to-transparent">
+                                                <span class="inline-block px-4 py-1 bg-primary text-white rounded-full text-xs font-bold uppercase tracking-widest mb-4">Bếp
+                                                        Trưởng Đề Cử</span>
+                                                <h4 class="text-4xl font-extrabold text-white mb-2">Hoành Thánh Tôm Thịt
+                                                        Đặc Biệt</h4>
+                                                <p class="text-stone-300 text-lg">Gói tay mỗi ngày với tôm biển tươi.
+                                                        Lớp vỏ mỏng tang mềm mượt.</p>
+                                        </div>
+                                <a href="03-wonton-pos-menu-browse.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
+                                <div class="md:col-span-2 bg-surface-container rounded-[2rem] p-12 flex flex-col justify-between">
+                                        <div>
+                                                <h4 class="text-3xl font-bold mb-4">Nghệ Thuật Sợi Mì</h4>
+                                                <p class="text-secondary text-lg leading-relaxed">Từng sợi mì được kéo
+                                                        tay theo phương pháp thủ công truyền thống truyền lại qua 3 thế
+                                                        hệ. Mượt mà trên từng điểm chạm.</p>
+                                        </div>
+                                        <div class="flex justify-between items-end mt-8">
+                                                <div class="text-5xl font-black text-primary opacity-20">100%</div>
+                                                <a href="03-wonton-pos-menu-browse.html" class="text-on-surface font-bold flex items-center hover:text-primary transition-colors">Tìm
+                                                        Hiểu Thêm <span class="material-symbols-outlined ml-2">north_east</span></a>
+                                        </div>
+                                </div>
+                                <div class="bg-primary text-white rounded-[2rem] p-12 flex flex-col justify-center items-center text-center">
+                                        <span class="material-symbols-outlined text-5xl mb-4" data-icon="rocket_launch">rocket_launch</span>
+                                        <h5 class="text-xl font-bold">Đường Băng</h5>
+                                        <p class="text-white/80 text-sm mt-2"><a href="03-wonton-pos-menu-browse.html" class="text-white/80 hover:text-white transition-colors">Bỏ qua
+                                                        hàng chờ với đặt trước qua điện thoại.</a></p>
+                                </div>
+                                <div class="bg-surface-container-lowest border border-outline-variant/15 rounded-[2rem] p-12 flex flex-col justify-center items-center text-center">
+                                        <span class="material-symbols-outlined text-5xl mb-4 text-primary" data-icon="star">star</span>
+                                        <h5 class="text-xl font-bold">Khách Hàng Thân Thiết</h5>
+                                        <p class="text-secondary text-sm mt-2">Sắp ra mắt — Tích điểm đổi tô mới qua mỗi
+                                                đơn hàng.</p>
+                                </div>
+                        </div>
+                </section>
+        </main>
+        <script src="../shared/nav-components.js" defer=""></script>
+
+
+</body></html>

@@ -1,0 +1,92 @@
+@startuml
+title Wonton POS Midterm 16-UC ERD Overview
+
+left to right direction
+hide methods
+hide stereotypes
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Accounts & Access" {
+  entity "CUSTOMER_ACCOUNT" as CUSTOMER_ACCOUNT {}
+  entity "STAFF_ACCOUNT" as STAFF_ACCOUNT {}
+  entity "ROLE" as ROLE {}
+  entity "STAFF_ROLE" as STAFF_ROLE {}
+}
+
+package "Menu & Cart" {
+  entity "MENU_CATEGORY" as MENU_CATEGORY {}
+  entity "MENU_ITEM" as MENU_ITEM {}
+  entity "TOPPING" as TOPPING {}
+  entity "MENU_ITEM_TOPPING" as MENU_ITEM_TOPPING {}
+  entity "CART" as CART {}
+  entity "CART_ITEM" as CART_ITEM {}
+  entity "CART_ITEM_TOPPING" as CART_ITEM_TOPPING {}
+}
+
+package "Ordering & Payment" {
+  entity "CUSTOMER_ORDER" as CUSTOMER_ORDER {}
+  entity "ORDER_CONTACT" as ORDER_CONTACT {}
+  entity "ORDER_ITEM" as ORDER_ITEM {}
+  entity "ORDER_ITEM_TOPPING" as ORDER_ITEM_TOPPING {}
+  entity "PAYMENT_TRANSACTION" as PAYMENT_TRANSACTION {}
+  entity "ORDER_STATUS_HISTORY" as ORDER_STATUS_HISTORY {}
+}
+
+package "Operations" {
+  entity "DINING_TABLE" as DINING_TABLE {}
+  entity "TABLE_ASSIGNMENT" as TABLE_ASSIGNMENT {}
+  entity "PICKUP_SLOT" as PICKUP_SLOT {}
+  entity "PICKUP_SCHEDULE" as PICKUP_SCHEDULE {}
+}
+
+package "Feedback & Notifications" {
+  entity "ORDER_REVIEW" as ORDER_REVIEW {}
+  entity "WEB_PUSH_SUBSCRIPTION" as WEB_PUSH_SUBSCRIPTION {}
+  entity "NOTIFICATION" as NOTIFICATION {}
+}
+
+CUSTOMER_ACCOUNT |o--o{ CART : owns
+CUSTOMER_ACCOUNT |o--o{ CUSTOMER_ORDER : places
+CUSTOMER_ACCOUNT ||--o{ ORDER_REVIEW : writes
+CUSTOMER_ACCOUNT |o--o{ WEB_PUSH_SUBSCRIPTION : subscribes
+CUSTOMER_ACCOUNT |o--o{ NOTIFICATION : receives
+
+STAFF_ACCOUNT ||--o{ STAFF_ROLE : has
+ROLE ||--o{ STAFF_ROLE : grants
+STAFF_ACCOUNT |o--o{ CUSTOMER_ORDER : creates_counter
+STAFF_ACCOUNT |o--o{ PAYMENT_TRANSACTION : processes
+STAFF_ACCOUNT |o--o{ ORDER_STATUS_HISTORY : updates
+STAFF_ACCOUNT |o--o{ TABLE_ASSIGNMENT : assigns
+STAFF_ACCOUNT |o--o{ NOTIFICATION : receives
+
+MENU_CATEGORY ||--o{ MENU_ITEM : groups
+MENU_ITEM ||--o{ MENU_ITEM_TOPPING : offers
+TOPPING ||--o{ MENU_ITEM_TOPPING : available_for
+CART ||--o{ CART_ITEM : contains
+CART_ITEM ||--o{ CART_ITEM_TOPPING : customizes
+
+CUSTOMER_ORDER ||--o| ORDER_CONTACT : captures
+CUSTOMER_ORDER ||--|{ ORDER_ITEM : contains
+ORDER_ITEM ||--o{ ORDER_ITEM_TOPPING : customizes
+CUSTOMER_ORDER ||--o{ PAYMENT_TRANSACTION : has
+CUSTOMER_ORDER ||--o{ ORDER_STATUS_HISTORY : records
+
+DINING_TABLE ||--o{ TABLE_ASSIGNMENT : hosts
+CUSTOMER_ORDER ||--o{ TABLE_ASSIGNMENT : seats
+PICKUP_SLOT ||--o{ PICKUP_SCHEDULE : allocates
+CUSTOMER_ORDER ||--o| PICKUP_SCHEDULE : schedules
+
+CUSTOMER_ORDER ||--o| ORDER_REVIEW : receives
+CUSTOMER_ORDER ||--o{ NOTIFICATION : triggers
+MENU_ITEM |o--o{ NOTIFICATION : triggers
+
+note "Purpose:\nA cleaner high-level ERD for review, presentation, and quick scope validation.\nUse the detailed Mermaid file for field-level design." as N_OVERVIEW
+N_OVERVIEW .. CUSTOMER_ORDER
+
+note "Midterm only:\nNo promotions, delivery, loyalty, payroll,\nfull auth submodels, or detailed inventory tables." as N_SCOPE
+N_SCOPE .. MENU_ITEM
+
+@enduml

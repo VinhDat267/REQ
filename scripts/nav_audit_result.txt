@@ -1,0 +1,141 @@
+﻿=== CLIENT WEBAPP NAVIGATION AUDIT ===
+
+--- 01-wonton-pos-landing-page.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Track Order | Order History | Restaurant Info | Operating Hours | Contact Information | Privacy | Terms
+  Has Login/Register: True
+  Has Notifications: True
+  Has Avatar: False
+  Has Cart: False
+
+--- 02-wonton-item-detail-customize.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Orders | Favorites | Profile | Privacy Policy | Terms of Service | Contact Support
+  Has Login/Register: True
+  Has Notifications: False
+  Has Avatar: True
+  Has Cart: True
+
+--- 03-wonton-pos-menu-browse.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Track Order | Order History
+  Has Login/Register: True
+  Has Notifications: True
+  Has Avatar: True
+  Has Cart: True
+
+--- 04-wonton-pos-cart-review.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Orders | Order History | Support | Privacy Policy | System Status
+  Has Login/Register: False
+  Has Notifications: False
+  Has Avatar: False
+  Has Cart: True
+
+--- 05-order-history-detail.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Track Order | Order History | Support | Privacy Policy | Terms of Service
+  Has Login/Register: True
+  Has Notifications: False
+  Has Avatar: False
+  Has Cart: True
+
+--- 06-notifications-center.html ---
+  Brand: Wonton POS
+  Nav Links: Dashboard | Orders | Menu | Analytics
+  Has Login/Register: True
+  Has Notifications: True
+  Has Avatar: True
+  Has Cart: False
+
+--- 07-order-rating-page.html ---
+  Brand: Wonton POS
+  Nav Links: Dashboard | Orders | Reports | Support | Privacy Policy | Terms of Service
+  Has Login/Register: True
+  Has Notifications: True
+  Has Avatar: True
+  Has Cart: False
+
+--- 08-wonton-pos-checkout.html ---
+  Brand: Wonton POS
+  Nav Links: Privacy | Terms | Accessibility
+  Has Login/Register: False
+  Has Notifications: False
+  Has Avatar: False
+  Has Cart: False
+
+--- 09-wonton-pos-auth-page.html ---
+  Brand: Wonton POS
+  Nav Links: Forgot Password?
+  Has Login/Register: True
+  Has Notifications: False
+  Has Avatar: False
+  Has Cart: True
+
+--- 10-order-tracking.html ---
+  Brand: Wonton POS
+  Nav Links: Menu | Track Order | Order History | Or login to see all your orders | Privacy Policy | Terms of Service | Contact Support
+  Has Login/Register: True
+  Has Notifications: False
+  Has Avatar: False
+  Has Cart: True
+
+
+=== ADMIN WEBAPP SIDEBAR AUDIT ===
+
+--- 01-wonton-pos-admin-login.html ---
+  Has Sidebar: False
+  Sidebar Items: Staff
+
+--- 02-process-payment---order-wnt-032.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Orders | Kitchen | Tables | Menu | Staff | Reports | Notifications
+
+--- 03-admin-notifications-overview.html ---
+  Has Sidebar: True
+  Sidebar Items: Notifications | Dashboard | Orders | Menu | Kitchen
+
+--- 04-kitchen-display-system-kds.html ---
+  Has Sidebar: True
+  Sidebar Items: Kitchen
+
+--- 05-staff-management-list.html ---
+  Has Sidebar: True
+  Sidebar Items: Staff | Dashboard | Menu | Orders | Settings | Kitchen
+
+--- 06-assign-order-to-table.html ---
+  Has Sidebar: True
+  Sidebar Items: Orders | Staff | Settings | Tables
+
+--- 07-table-management---floor-plan-view.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Tables | Orders | Menu | Staff | Settings | Kitchen
+
+--- 08-order-management.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Orders | Menu | Staff | Settings
+
+--- 09-create-in-store-order.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Orders | Kitchen | Tables | Menu | Staff | Reports | Notifications
+
+--- 10-menu-management-list.html ---
+  Has Sidebar: True
+  Sidebar Items: Menu | Dashboard | Orders | Kitchen | Tables | Staff | Reports | Settings | Inventory
+
+--- 11-add-new-staff-member-form.html ---
+  Has Sidebar: True
+  Sidebar Items: Staff | Dashboard | Orders | Menu | Inventory | Kitchen
+
+--- 12-add-new-menu-item-form.html ---
+  Has Sidebar: True
+  Sidebar Items: Menu | Dashboard | Orders | Kitchen | Tables | Staff | Reports | Notifications
+
+--- 13-admin-dashboard-overview.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Orders | Kitchen | Tables | Menu | Staff | Reports | Notifications
+
+--- 14-revenue-statistics-reports.html ---
+  Has Sidebar: True
+  Sidebar Items: Dashboard | Orders | Inventory | Reports | Staff
+

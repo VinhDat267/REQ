@@ -1,0 +1,97 @@
+@startuml
+title UC-05: Manage Menu
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Manager|
+start
+:Open "Menu Management";
+
+|System|
+:Display menu list by category;
+
+|Manager|
+if (Add new item?) then (Yes)
+  :Click "Add New Item";
+
+  |System|
+  :Display menu item form;
+
+  |Manager|
+  :Enter item details and upload image;
+  :Click "Save";
+
+  |System|
+  if (Duplicate item name?) then (Yes)
+    :Show duplicate-name message;
+    detach
+  else (No)
+  endif
+  if (Invalid price?) then (Yes)
+    :Show invalid-price message;
+    detach
+  else (No)
+  endif
+  if (Image larger than 5MB?) then (Yes)
+    :Show image-too-large message;
+    detach
+  else (No)
+  endif
+  :Validate data and save new item;
+  :Show item-added message;
+else (No)
+  if (Edit item?) then (Yes)
+    :Click "Edit" on an item;
+
+    |System|
+    :Display edit form;
+
+    |Manager|
+    :Update item information;
+    :Click "Update";
+
+    |System|
+    :Save changes successfully;
+  else (No)
+    if (Delete item?) then (Yes)
+      :Click "Delete" on an item;
+
+      |System|
+      :Display delete confirmation;
+
+      |Manager|
+      :Confirm deletion;
+
+      |System|
+      :Remove item from menu;
+    else (No)
+      if (Mark out of stock?) then (Yes)
+
+        |Manager|
+        :Toggle item status to "Out of Stock";
+
+        |System|
+        :Update item availability status;
+      else (Manage categories)
+
+        |Manager|
+        :Add, edit, or delete category;
+
+        |System|
+        if (Category still contains items?) then (Yes)
+          :Show category-not-empty message;
+          detach
+        else (No)
+        endif
+        :Update category successfully;
+      endif
+    endif
+  endif
+endif
+stop
+@enduml

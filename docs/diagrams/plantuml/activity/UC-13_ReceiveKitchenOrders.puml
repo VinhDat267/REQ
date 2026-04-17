@@ -1,0 +1,49 @@
+@startuml
+title UC-13: Receive Kitchen Orders
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|System|
+start
+:Play new-order alert sound;
+:Display new order list on kitchen screen;
+if (Connection lost?) then (Yes)
+  :Show connection-lost warning;
+  detach
+else (No)
+endif
+
+|BOH Staff|
+:Review order details;
+if (Multiple new orders?) then (Yes)
+  :Accept orders using FIFO priority;
+else (No)
+endif
+if (Reject order?) then (Yes)
+  :Click "Reject" and enter reason;
+
+  |System|
+  :Notify cashier for follow-up;
+  detach
+else (No)
+endif
+
+|BOH Staff|
+:Click "Accept Order";
+
+|System|
+if (Order cancelled before acceptance?) then (Yes)
+  :Show order-cancelled message;
+  :Remove order from queue;
+  detach
+else (No)
+endif
+:Update order status to Cooking;
+:Send customer notification;
+stop
+@enduml

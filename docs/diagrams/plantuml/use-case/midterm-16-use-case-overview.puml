@@ -1,0 +1,129 @@
+@startuml
+' Midterm overview diagram (PlantUML only)
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #DAE8FC
+  BorderColor #6C8EBF
+  ArrowColor #333333
+}
+skinparam rectangle {
+  BorderColor #666666
+}
+
+title Wonton POS Midterm - Use Case Overview\nScope: UC-01..UC-16 + Supporting Auth UCs
+
+actor "Customer\n(Member)" as Member
+actor "Guest Customer\n(Guest)" as Guest
+actor "FOH Staff\n(Cashier / Service)" as FOH
+actor "BOH Staff\n(Kitchen)" as BOH
+actor "Manager\n(Manager)" as Manager
+actor "Payment Gateway\n(Sandbox)" as PG
+
+rectangle "Wonton POS Midterm System" {
+  package "Supporting UCs" {
+    usecase "SUP-01\nRegister Account" as SUP01
+    usecase "SUP-02\nLog In" as SUP02
+    usecase "SUP-03\nAdmin Log In" as SUP03
+    usecase "SUP-04\nView Menu" as SUP04
+    usecase "SUP-05\nPrint Receipt" as SUP05
+    usecase "SUP-06\nReject Order" as SUP06
+    usecase "SUP-07\nForgot Password" as SUP07
+    usecase "SUP-08\nUpdate Profile" as SUP08
+    usecase "SUP-09\nChange Password" as SUP09
+  }
+
+  package "Customer / Ordering" {
+    usecase "UC-01\nPlace Online Order" as UC01
+    usecase "UC-02\nOnline Payment" as UC02
+    usecase "UC-03\nSchedule Pickup Order" as UC03
+    usecase "UC-04\nView Order History" as UC04
+    usecase "UC-11\nTrack Order" as UC11
+    usecase "UC-15\nRate Order" as UC15
+    usecase "UC-16\nReceive Order Notifications" as UC16
+  }
+
+  package "Operations" {
+    usecase "UC-09\nCreate In-Store Order" as UC09
+    usecase "UC-10\nProcess Payment" as UC10
+    usecase "UC-12\nAssign Order to Table" as UC12
+    usecase "UC-13\nReceive Kitchen Orders" as UC13
+    usecase "UC-14\nUpdate Dish Status" as UC14
+  }
+
+  package "Management" {
+    usecase "UC-05\nManage Menu" as UC05
+    usecase "UC-06\nManage Staff" as UC06
+    usecase "UC-07\nView Revenue Statistics" as UC07
+    usecase "UC-08\nManage Tables" as UC08
+  }
+}
+
+' Actor associations
+Member -- SUP02
+Member -- SUP07
+Member -- SUP08
+Member -- SUP09
+Member -- UC01
+Member -- UC02
+Member -- UC03
+Member -- UC04
+Member -- UC11
+Member -- UC15
+Member -- UC16
+
+Guest -- SUP01
+Guest -- SUP02
+Guest -- UC01
+Guest -- UC02
+Guest -- UC03
+Guest -- UC11
+Guest -- UC16
+
+FOH -- SUP03
+FOH -- UC09
+FOH -- UC10
+FOH -- UC12
+
+BOH -- SUP03
+BOH -- UC13
+BOH -- UC14
+
+Manager -- SUP03
+Manager -- UC05
+Manager -- UC06
+Manager -- UC07
+Manager -- UC08
+
+PG -- UC02
+PG -- UC10
+
+' Include relationships (based on mapping/spec)
+UC03 ..> UC02 : <<include>>
+UC01 ..> SUP04 : <<include>>
+UC03 ..> SUP04 : <<include>>
+UC09 ..> SUP04 : <<include>>
+UC07 ..> SUP03 : <<include>>
+
+' Extend relationships (based on mapping/spec)
+UC01 ..> UC02 : <<extend>>
+UC01 ..> UC03 : <<extend>>
+UC10 ..> SUP05 : <<extend>>
+UC13 ..> SUP06 : <<extend>>
+UC15 ..> UC04 : <<extend>>
+UC16 ..> UC11 : <<extend>>
+
+note bottom of UC01
+Guest checkout allows the customer to skip login.
+UC-01 does not model an extend relationship with Log In.
+end note
+
+note bottom of UC08
+UC-08 covers manager-only table configuration.
+FOH staff may view the table layout through
+operational flows such as UC-09 and UC-12.
+end note
+
+@enduml

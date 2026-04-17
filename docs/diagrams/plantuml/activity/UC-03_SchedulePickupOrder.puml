@@ -1,0 +1,58 @@
+@startuml
+title UC-03: Schedule Pickup Order
+skinparam shadowing false
+skinparam activityBackgroundColor #E1F5FF
+skinparam activityBorderColor #0277BD
+skinparam activityDiamondBackgroundColor #FFF9C4
+skinparam activityDiamondBorderColor #F57F17
+skinparam activityStartColor #4CAF50
+skinparam activityEndColor #F44336
+
+|Customer|
+start
+:Select food items;
+:Choose Pickup as service model;
+if (Guest checkout?) then (Yes)
+  :Enter name and phone number;
+else (No)
+endif
+
+|System|
+:Request pickup date and time slot;
+
+|Customer|
+:Enter pickup date and time;
+
+|System|
+:Check opening hours and kitchen capacity;
+if (Nearly full slot?) then (Yes)
+  :Suggest nearby available slots;
+
+  |Customer|
+  :Choose another slot;
+
+  |System|
+  :Recheck availability;
+else (No)
+endif
+if (Invalid or overloaded slot?) then (Yes)
+  :Show slot unavailable message;
+  detach
+else (No)
+endif
+
+|Customer|
+:Confirm pickup date and time;
+
+|System|
+:Redirect to mandatory online payment flow;
+if (Payment not completed within 15 minutes?) then (Yes)
+  :Cancel Pickup order automatically;
+  detach
+else (No)
+endif
+:Accept Pickup order automatically
+and set status to Pending Confirmation;
+:Show preparation start time;
+stop
+@enduml

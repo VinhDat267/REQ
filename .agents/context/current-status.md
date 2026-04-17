@@ -1,0 +1,205 @@
+# Current Status - Updated: 2026-04-17
+
+## Current Phase
+`PHASE 2 - Final project alignment based on the official REQ final-project brief`
+
+## What Is Stable
+- Active product scope is now the final whole-system baseline:
+  - `Final_Project_Scope.md`
+  - `All_Use_Cases.md`
+  - original `UC-01..UC-74` inventory, with `UC-50` kept as the explicit `Delivery` out-of-scope placeholder
+- The older root-document package remains available as midterm-era input until final replacements are promoted:
+  - `BRD_Ver0.md`
+  - `BRD_Ver0_EN.md`
+  - `Business_Rules.md`
+  - `Business_Rules_EN.md`
+  - `UC_Specifications_Part1.md`
+  - `UC_Specifications_Part2.md`
+- Midterm canonical artifacts remain organized and usable only as historical / submission references:
+  - local `UC-01..UC-16` subset
+  - canonical midterm use case diagram
+  - canonical midterm activity sources
+  - canonical midterm ERD sources
+- Core business scope is unchanged:
+  - `Dine-in`, `Takeaway`, `Pickup`
+  - `Delivery` remains out of scope
+  - guest tracking uses `Order Code + Phone Number`
+  - `Takeaway` and `Pickup` require prepayment
+  - `order_status` stays separate from `payment_status`
+- The shared multi-tool bootstrap under `AGENTS.md` and `.agents/` remains aligned.
+- The active prototype set under `src/frontend/` has been normalized back to Vietnamese-only UI copy after the accidental folder-restore mix-up.
+- A same-day Figma-surface alignment experiment for three frontend screens was rolled back after review so the active prototype remains on the prior frontend presentation.
+- The prior full-HTML versions for the affected screens were restored on `2026-04-10`, replacing the temporary screenshot-backed rollback stand-ins.
+- A comprehensive Figma-to-HTML audit was executed on `2026-04-10`. All Wonton POS frontend screens (Admin + Client) are now strictly aligned with the updated Figma PNGs. Reverted all `<a href>` prototype attempts back cleanly to `onclick` inline logic, fixed outdated pricing/data mapped in the frontend, and localized any remaining English artifacts.
+- The Client application frontend prototype (20 screens) was finalized on `2026-04-11`. Key milestones included:
+  - Decoupling checkout states into standalone views for Dine-in (`06`), Pickup (`06e`), and Takeaway (`06f`) to match business rules and ease Figma migration.
+  - Adding edge case views like Payment Failed (`06d`).
+  - Fixing the core `nav-components.js` user navigation flow by rendering dynamic Auth vs Guest states based on context.
+- The prototype suite (20 Client, 18 Admin) was structurally feature-complete against the 16 midterm use cases and now needs final-scope remapping / extension.
+- A restaurant-realism harmonization pass was applied on `2026-04-16` across the root VN/EN requirement package:
+  - Bank Transfer QR is now consistently modeled as **manual confirmation**, not as an assumed bank callback.
+  - Takeaway prepayment is now explicitly clarified as **payment before kitchen**, not "online-only"; counter Takeaway may be paid immediately at the cashier.
+  - Takeaway is consistently blocked from entering the kitchen until payment is confirmed.
+  - Customer-abandonment and repeated-online-payment-failure paths are now explicitly documented instead of being left implicit.
+  - Active dine-in tables are consistently allowed to hold multiple open orders for the same party.
+  - Paid Pickup remains non-rejectable by kitchen staff; late / no-show pickup is now treated as a manager-handled operational exception.
+  - Menu items with historical data are now treated as archive/deactivate candidates instead of hard-delete-first records.
+  - Manual `86'd` handling and grouped KDS batch updates were clarified as in-scope, while detailed inventory automation remains out of scope.
+- A follow-up edge-flow completion pass was also applied on `2026-04-16` before the final-scope correction. Those rules now serve as reusable whole-system baseline behavior instead of being capped at the midterm UC set:
+  - late payment callbacks after auto-cancel now route into refund handling instead of silently reopening the order
+  - duplicate payment callbacks are treated idempotently so they do not create duplicate kitchen work
+  - post-submission order edits are now bounded by kitchen-acceptance timing and manager approval for financial differences
+  - item-level fulfilment failures after payment now support substitution / partial refund / full cancel decisions
+  - wrong-handoff / mistaken-completion correction is now explicit instead of assumed
+  - overdue Takeaway collection and shift-close reconciliation checks are now documented operationally
+- The scope correction on `2026-04-16` promoted final-project work from "future lane" to the active default:
+  - final work uses `All_Use_Cases.md` and `Final_Project_Scope.md`
+  - the midterm 16-UC subset is no longer a boundary for current requirements work
+  - `Reorder` (`UC-18`) and promotions (`UC-12`, `UC-46..UC-48`) are active final-scope areas
+- A final operational-policy baseline was added on `2026-04-16` so the final package covers more than customer ordering:
+  - cashier shift opening/closing and cash drawer reconciliation
+  - promotion validity, usage limits, stacking, cancellation behavior, and audit history
+  - complaint/remake/goodwill handling without creating fake revenue
+  - KDS/printer/network/payment outage fallback and post-outage recovery
+  - Manager override audit logs for sensitive financial/operational actions
+  - receipt reprint/adjustment and VAT/tax information capture at prototype level
+  - inventory-lite controls for low stock, 86'd items, manual adjustments, waste, and spoilage
+- Business scope was locked on `2026-04-17`:
+  - final work may clarify, translate, map, trace, and package the locked baseline
+  - final work must not add new business capabilities or promote extension candidates without explicit user approval and a new ADR
+  - scope-change candidates remain parked until intentionally reopened
+- `All_Use_Cases.md` was aligned with the locked business rules on `2026-04-17`:
+  - original `UC-01..UC-74` numbering remains unchanged
+  - new final operational policies are mapped into existing UCs through a Business Rule Coverage Addendum
+  - extension candidates remain explicitly outside the baseline UC inventory
+- `All_Use_Cases.md` was review-hardened on `2026-04-17` so final readers do not need to rely only on the addendum:
+  - the file now states that the numbered inventory is `74` entries = `73` active UCs + `UC-50` excluded Delivery placeholder
+  - shift close / reconciliation are surfaced directly in `UC-41..UC-45`
+  - complaint / remake / wrong-handoff handling are surfaced directly in `UC-51`, `UC-53`, `UC-68..UC-70`
+  - audit logging is treated as a cross-cutting control while `UC-74` remains notification-only
+- `All_Use_Cases.md` was structurally refactored on `2026-04-17` into two presentation layers:
+  - canonical `CUC-xx` for final diagram / BRD / SRS use
+  - detailed `UC-01..UC-74` inventory for traceability, appendix, and subflow coverage
+- The current recommendation for final deliverables is:
+  - draw and narrate the system through the `CUC-xx` layer
+  - keep the 74-UC inventory behind it as the detailed reference set
+- A follow-up review refinement on `2026-04-17` tightened the canonical model:
+  - merged the old kitchen-ticket-only canonical node back into the main FOH order lifecycle
+  - merged the old micro service-closure node back into the FOH handoff lifecycle
+  - split table management away from Pickup exception management at the canonical layer
+  - added explicit ownership tags and a canonical relationship layer so final SRS / diagram work can trace consistently
+- A second canonical cleanup pass on `2026-04-17` closed remaining traceability gaps:
+  - `UC-12` is now owned explicitly under `CUC-03` as a subflow
+  - `UC-74` is now owned explicitly under `CUC-15` as support-only notification behavior
+  - the canonical relationship convention now states `include` / `extend` / `dependency` semantics directly in `All_Use_Cases.md`
+  - the addendum was cleaned so `UC-74` no longer appears as the default sink for refund, outage, pickup exception, receipt adjustment, or similar operational exceptions
+- A final canonical polish pass on `2026-04-17` tightened the presentation layer further:
+  - `CUC-15` title was narrowed back to access/security so notification stays support-only in mapping, not in the goal name
+  - the canonical relationship table was split into one-edge-per-row entries where it had previously bundled multiple targets in a single line
+- A final traceability sync on `2026-04-17` aligned `All_Use_Cases.md` with the newer business-rule ADR outcomes:
+  - addendum rows now surface `Comp` and `Forfeited` explicitly instead of leaving them implicit behind reconciliation / complaint / pickup exception prose
+  - final-spec emphasis now names the related subflows so BRD / SRS writers can see those outcomes directly from the use-case package
+- A restaurant-realism structural pass on `2026-04-17` clarified rule ordering and edge-case coverage without changing locked behavior:
+  - `§3c` (Ready → Completed) moved into correct position right after `§3b` (Refund)
+  - `§2b` (QR Payment) renumbered to `§3a` and relocated into the financial section
+  - Pickup capacity toggle clarified as affecting only new orders
+  - Table transfer for multi-order tables clarified to move all orders by default
+  - Free Item / BOGO promotions explicitly marked Out-of-Scope in final BRD
+  - Guest phone/name retention set to 12 months with anonymization, aligned with Vietnam's Decree 13/2023/ND-CP
+  - 86'd and stock adjustment explicitly declared as independent mechanisms (no auto-sync in baseline)
+  - Minor kitchen notes ("less spicy") distinguished from financially-impacting edits
+- A targeted scope-unlock pass on `2026-04-17` approved four scope-change ADRs that the locked rules had left ambiguous:
+  - `ADR-023` introduced `Comp` payment status for shop-initiated free orders, distinct from `Write-off` and `Cancelled`
+  - `ADR-024` introduced `Forfeited` payment status for Paid no-show Takeaway/Pickup where the Manager decides the shop retains the payment
+  - `ADR-025` defined Reorder (UC-18) behavior under menu drift (delete/archive/price/topping/86'd) with inline notices and `Completed`-only source orders
+  - `ADR-026` defined shift-span financial attribution (by event timestamp) and the inherited-exceptions hand-over set between shifts
+  - all four ADRs were applied to `Business_Rules.md`, `Business_Rules_EN.md`, `BRD_Ver0.md`, and `BRD_Ver0_EN.md` in the same pass
+
+## New Final-Project Reality
+- The official brief in `S2026_61FIT3REQ FINAL PROJECT.pdf` was reviewed on `2026-04-09`.
+- The course now expects a final submission package beyond the locked midterm subset.
+- The final brief explicitly requires:
+  - exactly one client problem statement
+  - full-version requirements
+  - use case specifications
+  - at least `10` literature / article / online references
+  - elicitation notes framed around `plan -> prepare -> conduct -> confirm`
+  - `3` modelling types for the whole system
+  - requirement management coverage:
+    - change management
+    - risk management
+    - scope management
+  - prototype evidence
+  - a thesis over `10000` words
+  - role-based submission files
+- The brief date `4/5/2026` is being interpreted as `2026-05-04` (`4 May 2026`) in this repo context.
+
+## Existing Repo Coverage For The Final Brief
+- `docs/requirement-elicitation/` already contains:
+  - prepare-for-elicitation note
+  - interview note
+  - questionnaire note
+  - meeting note
+  - observation note
+- Whole-system ERD sources already exist:
+  - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
+  - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
+- Midterm diagram coverage is already deeper than before:
+  - use case overview
+  - activity diagrams
+  - exported diagram images
+- Prototype-style UI evidence already exists under:
+  - `src/frontend/`
+- Shared prototype navigation and key screens were cleaned on `2026-04-10` to remove restored English labels and repair visible encoding issues.
+- No dedicated final-project thesis package has been assembled yet in root docs.
+
+## Critical Distinction
+- Active default after `2026-04-16`:
+  - `final-project`
+- `midterm-locked`:
+  - historical subset artifacts that use the local `UC-01..UC-16` numbering model
+- `final-project`:
+  - current whole-system artifacts required by the official final brief
+  - original `UC-01..UC-74` numbering from `All_Use_Cases.md`
+- Do not silently rewrite midterm artifacts as if they were already the final full-system package.
+- Do not force final-project work back into the 16-UC local numbering model.
+
+## Repo Status
+- Active final scope source:
+  - `Final_Project_Scope.md`
+- Active final UC inventory:
+  - `All_Use_Cases.md`
+- Canonical midterm use case source:
+  - `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
+- Existing whole-system ERD sources:
+  - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
+  - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
+- Existing whole-system canonical use case source:
+  - `docs/diagrams/plantuml/use-case/WontonPOS_FullSystem_Canonical_UseCase.puml`
+- Existing elicitation package:
+  - `docs/requirement-elicitation/*.docx`
+- Existing prototype-style assets:
+  - static HTML screens in `src/`
+- Current visible gap:
+  - the repo does not yet show a dedicated final requirement-management artifact in root docs
+  - the repo does not yet show an assembled final thesis package
+
+## Next Actions
+- Promote root BRD / SRS / supporting docs from the midterm subset toward a final whole-system package.
+- Keep exactly one problem statement across final BRD, thesis, and presentation material.
+- Decide which `3` whole-system diagram types will be the canonical final modelling set.
+- Use the canonical full-system use case diagram as the baseline for final BRD / SRS / presentation packaging, and add a canonical whole-system process diagram if it is still missing.
+- Assemble literature-review tracking with at least `10` sources.
+- Consolidate requirement-management deliverables:
+  - change
+  - risk
+  - scope
+- Map final submission ownership by BA role.
+- Prepare final thesis structure and tutorial checkpoint evidence.
+
+## Risks / Watchouts
+- Midterm numbering can leak into final full-system documents and damage traceability.
+- Scope creep can reopen business decisions that were locked on `2026-04-17`; route any expansion through a new ADR before editing final deliverables.
+- The final brief changes deliverable scope; existing business rules still apply but must now be mapped against the whole-system inventory.
+- Existing BRD and UC specification files are still mostly midterm-oriented, so `.agents/` must describe the gap rather than pretend the final promotion is already finished.
+- The repo already has partial final-project evidence, but not yet a clearly assembled final submission lane.

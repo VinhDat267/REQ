@@ -10,11 +10,16 @@ dist/
 build/
 .next/
 out/
+output/
 
 # IDE
 .idea/
 *.swp
 *.swo
+
+# Office/editor lock files
+~$*
+*.tmp
 
 # OS
 .DS_Store
@@ -39,6 +44,7 @@ __pycache__/
 .claude_brd_extract.txt
 .antigravity/
 .cursor/
+skills-lock.json
 task.md
 implementation_plan.md
 walkthrough.md

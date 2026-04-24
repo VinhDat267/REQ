@@ -25,4 +25,10 @@
 - `Antigravity`: use `GEMINI.md` for minimal overrides and `.agents/rules/` plus `.agents/workflows/` for native workspace rules/workflows.
 - `00-bootstrap.md` inside `rules/` explicitly loads `AGENTS.md` plus the default bootstrap pair so Antigravity stays closer to the Codex bootstrap flow.
 - `current-status.md` and `project-overview.md` remain the default bootstrap pair across tools.
+- `activity-diagram-guide.md` is the canonical root guide for Activity Diagram creation and review.
+- `process-flow-diagram-guide.md` is the canonical root guide for Process Flow Diagram creation and review.
+- `process-vs-activity-decision-guide.md` is the canonical root guide for deciding and separating Process Flow Diagram vs Activity Diagram notation.
+- New or revised UML-style canonical diagrams must use PlantUML sources.
+- Process Flow Diagrams must use Mermaid `flowchart` sources under `docs/diagrams/mermaid/process-flow/`.
+- Process Flow Diagrams must not use swimlanes.
 - Treat workflow docs here as project-specific runbooks, not generic templates.

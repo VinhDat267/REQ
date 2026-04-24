@@ -1,0 +1,156 @@
+@startuml
+!pragma useVerticalIf on
+title UC-26: Complete Checkout and Apply Promotion
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Customer|
+start
+:Open cart;
+
+|System|
+:Validate cart items
+and availability;
+if (Cart empty or
+item unavailable?) then ([yes])
+  :Show cart error;
+  :Preserve cart content;
+  stop
+else ([no])
+endif
+
+:Display cart summary
+and current total;
+
+|Customer|
+:Select service model;
+
+|System|
+if (Service model supported?) then ([yes])
+else ([no])
+  :Reject unsupported
+  service model;
+  :Preserve cart content;
+  stop
+endif
+
+if (Service model is Pickup?) then ([yes])
+  :Validate Pickup slot
+  through UC-03 rules;
+  if (Pickup slot and
+  capacity valid?) then ([yes])
+  else ([no])
+    :Ask customer to select
+    another valid slot;
+    :Preserve cart content;
+    stop
+  endif
+else ([no])
+endif
+
+|Customer|
+:Enter optional
+promotion code;
+
+|System|
+if (Promotion code entered?) then ([yes])
+  if (More than one code?) then ([yes])
+    :Reject stacking;
+    :Ask customer to use
+    one promotion code;
+
+    |Customer|
+    :Enter one promotion code
+    or continue without code;
+
+    |System|
+  else ([no])
+  endif
+
+  :Validate promotion
+  before payment;
+  note right
+  Validation checks:
+  - Active status
+  - effective period
+  - minimum condition
+  - usage limits
+  - cart eligibility
+  - service model eligibility
+  end note
+
+  if (Promotion valid
+  and applicable?) then ([yes])
+    :Apply discount
+    and update total;
+    :Log promotion application;
+  else ([no])
+    :Remove code;
+    :Show invalid promotion notice;
+    :Log failed application attempt;
+  endif
+else ([no])
+endif
+
+|Customer|
+if (Authenticated customer?) then ([yes])
+  :Confirm authenticated profile;
+else ([no])
+  :Enter Guest Name
+  and Phone Number;
+
+  |System|
+  if (Guest Name + Phone valid?) then ([yes])
+  else ([no])
+    :Show identity error;
+    :Preserve cart content;
+    stop
+  endif
+endif
+
+|Customer|
+:Review final total
+and checkout details;
+:Click Place Order;
+
+|System|
+:Create order with service model,
+identity, and applied promotion if any;
+if (Takeaway or Pickup
+requires prepayment?) then ([yes])
+  :Route customer to
+UC-02 Online Payment;
+else ([no])
+  :Route customer to
+UC-11 Order Tracking;
+endif
+
+stop
+@enduml

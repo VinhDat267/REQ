@@ -15,8 +15,11 @@
 2. `context/current-status.md`
 3. `context/project-overview.md`
 4. For final-project scope work, `../Final_Project_Scope.md` and `../All_Use_Cases.md`
-5. `rules.md`, `rules/*`, `context/conventions.md`, `context/architecture.md`
-6. Relevant `decisions/`, `specs/`, `workflows/`, and the latest journal entry
+5. For Activity Diagram work, `../activity-diagram-guide.md`
+6. For Process Flow Diagram work, `../process-flow-diagram-guide.md`
+7. When deciding between or pairing PFD and AD, `../process-vs-activity-decision-guide.md`
+8. `rules.md`, `rules/*`, `context/conventions.md`, `context/architecture.md`
+9. Relevant `decisions/`, `specs/`, `workflows/`, and the latest journal entry
 
 ## Tool Mapping
 - `Codex`: `AGENTS.md` + `.agents/`

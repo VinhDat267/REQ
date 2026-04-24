@@ -1,0 +1,78 @@
+%% UC-17 Process Flow Diagram: Reorder Past Order
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenHistory["Registered Customer opens Order History<br/>and selects a past order"]
+    OpenHistory --> CheckSource["System checks source-order status"]
+    CheckSource --> SourceDone{"Source order<br/>Completed?"}
+
+    SourceDone -->|No| HideReorder["System hides Reorder action"]
+    HideReorder --> KeepHistory["System keeps order history unchanged"]
+    KeepHistory --> EndNoReorder([End - No reorder started])
+
+    SourceDone -->|Yes| ShowReorder["System shows Reorder action"]
+    ShowReorder --> ClickReorder["Registered Customer clicks Reorder"]
+    ClickReorder --> CheckReorder["System checks Reorder availability"]
+    CheckReorder --> ReorderEnabled{"Reorder enabled?"}
+
+    ReorderEnabled -->|No| ReorderUnavailable["System shows Reorder unavailable message"]
+    ReorderUnavailable --> NoDraft["System commits no new draft order"]
+    NoDraft --> EndNoReorder
+
+    ReorderEnabled -->|Yes| LoadItems["System loads source-order items"]
+    LoadItems --> CompareMenu["System compares source order<br/>with current menu state"]
+    CompareMenu -.-> MenuChecks["Menu-state checks may include:<br/>deleted or archived items<br/>removed toppings or options<br/>current repricing<br/>valid note carry-forward<br/>86'd checkout blockers<br/>expired old promotion"]
+    CompareMenu --> AllUnavailable{"All source items<br/>unavailable?"}
+
+    AllUnavailable -->|Yes| NoItems["System shows no-items-available message<br/>and menu link"]
+    NoItems --> BrowseMenu["Registered Customer browses menu<br/>or returns to history"]
+    BrowseMenu --> EndReturn([End - Return to menu/history])
+
+    AllUnavailable -->|No| CreateDraft["System creates draft order<br/>from available items"]
+    CreateDraft --> ApplyCurrent["System applies current prices<br/>and carries forward valid notes"]
+    ApplyCurrent --> MenuDrift{"Menu drift found?"}
+
+    MenuDrift -->|Yes| DriftNotice["System drops unavailable items/options<br/>and prepares drift notices"]
+    MenuDrift -->|No| KeepItems["System keeps reordered items<br/>without drift notices"]
+
+    DriftNotice --> Any86d{"Any item 86'd?"}
+    KeepItems --> Any86d
+
+    Any86d -->|Yes| KeepBlocker["System keeps 86'd item in draft cart<br/>as a checkout blocker"]
+    Any86d -->|No| CheckoutReady["System keeps the draft cart checkout-ready"]
+
+    KeepBlocker --> PromoValid{"Original promotion<br/>still valid?"}
+    CheckoutReady --> PromoValid
+
+    PromoValid -->|Yes| AllowPromo["System allows promotion evaluation at checkout"]
+    PromoValid -->|No| DropPromo["System does not carry old promotion forward"]
+    DropPromo --> PromoNotice["System prepares checkout notice<br/>about expired promotion"]
+
+    AllowPromo --> DisplayTotals["System displays draft cart totals and notices"]
+    PromoNotice --> DisplayTotals
+
+    DisplayTotals --> ReviewDraft["Registered Customer reviews items,<br/>notes, notices, and totals"]
+    ReviewDraft --> HasBlockers{"Draft has checkout<br/>blockers?"}
+
+    HasBlockers -->|No| AcceptDraft["Registered Customer accepts reordered draft"]
+    HasBlockers -->|Yes| RemoveOrStop["Registered Customer removes blocked items<br/>or stops the reorder"]
+    RemoveOrStop --> Removed{"Blocked items<br/>removed?"}
+
+    Removed -->|No| KeepDraft["System keeps the draft cart unchanged"]
+    KeepDraft --> EndDraft([End - Draft unchanged])
+
+    Removed -->|Yes| UpdateTotals["System updates draft cart totals and notices"]
+    UpdateTotals --> AcceptDraft
+
+    AcceptDraft --> RouteCheckout["System routes the customer to checkout<br/>(UC-26)"]
+    RouteCheckout --> EndCheckout([End - Routed to checkout])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndNoReorder,EndReturn,EndDraft,EndCheckout terminal;
+    class SourceDone,ReorderEnabled,AllUnavailable,MenuDrift,Any86d,PromoValid,HasBlockers,Removed decision;
+    class MenuChecks note;

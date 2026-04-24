@@ -1,0 +1,58 @@
+%% UC-23 Process Flow Diagram: Serve and Confirm Handoff
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> KitchenReady["Kitchen marks order Ready"]
+    KitchenReady --> QueueReady["System lists Ready order<br/>on FOH or Cashier queue"]
+    QueueReady --> StaffOpens["FOH Staff / Cashier opens<br/>the Ready order"]
+    StaffOpens --> Connectivity{"Connectivity<br/>available?"}
+
+    Connectivity -->|No| ManualNote["Staff records manual<br/>handoff note"]
+    ManualNote --> ReconcileLater["System flags case for<br/>later reconciliation"]
+    ReconcileLater --> EndManual([End - Manual note pending reconciliation])
+
+    Connectivity -->|Yes| MultipleReady{"Multiple Ready orders<br/>for same table or customer?"}
+    MultipleReady -->|Yes| VerifyOrder["Staff verifies table number<br/>or order code"]
+    MultipleReady -->|No| CheckNoShow
+    VerifyOrder --> CheckNoShow{"Pickup or Takeaway<br/>overdue / no-show?"}
+
+    CheckNoShow -->|Yes| KeepReadyNoShow["System keeps order Ready<br/>and raises overdue flag"]
+    KeepReadyNoShow --> ManagerNoShow["Manager handles hold, remake,<br/>refund, or Forfeited decision"]
+    ManagerNoShow --> EndNoShow([End - No auto-complete])
+
+    CheckNoShow -->|No| ServiceModel{"Service model<br/>is Dine-in?"}
+    ServiceModel -->|Yes| DeliverTable["Server delivers food<br/>to correct table"]
+    ServiceModel -->|No| MatchCustomer["Cashier matches customer<br/>using order code / name"]
+    MatchCustomer --> HandBag["Cashier hands bag<br/>to matching customer"]
+
+    DeliverTable --> ReceiptIssue{"Missing or wrong item<br/>reported on receipt?"}
+    HandBag --> ReceiptIssue
+    ReceiptIssue -->|Yes| FlagIssue["Staff flags issue<br/>against the order"]
+    FlagIssue --> RouteUC24["System routes issue<br/>to UC-24"]
+    RouteUC24 --> EndUC24([End - Routed to UC-24])
+
+    ReceiptIssue -->|No| ConfirmHandoff["Staff taps Delivered<br/>or Customer Picked Up"]
+    ConfirmHandoff --> SetCompleted["System sets<br/>order_status = Completed"]
+    SetCompleted --> LogActor["System logs confirming actor<br/>and timestamp"]
+    LogActor --> EndCompleted([End - Handoff confirmed])
+
+    StartCorrection([Start - Wrong handoff correction]) --> OpenCompleted["Manager or FOH opens<br/>mistaken Completed order"]
+    OpenCompleted --> SameShift{"Correction within<br/>same shift?"}
+    SameShift -->|No| RejectLateCorrection["System rejects revert<br/>outside same shift"]
+    RejectLateCorrection --> EndCorrectionRejected([End - Correction rejected])
+
+    SameShift -->|Yes| AuditReason{"Audit reason<br/>entered?"}
+    AuditReason -->|No| RejectNoReason["System requires reason<br/>before correction"]
+    RejectNoReason --> EndReasonMissing([End - Reason required])
+    AuditReason -->|Yes| RevertReady["System reverts order<br/>from Completed to Ready"]
+    RevertReady --> RecordAudit["System records correction<br/>audit trail"]
+    RecordAudit --> EndCorrectionApplied([End - Order Ready for correct handoff])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,StartCorrection,EndManual,EndNoShow,EndUC24,EndCompleted,EndCorrectionRejected,EndReasonMissing,EndCorrectionApplied terminal;
+    class Connectivity,MultipleReady,CheckNoShow,ServiceModel,ReceiptIssue,SameShift,AuditReason decision;

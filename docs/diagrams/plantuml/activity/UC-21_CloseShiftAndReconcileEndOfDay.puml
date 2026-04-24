@@ -1,0 +1,156 @@
+@startuml
+!pragma useVerticalIf on
+title UC-21: Close Shift and Reconcile End-of-day
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Cashier|
+start
+:Open Close Shift;
+
+|System|
+:Check current open shift;
+if (Open shift exists?) then ([yes])
+  :Display expected cash
+  from paid cash minus cash refunds;
+  note right
+  Reconciliation buckets:
+  - cash
+  - bank-transfer QR
+  - online gateway
+  - refunds
+  - duplicate collections
+  - Write-off
+  - Comp
+  - Forfeited
+  end note
+else ([no])
+  :Reject close request
+  with reason;
+  stop
+endif
+
+|Cashier|
+if (Hardware or connectivity issue?) then ([yes])
+  :Enter manual cash count
+  with review flag;
+else ([no])
+  :Enter actual counted cash;
+endif
+
+|System|
+:Compute cash variance;
+if (Variance exceeds threshold?) then ([yes])
+  |Manager|
+  :Review variance reason;
+  if (Confirm variance?) then ([yes])
+    |System|
+    :Accept explained variance;
+  else ([no])
+    |System|
+    :Keep shift open
+    and list variance blocker;
+    stop
+  endif
+else ([no])
+endif
+
+|System|
+:Display unresolved items
+requiring review;
+note right
+Review items include:
+- aged Pending Online Payment
+- overdue Ready orders
+- Refund Pending
+- Write-off pending
+- wrong-handoff incidents
+- partial-refund differences
+- duplicate-charge incidents
+- Forfeited pending
+- Dine-in Completed + Unpaid
+end note
+
+if (Unresolved items exist?) then ([yes])
+  |Cashier|
+  :Resolve eligible items
+  or mark carry-over notes;
+
+  |System|
+  if (Open Refund Pending exists?) then ([yes])
+    :Require resolution or
+    inherited-exception reason;
+  else ([no])
+  endif
+
+  |Manager|
+  :Review unresolved carry-over
+  request;
+
+  |System|
+  if (All blockers resolved
+  or approved for handover?) then ([yes])
+    :Record inherited exceptions
+    for next shift opening;
+  else ([no])
+    :Keep shift open
+    and list blockers;
+    stop
+  endif
+else ([no])
+endif
+
+|System|
+:Close shift;
+:Lock shift report;
+
+if (End-of-day reconciliation?) then ([yes])
+  :Aggregate all shifts of the day
+  by event timestamp;
+  :Freeze daily reconciliation report;
+else ([no])
+endif
+
+stop
+
+|Manager|
+start
+:Request shift reopen;
+
+|System|
+if (Manager approval reason valid?) then ([yes])
+  :Record reopen audit reason;
+  :Reopen shift for correction;
+else ([no])
+  :Reject reopen request;
+endif
+
+stop
+@enduml

@@ -1,0 +1,124 @@
+@startuml WontonPOS_FinalV3_ERD_Overview
+' =====================================================================
+' Wonton POS - Final BRD v3 ERD Overview (26 UC)
+' =====================================================================
+' Purpose:
+' - Clean presentation/review ERD for the Final BRD v3 authoring lane.
+' - Keep WontonPOS_FinalV3_ERD.puml and WontonPOS_FinalV3_Schema.sql as
+'   the detailed field-level source.
+' - This overview intentionally folds junction, history, and operational
+'   log tables into notes to reduce line crossings.
+' =====================================================================
+
+!theme plain
+title Wonton POS - Final BRD v3 ERD Overview (26 UC)
+
+left to right direction
+hide methods
+hide stereotypes
+skinparam shadowing false
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam padding 4
+skinparam roundcorner 6
+skinparam nodesep 35
+skinparam ranksep 45
+
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+  HeaderBackgroundColor #FFFFFF
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #777777
+}
+
+legend top left
+|= View rule |= Meaning |
+| Core entity | Shown as a box |
+| Support table | Folded into notes |
+| Actor/audit FKs | Omitted unless structurally important |
+| Detailed fields | Kept in the full ERD and SQL schema |
+endlegend
+
+package "People & Access" {
+  entity customer {}
+  entity staff {}
+  entity role {}
+}
+
+package "Menu & Catalog" {
+  entity menu_category {}
+  entity menu_item {}
+  entity topping {}
+}
+
+package "Ordering Core" {
+  entity orders {}
+  entity order_item {}
+}
+
+package "Service Context" {
+  entity dining_table {}
+  entity pickup_slot_config {}
+}
+
+package "Promotion & Payment" {
+  entity promotion {}
+  entity payment_transaction {}
+  entity refund {}
+}
+
+package "Experience & Operations" {
+  entity order_review {}
+  entity notification {}
+  entity complaint {}
+  entity shift {}
+  entity stock_adjustment {}
+  entity audit_log {}
+}
+
+' ---------------------------------------------------------------------
+' Core structural relationships only
+' ---------------------------------------------------------------------
+
+staff }o--o{ role
+
+menu_category ||--o{ menu_item
+
+customer |o--o{ orders
+orders ||--|{ order_item
+menu_item ||--o{ order_item
+order_item }o--o{ topping
+
+dining_table |o--o{ orders
+pickup_slot_config |o--o{ orders
+
+promotion |o--o{ orders
+orders ||--o{ payment_transaction
+payment_transaction |o--o{ refund
+
+orders ||--o| order_review
+orders ||--o{ notification
+
+orders ||--o{ complaint
+
+legend bottom left
+|= Folded area |= Tables intentionally hidden from the overview |
+| Auth | customer_password_reset |
+| Staff / audit FKs | staff_role, created_by_staff_id, actor_staff_id, audit approver links |
+| Menu detail | menu_item_topping, menu_item_availability_event |
+| Order detail | order_item_topping, order_status_history, source_order_id reorder self-link |
+| Promotion detail | promotion_usage |
+| Shift detail | shift_reconciliation_bucket, shift_inherited_exception, cash_drawer_movement; attribution by event timestamp |
+| Inventory detail | stock_adjustment references menu_item in the full ERD |
+| Audit detail | audit_log uses generic entity_type/entity_id; noisy links to every table are omitted |
+| Source truth | Use WontonPOS_FinalV3_ERD.puml and WontonPOS_FinalV3_Schema.sql for field-level design |
+endlegend
+
+@enduml

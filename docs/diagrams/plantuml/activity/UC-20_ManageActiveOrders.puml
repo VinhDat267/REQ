@@ -1,0 +1,182 @@
+@startuml
+!pragma useVerticalIf on
+title UC-20: Manage Active Orders
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|FOH Staff|
+start
+:Open Active Orders;
+
+|System|
+:Check connectivity;
+if (Connectivity available?) then ([yes])
+  :List operationally actionable
+  orders and exceptions;
+  note right
+  Actionable items include:
+  - live Dine-in / Takeaway / Pickup
+  - overdue Ready orders
+  - payment-recovery cases
+  - Dine-in Completed + Unpaid
+  - complaints or wrong handoff
+  end note
+else ([no])
+  :Block local changes
+  until reconnect;
+  :Show connectivity loss message;
+  stop
+endif
+
+|FOH Staff|
+if (Filter list?) then ([yes])
+  :Select status, service model,
+  or table filter;
+
+  |System|
+  :Refresh active-order list;
+else ([no])
+endif
+
+|FOH Staff|
+:Select order or exception;
+
+|System|
+:Open details;
+if (Order already in
+terminal state?) then ([yes])
+  :Reject action with reason;
+  stop
+else ([no])
+endif
+
+|FOH Staff|
+:Choose allowed action;
+
+if (Confirm order?) then ([yes])
+  |System|
+  :Confirm order or
+  next operational state;
+  stop
+else ([no])
+endif
+
+|FOH Staff|
+if (Cancel order?) then ([yes])
+  :Enter cancellation reason;
+
+  |System|
+  if (Order already paid?) then ([yes])
+    :Route paid cancellation
+    to Manager and refund flow;
+
+    |Manager|
+    :Review cancellation reason
+    and refund decision;
+
+    |System|
+    :Mark payment as
+    Refund Pending when required;
+    stop
+  else ([no])
+    :Cancel unpaid order;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Transfer table or order?) then ([yes])
+  :Select destination table
+  or order subset;
+
+  |System|
+  :Validate transfer;
+  if (Transfer valid?) then ([yes])
+    :Update table/order assignment;
+    stop
+  else ([no])
+    :Show transfer rejection reason;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Review overdue Pickup
+or Takeaway?) then ([yes])
+  :Review overdue Ready order;
+
+  |System|
+  :Route case to late/no-show
+  handling (UC-24);
+  stop
+else ([no])
+endif
+
+|FOH Staff|
+if (Follow up Dine-in
+Completed + Unpaid?) then ([yes])
+  :Check settlement status;
+  if (Customer ready to settle?) then ([yes])
+    |System|
+    :Route to payment collection
+    (UC-10);
+    stop
+  else ([no])
+    |System|
+    :Escalate unpaid follow-up
+    to Manager review;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Escalate operational
+exception?) then ([yes])
+  :Escalate complaint, wrong handoff,
+  payment recovery, Comp, or Forfeited;
+
+  |Manager|
+  :Select resolution path
+  with reason;
+
+  |System|
+  :Record escalation outcome;
+  stop
+else ([no])
+  |System|
+  :Show unsupported action message;
+  :Apply no state change;
+endif
+
+stop
+@enduml

@@ -1,0 +1,140 @@
+@startuml
+!pragma useVerticalIf on
+title UC-23: Serve and Confirm Handoff
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Kitchen|
+start
+:Mark order Ready;
+
+|System|
+:Show Ready order on
+FOH / Cashier queue;
+
+|FOH Staff / Cashier|
+:Open Ready order;
+
+|System|
+if (Connectivity available?) then ([yes])
+else ([no])
+  |FOH Staff / Cashier|
+  :Record manual handoff note;
+
+  |System|
+  :Flag case for later
+  reconciliation;
+  stop
+endif
+
+|FOH Staff / Cashier|
+if (Multiple Ready orders
+for same table or customer?) then ([yes])
+  :Verify table number
+  or order code;
+else ([no])
+endif
+
+if (Pickup / Takeaway
+overdue or no-show?) then ([yes])
+  |System|
+  :Keep order Ready;
+  :Raise overdue flag;
+
+  |Manager|
+  :Handle hold, remake,
+  refund, or Forfeited decision;
+  stop
+else ([no])
+endif
+
+|FOH Staff / Cashier|
+if (Service model is Dine-in?) then ([yes])
+  :Deliver food to
+  the correct table;
+else ([no])
+  :Match customer by
+  order code or name;
+  :Hand bag to
+  matching customer;
+endif
+
+if (Missing or wrong item
+reported on receipt?) then ([yes])
+  :Flag issue against
+  the order;
+
+  |System|
+  :Route issue to UC-24;
+  stop
+else ([no])
+endif
+
+|FOH Staff / Cashier|
+:Tap Delivered or
+Customer Picked Up;
+
+|System|
+:Set order_status
+to Completed;
+:Log confirming actor
+and timestamp;
+stop
+
+|Manager / FOH|
+start
+:Open wrong handoff
+correction;
+
+|System|
+if (Completed order is
+within same shift?) then ([yes])
+else ([no])
+  :Reject correction
+  outside same shift;
+  stop
+endif
+
+|Manager / FOH|
+:Enter audit reason;
+
+|System|
+if (Audit reason provided?) then ([yes])
+  :Revert order from
+  Completed to Ready;
+  :Record correction
+  audit trail;
+else ([no])
+  :Require reason before
+  applying correction;
+endif
+
+stop
+@enduml

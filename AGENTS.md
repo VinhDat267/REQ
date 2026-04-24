@@ -43,7 +43,10 @@ Read when relevant:
 - Business scope is locked as of `2026-04-17`; do not add new business capabilities or promote extension candidates without an explicit user instruction and a new ADR.
 - Keep `Delivery` out of scope through the explicit `UC-50` exclusion unless a later user decision changes it.
 - Follow terminology, numbering, diagram policy, and canonical artifact rules from `.agents/context/conventions.md`.
-- Prefer `PlantUML` or `Mermaid` for new canonical diagrams; `Usecasediagramreq.drawio` is the only approved legacy root draw.io exception.
+- Use `PlantUML` for UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style canonical diagrams. Use `Mermaid` flowchart sources for Process Flow Diagrams (`PFD`). `Usecasediagramreq.drawio` is the only approved legacy root draw.io exception.
+- For Activity Diagram work, treat `activity-diagram-guide.md` as the canonical AD guide for UML semantics, analysis workflow, anti-pattern checks, and review checklist.
+- For per-use-case modelling work, maintain both an Activity Diagram (`AD`) and a Process Flow Diagram (`PFD`) unless the user explicitly narrows the deliverable.
+- For Process Flow Diagram work, treat `process-flow-diagram-guide.md` as the canonical PFD guide and `process-vs-activity-decision-guide.md` as the canonical decision guide for separating PFD from AD; PFDs must be authored as Mermaid `flowchart` sources, must not use swimlanes, must use white ellipse `Start` / `End` terminals, and must use white diamond decision nodes.
 - Treat `task.md`, `implementation_plan.md`, and `walkthrough.md` as optional local planning artifacts, not source of truth, unless the user explicitly promotes them.
 - Preserve unrelated user changes.
 - If git is initialized later and the user explicitly wants a commit, verify first and create a focused commit that does not mix unrelated work.
@@ -68,6 +71,9 @@ Do not churn `.agents/` for read-only questions or trivial edits that do not aff
 ## Useful References
 - `Final_Project_Scope.md`
 - `All_Use_Cases.md`
+- `activity-diagram-guide.md`
+- `process-flow-diagram-guide.md`
+- `process-vs-activity-decision-guide.md`
 - `.agents/context/codex-bridge.md`
 - `.agents/README.md`
 - `.agents/rules.md`

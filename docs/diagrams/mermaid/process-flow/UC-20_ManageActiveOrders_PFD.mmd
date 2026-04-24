@@ -1,0 +1,81 @@
+%% UC-20 Process Flow Diagram: Manage Active Orders
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenActiveOrders["FOH Staff opens Active Orders"]
+    OpenActiveOrders --> CheckConnectivity["System checks connectivity"]
+    CheckConnectivity --> Connected{"Connectivity<br/>available?"}
+
+    Connected -->|No| BlockLocalChanges["System blocks local changes<br/>until reconnect"]
+    BlockLocalChanges --> ShowConnectivityError["System shows connectivity loss message"]
+    ShowConnectivityError --> EndConnectivity([End - No state change applied])
+
+    Connected -->|Yes| ListOrders["System lists actionable orders<br/>and exceptions"]
+    ListOrders -.-> ActionableItems["Actionable items may include:<br/>live Dine-in, Takeaway, Pickup orders<br/>overdue Ready orders<br/>payment-recovery cases<br/>Dine-in Completed + Unpaid<br/>complaints or wrong handoff"]
+
+    ListOrders --> FilterList{"Filter by status,<br/>service model, or table?"}
+    FilterList -->|Yes| SelectFilter["FOH Staff selects filter"]
+    SelectFilter --> RefreshList["System refreshes active-order list"]
+    RefreshList --> SelectCase["FOH Staff selects order or exception"]
+    FilterList -->|No| SelectCase
+
+    SelectCase --> OpenDetails["System opens order or exception details"]
+    OpenDetails --> TerminalState{"Already terminal<br/>state?"}
+    TerminalState -->|Yes| RejectTerminal["System rejects action<br/>with reason"]
+    RejectTerminal --> EndTerminalRejected([End - Terminal-state action rejected])
+
+    TerminalState -->|No| ChooseAction["FOH Staff chooses allowed action"]
+    ChooseAction --> ConfirmOrder{"Confirm order?"}
+
+    ConfirmOrder -->|Yes| ConfirmNextState["System confirms order<br/>or next operational state"]
+    ConfirmNextState --> EndUpdated([End - Order state updated])
+
+    ConfirmOrder -->|No| CancelOrder{"Cancel order?"}
+    CancelOrder -->|Yes| PaidOrder{"Order already<br/>paid?"}
+    PaidOrder -->|No| RecordCancelReason["FOH Staff enters cancellation reason"]
+    RecordCancelReason --> CancelUnpaid["System cancels unpaid order"]
+    CancelUnpaid --> EndCancelled([End - Order cancelled])
+    PaidOrder -->|Yes| RoutePaidCancel["System routes paid cancellation<br/>to Manager and refund flow"]
+    RoutePaidCancel --> ManagerRefundReview["Manager reviews reason<br/>and refund decision"]
+    ManagerRefundReview --> MarkRefundPending["System marks payment as<br/>Refund Pending when required"]
+    MarkRefundPending --> EndRefund([End - Paid cancellation escalated])
+
+    CancelOrder -->|No| TransferOrder{"Transfer table<br/>or order?"}
+    TransferOrder -->|Yes| SelectDestination["FOH Staff selects destination table<br/>or order subset"]
+    SelectDestination --> ValidateTransfer["System validates transfer"]
+    ValidateTransfer --> TransferValid{"Transfer valid?"}
+    TransferValid -->|No| ShowTransferError["System shows transfer rejection reason"]
+    ShowTransferError --> EndTransferRejected([End - Transfer rejected])
+    TransferValid -->|Yes| ApplyTransfer["System updates table/order assignment"]
+    ApplyTransfer --> EndTransferred([End - Transfer applied])
+
+    TransferOrder -->|No| OverdueCase{"Overdue Pickup<br/>or Takeaway?"}
+    OverdueCase -->|Yes| ReviewOverdue["FOH Staff reviews overdue Ready order"]
+    ReviewOverdue --> RouteLateHandling["System routes to late/no-show handling (UC-24)"]
+    RouteLateHandling --> EndUC24([End - Routed to UC-24])
+
+    OverdueCase -->|No| CompletedUnpaid{"Dine-in Completed<br/>+ Unpaid?"}
+    CompletedUnpaid -->|Yes| CheckSettlement["FOH Staff checks settlement status"]
+    CheckSettlement --> CustomerSettles{"Customer ready<br/>to settle?"}
+    CustomerSettles -->|Yes| RoutePayment["System routes to payment collection (UC-10)"]
+    RoutePayment --> EndPayment([End - Routed to payment])
+    CustomerSettles -->|No| EscalateUnpaid["System escalates unpaid follow-up<br/>to Manager review"]
+    EscalateUnpaid --> EndManagerReview([End - Manager review required])
+
+    CompletedUnpaid -->|No| ExceptionCase{"Complaint, wrong handoff,<br/>payment recovery, Comp,<br/>or Forfeited?"}
+    ExceptionCase -->|Yes| EscalateException["FOH Staff escalates case<br/>to Manager"]
+    EscalateException --> ManagerDecision["Manager selects resolution path<br/>with reason"]
+    ManagerDecision --> EndEscalated([End - Exception escalated])
+
+    ExceptionCase -->|No| ShowUnsupported["System shows unsupported action message"]
+    ShowUnsupported --> EndUnsupported([End - No state change applied])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndConnectivity,EndTerminalRejected,EndUpdated,EndCancelled,EndRefund,EndTransferRejected,EndTransferred,EndUC24,EndPayment,EndManagerReview,EndEscalated,EndUnsupported terminal;
+    class Connected,FilterList,TerminalState,ConfirmOrder,CancelOrder,PaidOrder,TransferOrder,TransferValid,OverdueCase,CompletedUnpaid,CustomerSettles,ExceptionCase decision;
+    class ActionableItems note;

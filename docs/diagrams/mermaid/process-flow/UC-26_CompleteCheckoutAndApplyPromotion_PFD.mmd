@@ -1,0 +1,72 @@
+%% UC-26 Process Flow Diagram: Complete Checkout and Apply Promotion
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenCart["Customer opens cart"]
+    OpenCart --> ValidateCart["System validates cart items<br/>and availability"]
+    ValidateCart --> EmptyCart{"Cart empty<br/>or item unavailable?"}
+
+    EmptyCart -->|Yes| ShowCartError["System shows cart error<br/>and preserves cart content"]
+    ShowCartError --> EndNoOrder([End - No order created])
+
+    EmptyCart -->|No| DisplaySummary["System displays cart summary<br/>and current total"]
+    DisplaySummary --> SelectService["Customer selects service model"]
+    SelectService --> SupportedService{"Service model supported:<br/>Dine-in, Takeaway, Pickup?"}
+
+    SupportedService -->|No| RejectService["System rejects unsupported<br/>service model"]
+    RejectService --> EndServiceRejected([End - Cart preserved])
+
+    SupportedService -->|Yes| PickupService{"Service model<br/>is Pickup?"}
+    PickupService -->|Yes| ValidatePickup["System validates Pickup slot<br/>through UC-03 rules"]
+    ValidatePickup --> PickupValid{"Pickup slot and<br/>capacity valid?"}
+    PickupValid -->|No| ShowPickupError["System asks customer to<br/>select another valid slot"]
+    ShowPickupError --> EndPickupRejected([End - Cart preserved])
+    PickupValid -->|Yes| PromoEntry
+
+    PickupService -->|No| PromoEntry["Customer enters optional<br/>promotion code"]
+    PromoEntry --> PromoEntered{"Promotion code<br/>entered?"}
+
+    PromoEntered -->|No| CaptureIdentity
+    PromoEntered -->|Yes| MultipleCodes{"More than one<br/>promotion code?"}
+    MultipleCodes -->|Yes| RejectStacking["System rejects stacking<br/>and asks customer to use one code"]
+    RejectStacking --> PromoEntry
+
+    MultipleCodes -->|No| ValidatePromo["System validates promotion<br/>before payment"]
+    ValidatePromo -.-> PromoRules["Validation checks:<br/>Active status<br/>effective period<br/>minimum condition<br/>usage limits<br/>cart eligibility<br/>service model eligibility"]
+    ValidatePromo --> PromoValid{"Promotion valid<br/>and applicable?"}
+
+    PromoValid -->|No| RemovePromo["System removes code,<br/>shows notice, and logs failed attempt"]
+    RemovePromo --> CaptureIdentity["Customer provides identity"]
+    PromoValid -->|Yes| ApplyPromo["System applies discount<br/>and updates total"]
+    ApplyPromo --> LogApplied["System logs promotion application"]
+    LogApplied --> CaptureIdentity
+
+    CaptureIdentity --> Authenticated{"Customer<br/>authenticated?"}
+    Authenticated -->|Yes| ConfirmProfile["Customer confirms<br/>authenticated profile"]
+    Authenticated -->|No| EnterGuestInfo["Guest enters Name<br/>and Phone Number"]
+
+    ConfirmProfile --> ReviewTotal["Customer reviews final total<br/>and checkout details"]
+    EnterGuestInfo --> ValidateGuest{"Guest Name + Phone<br/>valid?"}
+    ValidateGuest -->|No| ShowIdentityError["System shows identity error<br/>and preserves cart"]
+    ShowIdentityError --> EndIdentityRejected([End - No order created])
+    ValidateGuest -->|Yes| ReviewTotal
+
+    ReviewTotal --> PlaceOrder["Customer clicks Place Order"]
+    PlaceOrder --> CreateOrder["System creates order with<br/>service model, identity, and promotion"]
+    CreateOrder --> PrepayRequired{"Takeaway or Pickup<br/>prepayment required?"}
+
+    PrepayRequired -->|Yes| RoutePayment["System routes customer<br/>to UC-02 Online Payment"]
+    RoutePayment --> EndPrepay([End - Routed to prepayment])
+
+    PrepayRequired -->|No| RouteTracking["System routes customer<br/>to UC-11 Order Tracking"]
+    RouteTracking --> EndTracking([End - Dine-in order tracking])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndNoOrder,EndServiceRejected,EndPickupRejected,EndIdentityRejected,EndPrepay,EndTracking terminal;
+    class EmptyCart,SupportedService,PickupService,PickupValid,PromoEntered,MultipleCodes,PromoValid,Authenticated,ValidateGuest,PrepayRequired decision;
+    class PromoRules note;

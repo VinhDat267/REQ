@@ -1,9 +1,53 @@
 # Diagram Policy
 
-- Prefer `PlantUML` or `Mermaid` for new canonical diagrams.
+- Use `PlantUML` for UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style canonical diagrams.
+- Use `Mermaid` flowchart sources for Process Flow Diagrams (`PFD`).
+- Existing Mermaid ERD files remain legacy references unless intentionally promoted, but Mermaid PFD files under `docs/diagrams/mermaid/process-flow/` are canonical PFD sources.
 - `Usecasediagramreq.drawio` is the only approved legacy draw.io artifact kept at repo root.
 - New draw.io files belong under `docs/diagrams/drawio/`.
-- If draw.io and PlantUML diverge, resolve logic against BRD plus canonical editable sources first.
+- If draw.io and editable canonical sources diverge, resolve logic against BRD plus the current canonical source for that diagram type first.
 - Use `scripts/relayout_activity_drawio.py` as the controlled relayout helper for midterm activity draw.io work.
 - Final-project whole-system diagrams should be named and stored so they do not silently overwrite midterm artifacts.
 - The final-project lane is expected to maintain `3` modelling types for the whole system.
+- For per-use-case modelling work, each selected use case should have both:
+  - one UML Activity Diagram (`AD`) for formal use-case / system behavior modeling
+  - one Process Flow Diagram (`PFD`) for stakeholder-friendly business workflow communication
+- Treat `process-flow-diagram-guide.md` as the canonical guide for creating and reviewing Process Flow Diagrams.
+- Treat `process-vs-activity-decision-guide.md` as the canonical decision guide for choosing, separating, and explaining `PFD` vs `AD` notation.
+- Activity diagrams must use `activity-diagram-guide.md` as the canonical Activity Diagram guide for UML semantics, workflow analysis, node usage, guard conditions, anti-patterns, and quality checklist.
+- Before drawing an Activity Diagram, analyze the target use case/process according to the guide:
+  - scope
+  - main flow
+  - alternative flow
+  - exception flow
+  - concurrency
+  - responsibility / swimlane boundary
+  - important data or object flow
+- Activity diagrams should follow the UC-25 PlantUML presentation style unless the user explicitly asks otherwise:
+  - use PlantUML new activity syntax with swimlanes
+  - use a black-and-white visual style only: white backgrounds, black text, black borders, and black connectors
+  - keep UML terminal nodes correct:
+    - `start` must render as a solid black circle
+    - final nodes must render as the UML final state symbol: white outer circle with black border and black inner circle
+  - avoid PlantUML `<style>` overrides that turn `start` or final nodes white; prefer explicit black/white `skinparam` settings when needed
+  - use business-level swimlanes, not technical implementation layers
+  - for customer-facing flows, use only `Customer` and `System`
+  - add `Payment Gateway` only when the flow explicitly interacts with an external payment provider or payment callback
+  - do not create separate swimlanes for internal pieces such as `Client WebApp`, `Database`, `Authentication Service`, `KDS Service`, or `Notification Service`; fold those responsibilities into `System`
+  - prefer a clean vertical flow with merged branches and one terminal stop; avoid wide `switch/case` layouts that create long crossing connectors
+- When a PlantUML syntax convenience conflicts with UML semantics in `activity-diagram-guide.md`, preserve the guide's semantics and adjust the syntax/layout accordingly.
+- Process Flow Diagrams should follow `process-flow-diagram-guide.md` and be authored as Mermaid `flowchart` sources unless the user explicitly gives a different notation requirement:
+  - keep the diagram business/workflow-oriented, not implementation-oriented
+  - use one clear process scope per diagram
+  - use concise `verb + object` labels for process steps
+  - use white ellipse nodes for `Start` and `End`
+  - use white diamond nodes for decision points
+  - label all decision branches clearly
+  - do not use swimlanes in PFDs
+  - show handoffs and roles through concise step labels or branch labels instead of lanes
+  - keep start and end states explicit on every major path
+  - split very large flows into main process plus sub-process diagrams instead of creating an unreadable giant diagram
+  - do not add UML fork/join, activity-final, flow-final, or object-flow semantics unless the deliverable is explicitly an Activity Diagram
+- When both `AD` and `PFD` are required for the same use case, keep them as separate artifacts and review them against their own guides:
+  - `AD`: formal UML behavior, from the use-case specification
+  - `PFD`: readable business process / stakeholder workflow

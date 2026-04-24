@@ -1,0 +1,259 @@
+@startuml WontonPOS_FinalV3_ClassDiagram_Compact
+' =====================================================================
+' Wonton POS - Final BRD v3 Compact Domain Class Diagram (26 UC)
+' =====================================================================
+' Report-friendly version of the class diagram. This keeps the major
+' domain classes and cardinalities needed to explain the 26-UC system
+' without exposing every SQL support table as a separate visual anchor.
+' =====================================================================
+
+!theme plain
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam classAttributeIconSize 0
+skinparam roundcorner 6
+skinparam padding 4
+skinparam nodesep 55
+skinparam ranksep 60
+
+skinparam class {
+  BackgroundColor #FEFEFE
+  BorderColor #333333
+  ArrowColor #111111
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #333333
+}
+
+title Wonton POS - Final V3 Compact Domain Class Diagram\nScope: UC-01..UC-26
+
+package "Access & Roles" {
+  class Customer <<Entity>> {
+    - customerId: Long
+    - fullName: String
+    - phoneNumber: String
+    - email: String
+    - active: Boolean
+  }
+
+  class Staff <<Entity>> {
+    - staffId: Long
+    - fullName: String
+    - phoneNumber: String
+    - active: Boolean
+  }
+
+  class Role <<Entity>> {
+    - roleCode: String
+    - roleName: String
+  }
+}
+
+package "Menu & Table Setup" {
+  class MenuCategory <<Entity>> {
+    - categoryId: Integer
+    - categoryName: String
+    - active: Boolean
+  }
+
+  class MenuItem <<Entity>> {
+    - itemId: Long
+    - itemName: String
+    - price: Money
+    - available: Boolean
+    - marked86d: Boolean
+    - archived: Boolean
+  }
+
+  class Topping <<Entity>> {
+    - toppingId: Integer
+    - toppingName: String
+    - extraPrice: Money
+  }
+
+  class DiningTable <<Entity>> {
+    - tableId: Integer
+    - tableNumber: String
+    - capacity: Integer
+    - currentStatus: String
+  }
+
+  class PickupSlotConfig <<Entity>> {
+    - weekday: Integer
+    - startTime: Time
+    - endTime: Time
+    - maxOrdersPerSlot: Integer
+    - paused: Boolean
+  }
+}
+
+package "Ordering Core" {
+  class Order <<AggregateRoot>> {
+    - orderId: Long
+    - orderCode: String
+    - serviceModel: String
+    - orderChannel: String
+    - orderStatus: String
+    - paymentStatus: String
+    - totalAmount: Money
+    - pickupScheduledAt: DateTime
+    --
+    + calculateTotals(): Money
+    + applyPromotion(): void
+    + transitionStatus(): void
+    + createReorderDraft(): Order
+  }
+
+  class OrderItem <<Entity>> {
+    - orderItemId: Long
+    - itemNameSnapshot: String
+    - unitPriceSnapshot: Money
+    - quantity: Integer
+    - itemStatus: String
+  }
+
+  class OrderStatusHistory <<Entity>> {
+    - fromOrderStatus: String
+    - toOrderStatus: String
+    - fromPaymentStatus: String
+    - toPaymentStatus: String
+    - changedAt: DateTime
+  }
+}
+
+package "Payment & Promotions" {
+  class Promotion <<Entity>> {
+    - code: String
+    - discountType: String
+    - discountValue: Money
+    - validFrom: DateTime
+    - validUntil: DateTime
+    - active: Boolean
+  }
+
+  class PromotionUsage <<Entity>> {
+    - discountApplied: Money
+    - appliedAt: DateTime
+  }
+
+  class PaymentTransaction <<Entity>> {
+    - method: String
+    - amount: Money
+    - status: String
+    - gatewayReference: String
+  }
+
+  class Refund <<Entity>> {
+    - amount: Money
+    - refundType: String
+    - status: String
+    - reason: String
+  }
+}
+
+package "Service & Operations" {
+  class OrderReview <<Entity>> {
+    - ratingFood: Integer
+    - ratingService: Integer
+    - ratingExperience: Integer
+    - comment: String
+  }
+
+  class Notification <<Entity>> {
+    - recipientType: String
+    - eventType: String
+    - title: String
+    - read: Boolean
+  }
+
+  class Complaint <<Entity>> {
+    - issueType: String
+    - resolution: String
+    - resolvedAt: DateTime
+  }
+
+  class Shift <<AggregateRoot>> {
+    - openedAt: DateTime
+    - closedAt: DateTime
+    - openingCash: Money
+    - countedCash: Money
+    - variance: Money
+    - status: String
+  }
+
+  class ShiftReconciliationBucket <<Entity>> {
+    - bucketType: String
+    - totalAmount: Money
+    - transactionCount: Integer
+  }
+
+  class AuditLog <<Entity>> {
+    - actionType: String
+    - entityType: String
+    - amountImpact: Money
+    - reason: String
+    - loggedAt: DateTime
+  }
+}
+
+' Access and authorization
+Staff "0..*" -- "0..*" Role : assigned roles
+
+' Menu and availability
+MenuCategory "1" o-- "0..*" MenuItem : contains
+MenuItem "0..*" -- "0..*" Topping : supports
+
+' Order creation and content
+Customer "0..1" -- "0..*" Order : places
+Staff "0..1" -- "0..*" Order : creates counter orders
+DiningTable "0..1" -- "0..*" Order : assigned to
+PickupSlotConfig "0..1" ..> "0..*" Order : validates pickup capacity
+Order "0..1" <-- "0..*" Order : source for reorder
+Order "1" *-- "1..*" OrderItem : contains
+OrderItem "*" --> "1" MenuItem : item snapshot
+Order "1" *-- "0..*" OrderStatusHistory : records transitions
+
+' Payment and promotions
+Promotion "0..1" -- "0..*" Order : applied promotion
+Promotion "1" -- "0..*" PromotionUsage : logs usage
+Order "1" -- "0..1" PromotionUsage : checkout application
+Customer "0..1" -- "0..*" PromotionUsage : registered or guest limit
+Order "1" *-- "0..*" PaymentTransaction : payment attempts
+Order "1" *-- "0..*" Refund : refund cases
+PaymentTransaction "0..1" <-- "0..*" Refund : source transaction
+
+' Service completion and operating controls
+Order "1" -- "0..1" OrderReview : may receive
+Order "0..1" -- "0..*" Notification : triggers
+Customer "0..1" -- "0..*" Notification : receives
+Order "1" -- "0..*" Complaint : may have
+Shift "1" *-- "0..*" ShiftReconciliationBucket : summarizes
+Shift "1" -- "0..*" Order : reconciles financial events
+Staff "1" -- "0..*" Shift : opens/closes
+Staff "1" -- "0..*" AuditLog : performs sensitive actions
+
+note right of Order
+Order is the central aggregate across ordering,
+kitchen progress, handoff, tracking, reorder,
+checkout, and active-order operations.
+end note
+
+note bottom of MenuItem
+marked86d blocks new orders independently from
+stock adjustment. Archived items remain available
+for historical order snapshots.
+end note
+
+note bottom of Shift
+Shift close reconciles cash, QR, online payment,
+refund, write-off, comp, forfeited, duplicate
+charge, and inherited exception buckets.
+end note
+
+@enduml

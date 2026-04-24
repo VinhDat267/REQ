@@ -1,0 +1,67 @@
+%% UC-19 Process Flow Diagram: View Operational Dashboard
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenDashboard["Manager opens Admin Dashboard"]
+    OpenDashboard --> LoadSnapshot["System loads current operational snapshot"]
+    LoadSnapshot -.-> SnapshotData["Snapshot data may include:<br/>today's revenue<br/>order counts by status<br/>average order value<br/>kitchen load<br/>open exception alerts<br/>shift status"]
+
+    LoadSnapshot --> DataLoaded{"Data loaded<br/>successfully?"}
+
+    DataLoaded -->|No| PreserveSnapshot["System preserves last valid snapshot"]
+    PreserveSnapshot --> ShowLoadingError["System shows loading error<br/>and retry option"]
+    ShowLoadingError --> Retry{"Manager retries<br/>loading?"}
+    Retry -->|Yes| ReloadSnapshot["System reloads current<br/>operational snapshot"]
+    ReloadSnapshot --> ReloadSuccess{"Reload successful?"}
+    ReloadSuccess -->|No| KeepLastSnapshot["System keeps last valid<br/>snapshot visible"]
+    KeepLastSnapshot --> EndReloadFailed([End - Last snapshot preserved])
+    ReloadSuccess -->|Yes| ReloadHasData{"Data available for<br/>selected period?"}
+    ReloadHasData -->|No| ShowReloadNoData["System shows no-data placeholder"]
+    ShowReloadNoData --> EndReloadNoData([End - No operational data yet])
+    ReloadHasData -->|Yes| DisplayDashboard
+    Retry -->|No| EndLoadingError([End - Last snapshot preserved])
+
+    DataLoaded -->|Yes| DataAvailable{"Data available for<br/>selected period?"}
+    DataAvailable -->|No| ShowPlaceholder["System shows no-data placeholder"]
+    ShowPlaceholder --> EndNoData([End - No operational data yet])
+
+    DataAvailable -->|Yes| DisplayDashboard["System displays dashboard snapshot<br/>with alert cards"]
+    DisplayDashboard --> FilterDashboard{"Filter by shift<br/>or day?"}
+
+    FilterDashboard -->|Yes| SelectFilter["Manager selects shift or day filter"]
+    SelectFilter --> ReloadFiltered["System reloads dashboard<br/>for selected filter"]
+    ReloadFiltered --> FilteredData{"Filtered data<br/>available?"}
+    FilteredData -->|No| ShowFilteredNoData["System shows no-data placeholder"]
+    ShowFilteredNoData --> EndFilteredNoData([End - No filtered data])
+    FilteredData -->|Yes| DisplayFiltered["System displays filtered<br/>dashboard snapshot"]
+    DisplayFiltered --> ClickAlert
+
+    FilterDashboard -->|No| ClickAlert{"Manager clicks<br/>an alert card?"}
+
+    ClickAlert -->|No| ContinueMonitoring["Manager continues monitoring<br/>the dashboard"]
+    ContinueMonitoring --> EndReviewed([End - Snapshot reviewed])
+
+    ClickAlert -->|Yes| IdentifyAlert["System identifies alert type"]
+    IdentifyAlert -.-> AlertExamples["Alert examples:<br/>Refund Pending<br/>overdue Pickup<br/>unresolved Write-off<br/>Forfeited pending<br/>Dine-in Completed + Unpaid<br/>shift awaiting close review"]
+    IdentifyAlert --> ShiftAlert{"Shift-status<br/>alert?"}
+
+    ShiftAlert -->|Yes| RouteShiftClose["System routes Manager to<br/>Shift Close review (UC-21)"]
+    RouteShiftClose --> EndShiftClose([End - Routed to UC-21])
+
+    ShiftAlert -->|No| ActiveOrderAlert{"Active order or<br/>exception alert?"}
+    ActiveOrderAlert -->|Yes| OpenRelatedList["System opens related active orders<br/>or exception list"]
+    OpenRelatedList --> RouteActiveOrders["System routes Manager to<br/>Active Orders drill-down (UC-20)"]
+    RouteActiveOrders --> EndActiveOrders([End - Routed to UC-20])
+
+    ActiveOrderAlert -->|No| ShowUnsupported["System shows unsupported alert message"]
+    ShowUnsupported --> EndUnsupported([End - No drill-down opened])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndLoadingError,EndReloadFailed,EndReloadNoData,EndNoData,EndFilteredNoData,EndReviewed,EndShiftClose,EndActiveOrders,EndUnsupported terminal;
+    class DataLoaded,Retry,ReloadSuccess,ReloadHasData,DataAvailable,FilterDashboard,FilteredData,ClickAlert,ShiftAlert,ActiveOrderAlert decision;
+    class SnapshotData,AlertExamples note;

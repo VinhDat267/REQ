@@ -1,0 +1,625 @@
+// =====================================================================
+// Wonton POS - Final BRD v3 Schema in DBML format
+// =====================================================================
+// Purpose : paste into https://dbdiagram.io for a clean auto-rendered ERD
+// Source  : WontonPOS_FinalV3_Schema.sql (MySQL 8.x)
+// Baseline: Business Rules locked 2026-04-17 + ADR-023..026
+// Usage   : 1. Open https://dbdiagram.io/d
+//           2. Paste this entire file into the left editor
+//           3. ERD auto-renders on the right; export PNG/PDF/SQL from top-right
+// =====================================================================
+
+Project wonton_pos {
+  database_type: 'MySQL'
+  Note: '''
+    Wonton POS - Final BRD v3 (26 UC)
+    Order Management, Payment, and Revenue Analytics for a wonton noodle shop.
+    Locked business baseline as of 2026-04-17.
+  '''
+}
+
+// ---------- ENUM types ---------------------------------------------------
+Enum service_model {
+  DINE_IN
+  TAKEAWAY
+  PICKUP
+}
+
+Enum order_channel {
+  CLIENT_WEBAPP
+  COUNTER
+}
+
+Enum order_status {
+  PENDING_CONFIRMATION
+  COOKING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+Enum payment_status {
+  PENDING_ONLINE_PAYMENT
+  UNPAID
+  PAID
+  REFUND_PENDING
+  REFUNDED
+  WRITE_OFF
+  COMP
+  FORFEITED
+}
+
+Enum item_status {
+  PENDING
+  COOKING
+  READY
+  SERVED
+  VOID
+}
+
+Enum payment_method {
+  CASH
+  PAYMENT_GATEWAY_QR
+  BANK_TRANSFER_QR
+  ONLINE_GATEWAY
+}
+
+Enum payment_tx_status {
+  PENDING
+  SUCCESS
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+Enum refund_type {
+  FULL
+  PARTIAL
+}
+
+Enum refund_status {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+Enum refund_method {
+  GATEWAY_AUTO
+  CASH_MANUAL
+  BANK_TRANSFER_MANUAL
+}
+
+Enum promotion_discount_type {
+  PERCENT
+  FIXED_AMOUNT
+}
+
+Enum table_status {
+  AVAILABLE
+  OCCUPIED
+  CLEANING
+  OUT_OF_SERVICE
+}
+
+Enum shift_status {
+  OPEN
+  CLOSED
+  REOPENED
+}
+
+Enum reconciliation_bucket_type {
+  CASH
+  BANK_TRANSFER_QR
+  ONLINE_GATEWAY
+  REFUND
+  WRITE_OFF
+  COMP
+  FORFEITED
+  DUPLICATE_CHARGE
+}
+
+Enum inherited_exception_type {
+  REFUND_PENDING
+  OVERDUE_PICKUP
+  OVERDUE_TAKEAWAY
+  WRITE_OFF_PENDING
+  FORFEITED_PENDING
+  DINE_IN_COMPLETED_UNPAID
+}
+
+Enum drawer_movement_type {
+  CASH_IN
+  CASH_OUT
+  PAYIN
+  PAYOUT
+  TIP
+}
+
+Enum stock_adjustment_type {
+  RESTOCK
+  WASTE
+  SPOILAGE
+  COUNT_CORRECTION
+  OTHER
+}
+
+Enum complaint_issue_type {
+  MISSING_ITEM
+  WRONG_ITEM
+  QUALITY_ISSUE
+  WRONG_HANDOFF
+  LATE_DELIVERY
+  OTHER
+}
+
+Enum complaint_resolution {
+  PENDING
+  REMAKE
+  SUBSTITUTE
+  GOODWILL_DISCOUNT
+  PARTIAL_REFUND
+  FULL_REFUND
+  COMP
+  WRITE_OFF
+  NO_ACTION
+}
+
+Enum notification_recipient_type {
+  CUSTOMER
+  STAFF
+}
+
+
+// ========== 1. CUSTOMER ACCOUNT (UC-25) ==========
+Table customer {
+  customer_id   bigint [pk, increment]
+  full_name     varchar(100) [not null]
+  phone_number  varchar(20)  [not null, unique]
+  email         varchar(120) [unique]
+  password_hash varchar(255) [not null]
+  is_active     boolean      [not null, default: true]
+  created_at    datetime     [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at    datetime     [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Registered customer accounts (UC-25). Guests are captured inline on orders.'
+
+  indexes {
+    phone_number [name: 'idx_customer_phone']
+    email        [name: 'idx_customer_email']
+  }
+}
+
+Table customer_password_reset {
+  reset_id      bigint   [pk, increment]
+  customer_id   bigint   [not null, ref: > customer.customer_id]
+  otp_code_hash varchar(255) [not null]
+  expires_at    datetime [not null]
+  consumed_at   datetime
+  created_at    datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'OTP tokens for forgot-password flow (UC-25).'
+}
+
+
+// ========== 2. STAFF & ROLES (UC-06) ==========
+Table staff {
+  staff_id      bigint [pk, increment]
+  full_name     varchar(100) [not null]
+  phone_number  varchar(20)  [not null, unique]
+  email         varchar(120) [unique]
+  password_hash varchar(255) [not null]
+  is_active     boolean      [not null, default: true]
+  created_at    datetime     [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at    datetime     [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Staff accounts for Admin WebApp (UC-06).'
+}
+
+Table role {
+  role_id     int [pk, increment]
+  role_code   varchar(30) [not null, unique]
+  role_name   varchar(60) [not null]
+  description varchar(255)
+
+  Note: 'Role catalog. Staff may hold MULTIPLE roles.'
+}
+
+Table staff_role {
+  staff_id             bigint   [not null, ref: > staff.staff_id]
+  role_id              int      [not null, ref: > role.role_id]
+  granted_at           datetime [not null, default: `CURRENT_TIMESTAMP`]
+  granted_by_staff_id  bigint   [ref: > staff.staff_id]
+
+  indexes {
+    (staff_id, role_id) [pk]
+  }
+
+  Note: 'M:N staff <-> role. Multi-role staffing allowed.'
+}
+
+
+// ========== 3. MENU (UC-05, UC-22) ==========
+Table menu_category {
+  category_id   int [pk, increment]
+  category_name varchar(100) [not null]
+  display_order int      [not null, default: 0]
+  is_active     boolean  [not null, default: true]
+  created_at    datetime [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at    datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table menu_item {
+  item_id      bigint [pk, increment]
+  category_id  int    [not null, ref: > menu_category.category_id]
+  item_name    varchar(150) [not null]
+  description  text
+  image_url    varchar(500)
+  price        decimal(12,2) [not null]
+  is_available boolean  [not null, default: true, note: 'Manager on/off toggle']
+  is_86d       boolean  [not null, default: false, note: 'Kitchen 86d flag; independent from stock_adjustment']
+  is_archived  boolean  [not null, default: false, note: 'Archive-first policy']
+  created_at   datetime [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at   datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  indexes {
+    (category_id, is_available, is_86d) [name: 'idx_item_category_avail']
+    is_archived                         [name: 'idx_item_archived']
+  }
+}
+
+Table topping {
+  topping_id   int [pk, increment]
+  topping_name varchar(100) [not null]
+  extra_price  decimal(12,2) [not null, default: 0]
+  is_active    boolean  [not null, default: true]
+  created_at   datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table menu_item_topping {
+  item_id    bigint [not null, ref: > menu_item.item_id]
+  topping_id int    [not null, ref: > topping.topping_id]
+
+  indexes {
+    (item_id, topping_id) [pk]
+  }
+}
+
+Table menu_item_availability_event {
+  event_id       bigint   [pk, increment]
+  item_id        bigint   [not null, ref: > menu_item.item_id]
+  actor_staff_id bigint   [not null, ref: > staff.staff_id]
+  is_86d         boolean  [not null]
+  reason         varchar(255)
+  event_at       datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Audit of 86d on/off events (UC-22).'
+}
+
+
+// ========== 4. DINING TABLES (UC-08, UC-12) ==========
+Table dining_table {
+  table_id         int [pk, increment]
+  table_number     varchar(20) [not null, unique]
+  seating_capacity int         [not null]
+  location_note    varchar(150)
+  qr_token         varchar(64) [unique, note: 'QR encodes /order?table=<qr_token>']
+  current_status   table_status [not null, default: 'AVAILABLE']
+  is_active        boolean      [not null, default: true]
+  created_at       datetime     [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at       datetime     [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Dine-in tables. A table may hold multiple concurrent orders for the same party.'
+}
+
+
+// ========== 5. PROMOTIONS (UC-18) ==========
+Table promotion {
+  promotion_id             int [pk, increment]
+  code                     varchar(40) [not null, unique]
+  discount_type            promotion_discount_type [not null]
+  discount_value           decimal(12,2) [not null]
+  min_order_amount         decimal(12,2) [not null, default: 0]
+  max_discount             decimal(12,2)
+  usage_limit_total        int
+  usage_limit_per_customer int [default: 1]
+  valid_from               datetime [not null]
+  valid_until              datetime [not null]
+  is_active                boolean  [not null, default: true]
+  created_by_staff_id      bigint   [not null, ref: > staff.staff_id]
+  created_at               datetime [not null, default: `CURRENT_TIMESTAMP`]
+  updated_at               datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Promotion codes. Percent + fixed-amount only; BOGO/free-item out of scope.'
+}
+
+
+// ========== 6. PICKUP CAPACITY (UC-03) ==========
+Table pickup_slot_config {
+  slot_config_id      int [pk, increment]
+  weekday             tinyint  [not null, note: '0=Sunday .. 6=Saturday']
+  start_time          time     [not null]
+  end_time            time     [not null]
+  max_orders_per_slot int      [not null, default: 5]
+  holding_minutes     int      [not null, default: 60]
+  is_paused           boolean  [not null, default: false, note: 'Pause affects only NEW orders']
+  updated_by_staff_id bigint   [ref: > staff.staff_id]
+  updated_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Pickup capacity configuration (UC-03 + Business Rules Pickup section).'
+}
+
+
+// ========== 7. ORDERS (UC-01, UC-03, UC-09, UC-11, UC-17, UC-20, UC-26) ==========
+Table orders {
+  order_id            bigint [pk, increment]
+  order_code          varchar(12) [not null, unique, note: '8+ alphanumeric for Guest tracking security']
+  service_model       service_model  [not null]
+  order_channel       order_channel  [not null]
+  order_status        order_status   [not null, default: 'PENDING_CONFIRMATION']
+  payment_status      payment_status [not null, default: 'UNPAID']
+
+  // Customer (XOR: customer_id set for Registered, guest_* set for Guest)
+  customer_id         bigint [ref: > customer.customer_id, note: 'NULL for Guest']
+  guest_name          varchar(100)
+  guest_phone         varchar(20)
+  guest_anonymized_at datetime [note: 'Set 12 months after terminal state (Decree 13/2023)']
+
+  // Dine-in / Pickup context
+  table_id            int    [ref: > dining_table.table_id, note: 'Dine-in only']
+  party_size          int    [note: 'Cashier-entered; null for QR self-service']
+  pickup_scheduled_at datetime
+
+  // Totals
+  subtotal_amount     decimal(12,2) [not null, default: 0]
+  discount_amount     decimal(12,2) [not null, default: 0]
+  total_amount        decimal(12,2) [not null, default: 0]
+  applied_promotion_id int [ref: > promotion.promotion_id]
+
+  // Reorder traceability (UC-17)
+  source_order_id     bigint [ref: > orders.order_id, note: 'Reorder from a Completed order (ADR-025)']
+
+  // Lifecycle
+  created_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+  accepted_at         datetime
+  ready_at            datetime
+  completed_at        datetime
+  cancelled_at        datetime
+  cancellation_reason varchar(255)
+  created_by_staff_id bigint [ref: > staff.staff_id, note: 'Set for COUNTER channel']
+
+  indexes {
+    order_code                                        [name: 'idx_order_code']
+    (service_model, order_status)                     [name: 'idx_order_service_status']
+    (customer_id, created_at)                         [name: 'idx_order_customer_time']
+    (guest_phone, created_at)                         [name: 'idx_order_guest_phone']
+    (table_id, order_status)                          [name: 'idx_order_table']
+    (pickup_scheduled_at, order_status)               [name: 'idx_order_pickup_time']
+    (order_status, payment_status, created_at)        [name: 'idx_order_status_pair']
+  }
+
+  Note: 'Primary orders table. Multi-order per table is allowed for Dine-in.'
+}
+
+Table order_item {
+  order_item_id       bigint [pk, increment]
+  order_id            bigint [not null, ref: > orders.order_id]
+  item_id             bigint [not null, ref: > menu_item.item_id]
+  item_name_snapshot  varchar(150) [not null]
+  unit_price_snapshot decimal(12,2) [not null]
+  quantity            int           [not null]
+  line_subtotal       decimal(12,2) [not null]
+  special_note        varchar(255)
+  item_status         item_status   [not null, default: 'PENDING']
+
+  Note: 'Order line items with historical name/price snapshot.'
+}
+
+Table order_item_topping {
+  order_item_id          bigint [not null, ref: > order_item.order_item_id]
+  topping_id             int    [not null, ref: > topping.topping_id]
+  topping_name_snapshot  varchar(100)  [not null]
+  topping_price_snapshot decimal(12,2) [not null]
+
+  indexes {
+    (order_item_id, topping_id) [pk]
+  }
+}
+
+Table order_status_history {
+  history_id          bigint [pk, increment]
+  order_id            bigint [not null, ref: > orders.order_id]
+  from_order_status   order_status
+  to_order_status     order_status
+  from_payment_status payment_status
+  to_payment_status   payment_status
+  actor_staff_id      bigint [ref: > staff.staff_id]
+  actor_customer_id   bigint [ref: > customer.customer_id]
+  change_reason       varchar(255)
+  changed_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Audit trail of order + payment status transitions.'
+}
+
+
+// ========== 8. PAYMENT & REFUND (UC-02, UC-10) ==========
+Table payment_transaction {
+  transaction_id                   bigint [pk, increment]
+  order_id                         bigint [not null, ref: > orders.order_id]
+  method                           payment_method [not null]
+  provider_code                    varchar(30) [note: 'MOMO, VNPAY, ZALOPAY, or bank name']
+  amount                           decimal(12,2) [not null]
+  status                           payment_tx_status [not null, default: 'PENDING']
+  gateway_reference                varchar(120) [unique, note: 'Idempotency key']
+  manual_confirmation_by_staff_id  bigint [ref: > staff.staff_id]
+  manual_confirmed_at              datetime
+  initiated_at                     datetime [not null, default: `CURRENT_TIMESTAMP`]
+  completed_at                     datetime
+
+  Note: 'Each payment attempt. Duplicate callbacks prevented by unique gateway_reference.'
+}
+
+Table refund {
+  refund_id              bigint [pk, increment]
+  order_id               bigint [not null, ref: > orders.order_id]
+  source_transaction_id  bigint [ref: > payment_transaction.transaction_id]
+  amount                 decimal(12,2) [not null]
+  refund_type            refund_type   [not null]
+  reason                 varchar(255)  [not null]
+  status                 refund_status [not null, default: 'PENDING']
+  method                 refund_method [not null]
+  approved_by_staff_id   bigint [not null, ref: > staff.staff_id]
+  completed_by_staff_id  bigint [ref: > staff.staff_id]
+  created_at             datetime [not null, default: `CURRENT_TIMESTAMP`]
+  completed_at           datetime
+
+  Note: 'Refund records. Manager approval required (§3b, §3k).'
+}
+
+
+// ========== 9. PROMOTION USAGE (UC-18, UC-26) ==========
+Table promotion_usage {
+  usage_id         bigint [pk, increment]
+  promotion_id     int    [not null, ref: > promotion.promotion_id]
+  order_id         bigint [not null, ref: > orders.order_id]
+  customer_id      bigint [ref: > customer.customer_id, note: 'NULL for Guest']
+  guest_phone      varchar(20) [note: 'For per-customer limit enforcement on Guests']
+  discount_applied decimal(12,2) [not null]
+  applied_at       datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+
+// ========== 10. REVIEW (UC-15) ==========
+Table order_review {
+  review_id         bigint [pk, increment]
+  order_id          bigint [not null, unique, ref: > orders.order_id]
+  customer_id       bigint [not null, ref: > customer.customer_id]
+  rating_food       tinyint [not null, note: '1..5']
+  rating_service    tinyint [not null, note: '1..5']
+  rating_experience tinyint [not null, note: '1..5']
+  comment           varchar(500)
+  is_hidden         boolean  [not null, default: false, note: 'Hidden by profanity/spam filter']
+  created_at        datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+
+// ========== 11. NOTIFICATION (UC-16) ==========
+Table notification {
+  notification_id bigint [pk, increment]
+  recipient_type  notification_recipient_type [not null]
+  customer_id     bigint [ref: > customer.customer_id]
+  staff_id        bigint [ref: > staff.staff_id]
+  order_id        bigint [ref: > orders.order_id]
+  event_type      varchar(60) [not null, note: 'ORDER_CREATED, COOKING, READY, COMPLETED, CANCELLED, 86D, ...']
+  title           varchar(150) [not null]
+  body            varchar(500)
+  is_read         boolean  [not null, default: false]
+  delivered_at    datetime
+  created_at      datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+
+// ========== 12. SHIFT & RECONCILIATION (UC-21, ADR-026) ==========
+Table shift {
+  shift_id                      bigint [pk, increment]
+  opened_by_staff_id            bigint [not null, ref: > staff.staff_id]
+  closed_by_staff_id            bigint [ref: > staff.staff_id]
+  opened_at                     datetime [not null, default: `CURRENT_TIMESTAMP`]
+  closed_at                     datetime
+  opening_cash                  decimal(12,2) [not null]
+  counted_cash                  decimal(12,2)
+  expected_cash                 decimal(12,2)
+  variance                      decimal(12,2)
+  variance_reason               varchar(255)
+  variance_approved_by_staff_id bigint [ref: > staff.staff_id]
+  status                        shift_status [not null, default: 'OPEN']
+
+  Note: 'Cashier shift. Multi-shift per day supported.'
+}
+
+Table shift_reconciliation_bucket {
+  bucket_id         bigint [pk, increment]
+  shift_id          bigint [not null, ref: > shift.shift_id]
+  bucket_type       reconciliation_bucket_type [not null]
+  total_amount      decimal(12,2) [not null, default: 0]
+  transaction_count int [not null, default: 0]
+
+  indexes {
+    (shift_id, bucket_type) [unique, name: 'uq_shift_bucket']
+  }
+
+  Note: 'Per-shift breakdown. Comp, Forfeited, Write-off each have their own bucket.'
+}
+
+Table shift_inherited_exception {
+  inherited_id   bigint [pk, increment]
+  from_shift_id  bigint [not null, ref: > shift.shift_id]
+  to_shift_id    bigint [ref: > shift.shift_id]
+  order_id       bigint [ref: > orders.order_id]
+  exception_type inherited_exception_type [not null]
+  handover_note  varchar(500)
+  resolved_at    datetime
+
+  Note: 'Carry-over exceptions between shifts (ADR-026).'
+}
+
+Table cash_drawer_movement {
+  movement_id          bigint [pk, increment]
+  shift_id             bigint [not null, ref: > shift.shift_id]
+  movement_type        drawer_movement_type [not null]
+  amount               decimal(12,2) [not null]
+  reason               varchar(255)
+  recorded_by_staff_id bigint [not null, ref: > staff.staff_id]
+  recorded_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+
+// ========== 13. INVENTORY-LITE (UC-22, §3m) ==========
+Table stock_adjustment {
+  adjustment_id        bigint [pk, increment]
+  item_id              bigint [not null, ref: > menu_item.item_id]
+  adjustment_type      stock_adjustment_type [not null]
+  quantity_delta       int [not null, note: '+ = add, - = remove']
+  reason               varchar(255)
+  recorded_by_staff_id bigint [not null, ref: > staff.staff_id]
+  recorded_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Manual inventory adjustments (§3m). Independent from 86d flag.'
+}
+
+
+// ========== 14. COMPLAINT / EXCEPTION (UC-24) ==========
+Table complaint {
+  complaint_id         bigint [pk, increment]
+  order_id             bigint [not null, ref: > orders.order_id]
+  issue_type           complaint_issue_type [not null]
+  description          varchar(1000)
+  resolution           complaint_resolution [not null, default: 'PENDING']
+  reported_by_staff_id bigint [not null, ref: > staff.staff_id]
+  approved_by_staff_id bigint [ref: > staff.staff_id]
+  resolved_at          datetime
+  created_at           datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Customer complaints and operational exceptions (UC-24).'
+}
+
+
+// ========== 15. AUDIT LOG (NFR-08, §3k) ==========
+Table audit_log {
+  log_id             bigint [pk, increment]
+  actor_staff_id     bigint [not null, ref: > staff.staff_id]
+  actor_role_code    varchar(30)
+  action_type        varchar(60) [not null]
+  entity_type        varchar(40) [not null]
+  entity_id          bigint
+  amount_impact      decimal(12,2)
+  reason             varchar(500) [not null]
+  approver_staff_id  bigint [ref: > staff.staff_id]
+  metadata_json      json
+  logged_at          datetime [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: 'Immutable audit log. Never hard-deleted (NFR-08).'
+}
+
+// =====================================================================
+// End of DBML
+// =====================================================================

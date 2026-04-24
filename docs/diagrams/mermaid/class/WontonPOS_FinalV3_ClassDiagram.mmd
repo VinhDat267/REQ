@@ -1,0 +1,247 @@
+---
+config:
+  theme: base
+  look: classic
+  themeVariables:
+    background: "#ffffff"
+    primaryColor: "#ffffff"
+    primaryBorderColor: "#111111"
+    primaryTextColor: "#111111"
+    lineColor: "#111111"
+    fontFamily: "Segoe UI, Arial, sans-serif"
+---
+classDiagram
+direction LR
+
+%% Wonton POS - Final BRD v3 Balanced Class Diagram
+%% Scope: UC-01..UC-26. Service models: Dine-in, Takeaway, Pickup.
+%% Delivery is intentionally out of scope.
+%%
+%% Balance rule:
+%% - show the business classes that a reviewer expects to see
+%% - keep enum/support tables folded into attributes to avoid clutter
+%% - keep ERD-level detail in WontonPOS_FinalV3_Schema.sql
+%%
+%% Folded details:
+%% Staff role junction -> Staff <-> Role
+%% Order item topping junction -> OrderItem.toppingSnapshots
+%% stock adjustment -> MenuItem availability fields
+%% shift inherited exceptions / cash drawer movements -> Shift fields
+%% enum values -> typed status fields
+%% staff/customer action details -> AuditLog and entity attributes where possible
+
+class Customer {
+    <<Entity>>
+    customerId
+    name
+    phone
+    email
+    accountStatus
+}
+
+class PasswordResetToken {
+    <<Entity>>
+    resetId
+    otpCodeHash
+    expiresAt
+    consumedAt
+}
+
+class Staff {
+    <<Entity>>
+    staffId
+    name
+    phone
+    accountStatus
+}
+
+class Role {
+    <<Entity>>
+    roleCode
+    roleName
+}
+
+class MenuCategory {
+    <<Entity>>
+    categoryId
+    categoryName
+    active
+}
+
+class MenuItem {
+    <<Entity>>
+    itemId
+    itemName
+    price
+    availability
+    marked86d
+    archived
+}
+
+class MenuAvailabilityEvent {
+    <<Entity>>
+    eventId
+    marked86d
+    reason
+    eventAt
+}
+
+class Topping {
+    <<Entity>>
+    toppingId
+    toppingName
+    extraPrice
+    active
+}
+
+class DiningTable {
+    <<Entity>>
+    tableId
+    tableNumber
+    capacity
+    status
+}
+
+class PickupSlotConfig {
+    <<Entity>>
+    weekday
+    timeWindow
+    maxOrders
+    paused
+}
+
+class Order {
+    <<AggregateRoot>>
+    orderId
+    orderCode
+    serviceModel
+    orderStatus
+    paymentStatus
+    sourceOrderId
+    totalAmount
+}
+
+class OrderItem {
+    <<Entity>>
+    itemSnapshot
+    toppingSnapshots
+    quantity
+    itemStatus
+}
+
+class OrderStatusHistory {
+    <<Entity>>
+    fromOrderStatus
+    toOrderStatus
+    fromPaymentStatus
+    toPaymentStatus
+    changedAt
+}
+
+class Promotion {
+    <<Entity>>
+    code
+    discountType
+    usageLimits
+    validity
+    active
+}
+
+class PromotionUsage {
+    <<Entity>>
+    guestPhone
+    discountApplied
+    appliedAt
+    usageCounted
+}
+
+class PaymentTransaction {
+    <<Entity>>
+    method
+    amount
+    status
+    reference
+}
+
+class Refund {
+    <<Entity>>
+    amount
+    refundType
+    status
+    reason
+}
+
+class Shift {
+    <<AggregateRoot>>
+    openedAt
+    closedAt
+    variance
+    inheritedExceptions
+    status
+}
+
+class ShiftReconciliationBucket {
+    <<Entity>>
+    bucketType
+    totalAmount
+    transactionCount
+}
+
+class Complaint {
+    <<Entity>>
+    issueType
+    resolution
+    managerApproval
+    resolvedAt
+}
+
+class Notification {
+    <<Entity>>
+    recipientType
+    eventType
+    messageStatus
+}
+
+class OrderReview {
+    <<Entity>>
+    ratingFood
+    ratingService
+    ratingExperience
+    comment
+}
+
+class AuditLog {
+    <<Control>>
+    actor
+    actionType
+    targetEntity
+    reason
+    loggedAt
+}
+
+Customer *-- PasswordResetToken : account recovery
+Staff -- Role : roles
+
+MenuCategory o-- MenuItem : contains
+MenuItem -- Topping : toppings
+MenuItem --> MenuAvailabilityEvent : 86d audit
+
+Customer --> Order : places / tracks
+DiningTable --> Order : dine-in table
+PickupSlotConfig ..> Order : pickup capacity
+
+Order *-- OrderItem : contains
+OrderItem --> MenuItem : item snapshot
+Order *-- OrderStatusHistory : status history
+
+Promotion --> PromotionUsage : usage
+Order *-- PaymentTransaction : payments
+Order *-- Refund : refunds
+
+Shift *-- ShiftReconciliationBucket : summarizes
+
+Order --> Complaint : exceptions
+Order --> Notification : triggers
+Order --> OrderReview : receives
+
+Order --> AuditLog : status / finance history

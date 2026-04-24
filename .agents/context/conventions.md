@@ -94,13 +94,58 @@
   - extend conventions for the real implementation stack
 
 ## 10. Diagram Policy
-- Prefer `PlantUML` or `Mermaid` as editable / canonical sources
+- Use `PlantUML` as the editable / canonical source format for UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style diagrams
+- Use `Mermaid` `flowchart` sources as the editable / canonical source format for Process Flow Diagrams (`PFD`)
+- Existing Mermaid ERD files remain legacy references unless intentionally promoted; Mermaid PFD files under `docs/diagrams/mermaid/process-flow/` are canonical PFD sources
 - `Usecasediagramreq.drawio` is the approved legacy exception kept at root
-- If `.drawio` and PlantUML differ, lock logic against BRD + PlantUML first
+- If `.drawio` and editable canonical sources differ, lock logic against BRD + the current canonical source for that diagram type first
 - New draw.io files should live under `docs/diagrams/drawio/`
 - Midterm activity draw.io files should normally be relayout-only unless a reviewed spec-alignment change is explicitly required
 - `scripts/relayout_activity_drawio.py` is the canonical relayout / controlled auto-fix script for the midterm activity set
 - Final-project whole-system diagrams should be named and stored so they do not silently overwrite midterm artifacts
+- Per-use-case modelling work should maintain both diagram views unless the user explicitly narrows the deliverable:
+  - one UML Activity Diagram (`AD`) for formal use-case / system behavior modeling
+  - one Process Flow Diagram (`PFD`) for readable business workflow communication
+- [activity-diagram-guide.md](../../activity-diagram-guide.md) is the canonical guide for Activity Diagram semantics and quality rules. Use it before creating or reviewing any AD.
+- [process-flow-diagram-guide.md](../../process-flow-diagram-guide.md) is the canonical guide for Process Flow Diagram creation and review.
+- [process-vs-activity-decision-guide.md](../../process-vs-activity-decision-guide.md) is the canonical decision guide for separating `PFD` from `AD` and avoiding accidental hybrid notation.
+- PFD visual notation in this repo is fixed:
+  - `Start` / `End` = white ellipse terminals
+  - decision points = white diamond nodes
+  - process steps = white rectangles
+  - branch labels must remain explicit
+- Activity Diagram work should follow the guide's workflow:
+  - define one clear use case/process scope
+  - derive actions from the main flow
+  - map alternative and exception flows to decisions, guards, merges, loops, or finals
+  - use fork/join only for true concurrency
+  - use object nodes only when the data has analysis value
+  - self-check against the guide's anti-patterns and checklist
+- PlantUML activity diagrams should follow the UC-25 presentation style unless a user gives a different rule:
+  - keep the diagram black-and-white only, including node fill, node borders, diamond borders, connectors, arrowheads, notes, swimlane borders, and text
+  - keep UML terminal nodes explicit and correct:
+    - `start` = solid black circle
+    - final node = white outer circle with black border and black inner circle
+  - do not use PlantUML `<style>` overrides that make `start` or final nodes white; prefer explicit black/white `skinparam` settings if style conflicts appear
+  - use swimlanes at business actor level, not technical component level
+  - for customer-facing flows, the only allowed swimlanes are `Customer`, `System`, and optional `Payment Gateway`
+  - include `Payment Gateway` only when the flow explicitly leaves the system for payment authorization, confirmation, failure, or callback behavior
+  - fold internal system details such as web app, database, authentication, KDS, printer, and notification handling into `System`
+  - keep the rendered layout readable by preferring a vertical flow, merged branches, and one final stop node
+- Process Flow Diagram work should follow the PFD guide's workflow:
+  - author sources as Mermaid `flowchart` files under `docs/diagrams/mermaid/process-flow/`
+  - model one clear process scope per diagram
+  - keep steps at business/workflow level, not code or implementation level
+  - use concise `verb + object` labels
+  - use decision diamonds only for real branching logic
+  - label every branch
+  - do not use swimlanes
+  - show responsibilities or handoffs through concise step labels or branch labels instead of lanes
+  - keep start and end states explicit for every major path
+  - split large flows into main process plus sub-process diagrams when needed
+  - avoid UML-specific semantics such as fork/join, activity-final, flow-final, or object flow unless the artifact is explicitly an Activity Diagram
+- When both `AD` and `PFD` are created for the same use case, keep them as separate artifacts and review each one against its own guide.
+- If layout convenience conflicts with the guide's UML semantics, preserve the guide's semantics first.
 
 ## 11. Requirements Table Format
 - Functional and non-functional requirement tables use 5 columns:

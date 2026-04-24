@@ -1,0 +1,114 @@
+%% UC-25 Process Flow Diagram: Manage Customer Account and Authentication
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenMenu["Open account menu"]
+    OpenMenu --> DisplayActions["Display account actions"]
+    DisplayActions -.-> ActionList["Available actions:<br/>Log in<br/>Register<br/>Forgot password<br/>Update profile<br/>Change password<br/>Log out"]
+
+    DisplayActions --> SignedInGroup{"Signed-in<br/>action?"}
+
+    SignedInGroup -->|Yes| UpdateProfile{"Update profile?"}
+    SignedInGroup -->|No| LogIn{"Log in?"}
+
+    UpdateProfile -->|Yes| ProfileAuth{"Customer<br/>authenticated?"}
+    ProfileAuth -->|No| ProfileLoginRequired["Show login required message"]
+    ProfileLoginRequired --> EndProfileUnchanged([End - Profile unchanged])
+    ProfileAuth -->|Yes| EnterProfile["Enter profile updates"]
+    EnterProfile --> ValidateProfile["Validate profile data"]
+    ValidateProfile --> ProfileValid{"Profile data<br/>valid?"}
+    ProfileValid -->|Yes| SaveProfile["Save profile changes"]
+    SaveProfile --> ShowProfileSuccess["Show success message"]
+    ShowProfileSuccess --> ContinueProfile["Continue account journey"]
+    ContinueProfile --> EndAccountJourney([End - Continue account journey])
+    ProfileValid -->|No| ShowProfileError["Show profile validation error"]
+    ShowProfileError --> KeepProfile["Keep previous profile data"]
+    KeepProfile --> EndProfileUnchanged
+
+    UpdateProfile -->|No| ChangePassword{"Change password?"}
+    ChangePassword -->|Yes| PasswordAuth{"Customer<br/>authenticated?"}
+    PasswordAuth -->|No| PasswordLoginRequired["Show login required message"]
+    PasswordLoginRequired --> EndPasswordUnchanged([End - Password unchanged])
+    PasswordAuth -->|Yes| EnterPassword["Enter current and new password"]
+    EnterPassword --> ValidatePassword["Validate password request"]
+    ValidatePassword --> PasswordValid{"Password request<br/>valid?"}
+    PasswordValid -->|Yes| ChangeCustomerPassword["Change customer password"]
+    ChangeCustomerPassword --> ShowPasswordSuccess["Show success message"]
+    ShowPasswordSuccess --> ContinuePassword["Continue account journey"]
+    ContinuePassword --> EndPasswordChanged([End - Password changed])
+    PasswordValid -->|No| ShowPasswordError["Show password change error"]
+    ShowPasswordError --> KeepPassword["Keep current password"]
+    KeepPassword --> EndPasswordUnchanged
+
+    ChangePassword -->|No| LogOut{"Log out?"}
+    LogOut -->|Yes| LogoutAuth{"Customer<br/>authenticated?"}
+    LogoutAuth -->|No| LogoutLoginRequired["Show login required message"]
+    LogoutLoginRequired --> EndSessionUnchanged([End - Session unchanged])
+    LogoutAuth -->|Yes| InvalidateSession["Invalidate customer session"]
+    InvalidateSession --> PublicScreen["Open public account screen"]
+    PublicScreen --> ShowLogoutSuccess["Show success message"]
+    ShowLogoutSuccess --> ContinueGuest["Continue as guest"]
+    ContinueGuest --> EndGuest([End - Continue as guest])
+    LogOut -->|No| UnsupportedSignedIn["Show unsupported signed-in action error"]
+    UnsupportedSignedIn --> KeepSignedInSelection["Keep account state unchanged"]
+    KeepSignedInSelection --> EndUnsupportedSignedIn([End - No supported signed-in action])
+
+    LogIn -->|Yes| EnterCredentials["Enter credentials"]
+    EnterCredentials --> ValidateCredentials["Validate credentials"]
+    ValidateCredentials --> CredentialsValid{"Credentials<br/>valid?"}
+    CredentialsValid -->|Yes| CreateSession["Create authenticated session"]
+    CreateSession --> OpenAccountHome["Open account home"]
+    OpenAccountHome --> ShowLoginSuccess["Show success message"]
+    ShowLoginSuccess --> ContinueBrowse["Continue browsing or checkout"]
+    ContinueBrowse --> EndBrowse([End - Continue browsing/checkout])
+    CredentialsValid -->|No| InvalidCredentials["Show invalid credentials error"]
+    InvalidCredentials --> EndLoginUnchanged([End - Login unchanged])
+
+    LogIn -->|No| Register{"Register?"}
+    Register -->|Yes| EnterRegistration["Enter registration details"]
+    EnterRegistration --> ValidateRegistration["Validate registration data"]
+    ValidateRegistration --> RegistrationValid{"Registration data<br/>valid?"}
+    RegistrationValid -->|No| RegistrationError["Show registration validation error"]
+    RegistrationError --> EndRegistrationRejected([End - Registration rejected])
+    RegistrationValid -->|Yes| GenerateRegOtp["Generate registration OTP"]
+    GenerateRegOtp --> SendRegOtp["Send registration OTP"]
+    SendRegOtp --> EnterRegOtp["Enter registration OTP"]
+    EnterRegOtp --> ValidateRegOtp["Validate registration OTP"]
+    ValidateRegOtp --> RegOtpValid{"Registration OTP<br/>valid?"}
+    RegOtpValid -->|No| RegOtpError["Show OTP error"]
+    RegOtpError --> EndRegOtpRejected([End - Registration OTP rejected])
+    RegOtpValid -->|Yes| CreateAccount["Create customer account"]
+    CreateAccount --> CreateRegSession["Create authenticated session"]
+    CreateRegSession --> OpenRegHome["Open account home"]
+    OpenRegHome --> ShowRegistrationSuccess["Show success message"]
+    ShowRegistrationSuccess --> ContinueAfterRegistration["Continue browsing or checkout"]
+    ContinueAfterRegistration --> EndAfterRegistration([End - Registered and continue browsing/checkout])
+
+    Register -->|No| ForgotPassword{"Forgot password?"}
+    ForgotPassword -->|Yes| RequestRecovery["Request recovery OTP"]
+    RequestRecovery --> GenerateRecovery["Generate recovery OTP"]
+    GenerateRecovery --> SendRecovery["Send recovery OTP"]
+    SendRecovery --> EnterRecovery["Enter recovery OTP and new password"]
+    EnterRecovery --> ValidateRecovery["Validate recovery request"]
+    ValidateRecovery --> RecoveryValid{"Recovery request<br/>valid?"}
+    RecoveryValid -->|No| RecoveryError["Show password recovery error"]
+    RecoveryError --> KeepRecoveryPassword["Keep password unchanged"]
+    KeepRecoveryPassword --> EndRecoveryRejected([End - Recovery rejected])
+    RecoveryValid -->|Yes| ResetPassword["Reset customer password"]
+    ResetPassword --> OpenLoginForm["Open login form"]
+    OpenLoginForm --> ShowRecoverySuccess["Show success message"]
+    ShowRecoverySuccess --> ContinueAfterRecovery["Log in with new password<br/>or continue browsing"]
+    ContinueAfterRecovery --> EndOpenLogin([End - Open login form])
+    ForgotPassword -->|No| UnsupportedPublic["Show unsupported public action error"]
+    UnsupportedPublic --> KeepPublicSelection["Keep account state unchanged"]
+    KeepPublicSelection --> EndUnsupportedPublic([End - No supported public action])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndProfileUnchanged,EndAccountJourney,EndPasswordUnchanged,EndPasswordChanged,EndSessionUnchanged,EndGuest,EndUnsupportedSignedIn,EndBrowse,EndLoginUnchanged,EndRegistrationRejected,EndRegOtpRejected,EndAfterRegistration,EndRecoveryRejected,EndOpenLogin,EndUnsupportedPublic terminal;
+    class SignedInGroup,UpdateProfile,ProfileAuth,ProfileValid,ChangePassword,PasswordAuth,PasswordValid,LogOut,LogoutAuth,LogIn,CredentialsValid,Register,RegistrationValid,RegOtpValid,ForgotPassword,RecoveryValid decision;
+    class ActionList note;

@@ -41,12 +41,23 @@
      - scope
    - prototype evidence
 12. Diagram policy:
-   - prefer `PlantUML` or `Mermaid` for new canonical diagram work
+   - use `PlantUML` for UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style canonical diagram work
+   - use `Mermaid` flowchart sources for Process Flow Diagrams (`PFD`) because PFDs are stakeholder-friendly flowcharts rather than formal UML diagrams
    - `Usecasediagramreq.drawio` is the synced legacy review / submission artifact at repo root
-   - if draw.io and PlantUML diverge, resolve logic against BRD + PlantUML first
+   - if draw.io and editable canonical sources diverge, resolve logic against BRD plus the current canonical source for that diagram type first
    - store new draw.io files under `docs/diagrams/drawio/`, not at repo root
    - use `scripts/relayout_activity_drawio.py` as the canonical relayout helper for midterm activity draw.io files
    - keep final-project whole-system diagram names distinct from midterm ones
+   - use `activity-diagram-guide.md` as the canonical rule source for Activity Diagram semantics, analysis steps, anti-patterns, and checklist
+   - for per-use-case modelling work, each selected use case should have both one UML Activity Diagram (`AD`) and one Process Flow Diagram (`PFD`) unless the user explicitly scopes the deliverable differently
+   - use `process-flow-diagram-guide.md` as the canonical rule source for Process Flow Diagram creation and review
+   - use `process-vs-activity-decision-guide.md` as the canonical decision source for separating `PFD` from `AD`; do not mix the two notation styles by accident
+   - Process Flow Diagrams must be authored as Mermaid `flowchart` sources under `docs/diagrams/mermaid/process-flow/`
+   - Process Flow Diagrams must not use swimlanes; keep all PFD sources lane-free even when the workflow crosses actors or system handoffs
+   - PFD `Start` and `End` terminals must use white ellipse nodes
+   - PFD decision points must use white diamond nodes with explicit branch labels
+   - draw PlantUML activity diagrams in the UC-25 style by default: black-and-white only, mandatory business-level swimlanes, `Customer` + `System` for customer-facing flows, optional `Payment Gateway` only for real external payment interactions, and no internal technical lanes such as database / auth service / web app
+   - keep UML terminal nodes visually correct in PlantUML activity diagrams: `start` must be a solid black circle; final nodes must be white outer circles with black border and black inner circle; do not use style overrides that make those nodes white
 13. If a change affects project direction or core business logic, add a decision record under `.agents/decisions/`.
 14. After a meaningful work session, update `.agents/journal/` when appropriate.
 15. When the project leaves the documentation-first phase, update `architecture.md`, `conventions.md`, `README.md`, `AGENTS.md`, and the workflow runbooks.

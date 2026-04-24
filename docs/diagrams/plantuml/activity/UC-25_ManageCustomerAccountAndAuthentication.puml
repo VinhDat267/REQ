@@ -1,0 +1,217 @@
+@startuml
+title UC-25: Manage Customer Account and Authentication
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Customer|
+start
+:Open Account menu;
+
+|System|
+:Display account actions;
+note right
+Account actions:
+- Log in
+- Register
+- Forgot password
+- Update profile
+- Change password
+- Log out
+end note
+
+|Customer|
+:Select account action;
+
+|System|
+if (Update profile?) then ([yes])
+  if (Customer authenticated?) then ([yes])
+    |Customer|
+    :Edit profile fields;
+
+    |System|
+    :Validate profile fields;
+    if (Profile fields valid?) then ([valid])
+      :Save profile changes;
+      :Show success message;
+
+      |Customer|
+      :Continue account journey;
+      stop
+    else ([invalid])
+      :Show profile validation error;
+      :Keep previous profile data;
+      stop
+    endif
+  else ([no])
+    :Show login required message;
+    :Keep account state unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Change password?) then ([yes])
+  if (Customer authenticated?) then ([yes])
+    |Customer|
+    :Enter current and new password;
+
+    |System|
+    :Validate password change request;
+    if (Password change request valid?) then ([valid])
+      :Change customer password;
+      :Show success message;
+
+      |Customer|
+      :Continue account journey;
+      stop
+    else ([invalid])
+      :Show password change error;
+      :Keep current password;
+      stop
+    endif
+  else ([no])
+    :Show login required message;
+    :Keep account state unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Log out?) then ([yes])
+  if (Customer authenticated?) then ([yes])
+    :Invalidate customer session;
+    :Open public account screen;
+    :Show success message;
+
+    |Customer|
+    :Continue browsing as guest;
+    stop
+  else ([no])
+    :Show login required message;
+    :Keep account state unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Log in?) then ([yes])
+  |Customer|
+  :Enter credentials;
+
+  |System|
+  :Validate credentials;
+  if (Credentials valid?) then ([valid])
+    :Create authenticated session;
+    :Open account home;
+    :Show success message;
+
+    |Customer|
+    :Continue browsing or checkout;
+    stop
+  else ([invalid])
+    :Show invalid credentials error;
+    :Keep account state unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Register?) then ([yes])
+  |Customer|
+  :Enter registration details;
+
+  |System|
+  :Validate registration data;
+  if (Registration data valid?) then ([valid])
+    :Generate registration OTP;
+    :Send registration OTP;
+
+    |Customer|
+    :Enter registration OTP;
+
+    |System|
+    :Validate registration OTP;
+    if (Registration OTP valid?) then ([valid])
+      :Create customer account;
+      :Create authenticated session;
+      :Open account home;
+      :Show success message;
+
+      |Customer|
+      :Continue browsing or checkout;
+      stop
+    else ([expired or wrong])
+      :Show OTP error;
+      :Keep account state unchanged;
+      stop
+    endif
+  else ([invalid])
+    :Show registration validation error;
+    :Keep account state unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Forgot password?) then ([yes])
+  |Customer|
+  :Request recovery OTP;
+
+  |System|
+  :Generate recovery OTP;
+  :Send recovery OTP;
+
+  |Customer|
+  :Enter recovery OTP
+  and new password;
+
+  |System|
+  :Validate password recovery request;
+  if (Password recovery request valid?) then ([valid])
+    :Reset customer password;
+    :Open login form;
+    :Show success message;
+
+    |Customer|
+    :Log in with new password
+    or continue browsing;
+    stop
+  else ([invalid])
+    :Show password recovery error;
+    :Keep password unchanged;
+    stop
+  endif
+else ([no])
+  :Show unsupported account action error;
+  :Keep account state unchanged;
+endif
+
+stop
+@enduml

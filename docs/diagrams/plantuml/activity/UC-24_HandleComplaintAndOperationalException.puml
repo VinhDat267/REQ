@@ -1,0 +1,227 @@
+@startuml
+!pragma useVerticalIf on
+title UC-24: Handle Complaint and Operational Exception
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|FOH Staff|
+start
+:Open impacted order;
+
+|System|
+:Validate related order
+and staff permission;
+if (Order accessible and
+permission valid?) then ([yes])
+else ([no])
+  :Reject issue report
+  with reason;
+  stop
+endif
+
+|FOH Staff|
+:Select Report Issue;
+:Choose issue category;
+note right
+Issue categories:
+- missing item
+- wrong item
+- quality issue
+- wrong handoff
+- poor experience
+end note
+:Enter description
+and related item if any;
+
+|System|
+if (Guest PII already
+anonymized?) then ([yes])
+  :Hide personal fields;
+  :Keep reason logging
+  and depersonalized order context;
+else ([no])
+  :Show available order
+  and customer context;
+endif
+:Log complaint case;
+
+if (Related order already
+terminal Refunded?) then ([yes])
+  :Require new request
+  and Manager justification;
+
+  |Manager|
+  if (Justification provided?) then ([yes])
+    :Accept financial review
+    justification;
+  else ([no])
+    |System|
+    :Reject further refund
+    or financial change;
+    :Leave case open
+    for handover;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Remake or equivalent
+substitution?) then ([yes])
+  if (Customer requests
+  extra items beyond complaint?) then ([yes])
+    |System|
+    :Require extra items
+    as a new order;
+  else ([no])
+  endif
+
+  |System|
+  :Record corrective
+  remake / substitution task;
+  :Record no new revenue
+  for service-error correction;
+  :Record resolution
+  and audit trail;
+  :Send effects to
+  shift-close reconciliation;
+  stop
+else ([no])
+endif
+
+|FOH Staff|
+if (Goodwill discount?) then ([yes])
+  :Enter required reason;
+
+  |System|
+  if (Reason provided?) then ([yes])
+    :Apply goodwill discount;
+    :Record resolution
+    and audit trail;
+    :Send financial effect to
+    shift-close reconciliation;
+    stop
+  else ([no])
+    :Require reason before
+    applying discount;
+    :Leave case open
+    for handover;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Partial or full refund?) then ([yes])
+  :Submit refund request
+  with reason;
+
+  |Manager|
+  if (Approve refund?) then ([yes])
+    |System|
+    if (Partial refund?) then ([yes])
+      :Keep order Completed
+      and flag refund line;
+    else ([no])
+      :Start full refund path;
+    endif
+    :Set payment_status
+    to Refund Pending;
+    :Record refund audit trail;
+    :Send financial effect to
+    shift-close reconciliation;
+    stop
+  else ([no])
+    |System|
+    :Reject refund
+    without approval;
+    :Leave case open
+    for handover;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Full-order Comp?) then ([yes])
+  :Submit Comp request
+  with mandatory reason;
+
+  |Manager|
+  if (Approve Comp?) then ([yes])
+    |System|
+    :Mark order as Comp
+    or route paid amount to refund;
+    :Record comp expense
+    and audit trail;
+    :Send financial effect to
+    shift-close reconciliation;
+    stop
+  else ([no])
+    |System|
+    :Reject Comp
+    without Manager approval;
+    :Leave case open
+    for handover;
+    stop
+  endif
+else ([no])
+endif
+
+|FOH Staff|
+if (Write-off?) then ([yes])
+  :Submit Dine-in loss
+  reason;
+
+  |Manager|
+  if (Confirm Write-off?) then ([yes])
+    |System|
+    :Record Write-off
+    as internal loss;
+    :Record audit trail;
+    :Send financial effect to
+    shift-close reconciliation;
+    stop
+  else ([no])
+    |System|
+    :Reject Write-off
+    without approval;
+    :Leave case open
+    for handover;
+    stop
+  endif
+else ([no])
+  |System|
+  :Keep case open
+  for Manager review;
+endif
+
+stop
+@enduml

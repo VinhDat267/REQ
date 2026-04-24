@@ -1,0 +1,143 @@
+@startuml WontonPOS_FinalV3_UseCase_Client
+' =====================================================================
+' Wonton POS - Final BRD v3 Use Case Diagram (Client WebApp, 10 UC)
+' =====================================================================
+' Scope  : Customer-facing use cases only (UC-01, 02, 03, 04, 11, 15,
+'          16, 17, 25, 26).
+' Actors : Customer (Guest / Registered), Registered Customer.
+' Notes  : UC nodes display the title only (no UC-xx prefix).
+'          Include/Extend follow UML 2.5 semantics:
+'            - A ..> B : <<include>>  -> A always requires B
+'            - A ..> B : <<extend>>   -> A is optional add-on to B
+' Pair   : WontonPOS_FinalV3_UseCase_Admin.puml
+' =====================================================================
+
+left to right direction
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam nodesep 22
+skinparam ranksep 55
+skinparam roundcorner 6
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor     #1565C0
+  FontColor       #0D47A1
+}
+
+skinparam usecase {
+  BackgroundColor #F8F9FA
+  BorderColor     #1976D2
+  ArrowColor      #455A64
+  FontColor       #263238
+}
+
+skinparam package {
+  BackgroundColor<<Access>>  #E3F2FD
+  BorderColor<<Access>>      #1976D2
+  BackgroundColor<<Order>>   #E8F5E9
+  BorderColor<<Order>>       #2E7D32
+  BackgroundColor<<Post>>    #FFF8E1
+  BorderColor<<Post>>        #F9A825
+  FontSize                   13
+  FontStyle                  bold
+}
+
+skinparam rectangle {
+  BorderColor #1565C0
+  FontSize    14
+  FontStyle   bold
+}
+
+title Wonton POS - Client WebApp Use Case Diagram\n<size:11>10 UC customer-facing. Dine-in / Takeaway / Pickup. Delivery is out of scope.</size>
+
+
+' ---------- Actors ----------------------------------------------------
+actor "Customer\n(Guest / Registered)" as Customer
+actor "Registered\nCustomer"           as Registered
+
+Registered --|> Customer
+
+
+' ---------- System boundary ------------------------------------------
+rectangle "Wonton POS - Client WebApp" {
+
+  package "Customer Access & Onboarding" <<Access>> {
+    usecase "Manage Customer Account\nand Authentication" as UC25
+  }
+
+  package "Ordering & Checkout" <<Order>> {
+    usecase "Place Online Order"                          as UC01
+    usecase "Schedule Pickup Order"                       as UC03
+    usecase "Complete Checkout\nand Apply Promotion"      as UC26
+    usecase "Online Payment"                              as UC02
+  }
+
+  package "Post-order Journey" <<Post>> {
+    usecase "View Order History"                          as UC04
+    usecase "Reorder Past Order"                          as UC17
+    usecase "Track Order"                                 as UC11
+    usecase "Receive Order Notifications"                 as UC16
+    usecase "Rate Order"                                  as UC15
+  }
+}
+
+
+' ---------- Actor associations ---------------------------------------
+
+' Customer (Guest + Registered; UC-25 includes registration/login)
+Customer -- UC25
+Customer -- UC01
+Customer -- UC03
+Customer -- UC26
+Customer -- UC02
+Customer -- UC11
+Customer -- UC16
+
+' Registered-only UCs
+Registered -- UC04
+Registered -- UC17
+Registered -- UC15
+
+
+' ---------- Include (base -> included) -------------------------------
+UC01 ..> UC26 : <<include>>
+UC03 ..> UC26 : <<include>>
+UC03 ..> UC02 : <<include>>
+
+
+' ---------- Extend (extension -> base) -------------------------------
+UC02 ..> UC26 : <<extend>>
+UC17 ..> UC04 : <<extend>>
+UC15 ..> UC04 : <<extend>>
+UC16 ..> UC11 : <<extend>>
+
+
+' ---------- Layout hints ---------------------------------------------
+UC01 -[hidden]down- UC03
+UC03 -[hidden]down- UC26
+UC26 -[hidden]down- UC02
+UC04 -[hidden]down- UC17
+UC11 -[hidden]down- UC16
+UC16 -[hidden]down- UC15
+
+
+' ---------- Notes ----------------------------------------------------
+note top of UC25
+Guest checkout remains allowed
+without registration. Login unlocks
+Order History, Reorder, and Rate Order.
+end note
+
+note bottom of UC26
+Checkout captures service model,
+applies an optional promotion, and
+routes to Online Payment for
+Takeaway / Pickup or directly to
+Track Order for Dine-in.
+end note
+
+@enduml

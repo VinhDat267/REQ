@@ -32,6 +32,9 @@ Important root documents:
 - `UC_Specifications_Part1_EN.md`
 - `UC_Specifications_Part2.md`
 - `UC_Specifications_Part2_EN.md`
+- `activity-diagram-guide.md`
+- `process-flow-diagram-guide.md`
+- `process-vs-activity-decision-guide.md`
 
 ## Final Project Scope
 The active final-project scope uses the locked whole-system baseline in `All_Use_Cases.md`.
@@ -75,14 +78,26 @@ Out of scope:
 - Sensitive operational actions require Manager approval / audit logging when they affect money, order completion, refunds, discounts, write-offs, or shift cash differences.
 
 ## Diagram Policy
+- UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style canonical diagram sources should be authored in PlantUML.
+- Process Flow Diagrams (`PFD`) should be authored as Mermaid `flowchart` sources because they are stakeholder-friendly workflow charts rather than formal UML diagrams.
+- `activity-diagram-guide.md` is the canonical guide for Activity Diagram semantics, analysis workflow, anti-pattern checks, and review checklist.
+- New Activity Diagram work should apply that guide first, then apply the Wonton POS presentation convention: PlantUML, black-and-white styling, business-level swimlanes, `Customer` + `System` for customer-facing flows, and optional `Payment Gateway` only when an external payment actor is actually involved.
+- `process-flow-diagram-guide.md` is the canonical guide for Process Flow Diagram creation and review.
+- `process-vs-activity-decision-guide.md` is the canonical decision guide for separating Process Flow Diagram from Activity Diagram and avoiding accidental hybrid notation.
+- Per-use-case modelling work should maintain both one Activity Diagram (`AD`) and one Process Flow Diagram (`PFD`) unless the deliverable is explicitly narrowed.
+- Process Flow Diagrams (`PFD`) live under `docs/diagrams/mermaid/process-flow/` with rendered outputs under `docs/diagrams/mermaid/process-flow/rendered/`.
+- Process Flow Diagrams (`PFD`) must not use swimlanes; show roles/handoffs through concise step labels instead.
+- Process Flow Diagrams (`PFD`) must use white ellipse `Start` / `End` terminals and white diamond decision nodes.
 - Existing primary midterm use case diagram source, retained as historical / submission reference:
   - `docs/diagrams/plantuml/use-case/midterm-16-use-case-overview.puml`
-- Existing full-system ERD sources:
-  - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
+- Existing full-system ERD source:
   - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
+- Legacy full-system Mermaid ERD reference:
+  - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
 - Existing midterm ERD sources, retained as historical / submission reference:
-  - `docs/diagrams/mermaid/erd/WontonPOS_Midterm_16UC_ERD.md`
   - `docs/diagrams/plantuml/erd/WontonPOS_Midterm_16UC_ERD.puml`
+- Legacy midterm Mermaid ERD reference:
+  - `docs/diagrams/mermaid/erd/WontonPOS_Midterm_16UC_ERD.md`
 - Clearer high-level ERD overview for presentation/review:
   - `docs/diagrams/plantuml/erd/WontonPOS_Midterm_16UC_ERD_Overview.puml`
 - Legacy synced draw.io artifact kept at root for review/submission:
@@ -90,7 +105,7 @@ Out of scope:
 - Current final-project diagram gap:
   - a dedicated full-system use case diagram source aligned directly to `UC-01..UC-74` has not been promoted yet
   - at least two additional whole-system modelling types still need to be selected / finalized so the final package has `3` modelling types
-- If PlantUML and draw.io differ, follow the BRD and PlantUML source first.
+- If draw.io and editable canonical sources differ, follow the BRD and the current canonical source for that diagram type first.
 - New `.drawio` files should be organized under `docs/diagrams/drawio/` rather than placed at root.
 
 ## Main Supporting Materials
@@ -98,9 +113,9 @@ Out of scope:
 - `docs/requirement-elicitation/` stores elicitation notes, questionnaires, interviews, and observations
 - `docs/diagrams/activity/` stores activity-diagram coordination artifacts such as assignments
 - `docs/diagrams/exports/` stores exported diagram assets when generated
-- `docs/diagrams/plantuml/` stores canonical PlantUML diagram sources
+- `docs/diagrams/plantuml/` stores canonical PlantUML sources for UML-style diagrams
 - `docs/diagrams/drawio/` stores organized draw.io files by topic when needed
-- `docs/diagrams/mermaid/` stores Mermaid-based diagrams, including the midterm ERD
+- `docs/diagrams/mermaid/` stores canonical Mermaid Process Flow Diagram sources plus legacy Mermaid references such as older ERDs
 - `RequirementElicitationTemplates/` stores reusable elicitation templates
 - Temporary conversion helpers and extracted text artifacts should stay local/untracked instead of being kept at repo root
 

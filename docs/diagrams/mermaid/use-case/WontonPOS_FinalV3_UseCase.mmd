@@ -1,0 +1,174 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#F8F9FA",
+    "primaryBorderColor": "#37474F",
+    "primaryTextColor": "#263238",
+    "lineColor": "#455A64",
+    "fontSize": "14px"
+  },
+  "flowchart": {
+    "nodeSpacing": 28,
+    "rankSpacing": 60,
+    "curve": "basis"
+  }
+}}%%
+
+%% Wonton POS - Final BRD v3 Use Case Diagram (26 UC) - Mermaid edition.
+
+flowchart LR
+
+%% ====================== ACTORS (left column) ======================
+  subgraph Actors_Client["👤 Customer Actors"]
+    direction TB
+    Customer(["Customer<br/>(Guest / Registered)"])
+    Registered(["Registered<br/>Customer"])
+    Registered -.->|is a| Customer
+  end
+
+%% ====================== SYSTEM BOUNDARY ===========================
+  subgraph System["Wonton POS"]
+    direction LR
+
+    %% ---------- Client WebApp ----------
+    subgraph ClientPkg["Client WebApp - Customer Facing"]
+      direction TB
+      UC25("Manage Customer Account<br/>and Authentication")
+      UC01("Place Online Order")
+      UC03("Schedule Pickup Order")
+      UC26("Complete Checkout<br/>and Apply Promotion")
+      UC02("Online Payment")
+      UC04("View Order History")
+      UC17("Reorder Past Order")
+      UC11("Track Order")
+      UC16("Receive Order<br/>Notifications")
+      UC15("Rate Order")
+    end
+
+    %% ---------- Admin - Manager Control ----------
+    subgraph ManagerPkg["Admin WebApp - Manager Control"]
+      direction TB
+      UC19("View Operational<br/>Dashboard")
+      UC07("View Revenue Statistics")
+      UC05("Manage Menu")
+      UC08("Manage Tables")
+      UC06("Manage Staff")
+      UC18("Manage Promotions")
+      UC21("Close Shift and<br/>Reconcile End-of-day")
+    end
+
+    %% ---------- Admin - FOH Operations ----------
+    subgraph FOHPkg["Admin WebApp - FOH Operations"]
+      direction TB
+      UC09("Create In-Store Order")
+      UC12("Assign Order to Table")
+      UC10("Process Payment")
+      UC20("Manage Active Orders")
+      UC23("Serve and<br/>Confirm Handoff")
+      UC24("Handle Complaint and<br/>Operational Exception")
+    end
+
+    %% ---------- Admin - BOH Operations ----------
+    subgraph BOHPkg["Admin WebApp - BOH Operations"]
+      direction TB
+      UC13("Receive Kitchen Orders")
+      UC14("Update Dish Status")
+      UC22("Mark Menu Item as 86'd")
+    end
+  end
+
+%% ====================== ACTORS (right column) =====================
+  subgraph Actors_Admin["👥 Staff Actors"]
+    direction TB
+    Manager(["Manager"])
+    FOHStaff(["FOH Staff"])
+    Cashier(["Cashier"])
+    ServiceStaff(["Service Staff<br/>(Waiter)"])
+    Cashier -.->|is a| FOHStaff
+    ServiceStaff -.->|is a| FOHStaff
+    BOHStaff(["BOH Staff<br/>(Kitchen)"])
+  end
+
+%% ====================== ASSOCIATIONS ==============================
+  %% Customer (Guest + Registered) shared UCs
+  Customer --- UC25
+  Customer --- UC01
+  Customer --- UC03
+  Customer --- UC26
+  Customer --- UC02
+  Customer --- UC11
+  Customer --- UC16
+
+  %% Registered-only UCs (inherits Customer via generalisation)
+  Registered --- UC04
+  Registered --- UC17
+  Registered --- UC15
+
+  %% Manager
+  Manager --- UC19
+  Manager --- UC07
+  Manager --- UC05
+  Manager --- UC08
+  Manager --- UC06
+  Manager --- UC18
+  Manager --- UC21
+  Manager --- UC20
+  Manager --- UC22
+  Manager --- UC24
+
+  %% FOH Staff (Cashier + Server roles)
+  FOHStaff --- UC09
+  FOHStaff --- UC12
+  FOHStaff --- UC20
+  FOHStaff --- UC24
+
+  %% Cashier-specific FOH responsibilities
+  Cashier --- UC10
+  Cashier --- UC21
+  Cashier --- UC23
+
+  %% Service Staff / Waiter-specific FOH responsibilities
+  ServiceStaff --- UC23
+
+  %% BOH Staff (Kitchen)
+  BOHStaff --- UC13
+  BOHStaff --- UC14
+  BOHStaff --- UC22
+
+%% ====================== INCLUDE (base -> included) ================
+  UC01 -. "«include»" .-> UC26
+  UC03 -. "«include»" .-> UC26
+  UC03 -. "«include»" .-> UC02
+
+%% ====================== EXTEND (extension -> base) ================
+  UC02 -. "«extend»" .-> UC26
+  UC12 -. "«extend»" .-> UC09
+  UC10 -. "«extend»" .-> UC09
+  UC17 -. "«extend»" .-> UC04
+  UC15 -. "«extend»" .-> UC04
+  UC16 -. "«extend»" .-> UC11
+  UC22 -. "«extend»" .-> UC14
+  UC24 -. "«extend»" .-> UC20
+  UC24 -. "«extend»" .-> UC22
+  UC24 -. "«extend»" .-> UC23
+
+%% ====================== STYLING ===================================
+  classDef actor fill:#FFFFFF,stroke:#37474F,stroke-width:2px,color:#263238,font-weight:bold
+  classDef client fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1
+  classDef manager fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#BF360C
+  classDef foh fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px,color:#1B5E20
+  classDef boh fill:#FCE4EC,stroke:#AD1457,stroke-width:1px,color:#880E4F
+
+  class Customer,Registered,Manager,FOHStaff,Cashier,ServiceStaff,BOHStaff actor
+  class UC01,UC02,UC03,UC04,UC11,UC15,UC16,UC17,UC25,UC26 client
+  class UC05,UC06,UC07,UC08,UC18,UC19,UC21 manager
+  class UC09,UC10,UC12,UC20,UC23,UC24 foh
+  class UC13,UC14,UC22 boh
+
+  style ClientPkg     fill:#E3F2FD,stroke:#1976D2,stroke-width:1.5px
+  style ManagerPkg    fill:#FFF3E0,stroke:#E65100,stroke-width:1.5px
+  style FOHPkg        fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.5px
+  style BOHPkg        fill:#FCE4EC,stroke:#AD1457,stroke-width:1.5px
+  style Actors_Client fill:#FFFFFF,stroke:#455A64,stroke-width:1px,stroke-dasharray: 5 5
+  style Actors_Admin  fill:#FFFFFF,stroke:#455A64,stroke-width:1px,stroke-dasharray: 5 5
+  style System        fill:#FAFAFA,stroke:#37474F,stroke-width:2px

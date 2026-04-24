@@ -1,0 +1,620 @@
+@startuml WontonPOS_FinalV3_ClassDiagram
+' =====================================================================
+' Wonton POS - Final BRD v3 Domain Class Diagram (26 UC)
+' =====================================================================
+' Purpose:
+'   Domain-level UML class diagram for the approved local final BRD lane
+'   UC-01..UC-26. This is not a 1:1 ERD/table diagram; it abstracts the
+'   SQL schema into business/domain classes, aggregates, state enums, and
+'   relationships useful for SRS / thesis modelling.
+'
+' Data source:
+'   docs/diagrams/erd/WontonPOS_FinalV3_Schema.sql
+'   docs/diagrams/plantuml/erd/WontonPOS_FinalV3_ERD.puml
+'
+' Scope:
+'   Dine-in, Takeaway, Pickup. Delivery remains out of scope.
+' =====================================================================
+
+!theme plain
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam classAttributeIconSize 0
+skinparam roundcorner 6
+skinparam padding 4
+skinparam nodesep 45
+skinparam ranksep 55
+
+skinparam class {
+  BackgroundColor #FEFEFE
+  BorderColor #333333
+  ArrowColor #111111
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #333333
+}
+
+title Wonton POS - Final V3 Domain Class Diagram\nScope: UC-01..UC-26 (Dine-in / Takeaway / Pickup; Delivery out of scope)
+
+legend top left
+This diagram is a domain class diagram, not a physical ERD.
+It keeps the SQL schema's main concepts but groups them by business
+responsibility and includes domain operations implied by the 26 UCs.
+endlegend
+
+' =====================================================================
+' Enumerations
+' =====================================================================
+
+package "Shared Types" {
+  enum ServiceModel {
+    DINE_IN
+    TAKEAWAY
+    PICKUP
+  }
+
+  enum OrderChannel {
+    CLIENT_WEBAPP
+    COUNTER
+  }
+
+  enum OrderStatus {
+    PENDING_CONFIRMATION
+    COOKING
+    READY
+    COMPLETED
+    CANCELLED
+  }
+
+  enum PaymentStatus {
+    PENDING_ONLINE_PAYMENT
+    UNPAID
+    PAID
+    REFUND_PENDING
+    REFUNDED
+    WRITE_OFF
+    COMP
+    FORFEITED
+  }
+
+  enum ItemStatus {
+    PENDING
+    COOKING
+    READY
+    SERVED
+    VOID
+  }
+
+  enum PaymentMethod {
+    CASH
+    PAYMENT_GATEWAY_QR
+    BANK_TRANSFER_QR
+    ONLINE_GATEWAY
+  }
+
+  enum PaymentTransactionStatus {
+    PENDING
+    SUCCESS
+    FAILED
+    CANCELLED
+    REFUNDED
+  }
+
+  enum RefundStatus {
+    PENDING
+    COMPLETED
+    FAILED
+  }
+
+  enum DiscountType {
+    PERCENT
+    FIXED_AMOUNT
+  }
+
+  enum DiningTableStatus {
+    AVAILABLE
+    OCCUPIED
+    CLEANING
+    OUT_OF_SERVICE
+  }
+
+  enum ShiftStatus {
+    OPEN
+    CLOSED
+    REOPENED
+  }
+
+  enum ComplaintResolution {
+    PENDING
+    REMAKE
+    SUBSTITUTE
+    GOODWILL_DISCOUNT
+    PARTIAL_REFUND
+    FULL_REFUND
+    COMP
+    WRITE_OFF
+    NO_ACTION
+  }
+}
+
+' =====================================================================
+' Customer access and staff authorization
+' =====================================================================
+
+package "Customer Access & Staff Authorization" {
+  class Customer <<Entity>> {
+    - customerId: Long
+    - fullName: String
+    - phoneNumber: String
+    - email: String
+    - passwordHash: String
+    - active: Boolean
+    --
+    + register(): void
+    + authenticate(password: String): Boolean
+    + updateProfile(): void
+    + requestPasswordReset(): PasswordResetToken
+  }
+
+  class PasswordResetToken <<Entity>> {
+    - resetId: Long
+    - otpCodeHash: String
+    - expiresAt: DateTime
+    - consumedAt: DateTime
+    --
+    + isExpired(now: DateTime): Boolean
+    + consume(): void
+  }
+
+  class Staff <<Entity>> {
+    - staffId: Long
+    - fullName: String
+    - phoneNumber: String
+    - email: String
+    - passwordHash: String
+    - active: Boolean
+    --
+    + authenticate(password: String): Boolean
+    + deactivate(): void
+    + assignRole(role: Role): StaffRole
+  }
+
+  class Role <<Entity>> {
+    - roleId: Integer
+    - roleCode: String
+    - roleName: String
+    - description: String
+    --
+    + grants(permission: String): Boolean
+  }
+
+  class StaffRole <<Association>> {
+    - grantedAt: DateTime
+    --
+    + revoke(): void
+  }
+}
+
+' =====================================================================
+' Menu, availability, and pickup configuration
+' =====================================================================
+
+package "Menu, Availability & Pickup Configuration" {
+  class MenuCategory <<Entity>> {
+    - categoryId: Integer
+    - categoryName: String
+    - displayOrder: Integer
+    - active: Boolean
+    --
+    + activate(): void
+    + deactivate(): void
+  }
+
+  class MenuItem <<Entity>> {
+    - itemId: Long
+    - itemName: String
+    - description: String
+    - imageUrl: String
+    - price: Money
+    - available: Boolean
+    - marked86d: Boolean
+    - archived: Boolean
+    --
+    + updatePrice(newPrice: Money): void
+    + archive(): void
+    + mark86d(reason: String, actor: Staff): MenuItemAvailabilityEvent
+    + clear86d(reason: String, actor: Staff): MenuItemAvailabilityEvent
+    + canBeOrdered(): Boolean
+  }
+
+  class Topping <<Entity>> {
+    - toppingId: Integer
+    - toppingName: String
+    - extraPrice: Money
+    - active: Boolean
+    --
+    + activate(): void
+    + deactivate(): void
+  }
+
+  class MenuItemAvailabilityEvent <<Entity>> {
+    - eventId: Long
+    - marked86d: Boolean
+    - reason: String
+    - eventAt: DateTime
+  }
+
+  class StockAdjustment <<Entity>> {
+    - adjustmentId: Long
+    - adjustmentType: String
+    - quantityDelta: Integer
+    - reason: String
+    - recordedAt: DateTime
+    --
+    + record(): void
+  }
+
+  class PickupSlotConfig <<Entity>> {
+    - slotConfigId: Integer
+    - weekday: Integer
+    - startTime: Time
+    - endTime: Time
+    - maxOrdersPerSlot: Integer
+    - holdingMinutes: Integer
+    - paused: Boolean
+    --
+    + isAcceptingNewPickupOrders(): Boolean
+    + hasCapacity(orderTime: DateTime): Boolean
+    + pause(): void
+    + resume(): void
+  }
+}
+
+' =====================================================================
+' Ordering aggregate
+' =====================================================================
+
+package "Ordering Aggregate" {
+  class DiningTable <<Entity>> {
+    - tableId: Integer
+    - tableNumber: String
+    - seatingCapacity: Integer
+    - qrToken: String
+    - currentStatus: DiningTableStatus
+    - active: Boolean
+    --
+    + occupy(): void
+    + release(): void
+    + markCleaning(): void
+    + markOutOfService(): void
+  }
+
+  class Order <<AggregateRoot>> {
+    - orderId: Long
+    - orderCode: String
+    - serviceModel: ServiceModel
+    - orderChannel: OrderChannel
+    - orderStatus: OrderStatus
+    - paymentStatus: PaymentStatus
+    - guestName: String
+    - guestPhone: String
+    - pickupScheduledAt: DateTime
+    - subtotalAmount: Money
+    - discountAmount: Money
+    - totalAmount: Money
+    - cancellationReason: String
+    --
+    + addItem(item: MenuItem, quantity: Integer): OrderItem
+    + applyPromotion(promotion: Promotion): PromotionUsage
+    + calculateTotals(): Money
+    + acceptForKitchen(actor: Staff): void
+    + markReady(actor: Staff): void
+    + completeHandoff(actor: Staff): void
+    + cancel(reason: String, actor: Staff): void
+    + createReorderDraft(customer: Customer): Order
+  }
+
+  class OrderItem <<Entity>> {
+    - orderItemId: Long
+    - itemNameSnapshot: String
+    - unitPriceSnapshot: Money
+    - quantity: Integer
+    - lineSubtotal: Money
+    - specialNote: String
+    - itemStatus: ItemStatus
+    --
+    + updateQuantity(quantity: Integer): void
+    + markCooking(): void
+    + markReady(): void
+    + markServed(): void
+    + voidLine(reason: String): void
+  }
+
+  class OrderItemTopping <<ValueObject>> {
+    - toppingNameSnapshot: String
+    - toppingPriceSnapshot: Money
+  }
+
+  class OrderStatusHistory <<Entity>> {
+    - historyId: Long
+    - fromOrderStatus: OrderStatus
+    - toOrderStatus: OrderStatus
+    - fromPaymentStatus: PaymentStatus
+    - toPaymentStatus: PaymentStatus
+    - changeReason: String
+    - changedAt: DateTime
+  }
+}
+
+' =====================================================================
+' Payment, promotions, and revenue controls
+' =====================================================================
+
+package "Payment, Promotions & Revenue Controls" {
+  class Promotion <<Entity>> {
+    - promotionId: Integer
+    - code: String
+    - discountType: DiscountType
+    - discountValue: Money
+    - minOrderAmount: Money
+    - maxDiscount: Money
+    - usageLimitTotal: Integer
+    - usageLimitPerCustomer: Integer
+    - validFrom: DateTime
+    - validUntil: DateTime
+    - active: Boolean
+    --
+    + isValidFor(order: Order): Boolean
+    + calculateDiscount(order: Order): Money
+    + deactivate(): void
+  }
+
+  class PromotionUsage <<Entity>> {
+    - usageId: Long
+    - guestPhone: String
+    - discountApplied: Money
+    - appliedAt: DateTime
+    --
+    + countsTowardLimit(): Boolean
+  }
+
+  class PaymentTransaction <<Entity>> {
+    - transactionId: Long
+    - method: PaymentMethod
+    - providerCode: String
+    - amount: Money
+    - status: PaymentTransactionStatus
+    - gatewayReference: String
+    - initiatedAt: DateTime
+    - completedAt: DateTime
+    --
+    + markSuccess(reference: String): void
+    + markFailed(reason: String): void
+    + manuallyConfirm(actor: Staff): void
+  }
+
+  class Refund <<Entity>> {
+    - refundId: Long
+    - amount: Money
+    - refundType: String
+    - reason: String
+    - status: RefundStatus
+    - method: String
+    - createdAt: DateTime
+    - completedAt: DateTime
+    --
+    + approve(actor: Staff): void
+    + complete(actor: Staff): void
+    + fail(reason: String): void
+  }
+}
+
+' =====================================================================
+' Service execution, feedback, and operations
+' =====================================================================
+
+package "Service Execution, Feedback & Operations" {
+  class OrderReview <<Entity>> {
+    - reviewId: Long
+    - ratingFood: Integer
+    - ratingService: Integer
+    - ratingExperience: Integer
+    - comment: String
+    - hidden: Boolean
+    - createdAt: DateTime
+    --
+    + hide(): void
+  }
+
+  class Notification <<Entity>> {
+    - notificationId: Long
+    - recipientType: String
+    - eventType: String
+    - title: String
+    - body: String
+    - read: Boolean
+    - deliveredAt: DateTime
+    --
+    + deliver(): void
+    + markRead(): void
+  }
+
+  class Complaint <<Entity>> {
+    - complaintId: Long
+    - issueType: String
+    - description: String
+    - resolution: ComplaintResolution
+    - resolvedAt: DateTime
+    - createdAt: DateTime
+    --
+    + resolve(resolution: ComplaintResolution, actor: Staff): void
+    + requiresManagerApproval(): Boolean
+  }
+
+  class AuditLog <<Entity>> {
+    - logId: Long
+    - actorRoleCode: String
+    - actionType: String
+    - entityType: String
+    - entityId: Long
+    - amountImpact: Money
+    - reason: String
+    - loggedAt: DateTime
+    --
+    + record(): void
+  }
+}
+
+' =====================================================================
+' Shift and reconciliation
+' =====================================================================
+
+package "Shift & Reconciliation" {
+  class Shift <<AggregateRoot>> {
+    - shiftId: Long
+    - openedAt: DateTime
+    - closedAt: DateTime
+    - openingCash: Money
+    - countedCash: Money
+    - expectedCash: Money
+    - variance: Money
+    - varianceReason: String
+    - status: ShiftStatus
+    --
+    + close(countedCash: Money): void
+    + reopen(reason: String, actor: Staff): void
+    + calculateVariance(): Money
+  }
+
+  class ShiftReconciliationBucket <<Entity>> {
+    - bucketId: Long
+    - bucketType: String
+    - totalAmount: Money
+    - transactionCount: Integer
+    --
+    + addEvent(amount: Money): void
+  }
+
+  class ShiftInheritedException <<Entity>> {
+    - inheritedId: Long
+    - exceptionType: String
+    - handoverNote: String
+    - resolvedAt: DateTime
+    --
+    + resolve(): void
+  }
+
+  class CashDrawerMovement <<Entity>> {
+    - movementId: Long
+    - movementType: String
+    - amount: Money
+    - reason: String
+    - recordedAt: DateTime
+    --
+    + record(): void
+  }
+}
+
+' =====================================================================
+' Core relationships
+' =====================================================================
+
+Customer "1" *-- "0..*" PasswordResetToken : owns
+
+Staff "1" -- "0..*" StaffRole
+Role "1" -- "0..*" StaffRole
+Staff "0..1" -- "0..*" StaffRole : grants
+
+MenuCategory "1" o-- "0..*" MenuItem : categorizes
+MenuItem "0..*" -- "0..*" Topping : allowed toppings
+MenuItem "1" -- "0..*" MenuItemAvailabilityEvent : availability audit
+MenuItem "1" -- "0..*" StockAdjustment : adjusted
+
+Customer "0..1" -- "0..*" Order : places
+DiningTable "0..1" -- "0..*" Order : assigned dine-in orders
+Order "0..1" <-- "0..*" Order : source order for reorder
+Order "1" *-- "1..*" OrderItem : contains
+OrderItem "1" *-- "0..*" OrderItemTopping : contains
+OrderItem "*" --> "1" MenuItem : item snapshot
+OrderItemTopping "*" --> "1" Topping : topping snapshot
+Order "1" *-- "0..*" OrderStatusHistory : state history
+
+Order "1" *-- "0..*" PaymentTransaction : payment attempts
+Order "1" *-- "0..*" Refund : refunds
+PaymentTransaction "0..1" <-- "0..*" Refund : source transaction
+
+Promotion "0..1" -- "0..*" Order : applied to
+Promotion "1" -- "0..*" PromotionUsage : usage log
+Order "1" -- "0..1" PromotionUsage : promotion application
+Customer "0..1" -- "0..*" PromotionUsage : registered usage
+
+Order "1" -- "0..1" OrderReview : receives
+Customer "1" -- "0..*" OrderReview : writes
+
+Customer "0..1" -- "0..*" Notification : receives
+Order "0..1" -- "0..*" Notification : about
+
+Order "1" -- "0..*" Complaint : has
+
+Shift "1" *-- "0..*" ShiftReconciliationBucket : buckets
+Shift "1" *-- "0..*" CashDrawerMovement : drawer movements
+Shift "1" -- "0..*" ShiftInheritedException : from shift
+Shift "0..1" -- "0..*" ShiftInheritedException : to shift
+Order "0..1" -- "0..*" ShiftInheritedException : unresolved exception
+
+Staff "1" -- "0..*" AuditLog : actor
+Staff "0..1" -- "0..*" AuditLog : approver
+
+' =====================================================================
+' Business notes
+' =====================================================================
+
+note right of Order
+Core aggregate for UC-01, UC-03, UC-09,
+UC-11, UC-17, UC-20, UC-23, and UC-26.
+
+orderStatus and paymentStatus are separate.
+Takeaway/Pickup require prepayment before
+kitchen release; Dine-in may remain unpaid
+until counter settlement.
+end note
+
+note right of MenuItem
+UC-22 86d is a temporary availability flag.
+It is independent from StockAdjustment and
+does not auto-change stock balances.
+end note
+
+note bottom of Promotion
+UC-18/UC-26 support PERCENT and FIXED_AMOUNT
+promotions only. Free-item and BOGO promotions
+remain out of scope.
+end note
+
+note bottom of Shift
+UC-21 reconciliation includes cash, bank-transfer QR,
+online gateway, refunds, write-off, comp, forfeited,
+duplicate-charge review, and inherited exceptions.
+end note
+
+note left of AuditLog
+Operational actor links are intentionally summarized
+through AuditLog to keep the class diagram readable.
+Staff IDs still exist on SQL records such as payments,
+refunds, complaints, shifts, availability events, and
+cash drawer movements.
+end note
+
+note bottom of Customer
+Guest checkout is represented on Order by guestName
+and guestPhone, not by a separate GuestAccount class.
+Guest tracking uses Order Code + Phone Number.
+end note
+
+@enduml

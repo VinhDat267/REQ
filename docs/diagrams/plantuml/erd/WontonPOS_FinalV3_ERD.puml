@@ -1,0 +1,600 @@
+@startuml WontonPOS_FinalV3_ERD
+' =====================================================================
+' Wonton POS - Final BRD v3 ERD (26 UC)
+' =====================================================================
+' Canonical PlantUML ERD source for the final-project baseline.
+' Mirrors WontonPOS_FinalV3_Schema.sql / .dbml.
+' Business Rules locked 2026-04-17; ADR-023..026 applied.
+' Render: plantuml WontonPOS_FinalV3_ERD.puml -> .png/.svg
+' =====================================================================
+
+' --- Style tuning -----------------------------------------------------
+!theme plain
+hide circle
+hide empty members
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam padding 4
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam roundcorner 6
+
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor     #4A5568
+  HeaderBackgroundColor<<customer>>    #E3F2FD
+  HeaderBackgroundColor<<staff>>       #E8EAF6
+  HeaderBackgroundColor<<menu>>        #FFF8E1
+  HeaderBackgroundColor<<table>>       #E0F7FA
+  HeaderBackgroundColor<<promo>>       #FCE4EC
+  HeaderBackgroundColor<<order>>       #E8F5E9
+  HeaderBackgroundColor<<payment>>     #FFF3E0
+  HeaderBackgroundColor<<review>>      #F3E5F5
+  HeaderBackgroundColor<<notif>>       #E1F5FE
+  HeaderBackgroundColor<<shift>>       #EFEBE9
+  HeaderBackgroundColor<<inventory>>   #F1F8E9
+  HeaderBackgroundColor<<complaint>>   #FFEBEE
+  HeaderBackgroundColor<<audit>>       #ECEFF1
+}
+
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor     #CDDC39
+}
+
+title Wonton POS - Final BRD v3 ERD (26 UC)
+
+' =====================================================================
+' Legend
+' =====================================================================
+legend top left
+|= Colour |= Cluster |
+|<back:#E3F2FD>   </back>| Customer & Auth (UC-25) |
+|<back:#E8EAF6>   </back>| Staff & Roles (UC-06) |
+|<back:#FFF8E1>   </back>| Menu & Catalog (UC-05, UC-22) |
+|<back:#E0F7FA>   </back>| Dining Tables (UC-08, UC-12) |
+|<back:#FCE4EC>   </back>| Promotions (UC-18) |
+|<back:#E8F5E9>   </back>| Orders (UC-01, 03, 09, 11, 17, 20, 26) |
+|<back:#FFF3E0>   </back>| Payment & Refund (UC-02, UC-10) |
+|<back:#F3E5F5>   </back>| Reviews (UC-15) |
+|<back:#E1F5FE>   </back>| Notifications (UC-16) |
+|<back:#EFEBE9>   </back>| Shift & Reconciliation (UC-21) |
+|<back:#F1F8E9>   </back>| Inventory-Lite (UC-22 +§3m) |
+|<back:#FFEBEE>   </back>| Complaint & Exception (UC-24) |
+|<back:#ECEFF1>   </back>| Audit (NFR-08, §3k) |
+endlegend
+
+
+' =====================================================================
+' 1. CUSTOMER & AUTH
+' =====================================================================
+package "Customer & Auth" <<Rectangle>> {
+  entity customer <<customer>> {
+    * customer_id      : BIGINT <<PK>>
+    --
+    * full_name        : VARCHAR(100)
+    * phone_number     : VARCHAR(20) <<UQ>>
+      email            : VARCHAR(120) <<UQ>>
+    * password_hash    : VARCHAR(255)
+    * is_active        : BOOLEAN
+    * created_at       : DATETIME
+    * updated_at       : DATETIME
+  }
+
+  entity customer_password_reset <<customer>> {
+    * reset_id        : BIGINT <<PK>>
+    --
+    * customer_id     : BIGINT <<FK>>
+    * otp_code_hash   : VARCHAR(255)
+    * expires_at      : DATETIME
+      consumed_at     : DATETIME
+    * created_at      : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 2. STAFF & ROLES
+' =====================================================================
+package "Staff & Roles" <<Rectangle>> {
+  entity staff <<staff>> {
+    * staff_id         : BIGINT <<PK>>
+    --
+    * full_name        : VARCHAR(100)
+    * phone_number     : VARCHAR(20) <<UQ>>
+      email            : VARCHAR(120) <<UQ>>
+    * password_hash    : VARCHAR(255)
+    * is_active        : BOOLEAN
+    * created_at       : DATETIME
+    * updated_at       : DATETIME
+  }
+
+  entity role <<staff>> {
+    * role_id     : INT <<PK>>
+    --
+    * role_code   : VARCHAR(30) <<UQ>>
+    * role_name   : VARCHAR(60)
+      description : VARCHAR(255)
+  }
+
+  entity staff_role <<staff>> {
+    * staff_id            : BIGINT <<PK, FK>>
+    * role_id             : INT <<PK, FK>>
+    --
+    * granted_at          : DATETIME
+      granted_by_staff_id : BIGINT <<FK>>
+  }
+}
+
+
+' =====================================================================
+' 3. MENU & CATALOG
+' =====================================================================
+package "Menu & Catalog" <<Rectangle>> {
+  entity menu_category <<menu>> {
+    * category_id   : INT <<PK>>
+    --
+    * category_name : VARCHAR(100)
+    * display_order : INT
+    * is_active     : BOOLEAN
+    * created_at    : DATETIME
+    * updated_at    : DATETIME
+  }
+
+  entity menu_item <<menu>> {
+    * item_id      : BIGINT <<PK>>
+    --
+    * category_id  : INT <<FK>>
+    * item_name    : VARCHAR(150)
+      description  : TEXT
+      image_url    : VARCHAR(500)
+    * price        : DECIMAL(12,2)
+    * is_available : BOOLEAN
+    * is_86d       : BOOLEAN
+    * is_archived  : BOOLEAN
+    * created_at   : DATETIME
+    * updated_at   : DATETIME
+  }
+
+  entity topping <<menu>> {
+    * topping_id   : INT <<PK>>
+    --
+    * topping_name : VARCHAR(100)
+    * extra_price  : DECIMAL(12,2)
+    * is_active    : BOOLEAN
+    * created_at   : DATETIME
+  }
+
+  entity menu_item_topping <<menu>> {
+    * item_id    : BIGINT <<PK, FK>>
+    * topping_id : INT <<PK, FK>>
+  }
+
+  entity menu_item_availability_event <<menu>> {
+    * event_id       : BIGINT <<PK>>
+    --
+    * item_id        : BIGINT <<FK>>
+    * actor_staff_id : BIGINT <<FK>>
+    * is_86d         : BOOLEAN
+      reason         : VARCHAR(255)
+    * event_at       : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 4. DINING TABLES
+' =====================================================================
+package "Dining Tables" <<Rectangle>> {
+  entity dining_table <<table>> {
+    * table_id         : INT <<PK>>
+    --
+    * table_number     : VARCHAR(20) <<UQ>>
+    * seating_capacity : INT
+      location_note    : VARCHAR(150)
+      qr_token         : VARCHAR(64) <<UQ>>
+    * current_status   : ENUM
+    * is_active        : BOOLEAN
+    * created_at       : DATETIME
+    * updated_at       : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 5. PROMOTIONS
+' =====================================================================
+package "Promotions" <<Rectangle>> {
+  entity promotion <<promo>> {
+    * promotion_id             : INT <<PK>>
+    --
+    * code                     : VARCHAR(40) <<UQ>>
+    * discount_type            : ENUM
+    * discount_value           : DECIMAL(12,2)
+    * min_order_amount         : DECIMAL(12,2)
+      max_discount             : DECIMAL(12,2)
+      usage_limit_total        : INT
+      usage_limit_per_customer : INT
+    * valid_from               : DATETIME
+    * valid_until              : DATETIME
+    * is_active                : BOOLEAN
+    * created_by_staff_id      : BIGINT <<FK>>
+    * created_at               : DATETIME
+    * updated_at               : DATETIME
+  }
+
+  entity promotion_usage <<promo>> {
+    * usage_id         : BIGINT <<PK>>
+    --
+    * promotion_id     : INT <<FK>>
+    * order_id         : BIGINT <<FK>>
+      customer_id      : BIGINT <<FK>>
+      guest_phone      : VARCHAR(20)
+    * discount_applied : DECIMAL(12,2)
+    * applied_at       : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 6. PICKUP CONFIG
+' =====================================================================
+package "Pickup Config" <<Rectangle>> {
+  entity pickup_slot_config <<table>> {
+    * slot_config_id       : INT <<PK>>
+    --
+    * weekday              : TINYINT
+    * start_time           : TIME
+    * end_time             : TIME
+    * max_orders_per_slot  : INT
+    * holding_minutes      : INT
+    * is_paused            : BOOLEAN
+      updated_by_staff_id  : BIGINT <<FK>>
+    * updated_at           : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 7. ORDERS (core of the system)
+' =====================================================================
+package "Orders" <<Rectangle>> {
+  entity orders <<order>> {
+    * order_id             : BIGINT <<PK>>
+    --
+    * order_code           : VARCHAR(12) <<UQ>>
+    * service_model        : ENUM (DINE_IN/TAKEAWAY/PICKUP)
+    * order_channel        : ENUM (CLIENT_WEBAPP/COUNTER)
+    * order_status         : ENUM
+    * payment_status       : ENUM (incl. COMP, FORFEITED, WRITE_OFF, REFUND_PENDING)
+      customer_id          : BIGINT <<FK>>
+      guest_name           : VARCHAR(100)
+      guest_phone          : VARCHAR(20)
+      guest_anonymized_at  : DATETIME
+      table_id             : INT <<FK>>
+      party_size           : INT
+      pickup_scheduled_at  : DATETIME
+    * subtotal_amount      : DECIMAL(12,2)
+    * discount_amount      : DECIMAL(12,2)
+    * total_amount         : DECIMAL(12,2)
+      applied_promotion_id : INT <<FK>>
+      source_order_id      : BIGINT <<FK>>
+    * created_at           : DATETIME
+      accepted_at          : DATETIME
+      ready_at             : DATETIME
+      completed_at         : DATETIME
+      cancelled_at         : DATETIME
+      cancellation_reason  : VARCHAR(255)
+      created_by_staff_id  : BIGINT <<FK>>
+  }
+
+  entity order_item <<order>> {
+    * order_item_id       : BIGINT <<PK>>
+    --
+    * order_id            : BIGINT <<FK>>
+    * item_id             : BIGINT <<FK>>
+    * item_name_snapshot  : VARCHAR(150)
+    * unit_price_snapshot : DECIMAL(12,2)
+    * quantity            : INT
+    * line_subtotal       : DECIMAL(12,2)
+      special_note        : VARCHAR(255)
+    * item_status         : ENUM
+  }
+
+  entity order_item_topping <<order>> {
+    * order_item_id           : BIGINT <<PK, FK>>
+    * topping_id              : INT <<PK, FK>>
+    * topping_name_snapshot   : VARCHAR(100)
+    * topping_price_snapshot  : DECIMAL(12,2)
+  }
+
+  entity order_status_history <<order>> {
+    * history_id          : BIGINT <<PK>>
+    --
+    * order_id            : BIGINT <<FK>>
+      from_order_status   : ENUM
+      to_order_status     : ENUM
+      from_payment_status : ENUM
+      to_payment_status   : ENUM
+      actor_staff_id      : BIGINT <<FK>>
+      actor_customer_id   : BIGINT <<FK>>
+      change_reason       : VARCHAR(255)
+    * changed_at          : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 8. PAYMENT & REFUND
+' =====================================================================
+package "Payment & Refund" <<Rectangle>> {
+  entity payment_transaction <<payment>> {
+    * transaction_id                  : BIGINT <<PK>>
+    --
+    * order_id                        : BIGINT <<FK>>
+    * method                          : ENUM (CASH/GATEWAY_QR/BANK_QR/ONLINE)
+      provider_code                   : VARCHAR(30)
+    * amount                          : DECIMAL(12,2)
+    * status                          : ENUM
+      gateway_reference               : VARCHAR(120) <<UQ>>
+      manual_confirmation_by_staff_id : BIGINT <<FK>>
+      manual_confirmed_at             : DATETIME
+    * initiated_at                    : DATETIME
+      completed_at                    : DATETIME
+  }
+
+  entity refund <<payment>> {
+    * refund_id              : BIGINT <<PK>>
+    --
+    * order_id               : BIGINT <<FK>>
+      source_transaction_id  : BIGINT <<FK>>
+    * amount                 : DECIMAL(12,2)
+    * refund_type            : ENUM (FULL/PARTIAL)
+    * reason                 : VARCHAR(255)
+    * status                 : ENUM (PENDING/COMPLETED/FAILED)
+    * method                 : ENUM
+    * approved_by_staff_id   : BIGINT <<FK>>
+      completed_by_staff_id  : BIGINT <<FK>>
+    * created_at             : DATETIME
+      completed_at           : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 9. REVIEW
+' =====================================================================
+package "Review" <<Rectangle>> {
+  entity order_review <<review>> {
+    * review_id          : BIGINT <<PK>>
+    --
+    * order_id           : BIGINT <<FK, UQ>>
+    * customer_id        : BIGINT <<FK>>
+    * rating_food        : TINYINT (1..5)
+    * rating_service     : TINYINT (1..5)
+    * rating_experience  : TINYINT (1..5)
+      comment            : VARCHAR(500)
+    * is_hidden          : BOOLEAN
+    * created_at         : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 10. NOTIFICATION
+' =====================================================================
+package "Notification" <<Rectangle>> {
+  entity notification <<notif>> {
+    * notification_id : BIGINT <<PK>>
+    --
+    * recipient_type  : ENUM
+      customer_id     : BIGINT <<FK>>
+      staff_id        : BIGINT <<FK>>
+      order_id        : BIGINT <<FK>>
+    * event_type      : VARCHAR(60)
+    * title           : VARCHAR(150)
+      body            : VARCHAR(500)
+    * is_read         : BOOLEAN
+      delivered_at    : DATETIME
+    * created_at      : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 11. SHIFT & RECONCILIATION
+' =====================================================================
+package "Shift & Reconciliation" <<Rectangle>> {
+  entity shift <<shift>> {
+    * shift_id                       : BIGINT <<PK>>
+    --
+    * opened_by_staff_id             : BIGINT <<FK>>
+      closed_by_staff_id             : BIGINT <<FK>>
+    * opened_at                      : DATETIME
+      closed_at                      : DATETIME
+    * opening_cash                   : DECIMAL(12,2)
+      counted_cash                   : DECIMAL(12,2)
+      expected_cash                  : DECIMAL(12,2)
+      variance                       : DECIMAL(12,2)
+      variance_reason                : VARCHAR(255)
+      variance_approved_by_staff_id  : BIGINT <<FK>>
+    * status                         : ENUM
+  }
+
+  entity shift_reconciliation_bucket <<shift>> {
+    * bucket_id         : BIGINT <<PK>>
+    --
+    * shift_id          : BIGINT <<FK>>
+    * bucket_type       : ENUM (CASH/BANK_QR/ONLINE/REFUND/COMP/FORFEITED/...)
+    * total_amount      : DECIMAL(12,2)
+    * transaction_count : INT
+  }
+
+  entity shift_inherited_exception <<shift>> {
+    * inherited_id   : BIGINT <<PK>>
+    --
+    * from_shift_id  : BIGINT <<FK>>
+      to_shift_id    : BIGINT <<FK>>
+      order_id       : BIGINT <<FK>>
+    * exception_type : ENUM
+      handover_note  : VARCHAR(500)
+      resolved_at    : DATETIME
+  }
+
+  entity cash_drawer_movement <<shift>> {
+    * movement_id          : BIGINT <<PK>>
+    --
+    * shift_id             : BIGINT <<FK>>
+    * movement_type        : ENUM
+    * amount               : DECIMAL(12,2)
+      reason               : VARCHAR(255)
+    * recorded_by_staff_id : BIGINT <<FK>>
+    * recorded_at          : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 12. INVENTORY-LITE
+' =====================================================================
+package "Inventory-Lite" <<Rectangle>> {
+  entity stock_adjustment <<inventory>> {
+    * adjustment_id        : BIGINT <<PK>>
+    --
+    * item_id              : BIGINT <<FK>>
+    * adjustment_type      : ENUM
+    * quantity_delta       : INT
+      reason               : VARCHAR(255)
+    * recorded_by_staff_id : BIGINT <<FK>>
+    * recorded_at          : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 13. COMPLAINT / EXCEPTION
+' =====================================================================
+package "Complaint & Exception" <<Rectangle>> {
+  entity complaint <<complaint>> {
+    * complaint_id         : BIGINT <<PK>>
+    --
+    * order_id             : BIGINT <<FK>>
+    * issue_type           : ENUM
+      description          : VARCHAR(1000)
+    * resolution           : ENUM (REMAKE/REFUND/COMP/WRITE_OFF/...)
+    * reported_by_staff_id : BIGINT <<FK>>
+      approved_by_staff_id : BIGINT <<FK>>
+      resolved_at          : DATETIME
+    * created_at           : DATETIME
+  }
+}
+
+
+' =====================================================================
+' 14. AUDIT
+' =====================================================================
+package "Audit" <<Rectangle>> {
+  entity audit_log <<audit>> {
+    * log_id            : BIGINT <<PK>>
+    --
+    * actor_staff_id    : BIGINT <<FK>>
+      actor_role_code   : VARCHAR(30)
+    * action_type       : VARCHAR(60)
+    * entity_type       : VARCHAR(40)
+      entity_id         : BIGINT
+      amount_impact     : DECIMAL(12,2)
+    * reason            : VARCHAR(500)
+      approver_staff_id : BIGINT <<FK>>
+      metadata_json     : JSON
+    * logged_at         : DATETIME
+  }
+}
+
+
+' =====================================================================
+' RELATIONSHIPS (FK constraints)
+' =====================================================================
+
+' --- Customer auth
+customer ||--o{ customer_password_reset
+
+' --- Staff roles
+staff ||--o{ staff_role
+role  ||--o{ staff_role
+staff ||--o{ staff_role : "granted_by"
+
+' --- Menu
+menu_category ||--o{ menu_item
+menu_item     ||--o{ menu_item_topping
+topping       ||--o{ menu_item_topping
+menu_item     ||--o{ menu_item_availability_event
+staff         ||--o{ menu_item_availability_event
+
+' --- Promotion
+staff ||--o{ promotion : "created_by"
+
+' --- Pickup
+staff ||--o{ pickup_slot_config : "updated_by"
+
+' --- Orders core
+customer      ||--o{ orders
+dining_table  ||--o{ orders
+promotion     ||--o{ orders : "applied"
+orders        ||--o{ orders : "source_order"
+staff         ||--o{ orders : "created_by"
+orders        ||--o{ order_item
+menu_item     ||--o{ order_item
+order_item    ||--o{ order_item_topping
+topping       ||--o{ order_item_topping
+orders        ||--o{ order_status_history
+staff         ||--o{ order_status_history
+customer      ||--o{ order_status_history
+
+' --- Payment / Refund
+orders                ||--o{ payment_transaction
+staff                 ||--o{ payment_transaction : "manual_confirmed_by"
+orders                ||--o{ refund
+payment_transaction   ||--o{ refund : "source"
+staff                 ||--o{ refund : "approved_by"
+staff                 ||--o{ refund : "completed_by"
+
+' --- Promotion usage
+promotion ||--o{ promotion_usage
+orders    ||--o{ promotion_usage
+customer  ||--o{ promotion_usage
+
+' --- Review
+orders   ||--|| order_review
+customer ||--o{ order_review
+
+' --- Notification
+customer ||--o{ notification
+staff    ||--o{ notification
+orders   ||--o{ notification
+
+' --- Shift
+staff ||--o{ shift : "opened_by"
+staff ||--o{ shift : "closed_by"
+staff ||--o{ shift : "variance_approved_by"
+shift ||--o{ shift_reconciliation_bucket
+shift ||--o{ shift_inherited_exception : "from"
+shift ||--o{ shift_inherited_exception : "to"
+orders ||--o{ shift_inherited_exception
+shift ||--o{ cash_drawer_movement
+staff ||--o{ cash_drawer_movement : "recorded_by"
+
+' --- Inventory-lite
+menu_item ||--o{ stock_adjustment
+staff     ||--o{ stock_adjustment : "recorded_by"
+
+' --- Complaint
+orders ||--o{ complaint
+staff  ||--o{ complaint : "reported_by"
+staff  ||--o{ complaint : "approved_by"
+
+' --- Audit
+staff ||--o{ audit_log : "actor"
+staff ||--o{ audit_log : "approver"
+
+@enduml

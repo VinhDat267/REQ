@@ -1,0 +1,100 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#F8F9FA",
+    "primaryBorderColor": "#1976D2",
+    "primaryTextColor": "#263238",
+    "lineColor": "#455A64",
+    "fontSize": "14px"
+  },
+  "flowchart": {
+    "nodeSpacing": 28,
+    "rankSpacing": 55,
+    "curve": "basis"
+  }
+}}%%
+
+%% ====================================================================
+%% Wonton POS - Final BRD v3 Use Case Diagram (Client WebApp, 10 UC)
+%% ====================================================================
+%% Customer-facing use cases only. Mirrors:
+%%   docs/diagrams/plantuml/use-case/WontonPOS_FinalV3_UseCase_Client.puml
+%% ====================================================================
+
+flowchart LR
+
+%% ---------- Actors (left column) ----------
+  subgraph Actors["👤 Customer Actors"]
+    direction TB
+    Customer(["Customer<br/>(Guest / Registered)"])
+    Registered(["Registered<br/>Customer"])
+    Registered -.->|is a| Customer
+  end
+
+%% ---------- System boundary ----------
+  subgraph System["Wonton POS - Client WebApp"]
+    direction TB
+
+    subgraph AccessPkg["Customer Access & Onboarding"]
+      direction TB
+      UC25("Manage Customer Account<br/>and Authentication")
+    end
+
+    subgraph OrderPkg["Ordering & Checkout"]
+      direction TB
+      UC01("Place Online Order")
+      UC03("Schedule Pickup Order")
+      UC26("Complete Checkout<br/>and Apply Promotion")
+      UC02("Online Payment")
+    end
+
+    subgraph PostPkg["Post-order Journey"]
+      direction TB
+      UC04("View Order History")
+      UC17("Reorder Past Order")
+      UC11("Track Order")
+      UC16("Receive Order<br/>Notifications")
+      UC15("Rate Order")
+    end
+  end
+
+%% ---------- Associations ----------
+  Customer --- UC25
+  Customer --- UC01
+  Customer --- UC03
+  Customer --- UC26
+  Customer --- UC02
+  Customer --- UC11
+  Customer --- UC16
+
+  Registered --- UC04
+  Registered --- UC17
+  Registered --- UC15
+
+%% ---------- Include (base -> included) ----------
+  UC01 -. "«include»" .-> UC26
+  UC03 -. "«include»" .-> UC26
+  UC03 -. "«include»" .-> UC02
+
+%% ---------- Extend (extension -> base) ----------
+  UC02 -. "«extend»" .-> UC26
+  UC17 -. "«extend»" .-> UC04
+  UC15 -. "«extend»" .-> UC04
+  UC16 -. "«extend»" .-> UC11
+
+%% ---------- Styling ----------
+  classDef actor fill:#FFFFFF,stroke:#1565C0,stroke-width:2px,color:#0D47A1,font-weight:bold
+  classDef access fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1
+  classDef order fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px,color:#1B5E20
+  classDef post fill:#FFF8E1,stroke:#F9A825,stroke-width:1px,color:#6D4C00
+
+  class Customer,Registered actor
+  class UC25 access
+  class UC01,UC02,UC03,UC26 order
+  class UC04,UC11,UC15,UC16,UC17 post
+
+  style AccessPkg fill:#E3F2FD,stroke:#1976D2,stroke-width:1.5px
+  style OrderPkg  fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.5px
+  style PostPkg   fill:#FFF8E1,stroke:#F9A825,stroke-width:1.5px
+  style Actors    fill:#FFFFFF,stroke:#455A64,stroke-width:1px,stroke-dasharray: 5 5
+  style System    fill:#FAFAFA,stroke:#1565C0,stroke-width:2px

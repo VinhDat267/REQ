@@ -1,0 +1,70 @@
+%% UC-18 Process Flow Diagram: Manage Promotions
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenPromotions["Manager opens Promotion Management"]
+    OpenPromotions --> DisplayPromotions["System displays promotions<br/>with status and usage"]
+    DisplayPromotions -.-> PromoData["Promotion data may include:<br/>code<br/>type and value<br/>validity period<br/>usage limit<br/>stacking rule<br/>usage-recovery rule<br/>audit history"]
+
+    DisplayPromotions --> CreateNew{"Create new<br/>promotion?"}
+
+    CreateNew -->|Yes| NewForm["System displays new promotion form"]
+    NewForm --> EnterNew["Manager enters promotion details and saves"]
+    EnterNew --> ValidateNew["System validates promotion data"]
+    ValidateNew --> NewValid{"Promotion data<br/>valid?"}
+    NewValid -->|Yes| CreateRecord["System creates promotion record"]
+    CreateRecord --> RecordCreateAudit["System records audit entry"]
+    RecordCreateAudit --> ShowCreateSuccess["System shows success message"]
+    ShowCreateSuccess --> EndCreate([End - Creation committed])
+    NewValid -->|No| ShowNewError["System shows validation error"]
+    ShowNewError --> KeepNewUnchanged["System keeps promotion unchanged"]
+    KeepNewUnchanged --> EndCreateRejected([End - Creation rejected])
+
+    CreateNew -->|No| EditExisting{"Edit promotion?"}
+
+    EditExisting -->|Yes| SelectPromotion["Manager selects existing promotion"]
+    SelectPromotion --> DisplayCurrent["System displays current promotion data"]
+    DisplayCurrent --> UpdateFields["Manager updates promotion fields and saves"]
+    UpdateFields --> ValidateUpdate["System validates updated promotion data"]
+    ValidateUpdate --> UpdateValid{"Updated data<br/>valid?"}
+    UpdateValid -->|Yes| SaveChanges["System saves promotion changes"]
+    SaveChanges --> RecordUpdateAudit["System records audit entry"]
+    RecordUpdateAudit --> ShowUpdateSuccess["System shows success message"]
+    ShowUpdateSuccess --> EndUpdate([End - Change committed])
+    UpdateValid -->|No| ShowUpdateError["System shows validation error"]
+    ShowUpdateError --> KeepPrevious["System keeps previous promotion data"]
+    KeepPrevious --> EndUpdateUnchanged([End - Promotion unchanged])
+
+    EditExisting -->|No| Deactivate{"Deactivate<br/>promotion?"}
+
+    Deactivate -->|Yes| ConfirmDeactivate["Manager confirms deactivation"]
+    ConfirmDeactivate --> DeactivatePromotion["System deactivates promotion<br/>without deleting history"]
+    DeactivatePromotion --> RecordDeactivateAudit["System records audit entry"]
+    RecordDeactivateAudit --> ShowDeactivateSuccess["System shows success message"]
+    ShowDeactivateSuccess --> EndDeactivate([End - Deactivation committed])
+
+    Deactivate -->|No| ViewHistory{"View usage<br/>history?"}
+
+    ViewHistory -->|Yes| DisplayUsage["System displays promotion usage history"]
+    DisplayUsage --> ReviewUsage["Manager reviews applied-order records"]
+    ReviewUsage --> EndUsage([End - Usage review completed])
+
+    ViewHistory -->|No| ReviewFailed{"Review failed<br/>attempts?"}
+
+    ReviewFailed -->|Yes| DisplayFailed["System displays rejected applications<br/>and recorded reasons"]
+    DisplayFailed --> ReviewFailedDetails["Manager reviews failed-attempt details"]
+    ReviewFailedDetails --> EndFailed([End - Failed-attempt review completed])
+
+    ReviewFailed -->|No| Unsupported["System shows unsupported action error"]
+    Unsupported --> KeepSelection["System keeps promotion state unchanged"]
+    KeepSelection --> EndUnsupported([End - No supported action])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndCreate,EndCreateRejected,EndUpdate,EndUpdateUnchanged,EndDeactivate,EndUsage,EndFailed,EndUnsupported terminal;
+    class CreateNew,NewValid,EditExisting,UpdateValid,Deactivate,ViewHistory,ReviewFailed decision;
+    class PromoData note;

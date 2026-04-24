@@ -1,0 +1,88 @@
+%% UC-24 Process Flow Diagram: Handle Complaint and Operational Exception
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenOrder["FOH Staff opens impacted order"]
+    OpenOrder --> ValidateAccess["System validates related order<br/>and staff permission"]
+    ValidateAccess --> Accessible{"Order accessible<br/>and permission valid?"}
+
+    Accessible -->|No| RejectAccess["System rejects issue report<br/>with reason"]
+    RejectAccess --> EndRejected([End - No resolution applied])
+
+    Accessible -->|Yes| SelectReport["FOH Staff selects Report Issue"]
+    SelectReport --> PickCategory["FOH Staff selects issue category"]
+    PickCategory -.-> CategoryExamples["Categories include:<br/>missing item<br/>wrong item<br/>quality issue<br/>wrong handoff<br/>poor experience"]
+    PickCategory --> EnterDescription["FOH Staff enters description<br/>and related item if any"]
+    EnterDescription --> PIIAnonymized{"Guest PII already<br/>anonymized?"}
+
+    PIIAnonymized -->|Yes| HidePII["System hides personal fields<br/>and keeps reason logging"]
+    PIIAnonymized -->|No| ShowContext["System shows available<br/>order and customer context"]
+    HidePII --> LogCase
+    ShowContext --> LogCase["System logs complaint case"]
+
+    LogCase --> TerminalRefunded{"Related order already<br/>terminal Refunded?"}
+    TerminalRefunded -->|Yes| NewRequest{"New request and<br/>Manager justification provided?"}
+    NewRequest -->|No| RejectRefunded["System rejects further refund<br/>or financial change"]
+    RejectRefunded --> EndOpenRefunded([End - Case remains open for handover])
+    NewRequest -->|Yes| ChooseResolution
+
+    TerminalRefunded -->|No| ChooseResolution["FOH Staff / Manager chooses resolution"]
+    ChooseResolution --> RemakeSub{"Remake or<br/>equivalent substitution?"}
+
+    RemakeSub -->|Yes| ExtraItems{"Customer requests<br/>extra items beyond complaint?"}
+    ExtraItems -->|Yes| CreateNewOrder["System requires extra items<br/>as a new order"]
+    ExtraItems -->|No| CorrectiveTask["System records corrective<br/>remake / substitution task"]
+    CreateNewOrder --> NoNewRevenue
+    CorrectiveTask --> NoNewRevenue["System records no new revenue<br/>for service-error correction"]
+    NoNewRevenue --> RecordAudit["System records resolution<br/>and audit trail"]
+
+    RemakeSub -->|No| Goodwill{"Goodwill discount?"}
+    Goodwill -->|Yes| DiscountReason{"Required reason<br/>entered?"}
+    DiscountReason -->|No| RejectNoReason["System requires reason<br/>before discount"]
+    RejectNoReason --> EndOpenReason([End - Case remains open for handover])
+    DiscountReason -->|Yes| ApplyDiscount["System applies approved<br/>goodwill discount"]
+    ApplyDiscount --> RecordAudit
+
+    Goodwill -->|No| Refund{"Partial or full refund?"}
+    Refund -->|Yes| ManagerRefund["Manager reviews refund request<br/>and reason"]
+    ManagerRefund --> RefundApproved{"Manager approves<br/>refund?"}
+    RefundApproved -->|No| RejectRefund["System rejects refund<br/>without approval"]
+    RejectRefund --> EndOpenRefund([End - Case remains open for handover])
+    RefundApproved -->|Yes| PartialRefund{"Partial refund?"}
+    PartialRefund -->|Yes| FlagRefundLine["System keeps order Completed<br/>and flags refund line"]
+    PartialRefund -->|No| StartFullRefund["System starts full refund path"]
+    FlagRefundLine --> RefundPending["System sets payment_status<br/>to Refund Pending"]
+    StartFullRefund --> RefundPending
+    RefundPending --> RecordAudit
+
+    Refund -->|No| Comp{"Full-order Comp?"}
+    Comp -->|Yes| ManagerComp["Manager reviews Comp request<br/>and mandatory reason"]
+    ManagerComp --> CompApproved{"Manager approves<br/>Comp?"}
+    CompApproved -->|No| RejectComp["System rejects Comp<br/>without approval"]
+    RejectComp --> EndOpenComp([End - Case remains open for handover])
+    CompApproved -->|Yes| ApplyComp["System marks order as Comp<br/>or routes paid amount to refund"]
+    ApplyComp --> RecordAudit
+
+    Comp -->|No| WriteOff{"Write-off?"}
+    WriteOff -->|Yes| ManagerWriteOff["Manager reviews Dine-in loss<br/>and reason"]
+    ManagerWriteOff --> WriteOffApproved{"Manager confirms<br/>Write-off?"}
+    WriteOffApproved -->|No| RejectWriteOff["System rejects Write-off<br/>without approval"]
+    RejectWriteOff --> EndOpenWriteOff([End - Case remains open for handover])
+    WriteOffApproved -->|Yes| ApplyWriteOff["System records Write-off<br/>as internal loss"]
+    ApplyWriteOff --> RecordAudit
+
+    WriteOff -->|No| Unsupported["System keeps case open<br/>for Manager review"]
+    Unsupported --> EndUnsupported([End - Resolution not selected])
+
+    RecordAudit --> ShiftEffect["System sends financial effects<br/>to shift-close reconciliation"]
+    ShiftEffect --> EndResolved([End - Complaint resolved])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,EndRejected,EndOpenRefunded,EndOpenReason,EndOpenRefund,EndOpenComp,EndOpenWriteOff,EndUnsupported,EndResolved terminal;
+    class Accessible,PIIAnonymized,TerminalRefunded,NewRequest,RemakeSub,ExtraItems,Goodwill,DiscountReason,Refund,RefundApproved,PartialRefund,Comp,CompApproved,WriteOff,WriteOffApproved decision;
+    class CategoryExamples note;

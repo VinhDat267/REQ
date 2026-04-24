@@ -62,10 +62,19 @@ Client WebApp            Admin WebApp
 
 ### Human-facing docs
 - Root markdown files are the official source of truth for requirements
+- Root modelling guides define canonical diagram behavior:
+  - `activity-diagram-guide.md` for UML Activity Diagrams
+  - `process-flow-diagram-guide.md` for Process Flow Diagrams
+  - `process-vs-activity-decision-guide.md` for choosing and separating PFD vs AD notation
+- PlantUML is the canonical source format for UML Activity Diagrams, use-case diagrams, ERDs, and other UML-style diagrams.
+- Mermaid `flowchart` is the canonical source format for Process Flow Diagrams (`PFD`).
+- Existing Mermaid ERD files remain legacy references unless intentionally promoted.
 - `Usecasediagramreq.drawio` is the legacy root draw.io artifact kept for review / submission
 - `docs/reference/` stores reference and exam DOCX files
 - `docs/requirement-elicitation/` stores elicitation documents
-- `docs/diagrams/plantuml/` stores canonical editable diagram sources
+- `docs/diagrams/plantuml/` stores canonical editable sources for UML-style diagrams
+- `docs/diagrams/mermaid/process-flow/` stores canonical editable Process Flow Diagram sources
+- Per-use-case modelling should keep Activity Diagram and Process Flow Diagram sources as separate artifacts under the relevant diagram-source tree when created
 - `docs/diagrams/drawio/activity/` stores review / submission activity diagrams
 - `scripts/relayout_activity_drawio.py` is the canonical relayout helper for midterm activity draw.io files
 
@@ -76,6 +85,7 @@ Client WebApp            Admin WebApp
   - `BRD final v3` currently uses a curated local visible lane that preserves `UC-01..UC-16` and extends with selected `UC-17+`
   - `Final_Project_Scope.md` boundary document
   - whole-system requirements and modelling work
+  - per-use-case modelling work now expects both one UML Activity Diagram (`AD`) and one Process Flow Diagram (`PFD`) for each selected UC unless explicitly narrowed
   - thesis assembly and role-based submission packaging
 - `midterm-locked`
   - historical local `UC-01..UC-16` subset
@@ -87,7 +97,6 @@ Client WebApp            Admin WebApp
 - Full use-case inventory:
   - `All_Use_Cases.md`
 - Whole-system ERD:
-  - `docs/diagrams/mermaid/erd/WontonPOS_FullSystem_ERD.md`
   - `docs/diagrams/plantuml/erd/WontonPOS_FullSystem_ERD.puml`
 - Elicitation package:
   - `docs/requirement-elicitation/*.docx`
@@ -97,6 +106,7 @@ Client WebApp            Admin WebApp
 
 ### Current gaps for the final lane
 - no canonical whole-system process diagram source clearly tracked in `.agents/`
+- generated per-use-case PFD coverage currently exists for `UC-17`, `UC-18`, and `UC-25` under `docs/diagrams/mermaid/process-flow/`
 - no assembled final thesis package in root docs
 - no clearly isolated requirement-management artifact set in root docs
 - BRD / SRS / UC specifications still need final whole-system promotion from the midterm-era inputs

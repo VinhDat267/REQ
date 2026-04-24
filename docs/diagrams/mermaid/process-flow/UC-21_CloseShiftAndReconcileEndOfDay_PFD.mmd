@@ -1,0 +1,68 @@
+%% UC-21 Process Flow Diagram: Close Shift and Reconcile End-of-day
+%% Canonical Mermaid PFD source. PFDs are flowchart-style diagrams, not UML Activity Diagrams.
+%% No swimlanes; responsibility is shown in step labels.
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#000000","primaryTextColor":"#000000","lineColor":"#000000","tertiaryColor":"#ffffff"},"flowchart":{"htmlLabels":false,"curve":"linear"}}}%%
+flowchart TD
+    Start([Start]) --> OpenCloseShift["Cashier opens Close Shift"]
+    OpenCloseShift --> CheckOpenShift["System checks current open shift"]
+    CheckOpenShift --> OpenShiftExists{"Open shift<br/>exists?"}
+
+    OpenShiftExists -->|No| RejectNoShift["System rejects close request<br/>with reason"]
+    RejectNoShift --> EndNoShift([End - Shift close not started])
+
+    OpenShiftExists -->|Yes| DisplayExpectedCash["System displays expected cash<br/>from paid cash minus cash refunds"]
+    DisplayExpectedCash -.-> ReconciliationBuckets["Reconciliation buckets include:<br/>cash<br/>bank-transfer QR<br/>online gateway<br/>refunds<br/>duplicate collections<br/>Write-off<br/>Comp<br/>Forfeited"]
+
+    DisplayExpectedCash --> HardwareIssue{"Hardware or<br/>connectivity issue?"}
+    HardwareIssue -->|Yes| ManualCount["Cashier enters manual cash count<br/>with review flag"]
+    HardwareIssue -->|No| CountCash["Cashier enters actual counted cash"]
+    ManualCount --> ComputeVariance["System computes cash variance"]
+    CountCash --> ComputeVariance
+
+    ComputeVariance --> VarianceHigh{"Variance exceeds<br/>threshold?"}
+    VarianceHigh -->|Yes| ManagerVarianceReview["Manager reviews variance reason"]
+    ManagerVarianceReview --> VarianceApproved{"Manager confirms<br/>variance?"}
+    VarianceApproved -->|No| KeepOpenVariance["System keeps shift open<br/>and lists variance blocker"]
+    KeepOpenVariance --> EndVarianceBlocked([End - Shift remains open])
+    VarianceApproved -->|Yes| DisplayUnresolved
+
+    VarianceHigh -->|No| DisplayUnresolved["System displays unresolved items<br/>requiring review"]
+    DisplayUnresolved -.-> UnresolvedExamples["Review items may include:<br/>aged Pending Online Payment<br/>overdue Ready orders<br/>Refund Pending<br/>Write-off pending<br/>wrong-handoff incidents<br/>partial-refund differences<br/>duplicate-charge incidents<br/>Forfeited pending<br/>Dine-in Completed + Unpaid"]
+
+    DisplayUnresolved --> UnresolvedExist{"Unresolved items<br/>exist?"}
+    UnresolvedExist -->|No| CloseShift["System closes shift<br/>and locks shift report"]
+
+    UnresolvedExist -->|Yes| RefundPending{"Open Refund Pending<br/>exists?"}
+    RefundPending -->|Yes| ResolveOrInheritRefund["Cashier resolves refund<br/>or requests inheritance with reason"]
+    RefundPending -->|No| ResolveEligible["Cashier resolves eligible items<br/>or marks carry-over notes"]
+    ResolveOrInheritRefund --> ManagerCarryoverReview["Manager reviews unresolved<br/>carry-over request"]
+    ResolveEligible --> ManagerCarryoverReview
+
+    ManagerCarryoverReview --> CarryoverApproved{"All blockers resolved<br/>or approved for handover?"}
+    CarryoverApproved -->|No| KeepOpenUnresolved["System keeps shift open<br/>and lists blockers"]
+    KeepOpenUnresolved --> EndUnresolvedBlocked([End - Shift remains open])
+    CarryoverApproved -->|Yes| RecordInherited["System records inherited exceptions<br/>for next shift opening"]
+    RecordInherited --> CloseShift
+
+    CloseShift --> EndOfDay{"End-of-day<br/>reconciliation?"}
+    EndOfDay -->|Yes| AggregateDay["System aggregates all shifts<br/>for the day by event timestamp"]
+    AggregateDay --> FreezeDailyReport["System freezes daily reconciliation report"]
+    FreezeDailyReport --> EndDaily([End - Shift closed and day reconciled])
+    EndOfDay -->|No| EndClosed([End - Shift closed])
+
+    StartReopen([Start - Reopen request]) --> ManagerRequestsReopen["Manager requests shift reopen"]
+    ManagerRequestsReopen --> ReconciledShift{"Shift already<br/>reconciled?"}
+    ReconciledShift -->|Yes| RejectReopen["System rejects reopen<br/>without Manager approval reason"]
+    RejectReopen --> EndReopenRejected([End - Reopen rejected])
+    ReconciledShift -->|No| RecordReopenAudit["System records Manager audit reason"]
+    RecordReopenAudit --> ReopenShift["System reopens shift for correction"]
+    ReopenShift --> EndReopened([End - Shift reopened with audit])
+
+    classDef terminal fill:#fff,stroke:#000,color:#000;
+    classDef process fill:#fff,stroke:#000,color:#000;
+    classDef decision fill:#fff,stroke:#000,color:#000;
+    classDef note fill:#fff,stroke:#000,stroke-dasharray:4 3,color:#000;
+
+    class Start,StartReopen,EndNoShift,EndVarianceBlocked,EndUnresolvedBlocked,EndDaily,EndClosed,EndReopenRejected,EndReopened terminal;
+    class OpenShiftExists,HardwareIssue,VarianceHigh,VarianceApproved,UnresolvedExist,RefundPending,CarryoverApproved,EndOfDay,ReconciledShift decision;
+    class ReconciliationBuckets,UnresolvedExamples note;

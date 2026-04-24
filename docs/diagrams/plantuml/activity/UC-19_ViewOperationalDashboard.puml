@@ -1,0 +1,121 @@
+@startuml
+!pragma useVerticalIf on
+title UC-19: View Operational Dashboard
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Manager|
+start
+:Open Admin WebApp dashboard;
+
+|System|
+:Load current operational snapshot;
+note right
+Snapshot includes:
+- today's revenue
+- order counts by status
+- average order value
+- kitchen load
+- open exception alerts
+- shift status awaiting review
+end note
+
+if (Data loading succeeds?) then ([yes])
+else ([no])
+  :Preserve last valid snapshot;
+  :Show loading error
+  and retry option;
+  :Keep last valid snapshot visible;
+  stop
+endif
+
+if (Data exists for selected period?) then ([yes])
+  :Display dashboard snapshot
+  with alert cards;
+else ([no])
+  :Show no-data placeholder;
+  stop
+endif
+
+|Manager|
+if (Filter by shift or day?) then ([yes])
+  :Select shift or day filter;
+
+  |System|
+  :Reload dashboard for selected filter;
+  if (Filtered data exists?) then ([yes])
+    :Display filtered dashboard snapshot;
+  else ([no])
+    :Show no-data placeholder;
+    stop
+  endif
+else ([no])
+endif
+
+|Manager|
+if (Click alert card?) then ([yes])
+  |System|
+  :Identify selected alert type;
+  note right
+  Alerts may include:
+  - Refund Pending
+  - overdue Pickup
+  - unresolved Write-off
+  - Forfeited pending
+  - Dine-in Completed + Unpaid
+  - shift awaiting close review
+  end note
+
+  if (Shift-status alert?) then ([yes])
+    :Route Manager to
+    Shift Close review (UC-21);
+    stop
+  else ([no])
+    if (Active order or exception alert?) then ([yes])
+      :Open related active orders
+      or exception list;
+      :Route Manager to
+      Active Orders drill-down (UC-20);
+      stop
+    else ([no])
+      :Show unsupported alert message;
+      stop
+    endif
+  endif
+else ([no])
+  |Manager|
+  :Continue monitoring dashboard;
+
+  |System|
+  :Keep current snapshot visible;
+endif
+
+stop
+@enduml

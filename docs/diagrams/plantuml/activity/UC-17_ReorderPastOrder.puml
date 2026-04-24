@@ -1,0 +1,144 @@
+@startuml
+title UC-17: Reorder Past Order
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Registered Customer|
+start
+:Open Order History;
+:Select a past order;
+
+|System|
+:Check reorder eligibility;
+if (Source order is
+Completed?) then ([yes])
+  :Show Reorder action;
+else ([no])
+  :Hide Reorder action;
+  :Keep source order history unchanged;
+  stop
+endif
+
+|Registered Customer|
+:Click Reorder;
+
+|System|
+:Check Reorder feature;
+if (Reorder feature enabled?) then ([yes])
+  :Load source order items;
+else ([no])
+  :Show Reorder unavailable message;
+  :Commit no new draft order;
+  stop
+endif
+
+:Compare source order with
+current menu state;
+
+if (All source items
+unavailable?) then ([yes])
+  :Show no-items-available message
+  with link to menu;
+  :Commit no new draft order;
+
+  |Registered Customer|
+  :Browse menu or return to history;
+  stop
+endif
+
+|System|
+:Create draft order from
+available items;
+:Apply current prices and
+carry forward valid notes;
+
+if (Menu drift found?) then ([yes])
+  :Drop unavailable items
+  or options;
+  :Prepare drift summary
+  and inline notices;
+else ([no])
+  :Keep reordered items
+  without drift notices;
+endif
+
+if (Any reordered item
+is currently 86'd?) then ([yes])
+  :Keep 86'd item as
+  checkout blocker;
+else ([no])
+  :Keep draft cart checkout-ready
+  for item availability;
+endif
+
+if (Original promotion
+still valid?) then ([yes])
+  :Allow promotion evaluation
+  at checkout;
+else ([no])
+  :Do not carry promotion forward;
+  :Attach expired-promotion notice;
+endif
+
+:Display draft cart with
+current totals and notices;
+
+|Registered Customer|
+:Review items, notes,
+notices, and totals;
+
+|System|
+if (Draft has checkout blockers?) then ([yes])
+  :Show checkout blocker notice;
+
+  |Registered Customer|
+  :Remove blocked items
+  or stop the reorder;
+
+  |System|
+  if (Customer removed blockers?) then ([yes])
+    :Update draft cart
+    totals and notices;
+  else ([no])
+    :Keep draft cart unchanged;
+    stop
+  endif
+else ([no])
+  :Allow customer to proceed;
+endif
+
+|Registered Customer|
+:Accept reordered draft;
+
+|System|
+:Route customer to checkout
+(UC-26);
+stop
+@enduml

@@ -1,0 +1,143 @@
+@startuml
+title UC-18: Manage Promotions
+
+' PlantUML activity diagram new syntax.
+' Semantics follow activity-diagram-guide.md.
+' Presentation follows the project UC-25 black-and-white swimlane rule.
+' UML terminal rule:
+' - start node = solid black circle
+' - final node = white outer ring with black inner circle
+
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam BackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowHeadColor Black
+skinparam DefaultFontColor Black
+skinparam activityBackgroundColor White
+skinparam activityBorderColor Black
+skinparam activityFontColor Black
+skinparam activityDiamondBackgroundColor White
+skinparam activityDiamondBorderColor Black
+skinparam activityDiamondFontColor Black
+skinparam activityStartColor Black
+skinparam activityEndColor Black
+skinparam noteBackgroundColor White
+skinparam noteBorderColor Black
+skinparam noteFontColor Black
+skinparam swimlaneBorderColor Black
+skinparam swimlaneTitleBackgroundColor White
+skinparam swimlaneTitleFontColor Black
+
+|Manager|
+start
+:Open Promotion Management;
+
+|System|
+:Display existing promotions
+with status and usage;
+note right
+Promotion fields may include:
+- code
+- type and value
+- valid from / to
+- conditions
+- usage limit
+- stacking rule
+- usage-recovery rule
+end note
+
+|Manager|
+:Select promotion action;
+
+|System|
+if (Create new promotion?) then ([yes])
+  :Display new promotion form;
+
+  |Manager|
+  :Enter promotion details
+  and save;
+
+  |System|
+  :Validate promotion data;
+  if (Promotion data valid?) then ([valid])
+    :Create promotion record;
+    :Record audit entry;
+    :Show success message;
+    stop
+  else ([invalid])
+    :Show validation error;
+    :Keep promotion unchanged;
+    stop
+  endif
+endif
+
+|System|
+if (Edit promotion?) then ([yes])
+  |Manager|
+  :Select existing promotion;
+
+  |System|
+  :Display current promotion data;
+
+  |Manager|
+  :Update promotion fields
+  and save;
+
+  |System|
+  :Validate updated promotion data;
+  if (Updated data valid?) then ([valid])
+    :Save promotion changes;
+    :Record audit entry;
+    :Show success message;
+    stop
+  else ([invalid])
+    :Show validation error;
+    :Keep previous promotion data;
+    stop
+  endif
+endif
+
+|System|
+if (Deactivate promotion?) then ([yes])
+  |Manager|
+  :Select existing promotion;
+  :Confirm deactivation;
+
+  |System|
+  :Deactivate promotion
+  without deleting history;
+  :Record audit entry;
+  :Show success message;
+  stop
+endif
+
+|System|
+if (View usage history?) then ([yes])
+  |Manager|
+  :Select promotion;
+
+  |System|
+  :Display promotion usage history;
+
+  |Manager|
+  :Review applied-order records;
+  stop
+endif
+
+|System|
+if (Review failed attempts?) then ([yes])
+  :Display rejected applications
+  and recorded reasons;
+
+  |Manager|
+  :Review failed-attempt details;
+  stop
+else ([no])
+  :Show unsupported action error;
+  :Keep promotion data unchanged;
+endif
+
+stop
+@enduml

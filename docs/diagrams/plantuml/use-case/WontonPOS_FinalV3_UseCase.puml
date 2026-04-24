@@ -1,0 +1,234 @@
+@startuml WontonPOS_FinalV3_UseCase
+' =====================================================================
+' Wonton POS - Final BRD v3 Use Case Diagram (26 UC)
+' =====================================================================
+' Purpose : Canonical UML use case diagram for the 26-UC final authoring lane.
+' Baseline: Business Rules locked 2026-04-17 + ADR-023..026.
+' Notes   : Use case nodes display the UC title only (no UC-xx prefix).
+'           Include / Extend follow UML 2.5 semantics:
+'             - "A ..> B : <<include>>" means A includes B (A requires B).
+'             - "A ..> B : <<extend>>" means A extends B (A is optional addition to B).
+' =====================================================================
+
+left to right direction
+
+' ---------- Style -----------------------------------------------------
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam nodesep 20
+skinparam ranksep 50
+skinparam roundcorner 6
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor     #37474F
+  FontColor       #37474F
+}
+
+skinparam usecase {
+  BackgroundColor #F8F9FA
+  BorderColor     #37474F
+  ArrowColor      #455A64
+  FontColor       #263238
+}
+
+skinparam package {
+  BackgroundColor<<Client>>  #E3F2FD
+  BorderColor<<Client>>      #1976D2
+  BackgroundColor<<ManagerPkg>> #FFF3E0
+  BorderColor<<ManagerPkg>>  #E65100
+  BackgroundColor<<FOHPkg>>  #E8F5E9
+  BorderColor<<FOHPkg>>      #2E7D32
+  BackgroundColor<<BOHPkg>>  #FCE4EC
+  BorderColor<<BOHPkg>>      #AD1457
+  FontSize                   13
+  FontStyle                  bold
+}
+
+skinparam rectangle {
+  BorderColor #455A64
+  FontSize    14
+  FontStyle   bold
+}
+
+title Wonton POS - Final BRD v3 Use Case Diagram\n<size:11>26 UC in scope. Dine-in / Takeaway / Pickup. Delivery is out of scope (UC-50).</size>
+
+
+' ---------- Actors ----------------------------------------------------
+actor "Customer\n(Guest / Registered)" as Customer
+actor "Registered\nCustomer"           as Registered
+actor "Manager"                        as Manager
+actor "FOH Staff"                      as FOHStaff
+actor "Cashier"                        as Cashier
+actor "Service Staff\n(Waiter)"        as ServiceStaff
+actor "BOH Staff\n(Kitchen)"           as BOHStaff
+
+' Customer generalisation: Registered Customer inherits Customer associations
+Registered --|> Customer
+Cashier --|> FOHStaff
+ServiceStaff --|> FOHStaff
+
+
+' ---------- System boundary ------------------------------------------
+rectangle "Wonton POS" {
+
+  package "Client WebApp - Customer Facing" <<Client>> {
+    usecase "Manage Customer Account\nand Authentication"           as UC25
+    usecase "Place Online Order"                                    as UC01
+    usecase "Schedule Pickup Order"                                 as UC03
+    usecase "Complete Checkout\nand Apply Promotion"                as UC26
+    usecase "Online Payment"                                        as UC02
+    usecase "View Order History"                                    as UC04
+    usecase "Reorder Past Order"                                    as UC17
+    usecase "Track Order"                                           as UC11
+    usecase "Receive Order Notifications"                           as UC16
+    usecase "Rate Order"                                            as UC15
+  }
+
+  package "Admin WebApp - Manager Control" <<ManagerPkg>> {
+    usecase "View Operational Dashboard"                            as UC19
+    usecase "View Revenue Statistics"                               as UC07
+    usecase "Manage Menu"                                           as UC05
+    usecase "Manage Tables"                                         as UC08
+    usecase "Manage Staff"                                          as UC06
+    usecase "Manage Promotions"                                     as UC18
+    usecase "Close Shift and\nReconcile End-of-day"                 as UC21
+  }
+
+  package "Admin WebApp - FOH Operations" <<FOHPkg>> {
+    usecase "Create In-Store Order"                                 as UC09
+    usecase "Assign Order to Table"                                 as UC12
+    usecase "Process Payment"                                       as UC10
+    usecase "Manage Active Orders"                                  as UC20
+    usecase "Serve and Confirm Handoff"                             as UC23
+    usecase "Handle Complaint and\nOperational Exception"           as UC24
+  }
+
+  package "Admin WebApp - BOH Operations" <<BOHPkg>> {
+    usecase "Receive Kitchen Orders"                                as UC13
+    usecase "Update Dish Status"                                    as UC14
+    usecase "Mark Menu Item as 86'd"                                as UC22
+  }
+}
+
+
+' ---------- Actor associations ---------------------------------------
+
+' Customer (Guest + Registered share these; UC-25 includes registration/login)
+Customer -- UC25
+Customer -- UC01
+Customer -- UC03
+Customer -- UC26
+Customer -- UC02
+Customer -- UC11
+Customer -- UC16
+
+' Registered-only (inherits Customer associations via generalisation)
+Registered -- UC04
+Registered -- UC17
+Registered -- UC15
+
+' Manager
+Manager -- UC19
+Manager -- UC07
+Manager -- UC05
+Manager -- UC08
+Manager -- UC06
+Manager -- UC18
+Manager -- UC21
+Manager -- UC20
+Manager -- UC22
+Manager -- UC24
+
+' FOH Staff
+FOHStaff -- UC09
+FOHStaff -- UC12
+FOHStaff -- UC20
+FOHStaff -- UC24
+
+' Cashier-specific FOH responsibilities
+Cashier -- UC10
+Cashier -- UC21
+Cashier -- UC23
+
+' Service Staff / Waiter-specific FOH responsibilities
+ServiceStaff -- UC23
+
+' BOH Staff (Kitchen)
+BOHStaff -- UC13
+BOHStaff -- UC14
+BOHStaff -- UC22
+
+
+' ---------- Include relationships (base -> included) -----------------
+' Base UC always executes the included UC as part of its normal flow.
+
+UC01 ..> UC26 : <<include>>
+UC03 ..> UC26 : <<include>>
+UC03 ..> UC02 : <<include>>
+
+
+' ---------- Extend relationships (extension -> base) -----------------
+' Extension UC adds optional behaviour to the base UC at an extension point.
+
+UC02 ..> UC26 : <<extend>>
+UC12 ..> UC09 : <<extend>>
+UC10 ..> UC09 : <<extend>>
+UC17 ..> UC04 : <<extend>>
+UC15 ..> UC04 : <<extend>>
+UC16 ..> UC11 : <<extend>>
+UC22 ..> UC14 : <<extend>>
+UC24 ..> UC20 : <<extend>>
+UC24 ..> UC22 : <<extend>>
+UC24 ..> UC23 : <<extend>>
+
+
+' ---------- Layout hints: keep related UCs co-located ----------------
+UC01 -[hidden]down- UC03
+UC03 -[hidden]down- UC26
+UC26 -[hidden]down- UC02
+UC04 -[hidden]down- UC17
+UC11 -[hidden]down- UC16
+UC16 -[hidden]down- UC15
+UC19 -[hidden]down- UC07
+UC07 -[hidden]down- UC05
+UC05 -[hidden]down- UC08
+UC08 -[hidden]down- UC06
+UC06 -[hidden]down- UC18
+UC18 -[hidden]down- UC21
+UC09 -[hidden]down- UC12
+UC12 -[hidden]down- UC10
+UC10 -[hidden]down- UC20
+UC20 -[hidden]down- UC23
+UC23 -[hidden]down- UC24
+UC13 -[hidden]down- UC14
+UC14 -[hidden]down- UC22
+
+
+' ---------- Clarifying notes ----------------------------------------
+note top of UC25
+Guest checkout remains allowed
+without this use case. Registration
+is optional; login unlocks UC-04,
+UC-15, UC-17.
+end note
+
+note bottom of UC26
+Checkout captures service model
+(Dine-in / Takeaway / Pickup),
+applies an optional promotion,
+and routes to Online Payment
+for Takeaway / Pickup or directly
+to Track Order for Dine-in.
+end note
+
+note right of UC22
+86'd is independent from inventory
+stock adjustment (§3m). Paid orders
+containing a now-86'd item are routed
+to Handle Complaint for Manager action.
+end note
+
+@enduml

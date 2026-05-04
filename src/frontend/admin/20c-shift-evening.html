@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Chốt ca và đối soát | Wonton POS</title>
+  <script src="../shared/admin-tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+  <main class="ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] p-6 min-h-screen space-y-6">
+    <section class="bg-white border border-outline-variant/40 rounded-lg p-6">
+      <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
+        <div>
+          <p class="text-xs font-black uppercase tracking-[0.22em] text-primary">UC-21 · Chốt ca và đối soát cuối ngày</p>
+          <h1 class="mt-2 text-3xl font-black tracking-tight">Chốt ca chiều · 24/04/2026</h1>
+          <p class="mt-2 text-sm text-on-surface-variant">Thu ngân: Nguyen Quang Anh · 11:00-17:00 · đối soát theo thời điểm phát sinh giao dịch.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <select class="rounded-lg border-outline-variant/40 bg-surface-container-low px-3 py-2 text-sm font-bold">
+            <option>Ca sáng (06:00-11:00)</option>
+            <option>Ca chiều (11:00-17:00)</option>
+            <option selected>Ca tối (17:00-22:00)</option>
+          </select>
+          <span class="px-3 py-2 rounded-lg bg-amber-100 text-amber-800 text-xs font-bold">Còn 3 mục cần review</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-2 xl:grid-cols-7 gap-4">
+      <div class="xl:col-span-1 bg-primary text-white border border-primary rounded-lg p-4"><p class="text-xs font-bold text-white/70">Doanh thu ròng</p><p class="mt-2 text-2xl font-black">₫12.49M</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Tiền mặt</p><p class="mt-2 text-2xl font-black">4.820M</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">CK thủ công</p><p class="mt-2 text-2xl font-black">2.150M</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Gateway QR</p><p class="mt-2 text-2xl font-black">6.430M</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Hoàn tiền</p><p class="mt-2 text-2xl font-black">420K</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Miễn phí / Mất</p><p class="mt-2 text-2xl font-black">310K</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Nợ xấu</p><p class="mt-2 text-2xl font-black text-red-700">180K</p></div>
+    </section>
+
+    <section class="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6">
+      <div class="bg-white border border-outline-variant/40 rounded-lg overflow-hidden">
+        <div class="px-5 py-4 border-b border-outline-variant/30 flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Bảng đối soát</h2>
+          <a class="px-4 py-2 rounded-lg border border-outline-variant/40 text-sm font-bold hover:bg-surface-container-low transition-colors" href="14-revenue-statistics-reports.html">Xuất Excel</a>
+        </div>
+        <table class="w-full text-left text-sm">
+          <thead class="bg-surface-container-low">
+            <tr>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">Khoản mục</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant text-right">Hệ thống</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant text-right">Thực đếm</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/30">
+            <tr><td class="px-4 py-4 font-bold">Ngăn tiền mặt</td><td class="px-4 py-4 text-right">4,820,000</td><td class="px-4 py-4 text-right">4,800,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-amber-100 text-amber-800 text-xs font-bold">Thiếu 20,000</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Chuyển khoản QR</td><td class="px-4 py-4 text-right">2,150,000</td><td class="px-4 py-4 text-right">2,150,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Khớp</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Gateway Online</td><td class="px-4 py-4 text-right">6,430,000</td><td class="px-4 py-4 text-right">6,430,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Khớp</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Chờ hoàn tiền</td><td class="px-4 py-4 text-right">225,000</td><td class="px-4 py-4 text-right">0</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-red-50 text-red-700 text-xs font-bold">Cần xử lý</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Miễn phí</td><td class="px-4 py-4 text-right">110,000</td><td class="px-4 py-4 text-right">110,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold">QL đã duyệt</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Mất đơn</td><td class="px-4 py-4 text-right">200,000</td><td class="px-4 py-4 text-right">200,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold">QL đã duyệt</span></td></tr>
+            <tr><td class="px-4 py-4 font-bold">Nợ xấu</td><td class="px-4 py-4 text-right">180,000</td><td class="px-4 py-4 text-right">180,000</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-red-50 text-red-700 text-xs font-bold">Nợ xấu</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="space-y-6">
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Chênh lệch tiền mặt</h2>
+          <label class="block mt-4">
+            <span class="text-xs font-bold uppercase text-on-surface-variant">Lý do</span>
+            <textarea class="mt-2 w-full rounded-lg border-outline-variant/50 bg-surface-container-low p-3" rows="4">Khách WNT-039 đưa thiếu 20,000 nhưng rời quán, Manager đã tạo write-off riêng.</textarea>
+          </label>
+          <a class="mt-4 block text-center w-full px-5 py-3 rounded-lg bg-primary text-white font-extrabold" href="02-admin-dashboard-overview.html">Gửi Manager duyệt</a>
+        </div>
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Ngoại lệ chuyển tiếp</h2>
+          <div class="mt-4 space-y-3 text-sm">
+            <p><b>#WNT-041</b> · late callback · Refund Pending</p>
+            <p><b>#WNT-043</b> · Pickup late · chờ quyết định hold/remake</p>
+            <p><b>#WNT-039</b> · Write-off đã duyệt</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

@@ -32,8 +32,15 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            Cập nhật Live • Hệ thống tự động đẩy đơn FIFO
+            Cập nhật Live • FIFO
         </p>
+    </div>
+    <!-- Mini Stats Bar (K12) -->
+    <div class="flex items-center gap-4 text-xs">
+        <span class="bg-red-50 text-red-700 px-3 py-1.5 rounded-lg font-bold">📋 Chờ: 1</span>
+        <span class="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-lg font-bold">🔥 Nấu: 1</span>
+        <span class="bg-green-50 text-green-700 px-3 py-1.5 rounded-lg font-bold">✅ Xong: 1</span>
+        <span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg font-bold">⏱ Avg: 12 phút</span>
     </div>
     <div class="flex items-center gap-3">
         <!-- Ticket vs Item View Toggle (UC-63) -->
@@ -46,10 +53,10 @@
             </a>
         </div>
         <!-- 86'd Items Button (Báo Hết Nguyên Liệu) -->
-        <button type="button" class="flex items-center gap-2 bg-[#93000a] hover:bg-[#ba1a1a] text-white px-4 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm">
+        <a href="21-menu-availability-86d.html" class="flex items-center gap-2 bg-[#93000a] hover:bg-[#ba1a1a] text-white px-4 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm">
             <span class="material-symbols-outlined text-sm" data-icon="block">block</span>
             Báo Hết Món / Nguyên Liệu (86'd)
-        </button>
+        </a>
     </div>
 </div>
 
@@ -83,23 +90,31 @@
 <div class="flex items-center space-x-2 mt-1">
 <span class="text-xs font-bold uppercase tracking-wider bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">Ăn tại quán</span>
 <span class="text-xs font-semibold text-on-surface-variant">Bàn 3</span>
+<span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">⚠ Chưa trả</span>
 </div>
 </div>
 <div class="text-right">
 <p class="text-xs font-bold text-on-surface">12:50 Chiều</p>
-<div class="flex items-center justify-end text-primary mt-1">
-<span class="material-symbols-outlined text-sm mr-1" data-icon="timer">timer</span>
+<!-- K2: 3 phút = MỚI → xanh -->
+<div class="flex items-center justify-end text-green-600 mt-1">
+<span class="material-symbols-outlined text-sm mr-1">timer</span>
 <span class="text-xs font-black tracking-tighter">03:00</span>
 </div>
 </div>
 </div>
 <div class="space-y-3 mb-6">
 <div class="flex justify-between items-center group">
+<div>
 <span class="text-sm font-medium text-on-surface"><span class="font-bold text-primary mr-2">3x</span> Mì Vằn Thắn Truyền Thống</span>
+<p class="text-[10px] text-slate-500 italic ml-6">Ít cay, thêm hành lá</p>
+</div>
 <div class="w-5 h-5 rounded border-2 border-outline-variant"></div>
 </div>
 <div class="flex justify-between items-center group">
+<div>
 <span class="text-sm font-medium text-on-surface"><span class="font-bold text-primary mr-2">1x</span> Sủi Cảo Tứ Xuyên</span>
+<p class="text-[10px] text-red-600 font-bold ml-6">⚠ DỊ ỨNG: KHÔNG ĐẬU PHỘNG</p>
+</div>
 <div class="w-5 h-5 rounded border-2 border-outline-variant"></div>
 </div>
 <div class="flex justify-between items-center group">
@@ -136,12 +151,14 @@
 <h3 class="text-base font-extrabold text-on-surface tracking-tight">#WNT-032</h3>
 <div class="flex items-center space-x-2 mt-1">
 <span class="text-xs font-bold uppercase tracking-wider bg-surface-container-highest text-on-surface px-2 py-0.5 rounded">Mang đi</span>
+<span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded">✅ Đã trả</span>
 </div>
 </div>
 <div class="text-right">
 <p class="text-xs font-bold text-on-surface">12:42 Chiều</p>
-<div class="flex items-center justify-end text-orange-500 mt-1">
-<span class="material-symbols-outlined text-sm mr-1" data-icon="timer">timer</span>
+<!-- K2: 11 phút = cảnh báo → amber -->
+<div class="flex items-center justify-end text-amber-600 mt-1">
+<span class="material-symbols-outlined text-sm mr-1">timer</span>
 <span class="text-xs font-black tracking-tighter">11:00</span>
 </div>
 </div>
@@ -181,13 +198,15 @@
 <h3 class="text-base font-extrabold text-on-surface tracking-tight">#WNT-031</h3>
 <div class="flex items-center space-x-2 mt-1">
 <span class="text-xs font-bold uppercase tracking-wider bg-surface-container-highest text-on-surface px-2 py-0.5 rounded">Đến lấy</span>
+<span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded">✅ Đã trả</span>
 </div>
 </div>
 <div class="text-right">
 <p class="text-xs font-bold text-on-surface">12:30 Chiều</p>
-<div class="flex items-center justify-end text-error mt-1 font-black">
-<span class="material-symbols-outlined text-sm mr-1" data-icon="priority_high">priority_high</span>
-<span class="text-xs tracking-tighter">18:00</span>
+<!-- K2: 18 phút = TRỄ → đỏ nhấp nháy -->
+<div class="flex items-center justify-end text-error mt-1 font-black animate-pulse">
+<span class="material-symbols-outlined text-sm mr-1">priority_high</span>
+<span class="text-xs tracking-tighter">18:00 ⏰ TRỄ</span>
 </div>
 </div>
 </div>
@@ -205,9 +224,10 @@
 </div>
 </div>
 </div>
+<!-- K6: Dynamic label theo service model -->
 <a class="w-full bg-on-surface text-surface py-3 rounded-lg text-xs font-black uppercase tracking-widest hover:opacity-90 transition-all flex items-center justify-center space-x-2" href="03-order-management.html" style="cursor: pointer;">
-<span class="material-symbols-outlined text-base" data-icon="shopping_bag">shopping_bag</span>
-<span>Đã Phục Vụ / Đã Lấy</span>
+<span class="material-symbols-outlined text-base">local_shipping</span>
+<span>Khách Đã Lấy (Pickup)</span>
 </a>
 </div>
 </div>

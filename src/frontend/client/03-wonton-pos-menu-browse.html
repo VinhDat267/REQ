@@ -87,9 +87,9 @@
 </head>
 <body class="bg-surface text-on-surface min-h-screen">
 <!-- Client Nav Injected via nav-components.js -->
-<div class="flex pt-20 max-w-[1440px] mx-auto">
+<div class="flex pt-16 lg:pt-20 max-w-[1440px] mx-auto">
 <!-- SideNavBar -->
-<aside class="h-[calc(100vh-80px)] w-72 fixed left-auto border-r border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 flex flex-col gap-4 px-6 pt-12 overflow-y-auto">
+<aside class="hidden lg:flex h-[calc(100vh-80px)] w-72 fixed left-auto border-r border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 flex-col gap-4 px-6 pt-12 overflow-y-auto">
 <div class="mb-6">
 <h2 class="text-on-surface font-bold text-xl tracking-tight">Danh mục</h2>
 <p class="text-secondary text-sm">Duyệt thực đơn của bạn</p>
@@ -140,22 +140,31 @@
 </nav>
 </aside>
 <!-- Main Content Area -->
-<main class="ml-72 flex-1 p-12 min-h-screen">
+<main class="ml-0 lg:ml-72 flex-1 p-4 lg:p-12 min-h-screen w-full">
+<!-- Mobile Horizontal Categories (Hidden on LG Desktop) -->
+<div class="flex lg:hidden overflow-x-auto gap-3 pb-2 mb-6 -mx-4 px-4 snap-x relative z-10" style="scrollbar-width: none;">
+<style> /* Hide scrollbar */ .flex.lg\:hidden::-webkit-scrollbar { display: none; } </style>
+<button class="snap-start flex-none px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl whitespace-nowrap shadow-sm">Tất cả món (42)</button>
+<button class="snap-start flex-none px-4 py-2 bg-surface-container text-on-surface-variant text-xs font-bold rounded-xl whitespace-nowrap border border-outline-variant/20 hover:bg-surface-container-high transition-colors">Mì nước (8)</button>
+<button class="snap-start flex-none px-4 py-2 bg-surface-container text-on-surface-variant text-xs font-bold rounded-xl whitespace-nowrap border border-outline-variant/20 hover:bg-surface-container-high transition-colors">Mì khô (10)</button>
+<button class="snap-start flex-none px-4 py-2 bg-surface-container text-on-surface-variant text-xs font-bold rounded-xl whitespace-nowrap border border-outline-variant/20 hover:bg-surface-container-high transition-colors">Món phụ (12)</button>
+<button class="snap-start flex-none px-4 py-2 bg-surface-container text-on-surface-variant text-xs font-bold rounded-xl whitespace-nowrap border border-outline-variant/20 hover:bg-surface-container-high transition-colors">Đồ uống (8)</button>
+</div>
 <!-- Search and Filter Section -->
-<div class="mb-12 space-y-8">
+<div class="mb-8 lg:mb-12 space-y-4 lg:space-y-8">
 <div class="relative group max-w-2xl">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">search</span>
 <input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-neutral-400" placeholder="Tìm món ăn..." type="text">
 </div>
-<div class="flex items-center gap-3">
-<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-medium hover:brightness-110 transition-all">Tất cả</button>
-<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Cay</button>
-<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Bán chạy</button>
-<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant text-sm font-medium hover:bg-surface-container-high transition-all">Mới</button>
+<div class="flex overflow-x-auto lg:flex-wrap items-center gap-2 lg:gap-3 pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 lg:pb-0" style="scrollbar-width: none;">
+<button class="whitespace-nowrap px-4 lg:px-6 py-1.5 lg:py-2 rounded-full bg-primary text-white text-xs lg:text-sm font-medium hover:brightness-110 transition-all">Tất cả</button>
+<button class="whitespace-nowrap px-4 lg:px-6 py-1.5 lg:py-2 rounded-full bg-surface-container text-on-surface-variant text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-all">Cay</button>
+<button class="whitespace-nowrap px-4 lg:px-6 py-1.5 lg:py-2 rounded-full bg-surface-container text-on-surface-variant text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-all">Bán chạy</button>
+<button class="whitespace-nowrap px-4 lg:px-6 py-1.5 lg:py-2 rounded-full bg-surface-container text-on-surface-variant text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-all">Mới</button>
 </div>
 </div>
 <!-- Menu Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-32">
+<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 pb-32">
 <!-- Item 1: Bestseller -->
 <div class="relative bg-surface-container-lowest rounded-xl overflow-hidden group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/10" style="position: relative; cursor: pointer;">
 
@@ -166,7 +175,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Mì Vằn Thắn Nước Truyền Thống</h3>
-<span class="text-primary font-bold">₫209,000</span>
+<span class="text-primary font-bold">₫65,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Sợi mì mảnh đặc trưng dùng kèm hoành thánh tôm thịt bọc thủ công nhưng súp.</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -184,7 +193,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Mì Vằn Thắn Khô Xá Xíu</h3>
-<span class="text-primary font-bold">₫225,000</span>
+<span class="text-primary font-bold">₫60,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Mì khô trộn sốt hắc xì dầu bí truyền, dùng kèm xá xíu thái lát và chén nước dùng...</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -203,7 +212,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Sủi Cảo Tứ Xuyên Cay Tê</h3>
-<span class="text-primary font-bold">₫175,000</span>
+<span class="text-primary font-bold">₫75,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">12 viên sủi cảo ú nu đâm mình trong dấm đen chua cay và sa tế tê tái do bếp nhà t...</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -223,7 +232,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Hoành Thánh Thịt Heo Truyền Thống</h3>
-<span class="text-secondary font-bold">₫160,000</span>
+<span class="text-secondary font-bold">₫55,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Hoành thánh nhân thịt heo xay, gói thủ công, nước dùng xương hầm thơm ngọt.</p>
 <button class="w-full bg-neutral-300 text-neutral-500 py-3 rounded-lg font-bold cursor-not-allowed" disabled="">Tạm Thời Hết Hàng</button>
@@ -239,7 +248,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Mì Xá Xíu Thịt Nướng</h3>
-<span class="text-primary font-bold">₫225,000</span>
+<span class="text-primary font-bold">₫60,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Mì trứng truyền thống chễm chệ cùng lớp xá xíu rim mật ong thơm nức.</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -275,7 +284,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Há Cảo Hải Sản</h3>
-<span class="text-primary font-bold">₫185,000</span>
+<span class="text-primary font-bold">₫96,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Há cảo trong vắt nhân tôm, cua, mực tươi hấp xưởng tre dùng kèm nước tương gừng.</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -293,7 +302,7 @@
 <div class="p-6">
 <div class="flex justify-between items-start mb-2">
 <h3 class="text-lg font-bold text-on-surface">Trà Sữa Thái</h3>
-<span class="text-primary font-bold">₫65,000</span>
+<span class="text-primary font-bold">₫29,000</span>
 </div>
 <p class="text-secondary text-sm mb-6 line-clamp-2">Trà sữa Thái Lan đậm đà pha trà đen Ceylon, sữa đặc và đá bào mát lạnh.</p>
 <button class="relative w-full bg-primary text-white py-3 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all text-center z-10" style="position:relative;z-index:10;">
@@ -324,13 +333,19 @@
 </main>
 </div>
 <!-- BottomNavBar / Floating Cart -->
-<div class="fixed bottom-8 right-8 z-50 flex items-center justify-center cursor-pointer bg-red-600 dark:bg-red-700 text-white font-inter font-bold text-lg rounded-full px-8 py-4 shadow-2xl shadow-red-900/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all" style="cursor: pointer;">
+<div class="fixed bottom-4 left-4 right-4 lg:bottom-8 lg:left-auto lg:right-8 z-50 flex items-center justify-between lg:justify-center cursor-pointer bg-red-600 dark:bg-red-700 text-white font-inter font-bold text-sm lg:text-lg rounded-xl lg:rounded-full px-6 py-4 shadow-2xl shadow-red-900/20 hover:brightness-110 hover:scale-[1.02] active:scale-95 transition-all" style="cursor: pointer;">
 
 
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
-<span>3 món — ₫609,000 | Xem Giỏ Hàng</span>
+<div class="bg-white/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[20px] lg:text-[24px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
 </div>
+<div class="flex flex-col text-left">
+<span class="text-[10px] lg:hidden opacity-80 uppercase tracking-widest font-extrabold">3 Món Đã Chọn</span>
+<span>₫200K <span class="hidden lg:inline">| Xem Giỏ Hàng (3 Món)</span></span>
+</div>
+</div>
+<span class="lg:hidden bg-white text-red-600 px-4 py-2 rounded-lg text-xs uppercase tracking-widest font-black">Xem Giỏ</span>
 <a href="05-wonton-pos-cart-review.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
 <script src="../shared/nav-components.js" defer=""></script>
 

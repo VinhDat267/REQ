@@ -1,0 +1,157 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Theo Dõi Đơn — Sẵn Sàng Nhận | Wonton POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "primary": "#b7131a", "primary-container": "#db322f", "on-primary": "#ffffff",
+                    "on-primary-container": "#fffbff", "secondary": "#5f5e5e", "surface": "#f9f9f9",
+                    "surface-container": "#eeeeee", "surface-container-low": "#f3f3f3",
+                    "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e8",
+                    "surface-container-highest": "#e2e2e2", "on-surface": "#1a1c1c",
+                    "on-surface-variant": "#5b403d", "outline-variant": "#e4beb9",
+                    "tertiary": "#006578", "error": "#ba1a1a",
+                    "inverse-surface": "#2f3131", "inverse-on-surface": "#f1f1f1",
+                    "background": "#f9f9f9"
+                },
+                "fontFamily": { "headline": ["Inter"], "body": ["Inter"] }
+            }
+        }
+    }
+</script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .ready-pulse {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+        animation: readypulse 1.5s infinite;
+    }
+    @keyframes readypulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(22, 163, 74, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+</style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- Client Nav Injected via nav-components.js -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+<!-- Tracking View: READY FOR PICKUP -->
+<section class="max-w-4xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="bg-green-50 border border-green-200/50 p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h2 class="text-xl font-bold tracking-tighter text-green-900">Mã Đơn #WNT-20260407-032</h2>
+            <p class="text-sm text-green-700 mt-1">Đơn hàng Đến Lấy • Đặt lúc 12:15 PM</p>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-green-800 bg-green-200 px-3 py-1 rounded-full">Đơn: Sẵn sàng nhận</span>
+                <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">Thanh toán: Đã thanh toán</span>
+            </div>
+        </div>
+    </div>
+    <!-- Timeline: Step 4 active (Ready) -->
+    <div class="relative py-12 px-4">
+        <div class="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-highest -translate-y-1/2 z-0"></div>
+        <div class="absolute top-1/2 left-0 w-[82%] h-[2px] bg-green-600 -translate-y-1/2 z-0"></div>
+        <div class="relative z-10 flex justify-between items-center">
+            <!-- Step 1: Done -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold">Đã Tạo Đơn</p>
+                    <p class="text-[10px] text-secondary">12:15 PM</p>
+                </div>
+            </div>
+            <!-- Step 2: Done -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold">Đã Xác Nhận</p>
+                    <p class="text-[10px] text-secondary">12:16 PM</p>
+                </div>
+            </div>
+            <!-- Step 3: Done -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold">Đã Nấu Xong</p>
+                    <p class="text-[10px] text-secondary">12:32 PM</p>
+                </div>
+            </div>
+            <!-- Step 4: Active - Ready -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center ready-pulse">
+                    <span class="material-symbols-outlined text-sm">shopping_bag</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold text-green-700">Sẵn Sàng Nhận!</p>
+                    <p class="text-[10px] text-secondary">12:34 PM</p>
+                </div>
+            </div>
+            <!-- Step 5: Pending -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-surface-container-highest text-stone-400 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">check_circle</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold text-stone-400">Hoàn tất</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ready Banner -->
+    <div class="bg-green-600 text-white p-8 rounded-2xl text-center shadow-lg shadow-green-600/20">
+        <span class="material-symbols-outlined text-5xl mb-3" style="font-variation-settings: 'FILL' 1;">takeout_dining</span>
+        <h3 class="text-3xl font-black tracking-tight mb-2">Đơn hàng đã sẵn sàng!</h3>
+        <p class="text-green-100 text-sm mb-4">Vui lòng đến quầy thu ngân và cho nhân viên xem mã đơn bên dưới.</p>
+        <!-- Order code for pickup verification -->
+        <div class="bg-white/20 backdrop-blur rounded-xl px-8 py-4 inline-block">
+            <p class="text-xs text-green-200 uppercase tracking-widest font-bold mb-1">Mã nhận đơn</p>
+            <p class="text-4xl font-black tracking-[0.3em] text-white">7-032</p>
+        </div>
+        <p class="text-xs text-green-200 mt-4">Cho Thu ngân xem mã này hoặc đọc 4 chữ số cuối trên điện thoại.</p>
+    </div>
+    <!-- Pickup Instructions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-surface-container-lowest p-6 rounded-xl text-center">
+            <span class="material-symbols-outlined text-tertiary text-3xl mb-2">location_on</span>
+            <h4 class="font-bold text-sm mb-1">Địa điểm nhận</h4>
+            <p class="text-xs text-secondary">Quầy Thu ngân — Tầng 1</p>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-xl text-center">
+            <span class="material-symbols-outlined text-tertiary text-3xl mb-2">timer</span>
+            <h4 class="font-bold text-sm mb-1">Giữ món tối đa</h4>
+            <p class="text-xs text-secondary">30 phút kể từ 12:34 PM</p>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-xl text-center">
+            <span class="material-symbols-outlined text-tertiary text-3xl mb-2">call</span>
+            <h4 class="font-bold text-sm mb-1">Cần hỗ trợ?</h4>
+            <p class="text-xs text-secondary">Gọi quầy: 028 1234 5678</p>
+        </div>
+    </div>
+    <!-- Help -->
+    <div class="text-center pt-4">
+        <a class="inline-flex items-center gap-2 text-primary font-bold hover:underline" href="10-notifications-center.html">
+            <span class="material-symbols-outlined">headset_mic</span>
+            Liên hệ trợ giúp
+        </a>
+    </div>
+</section>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

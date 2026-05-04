@@ -1,4 +1,4 @@
-# Current Status - Updated: 2026-04-18
+# Current Status - Updated: 2026-05-04
 
 ## Current Phase
 `PHASE 2 - Final project alignment based on the official REQ final-project brief`
@@ -39,7 +39,14 @@
   - Decoupling checkout states into standalone views for Dine-in (`06`), Pickup (`06e`), and Takeaway (`06f`) to match business rules and ease Figma migration.
   - Adding edge case views like Payment Failed (`06d`).
   - Fixing the core `nav-components.js` user navigation flow by rendering dynamic Auth vs Guest states based on context.
-- The prototype suite (20 Client, 18 Admin) was structurally feature-complete against the 16 midterm use cases and now needs final-scope remapping / extension.
+- The frontend prototype suite under `src/frontend/` has been extended for final-project business-flow coverage as of `2026-04-24`:
+  - current catalog: `67` static HTML screens (`35` Client WebApp + `32` Admin WebApp)
+  - new Client screens cover reorder under menu drift, customer profile/security, Guest lookup mismatch, and late-payment/refund status
+  - new Admin screens cover promotion usage audit, active orders, shift close/reconciliation, 86'd availability, handoff, complaint/exception resolution, Pickup late/no-show, and manual outage recovery
+  - `src/frontend/index.html` now lists the complete import catalog for Figma-oriented review
+  - static prototype links now connect every HTML screen into the review graph; no frontend screen is orphaned or terminal-only unless linked back into a related flow
+  - menu item prices have been normalized across Client/Admin HTML screens using one prototype price table, and directly related order subtotals/totals were recalculated
+  - mobile/tablet responsiveness has been hardened for the highest-risk Admin and Client prototype screens; a Chrome render audit now reports no page-level horizontal scroll and no severe clipped text across mobile, tablet, and desktop viewport checks
 - A restaurant-realism harmonization pass was applied on `2026-04-16` across the root VN/EN requirement package:
   - Bank Transfer QR is now consistently modeled as **manual confirmation**, not as an assumed bank callback.
   - Takeaway prepayment is now explicitly clarified as **payment before kitchen**, not "online-only"; counter Takeaway may be paid immediately at the cashier.
@@ -227,6 +234,7 @@
   - `docs/requirement-elicitation/*.docx`
 - Existing prototype-style assets:
   - static HTML screens in `src/`
+  - current frontend catalog is `src/frontend/index.html` with `67` importable prototype screens
 - Current Final BRD v3 26-UC use-case diagram artifacts:
   - PlantUML full/Admin/Client UCD sources and rendered PNG/SVG outputs under `docs/diagrams/plantuml/use-case/`
   - Mermaid presentation UCD sources under `docs/diagrams/mermaid/use-case/`
@@ -237,8 +245,24 @@
   - section `2.4.1 FUNCTIONAL REQUIREMENTS` now contains `26` numbered functional requirements, each explicitly mapped to `UC-01..UC-26`
   - section `2.7 USE CASE DIAGRAM` now uses the replaced detailed Client/Admin UCD images and has fresh explanatory paragraphs for both diagrams
   - verification was completed at text/table level with `python-docx`: `26` UC tables, ordered `UC-01..UC-26`, each `10x2`, with no missing local final-lane UC
+- Current Thesis DOCX artifact:
+  - `Thesis.docx` section `III. Client: Overview, Problem Statement and Requirements` was review-fixed on `2026-05-03` against the final-project rubric: it now has a clearer client overview/current-information-system description, one single core problem statement, full-version FR/NFR tables, a `UC-01..UC-26` requirement-to-use-case conversion table, and corrected representative use case specifications for high-risk flows. The wording now avoids implying Delivery integration, treats Bank Transfer QR as manual cashier confirmation, keeps inventory scope at inventory-lite / 86'd handling, and separates `order_status` from `payment_status`.
+  - `Thesis.docx` received a final-brief thesis polish pass on `2026-05-03`: fixed the Section IV heading typo, normalized Section V modelling headings into a clean `1..4` outline, corrected the online modelling-tool explanation so it matches Use Case / Class / ER modelling rather than stale DFD wording, split Section VIII into a real `Heading 2`, added `Lesson Learned` and `Recommendation on Future BA Work` subheadings, softened third-party platform wording so Delivery remains outside the current baseline, and standardized references with accessed dates. Verification via `python-docx` shows `18` references, `5` inline shapes retained, approximately `14,286` total words including tables, and all detected text runs using Times New Roman `13`.
+  - `Thesis.docx` section `VIII. Revision of Project` was strengthened on `2026-05-03` from a short reflection into a formal revision section: it now includes a `Revision Summary` table (`8 x 5`) covering the reviewed area, issue found, revision made, BA rationale, and resulting improvement, followed by refined `Lesson Learned` and `Recommendation on Future BA Work` content. Verification via `python-docx` shows Section VIII has approximately `978` words including table text, appears before `References`, and its body has zero `REQ`, `final-project`, standalone `project`, `catalog`, `HTML`, `index page`, or `import` strings.
+  - `Thesis.docx` section `VII. Prototype` was expanded and BA-language cleaned on `2026-05-03` so it now distinguishes UI and UX properly, frames the deliverable as a Figma-presented high-fidelity UI/UX prototype, states `86` user-facing prototype screens (`35` Client WebApp + `51` Admin WebApp), includes a prototype coverage table mapped to FR/NFR and `UC-01..UC-26`, adds a requirement/use-case validation table, and documents prototype limitations without mentioning internal catalog/index or HTML-build details. A follow-up formal-language pass removed course/repo-style scope wording from the Prototype section and replaced it with `Business Analysis thesis`, `approved operational baseline`, and `approved business scope`. Verification via `python-docx` shows Section VII has `800` words, the prototype coverage table is `3 x 4` with only Client/Admin rows, the requirement validation table remains `7 x 3`, `User Experience` is a real heading, Section VII has zero `catalog`, `HTML`, `index page`, `screen-catalog`, `import`, `REQ`, `final-project`, or standalone `project` strings, and the thesis total is approximately `14,874` words including tables.
+  - `Project Thesis_Team01_Tut01.docx` section `VI. Requirement Management` was review-aligned with the locked final Wonton POS baseline and formal requirement-management expectations for project scope, requirement control, and SRS evidence; it now covers baseline control, status lifecycle, change-control workflow, prioritization and effort assessment, risk ownership / response, and scope-boundary matrices in a business-facing way instead of over-centering BRD/SRS alignment or UC numbering. A final polish pass removed document-heavy wording such as `artifact owner` / `SRS quality owner`, added the explicit acceptance rule for baseline entry, and kept BRD/SRS/use-case references as verification evidence only.
+  - the thesis references list now includes requirement-management / prioritization / requirement-risk / effort-estimation sources from IBM, Techcanvass, Business Analyst Learnings, ModernAnalyst, ResearchGate, and Wiley DOI material.
+  - `III. Client` now includes a formal `Vision and Scope` subsection covering product vision, business objectives / success metrics, vision statement, current vs future scope, and business risks for Wonton POS.
+  - `VI. Requirement Management` now separates process, product, technology, elicitation, analysis, specification, and management risks before the detailed risk log.
+  - `VI. Requirement Management` now includes a `1.1 Requirements Traceability Matrix by Use Case` subsection with a 26-row `UC-01..UC-26` RTM covering requirement traced, scope/source area, verification evidence, and acceptance focus.
+  - `VI. Requirement Management` was citation-hardened on `2026-05-04`: requirement-management, traceability, change-control, prioritization, effort-assessment, and requirement-risk paragraphs now cite the relevant sources already listed in References, including IBM, Techcanvass, Business Analyst Learnings, ModernAnalyst, Kassab and Destefanis, and Rak / Car / Lovrek. Verification via `python-docx` shows `18` references, `21` detected body citations, all newly used sources present in References, `21` tables, `5` inline shapes, and approximately `15,191` total words including table text.
+  - Section `VI. Requirement Management` table layout was cleaned so the baseline, RTM, change, prioritization, risk, and scope tables are separated by blank spacer paragraphs instead of appearing visually attached to the next heading or paragraph.
+  - A follow-up review corrected the risk-management layout in the original thesis DOCX: the previous merged/irregular risk table was split into `Requirement Risk Categories` (`8 x 3`) and `Requirement Risk Log` (`9 x 5`). The temporary `Project Thesis_Team01_Tut01_Reviewed.docx` copy was overwritten back into the original and removed after verification.
+  - The previous temporary `Project Thesis_Team01_Tut01_Formal.docx` copy was overwritten back into the original thesis DOCX and removed after the file lock cleared. The original thesis now has zero direct `Lecture` / `lecturer` wording.
+  - `Project Thesis_Team01_Tut01_FormalClean.docx` was promoted into the original thesis DOCX and removed. The original thesis now removes remaining classroom-style wording such as `academic review`, `academic schedule`, `academic timeline`, `presentation quality`, `lesson derived from the project`, `major thesis requirement block`, and `thesis narrative`.
+  - A standalone requirement-management DOCX was refreshed from the current thesis Section VI on `2026-05-04` at `Project Thesis_Team01_Tut01_Requirement_Management.docx`; it contains only `VI. Requirement Management` plus section-specific references, with `38` paragraphs, `7` tables, no Section `V` / `VII` / `VIII` / Introduction / Literature / Client / Elicitation content, `0` inline shapes, and approximately `3,502` words.
+  - Repository housekeeping on `2026-05-04` removed temporary thesis backups, old standalone-backup DOCX files, transient text dumps, and untracked one-off helper scripts. A follow-up recursive scan found no remaining `*BACKUP*`, `*.tmp.docx`, Word lock `~$*`, `*.bak`, `review_output.txt`, or `temp_thesis.txt` files.
 - Current visible gap:
-  - the repo does not yet show a dedicated final requirement-management artifact in root docs
   - the repo does not yet show an assembled final thesis package
   - the repo does not yet show a promoted full-system use case diagram source aligned directly to `UC-01..UC-74`
 

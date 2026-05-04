@@ -87,15 +87,15 @@
 <body class="bg-surface text-on-surface">
 <!-- Client Nav Injected via nav-components.js -->
 <!-- Main Content Canvas -->
-<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 ">
+<main class="pt-20 lg:pt-28 pb-40 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 ">
 <!-- Back Link -->
 <a class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-8 group" href="03-wonton-pos-menu-browse.html">
 <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
 <span class="text-sm font-medium">Quay Lại Thực Đơn</span>
 </a>
-<div class="flex flex-col lg:flex-row gap-16 items-start">
+<div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
 <!-- Left Column: Image Gallery (60%) -->
-<div class="w-full lg:w-[60%] sticky top-32">
+<div class="w-full lg:w-[60%] static lg:sticky lg:top-32">
 <div class="relative group rounded-3xl overflow-hidden aspect-[4/3] bg-surface-container-low shadow-sm">
 <img class="w-full h-full object-cover" data-alt="A premium close-up of a steaming bowl of wonton noodle soup with silky noodles, shrimp dumplings, and bok choy in clear broth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSSOWAo4eef32tgW2AexL2yUHDoyHGj5kktp0vxNSZzd4cKMXkz6_-3ilWU8bRNiTMFoea1Ug7GOS6JAOvHQyzmjvNhuyaZXUploI9uLvvjoGzq-vVcJnFFRdgWieMeazLfMB2mA5RHbigVIvrZHVy6GnbHK2wFZEzTfvizYkpabueZ5MZ-Ld5bL2SIklFWSnNh3xRgj9SX6-3W8wKvsvwnN1j7ykKFCWrJRGNEt6UDlhigvCPw0Qji3pDv5NuuBwua6zpTFc901M2">
 <div class="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
@@ -119,11 +119,11 @@
 </div>
 </div>
 <!-- Right Column: Details & Customization (40%) -->
-<div class="w-full lg:w-[40%] space-y-10">
+<div class="w-full lg:w-[40%] space-y-8 lg:space-y-10">
 <header class="space-y-4">
-<div class="flex justify-between items-start">
-<h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight text-on-surface">Mì Vằn Thắn Nước Truyền Thống</h1>
-<span class="text-3xl font-bold text-primary font-headline">₫209,000</span>
+<div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-2">
+<h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight text-on-surface">Mì Vằn Thắn Nước Truyền Thống</h1>
+<span class="text-2xl lg:text-3xl font-bold text-primary font-headline">₫65,000</span>
 </div>
 <div class="flex items-center gap-4">
 <div class="flex text-primary">
@@ -203,24 +203,24 @@
 <textarea class="w-full bg-surface-container-low border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" placeholder="Báo lại nếu bạn bị dị ứng gì hay có yêu cầu thêm..." rows="3"></textarea>
 </div>
 </section>
-<!-- Sticky Bottom Action Bar (Non-sticky for editorial flow but visually grouped) -->
-<div class="pt-10 border-t border-outline-variant/20 space-y-8">
+<!-- Sticky Bottom Action Bar (Mobile Sticky to Bottom) -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/20 p-4 lg:p-0 lg:static lg:bg-transparent lg:border-t lg:pt-10 lg:mt-10 lg:backdrop-blur-none shadow-[0_-10px_20px_rgba(0,0,0,0.05)] lg:shadow-none space-y-4 lg:space-y-8 z-50">
 <div class="flex items-center justify-between">
-<div class="flex items-center gap-1 bg-surface-container-low rounded-full p-1.5">
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white hover:shadow-sm transition-all">
-<span class="material-symbols-outlined text-xl">remove</span>
+<div class="flex items-center gap-1 bg-surface-container-low rounded-full p-1 lg:p-1.5 border border-outline-variant/10">
+<button class="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center hover:bg-white hover:shadow-sm transition-all focus:bg-white ring-1 ring-transparent focus:ring-primary/20">
+<span class="material-symbols-outlined text-lg lg:text-xl">remove</span>
 </button>
-<span class="w-12 text-center font-bold text-lg">1</span>
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white hover:shadow-sm transition-all">
-<span class="material-symbols-outlined text-xl">add</span>
+<span class="w-8 lg:w-12 text-center font-bold text-base lg:text-lg">1</span>
+<button class="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center hover:bg-white hover:shadow-sm transition-all focus:bg-white ring-1 ring-transparent focus:ring-primary/20">
+<span class="material-symbols-outlined text-lg lg:text-xl">add</span>
 </button>
 </div>
-<div class="text-right">
-<span class="block text-sm font-bold text-secondary uppercase tracking-widest">Tổng Cộng</span>
-<span class="text-4xl font-black text-on-surface">₫257,000</span>
+<div class="text-right flex flex-row lg:flex-col items-center lg:items-end gap-2 lg:gap-0">
+<span class="block text-[10px] lg:text-sm font-bold text-secondary uppercase tracking-widest leading-none">Tổng Cộng</span>
+<span class="text-2xl lg:text-4xl font-black text-on-surface leading-none">₫93K</span>
 </div>
 </div>
-<a class="w-full bg-primary hover:bg-primary-container text-white py-6 rounded-2xl text-xl font-extrabold shadow-xl shadow-primary/10 transition-all active:scale-[0.98]" href="05-wonton-pos-cart-review.html" style="display: inline-block; text-align: center; cursor: pointer;">
+<a class="w-full bg-primary hover:bg-primary-container text-white py-4 lg:py-6 rounded-xl lg:rounded-2xl text-base lg:text-xl font-extrabold shadow-xl shadow-primary/10 transition-all active:scale-[0.98] flex justify-center items-center" href="05-wonton-pos-cart-review.html" style="cursor: pointer;">
                         Thêm vào Giỏ
                     </a>
 </div>

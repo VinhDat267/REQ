@@ -25,13 +25,13 @@
 <!-- Shared admin sidebar injected via ../shared/nav-components.js -->
 <!-- Main Content Wrapper -->
 
-<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col">
+<main class="flex-1 p-4 sm:p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col overflow-x-hidden">
 <!-- TopNavBar (Authority Source: JSON) -->
 
 <!-- Page Content -->
-<div class="flex-1 p-8 bg-surface">
+<div class="flex-1 p-4 sm:p-8 bg-surface max-w-full overflow-x-hidden">
 <!-- Header Section -->
-<div class="mb-8 flex items-end justify-between">
+<div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
 <div>
 <nav class="flex items-center gap-2 text-label-md text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest text-xs font-bold">
 <span>Đơn Hàng</span>
@@ -51,9 +51,9 @@
 <!-- Left Column (55%) -->
 <div class="col-span-12 lg:col-span-7 flex flex-col gap-8">
 <!-- Order Info Card -->
-<section class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/10">
-<div class="flex items-center justify-between mb-8">
-<div class="flex gap-10">
+<section class="bg-surface-container-lowest rounded-xl p-4 sm:p-8 border border-outline-variant/10">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+<div class="grid grid-cols-1 xs:grid-cols-3 sm:flex gap-4 sm:gap-10">
 <div>
 <p class="text-xs text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase mb-1">Loại Hình Dịch Vụ</p>
 <p class="font-bold text-on-surface">Ăn tại quán</p>
@@ -67,9 +67,9 @@
 <p class="font-bold text-on-surface">3 món</p>
 </div>
 </div>
-<div class="text-right">
+<div class="sm:text-right">
 <p class="text-xs text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase mb-1">Tổng Thành Tiền</p>
-<p class="text-2xl font-black text-primary">VND 165,000</p>
+<p class="text-2xl font-black text-primary">₫263,000</p>
 </div>
 </div>
 <!-- Item List -->
@@ -79,61 +79,61 @@
 <span class="w-8 h-8 flex items-center justify-center bg-slate-50 rounded text-slate-500 font-bold text-sm">2x</span>
 <span class="font-medium text-on-surface">Mì Vằn Thắn Tôm Thịt</span>
 </div>
-<span class="font-semibold text-on-surface">VND 490,000</span>
+<span class="font-semibold text-on-surface">₫130,000</span>
 </div>
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-4">
 <span class="w-8 h-8 flex items-center justify-center bg-slate-50 rounded text-slate-500 font-bold text-sm">1x</span>
 <span class="font-medium text-on-surface">Sủi Cảo Tứ Xuyên</span>
 </div>
-<span class="font-semibold text-on-surface">VND 175,000</span>
+<span class="font-semibold text-on-surface">₫75,000</span>
 </div>
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-4">
 <span class="w-8 h-8 flex items-center justify-center bg-slate-50 rounded text-slate-500 font-bold text-sm">2x</span>
 <span class="font-medium text-on-surface">Trà Lài Đá</span>
 </div>
-<span class="font-semibold text-on-surface">VND 80,000</span>
+<span class="font-semibold text-on-surface">₫58,000</span>
 </div>
 </div>
 <div class="mt-8 pt-8 border-t border-slate-50 flex justify-between items-center">
-<span class="text-sm text-slate-500">Tạm tính</span>
-<span class="text-sm font-medium">VND 745,000</span>
+<span class="text-sm text-slate-500">Tạm tính (3 món)</span>
+<span class="text-sm font-medium">₫263,000</span>
 </div>
 </section>
 <!-- Payment Selection -->
 <section>
 <h3 class="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4 ml-1">Phương thức Thanh toán</h3>
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 <!-- Selected Cash Card -->
-<button class="flex flex-col items-center justify-center gap-4 p-6 bg-white border-2 border-primary rounded-xl transition-all shadow-sm">
+<button class="flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-4 p-4 sm:p-6 bg-white border-2 border-primary rounded-xl transition-all shadow-sm">
 <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">payments</span>
 <span class="font-bold text-on-surface">Tiền Mặt</span>
 </button>
-<button class="flex flex-col items-center justify-center gap-4 p-6 bg-surface-container-low border border-transparent rounded-xl hover:bg-surface-container-high transition-all text-slate-500">
-<span class="material-symbols-outlined text-3xl">credit_card</span>
-<span class="font-bold">Thẻ / POS</span>
+<button class="flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-4 p-4 sm:p-6 bg-surface-container-low border border-transparent rounded-xl hover:bg-surface-container-high transition-all text-slate-500">
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+<span class="font-bold text-center leading-tight">QR chuyển khoản<br><span class="text-xs font-normal">Xác nhận thủ công</span></span>
 </button>
-<button class="flex flex-col items-center justify-center gap-4 p-6 bg-surface-container-low border border-transparent rounded-xl hover:bg-surface-container-high transition-all text-slate-500">
+<button class="flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-4 p-4 sm:p-6 bg-surface-container-low border border-transparent rounded-xl hover:bg-surface-container-high transition-all text-slate-500">
 <span class="material-symbols-outlined text-3xl">qr_code_2</span>
-<span class="font-bold text-center leading-tight">Mã QR<br><span class="text-xs font-normal">(VNPay, MoMo, ZaloPay)</span></span>
+<span class="font-bold text-center leading-tight">Cổng online<br><span class="text-xs font-normal">(VNPay, MoMo, ZaloPay)</span></span>
 </button>
 </div>
 </section>
 <!-- Cash Input Area -->
-<section class="bg-surface-container-low rounded-xl p-8">
-<div class="grid grid-cols-2 gap-8">
+<section class="bg-surface-container-low rounded-xl p-4 sm:p-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
 <div>
 <label class="text-xs text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase mb-2 block">Số Tiền Khách Đưa</label>
 <div class="relative">
 <span class="absolute left-0 bottom-3 text-2xl font-light text-slate-500 dark:text-slate-400">VND </span>
-<input class="w-full bg-transparent border-0 border-b-2 border-primary focus:ring-0 text-3xl font-bold py-2 pl-16 text-on-surface" type="text" value="800,000">
+<input class="w-full bg-transparent border-0 border-b-2 border-primary focus:ring-0 text-3xl font-bold py-2 pl-16 text-on-surface" type="text" value="300,000">
 </div>
 </div>
 <div>
 <label class="text-xs text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase mb-2 block">Tiền Thừa</label>
 <div class="py-2">
-<p class="text-3xl font-bold text-tertiary">VND 55,000</p>
+<p class="text-3xl font-bold text-tertiary">₫37,000</p>
 </div>
 </div>
 </div>
@@ -161,6 +161,10 @@
 <span>7 Tháng 4, 2026, 14:45</span>
 </div>
 <div class="flex justify-between text-slate-500">
+<span>Dịch vụ</span>
+<span>Ăn tại quán — Bàn 5</span>
+</div>
+<div class="flex justify-between text-slate-500">
 <span>Thu Ngân</span>
 <span>Linh Nguyen</span>
 </div>
@@ -168,21 +172,21 @@
 <div class="border-y border-dashed border-slate-200 py-6 my-6 space-y-4">
 <div class="flex justify-between text-sm">
 <span>2x Mì Vằn Thắn Tôm Thịt</span>
-<span class="font-medium">490,000</span>
+<span class="font-medium">130,000</span>
 </div>
 <div class="flex justify-between text-sm">
 <span>1x Sủi Cảo Tứ Xuyên</span>
-<span class="font-medium">175,000</span>
+<span class="font-medium">75,000</span>
 </div>
 <div class="flex justify-between text-sm">
 <span>2x Trà Lài Đá</span>
-<span class="font-medium">80,000</span>
+<span class="font-medium">58,000</span>
 </div>
 </div>
 <div class="space-y-3 mb-10">
 <div class="flex justify-between text-sm font-bold text-on-surface">
 <span>TỔNG CỘNG</span>
-<span>VND 745,000</span>
+<span>₫263,000</span>
 </div>
 <div class="flex justify-between text-xs text-slate-500">
 <span>Phương thức Thanh toán</span>

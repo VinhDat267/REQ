@@ -31,13 +31,13 @@
     <button class="lg:hidden p-1 text-slate-600 active:scale-95 transition-transform cursor-pointer" onclick="document.getElementById('wonton-admin-sidebar').classList.toggle('-translate-x-full')">
       <span class="material-symbols-outlined text-[28px]">menu</span>
     </button>
-    <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight whitespace-nowrap">Bảng điều khiển</h2>
+    <h2 class="max-w-[10rem] sm:max-w-none truncate text-base sm:text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight whitespace-nowrap">Bảng điều khiển</h2>
     <div class="relative group hidden sm:block">
       <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg group-focus-within:text-red-600 transition-colors">search</span>
       <input class="pl-10 pr-4 py-2 bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60 rounded-full text-sm focus:ring-2 focus:ring-red-500/20 focus:border-red-300 w-64 transition-all placeholder:text-slate-400 dark:text-slate-200" placeholder="Tìm kiếm bảng điều khiển..." type="text">
     </div>
   </div>
-  <div class="flex items-center gap-2">
+  <div class="shrink-0 flex items-center gap-1 sm:gap-2">
     <!-- Notification Dropdown -->
     <div class="relative group">
       <button class="relative p-2 rounded-full text-red-600 dark:text-red-500 bg-red-50 dark:bg-red-500/10 transition-all cursor-pointer focus:outline-none" title="Thông Báo">
@@ -46,7 +46,7 @@
       </button>
       
       <!-- STATIC Popover Menu FOR FIGMA -->
-      <div class="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl opacity-100 visible z-50">
+      <div class="fixed left-4 right-4 top-16 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white border border-slate-200 rounded-xl shadow-xl opacity-100 visible z-50">
         <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-xl">
           <h3 class="font-bold text-slate-800 text-sm">Thông báo mới</h3>
           <a href="13-admin-notifications-overview.html" class="text-xs text-red-600 font-semibold hover:underline">Xem tất cả</a>
@@ -67,10 +67,10 @@
         </div>
       </div>
     </div>
-    <button class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Trợ Giúp">
+    <button class="hidden sm:block p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Trợ Giúp">
       <span class="material-symbols-outlined text-[24px]">help</span>
     </button>
-    <button class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Cài Đặt">
+    <button class="p-1.5 sm:p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Cài Đặt">
       <span class="material-symbols-outlined text-[24px]">settings</span>
     </button>
     <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
@@ -143,14 +143,15 @@
                 <a href="03-order-management.html" class="absolute inset-0 z-10 block w-full h-full opacity-0" style="display:block; width:100%; height:100%; outline: none;" tabindex="-1"></a></div>
             </div>
             <!-- Middle Section: Asymmetrical Layout -->
-            <div class="grid grid-cols-12 gap-8">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
                 <!-- Đơn Hàng Gần Đây Table -->
-                <div class="col-span-8 bg-surface-container-low rounded-2xl overflow-hidden">
+                <div class="xl:col-span-8 bg-surface-container-low rounded-2xl overflow-hidden">
                     <div class="p-6 flex items-center justify-between border-b border-white/40">
                         <h3 class="font-bold text-lg tracking-tight">Đơn Hàng Gần Đây</h3>
                         <a class="text-primary text-xs font-bold hover:underline" href="03-order-management.html" style="display: inline-block; text-align: center; cursor: pointer;">Xem tất cả</a>
                     </div>
-                    <table class="w-full text-left border-collapse">
+                    <div class="overflow-x-auto">
+                    <table class="w-full min-w-[640px] text-left border-collapse">
                         <thead>
                             <tr class="text-xs font-black uppercase tracking-widest text-on-surface-variant bg-surface-container-high/50">
                                 <th class="px-6 py-4">Mã Đơn</th>
@@ -236,9 +237,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <!-- Revenue Hourly Chart Container -->
-                <div class="col-span-4 space-y-6">
+                <div class="xl:col-span-4 space-y-6">
                     <div class="bg-surface-container-low p-6 rounded-2xl h-[450px] flex flex-col">
                         <div class="mb-6">
                             <h3 class="font-bold text-lg tracking-tight">Doanh Thu Theo Giờ</h3>

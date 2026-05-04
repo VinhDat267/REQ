@@ -1,0 +1,119 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Hệ thống | Wonton POS Quản trị</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="../shared/admin-tailwind-config.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen antialiased">
+
+<!-- Shared admin sidebar injected via ../shared/nav-components.js -->
+<!-- Main Content -->
+
+<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100">
+<!-- TopNavBar -->
+
+<!-- Page Canvas -->
+<div class="p-8 max-w-[1440px] mx-auto">
+<!-- Heading & CTA -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface mb-2">Quản lý Nhân sự</h2>
+<div class="flex items-center gap-4 text-sm font-medium text-on-surface-variant">
+<span>Tổng cộng: <span class="text-on-surface">4</span></span>
+<span class="h-3 w-[1px] bg-outline-variant/30"></span>
+<span>Quản lý: <span class="text-tertiary">2</span></span>
+<span class="h-3 w-[1px] bg-outline-variant/30"></span>
+<span>Đã khóa: <span class="text-error">0</span></span>
+</div>
+</div>
+<a class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg flex items-center gap-2 font-semibold shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform" href="12-add-new-staff-member-form.html" style="cursor: pointer;">
+<span class="material-symbols-outlined text-xl">person_add</span>
+                        Thêm Nhân Viên
+                    </a>
+</div>
+<!-- Filter tabs (T9) -->
+<div class="flex items-center gap-2 mb-8">
+<a href="11-staff-management-list.html" class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container-high transition-colors">Tất cả (12)</a>
+<a href="11a-staff-cashier.html" class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container-high transition-colors">Thu Ngân (4)</a>
+<a href="11b-staff-service.html" class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container-high transition-colors">Phục Vụ (3)</a>
+<a href="11c-staff-kitchen.html" class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold hover:bg-surface-container-high transition-colors">Bếp (3)</a>
+<a href="11d-staff-manager.html" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-bold">Quản lý (2)</a>
+</div>
+<!-- Bento-ish Stats Row (Subtle) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Hiệu Suất Làm Việc</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">94%</span>
+<span class="text-tertiary text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2.4%
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Ca Trực Hiện Tại</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">08</span>
+<span class="text-on-surface-variant text-xs font-medium">Đang chấm công</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Yêu Cầu Chờ Xử Lý</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold tracking-tight">03</span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-xs font-bold">KHẨN CẤP</span>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-outline-variant/10">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Nhân Viên</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Liên Hệ</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Vai Trò</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Ca Gần Nhất</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Trạng Thái</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">Thao Tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">person</span></div>
+<div><p class="font-bold text-on-surface">Tran Quoc E</p><p class="text-xs text-on-surface-variant">ID: WNT-005</p></div>
+</div></td>
+<td class="px-6 py-5"><div class="text-sm"><p class="text-on-surface font-medium">0956-789-012</p><p class="text-xs text-on-surface-variant opacity-70">e@email.com</p></div></td>
+<td class="px-6 py-5"><div class="flex flex-wrap gap-2"><span class="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-700">Quản lý</span></div></td>
+<td class="px-6 py-5"><span class="text-xs font-bold text-primary">Tối (17:00-22:00)</span></td>
+<td class="px-6 py-5"><div class="flex items-center gap-2 text-sm font-medium text-tertiary"><span class="w-2 h-2 rounded-full bg-tertiary"></span>Hoạt động</div></td>
+<td class="px-6 py-5 text-right"><div class="flex justify-end gap-3"><a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold" href="12-add-new-staff-member-form.html">Sửa</a><button class="text-error/70 hover:text-error transition-colors text-sm font-semibold">Khóa</button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Pagination -->
+<div class="mt-6 flex justify-between items-center text-xs font-medium text-on-surface-variant/60 px-2">
+<p>Đang hiển thị 1-4 trên tổng số 12 Nhân viên</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors">Trang Trước</button>
+<button class="px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors">Trang Sau</button>
+</div>
+</div>
+</div>
+</main>
+
+<script src="../shared/nav-components.js" defer=""></script>
+
+</body></html>

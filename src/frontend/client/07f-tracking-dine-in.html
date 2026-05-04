@@ -1,0 +1,199 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Theo Dõi Đơn — Ăn Tại Quán | Wonton POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: { extend: {
+            "colors": {
+                "primary": "#b7131a", "primary-container": "#db322f", "on-primary": "#ffffff",
+                "on-primary-container": "#fffbff", "secondary": "#5f5e5e", "surface": "#f9f9f9",
+                "surface-container": "#eeeeee", "surface-container-low": "#f3f3f3",
+                "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e8",
+                "surface-container-highest": "#e2e2e2", "on-surface": "#1a1c1c",
+                "on-surface-variant": "#5b403d", "outline-variant": "#e4beb9",
+                "tertiary": "#006578", "tertiary-container": "#008097",
+                "error": "#ba1a1a", "error-container": "#ffdad6",
+                "on-error-container": "#93000a", "inverse-surface": "#2f3131",
+                "inverse-on-surface": "#f1f1f1", "background": "#f9f9f9"
+            },
+            "fontFamily": { "headline": ["Inter"], "body": ["Inter"] }
+        }}
+    }
+</script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .status-pulse {
+        box-shadow: 0 0 0 0 rgba(183, 19, 26, 0.4);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(183, 19, 26, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(183, 19, 26, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(183, 19, 26, 0); }
+    }
+</style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- Client Nav Injected via nav-components.js -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+<!-- Tracking View: DINE-IN SPECIFIC -->
+<!-- Khác Pickup/Takeaway: không có "Dự kiến sẵn sàng", thay bằng thông tin bàn + trạng thái phục vụ -->
+<section class="max-w-4xl mx-auto space-y-8">
+    <!-- Header: Dine-in with Table ID -->
+    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h2 class="text-xl font-bold tracking-tighter">Mã Đơn #WNT-20260407-040</h2>
+            <p class="text-sm text-secondary mt-1">Ăn Tại Quán • Đặt lúc 19:15 PM</p>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+            <!-- Table indicator — prominent for Dine-in -->
+            <div class="bg-tertiary/10 text-tertiary px-5 py-2 rounded-full text-sm font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">table_restaurant</span>
+                Bàn số 12
+            </div>
+            <!-- Dual status -->
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-on-surface bg-surface-container-high px-3 py-1 rounded-full">Đơn: Đang chế biến</span>
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">Thanh toán: Chưa thanh toán</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline: Dine-in specific steps
+         Step 1: Đã Tạo Đơn
+         Step 2: Đã Xác Nhận
+         Step 3: Đang Chế Biến (ACTIVE)
+         Step 4: Đang Phục Vụ (thay "Sẵn sàng" — nhân viên bưng ra bàn)
+         Step 5: Hoàn tất
+    -->
+    <div class="relative py-12 px-4">
+        <div class="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-highest -translate-y-1/2 z-0"></div>
+        <div class="absolute top-1/2 left-0 w-1/2 h-[2px] bg-primary -translate-y-1/2 z-0"></div>
+        <div class="relative z-10 flex justify-between items-center">
+            <!-- Step 1: Done -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold">Đã Tạo Đơn</p>
+                    <p class="text-[10px] text-secondary">19:15 PM</p>
+                </div>
+            </div>
+            <!-- Step 2: Done -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold">Đã Xác Nhận</p>
+                    <p class="text-[10px] text-secondary">19:15 PM</p>
+                </div>
+            </div>
+            <!-- Step 3: Active - Cooking -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center status-pulse">
+                    <span class="material-symbols-outlined text-sm">restaurant</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold text-primary">Đang Chế Biến</p>
+                    <p class="text-[10px] text-secondary">19:17 PM</p>
+                </div>
+            </div>
+            <!-- Step 4: Dine-in specific — "Đang phục vụ" instead of "Sẵn sàng" -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-surface-container-highest text-stone-400 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">room_service</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold text-stone-400">Đang Phục Vụ</p>
+                    <p class="text-[10px] text-stone-300">Bưng ra bàn</p>
+                </div>
+            </div>
+            <!-- Step 5 -->
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-surface-container-highest text-stone-400 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">check_circle</span>
+                </div>
+                <div class="text-center">
+                    <p class="text-xs font-bold text-stone-400">Hoàn tất</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bento Grid: Status + Order + Table Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Message Card -->
+        <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-[0px_12px_32px_rgba(91,64,61,0.06)] border border-outline-variant/15">
+            <h3 class="text-2xl font-bold tracking-tight mb-2">Đầu bếp đang nấu món cho bàn 12 🔥</h3>
+            <p class="text-secondary text-sm">Món sẽ được nhân viên bưng trực tiếp đến bàn của bạn. Không cần đến quầy nhận.</p>
+            <p class="text-xs text-secondary/60 mt-3 flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs" style="font-size:14px">sync</span>
+                Cập nhật lúc 19:18 PM • Trang tự cập nhật mỗi 30 giây
+            </p>
+        </div>
+        <!-- Order Detail -->
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_12px_32px_rgba(91,64,61,0.03)]">
+            <h4 class="font-bold tracking-tight text-sm mb-4">Chi Tiết Đơn Hàng</h4>
+            <div class="space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-on-surface">Mì Vằn Thắn × 1</span>
+                    <span class="font-bold">₫65,000</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-on-surface">Sủi Cảo Tứ Xuyên × 1</span>
+                    <span class="font-bold">₫75,000</span>
+                </div>
+                <div class="pt-3 mt-3 border-t border-dashed border-outline-variant/30">
+                    <div class="flex justify-between font-bold">
+                        <span>Tổng</span>
+                        <span class="text-primary text-lg">₫140,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dine-in specific actions -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+        <!-- Gọi thêm món — unique to Dine-in (§1 Business Rules: multi-order per table) -->
+        <a class="bg-gradient-to-r from-primary to-primary-container text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98]" href="03-wonton-pos-menu-browse.html">
+            <span class="material-symbols-outlined">add_circle</span>
+            Gọi Thêm Món
+        </a>
+        <!-- Gọi nhân viên -->
+        <button class="bg-surface-container-highest text-on-surface py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all active:scale-[0.98]">
+            <span class="material-symbols-outlined">notifications_active</span>
+            Gọi Nhân Viên
+        </button>
+    </div>
+
+    <!-- Payment note for Dine-in -->
+    <div class="bg-tertiary/5 border-l-4 border-tertiary p-4 max-w-xl mx-auto rounded-r-lg">
+        <div class="flex gap-3 items-start">
+            <span class="material-symbols-outlined text-tertiary text-lg mt-0.5">info</span>
+            <div>
+                <p class="text-sm text-tertiary font-medium">Thanh toán linh hoạt cho Ăn Tại Quán</p>
+                <p class="text-xs text-secondary mt-1">Bạn có thể thanh toán online ngay bây giờ hoặc thanh toán tại quầy sau khi dùng bữa. Thu ngân sẽ hỗ trợ khi bạn sẵn sàng.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help -->
+    <div class="text-center pt-4">
+        <a class="inline-flex items-center gap-2 text-primary font-bold hover:underline" href="10-notifications-center.html">
+            <span class="material-symbols-outlined">headset_mic</span>
+            Cần hỗ trợ?
+        </a>
+    </div>
+</section>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

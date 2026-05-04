@@ -35,11 +35,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-on-surface mb-2">Mã Code (Tối đa 15 ký tự) <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="VD: FREESHIP20, MUDHE50" value="FREESHIP20">
+                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="VD: GIAM20K, MUDHE50" value="GIAM20K">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-on-surface mb-2">Mô tả ngắn gọn</label>
-                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="Đại náo mùa hè giảm cực sốc...">
+                        <input type="text" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="Đại náo mùa hè giảm cực sốc..." value="Giảm ₫20K cho đơn tại quán từ ₫100K">
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     <div>
                         <label class="block text-sm font-bold text-on-surface mb-2">Loại Giảm Giá</label>
                         <select class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface">
-                            <option value="amount">Giảm tiền trực tiếp (VNĐ)</option>
+                            <option value="amount">Giảm tiền trực tiếp (₫)</option>
                             <option value="percent" selected="">Giảm theo phần trăm (%)</option>
                             <option value="item">Tặng Món MIỄN PHÍ</option>
                         </select>
@@ -78,7 +78,7 @@
                         <div class="relative">
                             <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface pl-4 pr-16" placeholder="0" value="150000">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-500 font-bold">
-                                VNĐ
+                                ₫
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <div class="relative">
                             <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface pl-4 pr-16" placeholder="0" value="50000">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-500 font-bold">
-                                VNĐ
+                                ₫
                             </div>
                         </div>
                     </div>
@@ -117,8 +117,16 @@
                         <input type="number" class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface" placeholder="VD: 100" value="100">
                         <p class="text-xs text-slate-500 mt-2">Bỏ trống nếu không giới hạn.</p>
                     </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Giới hạn số lần dùng/khách</label>
+                        <select class="w-full rounded-xl border-outline-variant/50 focus:border-primary focus:ring-primary bg-surface">
+                            <option value="1" selected>1 lần duy nhất</option>
+                            <option value="2">2 lần</option>
+                            <option value="unlimited">Không giới hạn</option>
+                        </select>
+                    </div>
                     
-                    <div class="flex items-center mt-6">
+                    <div class="md:col-span-2 flex items-center mt-2">
                         <label class="relative flex items-center cursor-pointer">
                             <input type="checkbox" class="sr-only peer" checked="">
                             <div class="w-14 h-7 bg-surface-container-highest peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary shadow-inner"></div>

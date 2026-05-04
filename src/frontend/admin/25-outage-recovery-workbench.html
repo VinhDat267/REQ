@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Manual recovery sau sự cố | Wonton POS</title>
+  <script src="../shared/admin-tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+  <main class="ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] p-6 min-h-screen space-y-6">
+    <section class="bg-white border border-outline-variant/40 rounded-lg p-6">
+      <p class="text-xs font-black uppercase tracking-[0.22em] text-primary">Manual recovery · KDS / printer / network / payment outage</p>
+      <h1 class="mt-2 text-3xl font-black tracking-tight">Workbench khôi phục sau sự cố</h1>
+      <p class="mt-2 text-sm text-on-surface-variant">Đối chiếu ticket thủ công với dữ liệu đã đồng bộ lại để không nấu trùng, không bỏ sót và không thu trùng.</p>
+    </section>
+
+    <section class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">KDS</p><p class="mt-2 font-black text-emerald-700">Online</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Máy in bếp</p><p class="mt-2 font-black text-amber-700">Vừa khôi phục</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Gateway</p><p class="mt-2 font-black text-emerald-700">Online</p></div>
+      <div class="bg-white border border-outline-variant/40 rounded-lg p-4"><p class="text-xs font-bold text-on-surface-variant">Network</p><p class="mt-2 font-black text-emerald-700">Ổn định</p></div>
+    </section>
+
+    <section class="grid grid-cols-1 xl:grid-cols-[1fr_430px] gap-6">
+      <div class="bg-white border border-outline-variant/40 rounded-lg overflow-hidden">
+        <div class="px-5 py-4 border-b border-outline-variant/30 flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Đối chiếu ticket thủ công</h2>
+          <a class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-extrabold hover:bg-primary-container transition-colors" href="19-active-orders-command-center.html">Đồng bộ lại</a>
+        </div>
+        <table class="w-full text-left text-sm">
+          <thead class="bg-surface-container-low">
+            <tr>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">Nguồn</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">Đơn</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">So khớp</th>
+              <th class="px-4 py-3 text-xs font-black uppercase text-on-surface-variant">Hành động</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/30">
+            <tr><td class="px-4 py-4 font-bold">Phiếu giấy #M-018</td><td class="px-4 py-4">#WNT-050 · Takeaway</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Khớp KDS</span></td><td class="px-4 py-4 font-bold text-slate-500">Không tạo lại</td></tr>
+            <tr class="bg-amber-50/60"><td class="px-4 py-4 font-bold">Phiếu giấy #M-019</td><td class="px-4 py-4">#WNT-051 · Dine-in</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-amber-100 text-amber-800 text-xs font-bold">Thiếu trong KDS</span></td><td class="px-4 py-4 font-bold text-primary">Tạo recovery ticket</td></tr>
+            <tr class="bg-red-50/60"><td class="px-4 py-4 font-bold">Gateway callback</td><td class="px-4 py-4">#WNT-041 · Pickup</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-red-100 text-red-700 text-xs font-bold">Late success</span></td><td class="px-4 py-4 font-bold text-red-700">Route refund</td></tr>
+            <tr><td class="px-4 py-4 font-bold">KDS queue</td><td class="px-4 py-4">#WNT-048 · Dine-in</td><td class="px-4 py-4"><span class="px-2 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold">Duplicate candidate</span></td><td class="px-4 py-4 font-bold text-slate-700">Merge</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="space-y-6">
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Recovery checklist</h2>
+          <div class="mt-4 space-y-3">
+            <label class="flex items-center gap-3 rounded-lg border border-outline-variant/40 p-3"><input type="checkbox" checked class="text-primary"> <span class="text-sm font-bold">Đối chiếu phiếu giấy với KDS</span></label>
+            <label class="flex items-center gap-3 rounded-lg border border-outline-variant/40 p-3"><input type="checkbox" checked class="text-primary"> <span class="text-sm font-bold">Không gửi bếp trùng order đã nấu</span></label>
+            <label class="flex items-center gap-3 rounded-lg border border-outline-variant/40 p-3"><input type="checkbox" class="text-primary"> <span class="text-sm font-bold">Xử lý late payment callback</span></label>
+            <label class="flex items-center gap-3 rounded-lg border border-outline-variant/40 p-3"><input type="checkbox" class="text-primary"> <span class="text-sm font-bold">Ghi chú bàn giao ca kế tiếp</span></label>
+          </div>
+        </div>
+
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Lý do audit</h2>
+          <textarea class="mt-4 w-full rounded-lg border-outline-variant/50 bg-surface-container-low p-3" rows="5">Mất kết nối máy in bếp 14:10-14:22. FOH dùng phiếu giấy M-018/M-019. Sau khi khôi phục, M-019 chưa có trong KDS nên tạo recovery ticket một lần.</textarea>
+          <a class="mt-4 block text-center w-full px-5 py-3 rounded-lg bg-primary text-white font-extrabold" href="20-shift-close-reconciliation.html">Hoàn tất recovery</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

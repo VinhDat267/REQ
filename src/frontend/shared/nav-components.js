@@ -13,35 +13,94 @@
 
   const PAGE_MAP_CLIENT = {
     '02-wonton-pos-landing-page.html': 'home',
+    '01b-wonton-pos-auth-register.html': 'auth',
+    '01c-wonton-pos-auth-forgot.html': 'auth',
     '04-wonton-item-detail-customize.html': 'menu',
     '03-wonton-pos-menu-browse.html': 'menu',
     '05-wonton-pos-cart-review.html': 'cart',
+    '05b-wonton-pos-cart-empty.html': 'cart',
     '08-order-history-detail.html': 'history',
+    '08b-order-history-empty.html': 'history',
+    '08c-order-history-cancelled.html': 'history',
     '10-notifications-center.html': 'notifications',
     '09-order-rating-page.html': 'history',
     '06-wonton-pos-checkout.html': 'checkout',
+    '06b-wonton-pos-payment-status.html': 'checkout',
+    '06b2-payment-bank-transfer.html': 'checkout',
+    '06b3-payment-timeout.html': 'checkout',
+    '06c-wonton-pos-payment-success.html': 'checkout',
+    '06c2-payment-success-bank-pending.html': 'checkout',
+    '06d-wonton-pos-payment-failed.html': 'checkout',
+    '06e-wonton-pos-checkout-pickup.html': 'checkout',
+    '06f-wonton-pos-checkout-takeaway.html': 'checkout',
     '01-wonton-pos-auth-page.html': 'auth',
     '07-order-tracking.html': 'tracking',
+    '07a-tracking-pending.html': 'tracking',
+    '07b-order-tracking-cancelled.html': 'tracking',
+    '07c-tracking-ready.html': 'tracking',
+    '07d-tracking-completed.html': 'tracking',
+    '07e-tracking-cancelled.html': 'tracking',
+    '07f-tracking-dine-in.html': 'tracking',
+    '11-reorder-menu-drift.html': 'history',
+    '12-customer-account-profile.html': 'profile',
+    '13-guest-order-lookup-error.html': 'tracking',
+    '13b-guest-lookup-success.html': 'tracking',
+    '13c-guest-lookup-ratelimit.html': 'tracking',
+    '14-payment-recovery-refund-status.html': 'tracking',
   };
 
   const PAGE_MAP_ADMIN = {
     '01-wonton-pos-admin-login.html': 'login',
+    '01b-login-error.html': 'login',
     '05-process-payment---order-wnt-032.html': 'orders',
     '13-admin-notifications-overview.html': 'notifications',
     '06-kitchen-display-system-kds.html': 'kitchen',
+    '06b-kitchen-display-system-item-view.html': 'kitchen',
     '11-staff-management-list.html': 'staff',
+    '11a-staff-cashier.html': 'staff',
+    '11b-staff-service.html': 'staff',
+    '11c-staff-kitchen.html': 'staff',
+    '11d-staff-manager.html': 'staff',
     '08-assign-order-to-table.html': 'tables',
     '07-table-management---floor-plan-view.html': 'tables',
+    '07b-admin-table-add-edit.html': 'tables',
+    '08b-admin-table-change.html': 'tables',
     '03-order-management.html': 'orders',
+    '03a-order-management-pending.html': 'orders',
+    '03b-order-management-cancel-modal.html': 'orders',
+    '03c-order-management-cooking.html': 'orders',
+    '03d-order-management-ready.html': 'orders',
+    '03e-order-management-unpaid.html': 'orders',
+    '03f-order-management-completed.html': 'orders',
+    '03g-order-management-cancelled.html': 'orders',
     '04-create-in-store-order.html': 'orders',
     '09-menu-management-list.html': 'menu',
+    '09b-menu-categories-toppings.html': 'menu',
     '12-add-new-staff-member-form.html': 'staff',
     '10-add-new-menu-item-form.html': 'menu',
     '02-admin-dashboard-overview.html': 'dashboard',
     '14-revenue-statistics-reports.html': 'reports',
+    '14a-revenue-this-week.html': 'reports',
+    '14b-revenue-this-month.html': 'reports',
+    '14c-revenue-custom.html': 'reports',
+    '15-admin-notifications-dropdown-figma.html': 'notifications',
     '16-voucher-management-list.html': 'vouchers',
+    '16b-admin-voucher-add-edit.html': 'vouchers',
+    '16c-promotion-usage-audit.html': 'vouchers',
     '17-pickup-schedule-management.html': 'pickup',
     '18-admin-settings-profile.html': 'settings',
+    '19-active-orders-command-center.html': 'active',
+    '19a-active-orders-dine-in.html': 'active',
+    '19b-active-orders-takeaway.html': 'active',
+    '19c-active-orders-pickup.html': 'active',
+    '20-shift-close-reconciliation.html': 'shift',
+    '20b-shift-afternoon.html': 'shift',
+    '20c-shift-evening.html': 'shift',
+    '21-menu-availability-86d.html': 'availability',
+    '22-serve-handoff-queue.html': 'handoff',
+    '23-complaint-exception-resolution.html': 'exceptions',
+    '24-pickup-no-show-exception.html': 'pickup',
+    '25-outage-recovery-workbench.html': 'recovery',
   };
 
   const SKIP_NAV = ['auth', 'checkout', 'login'];
@@ -70,7 +129,7 @@
       return `<a class="${cls}" href="${item.href}">${item.label}</a>`;
     }).join('\n');
 
-    const isLoggedIn = ['history', 'checkout', 'tracking', 'notifications'].includes(activePage);
+    const isLoggedIn = ['history', 'checkout', 'tracking', 'notifications', 'profile'].includes(activePage);
 
     const authBlock = isLoggedIn ? `
       <div class="hidden sm:flex relative group items-center cursor-pointer">
@@ -90,6 +149,10 @@
           <a href="08-order-history-detail.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-red-50 hover:text-red-700 transition-colors group/link">
             <span class="material-symbols-outlined text-lg text-slate-400 group-hover/link:text-red-600 transition-colors">receipt_long</span>
             Lịch sử đơn hàng
+          </a>
+          <a href="12-customer-account-profile.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-red-50 hover:text-red-700 transition-colors group/link">
+            <span class="material-symbols-outlined text-lg text-slate-400 group-hover/link:text-red-600 transition-colors">person</span>
+            Hồ sơ tài khoản
           </a>
           <div class="border-t border-slate-100"></div>
           <a href="02-wonton-pos-landing-page.html" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors">
@@ -116,6 +179,10 @@
         <a href="08-order-history-detail.html" class="flex items-center gap-3 font-semibold text-slate-700 p-2 hover:bg-slate-50 rounded-lg">
           <span class="material-symbols-outlined text-slate-400">receipt_long</span>
           Lịch sử đơn hàng
+        </a>
+        <a href="12-customer-account-profile.html" class="flex items-center gap-3 font-semibold text-slate-700 p-2 hover:bg-slate-50 rounded-lg">
+          <span class="material-symbols-outlined text-slate-400">person</span>
+          Hồ sơ tài khoản
         </a>
         <a href="02-wonton-pos-landing-page.html" class="flex items-center gap-3 font-semibold text-red-600 p-2 hover:bg-red-50 rounded-lg mt-1">
           <span class="material-symbols-outlined">logout</span>
@@ -182,17 +249,29 @@
     vouchers: 'Quản lý Khuyến Mãi',
     pickup: 'Lịch Hẹn Pickup',
     settings: 'Cài Đặt Hệ Thống',
+    active: 'Đơn đang hoạt động',
+    shift: 'Chốt ca & Đối soát',
+    availability: "86'd & Khả dụng món",
+    handoff: 'Phục vụ & Handoff',
+    exceptions: 'Khiếu nại & Ngoại lệ',
+    recovery: 'Khôi phục sau sự cố',
   };
 
   function buildAdminSidebar(activePage) {
     const sidebarItems = [
       { icon: 'dashboard', label: 'Bảng điều khiển', href: '02-admin-dashboard-overview.html', key: 'dashboard' },
       { icon: 'receipt_long', label: 'Đơn Hàng', href: '03-order-management.html', key: 'orders' },
+      { icon: 'dynamic_feed', label: 'Đơn Đang Chạy', href: '19-active-orders-command-center.html', key: 'active' },
       { icon: 'schedule', label: 'Lịch Pickup', href: '17-pickup-schedule-management.html', key: 'pickup' },
       { icon: 'soup_kitchen', label: 'Màn Hình Bếp', href: '06-kitchen-display-system-kds.html', key: 'kitchen' },
+      { icon: 'room_service', label: 'Phục Vụ / Handoff', href: '22-serve-handoff-queue.html', key: 'handoff' },
       { icon: 'table_restaurant', label: 'Sơ Đồ Bàn', href: '07-table-management---floor-plan-view.html', key: 'tables' },
       { icon: 'restaurant_menu', label: 'Thực Đơn', href: '09-menu-management-list.html', key: 'menu' },
+      { icon: 'block', label: "86'd / Khả Dụng", href: '21-menu-availability-86d.html', key: 'availability' },
       { icon: 'local_activity', label: 'Khuyến Mãi', href: '16-voucher-management-list.html', key: 'vouchers' },
+      { icon: 'support_agent', label: 'Khiếu Nại / Ngoại Lệ', href: '23-complaint-exception-resolution.html', key: 'exceptions' },
+      { icon: 'point_of_sale', label: 'Chốt Ca', href: '20-shift-close-reconciliation.html', key: 'shift' },
+      { icon: 'sync_problem', label: 'Recovery', href: '25-outage-recovery-workbench.html', key: 'recovery' },
       { icon: 'group', label: 'Nhân Sự', href: '11-staff-management-list.html', key: 'staff' },
       { icon: 'bar_chart', label: 'Báo Cáo', href: '14-revenue-statistics-reports.html', key: 'reports' },
       { icon: 'notifications', label: 'Thông Báo', href: '13-admin-notifications-overview.html', key: 'notifications', badge: '5' },
@@ -277,13 +356,13 @@
     <button class="lg:hidden p-1 text-slate-600 active:scale-95 transition-transform cursor-pointer" onclick="document.getElementById('wonton-admin-sidebar').classList.toggle('-translate-x-full')">
       <span class="material-symbols-outlined text-[28px]">menu</span>
     </button>
-    <h2 class="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight whitespace-nowrap">${pageTitle}</h2>
+    <h2 class="max-w-[10rem] sm:max-w-none truncate text-base sm:text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight whitespace-nowrap">${pageTitle}</h2>
     <div class="relative group hidden sm:block">
       <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg group-focus-within:text-red-600 transition-colors">search</span>
       <input class="pl-10 pr-4 py-2 bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60 rounded-full text-sm focus:ring-2 focus:ring-red-500/20 focus:border-red-300 w-64 transition-all placeholder:text-slate-400 dark:text-slate-200" placeholder="Tìm kiếm ${pageTitle.toLowerCase()}..." type="text">
     </div>
   </div>
-  <div class="flex items-center gap-2">
+  <div class="shrink-0 flex items-center gap-1 sm:gap-2">
     <!-- Notification Dropdown -->
     <div class="relative group">
       <button class="relative p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-100" title="Thông Báo">
@@ -292,7 +371,7 @@
       </button>
       
       <!-- Popover Menu -->
-      <div class="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50">
+      <div class="absolute right-0 mt-2 w-72 max-w-[calc(100vw-2rem)] sm:w-80 bg-white border border-slate-200 rounded-xl shadow-xl opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50">
         <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-xl">
           <h3 class="font-bold text-slate-800">Thông báo mới</h3>
           <a href="13-admin-notifications-overview.html" class="text-xs text-red-600 font-semibold hover:underline">Xem tất cả</a>
@@ -311,12 +390,12 @@
         </div>
       </div>
     </div>
-    <button class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Trợ Giúp">
+    <button class="hidden sm:block p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" title="Trợ Giúp">
       <span class="material-symbols-outlined text-[24px]">help</span>
     </button>
-    <a href="18-admin-settings-profile.html" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all inline-block text-center" title="Cài Đặt">
+    <a href="18-admin-settings-profile.html" class="p-1.5 sm:p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all inline-block text-center" title="Cài Đặt">
       <span class="material-symbols-outlined text-[24px]">settings</span>
-    </a>>
+    </a>
     <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
     <a href="18-admin-settings-profile.html" class="hidden sm:flex items-center gap-3 active:scale-95 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 p-1.5 rounded-full transition-all">
         <img alt="Quản lý Profile" class="w-8 h-8 rounded-full border-2 border-slate-200 dark:border-slate-700 shadow-sm object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrcoRDwsc-uQj77LkpmE4BHKe8591KMku0NoZqO4MBoP7B0lfMNKZgEnRcifNdEYAFZ7VgOm7DY-J4Y2KB64CAHsge-hJvCnF2nV4WZIlclDK_WE8TuWy5MQAbqy20QiBNrDJHpBmXl9P23OiX97efbnsrNHP7U-_6qBWKMwwLIqFr9SyZO6WodxUrvsyAi_cI6mSX8ohfLuuchJo489XU0hJ6l8SyV61tz-t2Gskjwtf5dK51ivdNjXDjtwK6a1kZzqBOXE1bl5Ft">
@@ -332,7 +411,7 @@
     }
 
     const headerHTML = `<header class="h-16 flex items-center justify-between px-4 sm:px-8 bg-white/95 dark:bg-slate-950/95 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-800/50 sticky top-0 z-40 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300" id="wonton-admin-header" data-shell-source="injected">${getAdminHeaderInnerHTML(activePage)}</header>`;
-    
+
     // We append the header directly to body before the main to adhere to our standard
     const main = document.querySelector('main');
     if (main) {
@@ -412,10 +491,10 @@
 
   function ensureClientFooter(activePage) {
     if (document.getElementById('wonton-client-footer')) return;
-    
+
     const MINIMAL_PAGES = ['cart', 'checkout', 'tracking', 'auth'];
     const footerHTML = MINIMAL_PAGES.includes(activePage) ? buildClientFooterMinimal() : buildClientFooterFull();
-    
+
     document.body.insertAdjacentHTML('beforeend', footerHTML);
   }
 
@@ -446,8 +525,10 @@
 
     document.body.classList.remove('overflow-hidden');
     document.body.style.overflow = '';
+    document.body.style.overflowX = 'hidden';
     document.body.style.minHeight = '100vh';
     document.documentElement.style.overflow = '';
+    document.documentElement.style.overflowX = 'hidden';
 
     const sidebar = ensureAdminSidebar(activePage);
     const header = ensureAdminHeader(activePage);

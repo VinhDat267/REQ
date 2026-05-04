@@ -1,0 +1,125 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Chuyển khoản Ngân hàng | Wonton POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = { darkMode: "class", theme: { extend: {
+        "colors": {
+            "primary": "#b7131a", "primary-container": "#db322f", "on-primary": "#ffffff",
+            "secondary": "#5f5e5e", "on-surface": "#1a1c1c", "surface": "#f9f9f9",
+            "surface-container": "#eeeeee", "surface-container-low": "#f3f3f3",
+            "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e8",
+            "error": "#ba1a1a", "tertiary": "#006578"
+        },
+        "fontFamily": { "body": ["Inter", "sans-serif"] }
+    }}}
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; color: #1a1c1c; }
+</style>
+</head>
+<body class="bg-surface font-body antialiased min-h-screen flex flex-col">
+    <header class="bg-white/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-8 py-5">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-bold text-primary tracking-tight">Wonton POS</span>
+        </div>
+        <div class="flex items-center gap-2 text-secondary">
+            <span class="material-symbols-outlined text-xl">account_balance</span>
+            <span class="text-sm font-medium">Chuyển Khoản Ngân Hàng</span>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-24 w-full max-w-[800px] mx-auto px-6 flex-grow flex items-center justify-center">
+        <!-- STATE: BANK TRANSFER WAITING — Khác hẳn Gateway QR (§3a) -->
+        <section class="w-full bg-white rounded-3xl p-10 md:p-14 shadow-[0px_24px_48px_rgba(91,64,61,0.08)] flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-tertiary/10 rounded-full flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-3xl text-tertiary">account_balance</span>
+            </div>
+            <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Chuyển Khoản Ngân Hàng</h1>
+            <p class="text-secondary max-w-md mx-auto mb-2 font-medium">Mở app ngân hàng, quét QR hoặc nhập thủ công thông tin bên dưới.</p>
+            <p class="text-xs text-secondary mb-6">Đơn hàng <strong>Mang đi</strong></p>
+
+            <!-- QR chứa STK -->
+            <div class="p-6 bg-surface-container rounded-2xl mb-6 border border-surface-container-high">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BankTransferWontonPOS" alt="QR Chuyển khoản" class="w-52 h-52 mix-blend-multiply opacity-90 mx-auto" />
+            </div>
+
+            <!-- Thông tin chuyển khoản — Bank Transfer cần hiện rõ (§3a) -->
+            <div class="w-full max-w-sm bg-surface-container-low rounded-xl p-5 mb-6 text-left space-y-3 border border-dashed border-surface-container-high">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-medium">Ngân hàng:</span>
+                    <span class="font-bold">Vietcombank</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-medium">Số tài khoản:</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold font-mono tracking-wider">1234 5678 9012</span>
+                        <button class="w-7 h-7 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center" title="Sao chép STK">
+                            <span class="material-symbols-outlined text-xs text-secondary">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-medium">Chủ tài khoản:</span>
+                    <span class="font-bold">NGUYEN VAN WONTON</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-medium">Nội dung CK:</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-primary font-mono">WNT032</span>
+                        <button class="w-7 h-7 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center" title="Sao chép nội dung">
+                            <span class="material-symbols-outlined text-xs text-secondary">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center text-sm pt-2 border-t border-surface-container-high">
+                    <span class="text-secondary font-medium">Số tiền:</span>
+                    <span class="font-black text-xl text-primary">₫128,000</span>
+                </div>
+            </div>
+
+            <!-- Cảnh báo: Bank Transfer = Thu ngân xác nhận thủ công -->
+            <div class="w-full max-w-sm bg-amber-50 border border-amber-200/50 rounded-lg p-4 mb-6 text-left">
+                <div class="flex gap-3 items-start">
+                    <span class="material-symbols-outlined text-amber-600 text-lg mt-0.5">warning</span>
+                    <div>
+                        <p class="text-xs font-bold text-amber-800">Lưu ý quan trọng</p>
+                        <p class="text-xs text-amber-700 mt-1">Chuyển khoản ngân hàng <strong>không được xác nhận tự động</strong>. Sau khi chuyển, Thu ngân sẽ kiểm tra tiền về và xác nhận thủ công. Đơn sẽ vào bếp sau khi Thu ngân bấm "Đã nhận tiền".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown -->
+            <div class="w-full max-w-sm mb-4">
+                <div class="flex justify-between items-center text-sm mb-2">
+                    <span class="text-secondary font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+                        Đang chờ xác nhận
+                    </span>
+                    <span class="font-bold text-primary">12:33 / 15:00</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 83%"></div>
+                </div>
+                <p class="text-[10px] text-secondary mt-1">Đơn sẽ tự động hủy nếu Thu ngân chưa xác nhận sau 15 phút.</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-4 mt-4">
+                <a class="text-sm font-bold text-primary hover:underline flex items-center gap-1" href="06-wonton-pos-checkout.html">
+                    <span class="material-symbols-outlined text-sm">swap_horiz</span>
+                    Đổi phương thức
+                </a>
+                <span class="text-surface-container-highest">|</span>
+                <a class="text-sm font-bold text-secondary hover:text-error flex items-center gap-1" href="#">
+                    <span class="material-symbols-outlined text-sm">cancel</span>
+                    Hủy đơn
+                </a>
+            </div>
+        </section>
+    </main>
+</body></html>

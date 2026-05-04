@@ -59,32 +59,45 @@
                 <span class="material-symbols-outlined text-4xl text-success font-bold">check</span>
             </div>
             <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Thanh Toán Thành Công!</h1>
-            <p class="text-secondary max-w-md mx-auto mb-10 font-medium">Cảm ơn bạn đã đặt món. Bếp đã nhận được đơn hàng và đang tiến hành chuẩn bị.</p>
+            <p class="text-secondary max-w-md mx-auto mb-2 font-medium">Cảm ơn bạn đã đặt món. Cổng thanh toán đã xác nhận tự động và đơn đã gửi bếp.</p>
+            <p class="text-xs text-success font-medium mb-8 flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">verified</span>
+                VNPay đã xác nhận giao dịch thành công (callback tự động)
+            </p>
             
-            <div class="w-full bg-surface-container-low rounded-xl p-6 mb-10 flex flex-col gap-4 text-left border border-surface-container-high border-dashed">
+            <div class="w-full bg-surface-container-low rounded-xl p-6 mb-8 flex flex-col gap-4 text-left border border-surface-container-high border-dashed">
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Mã Đơn Hàng</span>
-                    <span class="text-lg font-black text-primary">WNT-20260407-104</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg font-black text-primary">WNT-20260407-032</span>
+                        <button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center transition-colors" title="Sao chép mã đơn">
+                            <span class="material-symbols-outlined text-sm text-secondary">content_copy</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="w-full h-px bg-surface-container-high"></div>
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Số Tiền</span>
                     <span class="font-bold text-success flex items-center gap-1">
                         <span class="material-symbols-outlined text-sm">payments</span>
-                        ₫658,000 (Đã thanh toán)
+                        ₫128,000 (Đã thanh toán)
                     </span>
                 </div>
                 <div class="w-full h-px bg-surface-container-high"></div>
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Loại Hình</span>
-                    <span class="font-bold inline-flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">restaurant</span> Ăn tại quán</span>
+                    <span class="font-bold inline-flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">schedule</span> Đến lấy lúc 12:35 PM</span>
                 </div>
             </div>
 
             <a class="lacquered-btn w-full max-w-sm py-4 rounded-xl text-white font-black text-lg tracking-wide shadow-lg shadow-primary/20 transition-transform active:scale-95 hover:scale-105 flex items-center justify-center gap-2" href="07-order-tracking.html" style="cursor: pointer;">
-                <span class="material-symbols-outlined">track_changes</span> Trạng Thái Đơn Hàng
+                <span class="material-symbols-outlined">track_changes</span> Theo Dõi Đơn Hàng
             </a>
-            <a href="03-wonton-pos-menu-browse.html" class="mt-6 text-sm font-bold text-secondary hover:text-primary transition-colors underline-offset-4 hover:underline">Về Trang Chủ</a>
+            <div class="flex gap-6 mt-6">
+                <a href="#" class="text-sm font-bold text-secondary hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">download</span> Lưu hóa đơn</a>
+                <a href="03-wonton-pos-menu-browse.html" class="text-sm font-bold text-secondary hover:text-primary transition-colors">Về Trang Chủ</a>
+            </div>
+            <p class="text-[10px] text-secondary mt-4">💡 Khách vãng lai: lưu lại mã đơn <strong>WNT-20260407-032</strong> để tra cứu.</p>
         </section>
     </main>
 

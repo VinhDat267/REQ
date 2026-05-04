@@ -1,0 +1,123 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Chuyển khoản Đã Gửi — Chờ Xác Nhận | Wonton POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = { darkMode: "class", theme: { extend: {
+        "colors": {
+            "primary": "#b7131a", "primary-container": "#db322f", "on-primary": "#ffffff",
+            "secondary": "#5f5e5e", "on-surface": "#1a1c1c", "surface": "#f9f9f9",
+            "surface-container": "#eeeeee", "surface-container-low": "#f3f3f3",
+            "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e8",
+            "error": "#ba1a1a", "tertiary": "#006578", "success": "#16a34a",
+            "success-container": "#dcfce7"
+        },
+        "fontFamily": { "body": ["Inter", "sans-serif"] }
+    }}}
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="bg-surface font-body antialiased min-h-screen flex flex-col">
+    <header class="bg-white/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-8 py-5">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-bold text-primary tracking-tight">Wonton POS</span>
+        </div>
+        <div class="flex items-center gap-2 text-amber-600">
+            <span class="material-symbols-outlined text-xl">hourglass_top</span>
+            <span class="text-sm font-medium">Chờ Xác Nhận</span>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-24 w-full max-w-[800px] mx-auto px-6 flex-grow flex items-center justify-center">
+        <!-- STATE: BANK TRANSFER SENT — Waiting for cashier manual confirmation (§3a) -->
+        <section class="w-full bg-white rounded-3xl p-10 md:p-14 shadow-[0px_24px_48px_rgba(91,64,61,0.08)] flex flex-col items-center text-center border-t-8 border-amber-400">
+            <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-4xl text-amber-600">hourglass_top</span>
+            </div>
+            <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Chờ Thu Ngân Xác Nhận</h1>
+            <p class="text-secondary max-w-md mx-auto mb-8 font-medium">Bạn đã chuyển khoản thành công. Thu ngân đang kiểm tra tiền về tài khoản quán.</p>
+
+            <!-- Transfer confirmation details -->
+            <div class="w-full bg-success-container/30 border border-success/20 rounded-xl p-6 mb-8 text-left max-w-md">
+                <div class="flex items-start gap-3 mb-4">
+                    <span class="material-symbols-outlined text-success text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    <div>
+                        <p class="font-bold text-success">Chuyển khoản đã gửi</p>
+                        <p class="text-xs text-secondary mt-1">Ngân hàng của bạn đã xác nhận giao dịch chuyển tiền thành công.</p>
+                    </div>
+                </div>
+                <div class="space-y-2 text-sm pl-9">
+                    <div class="flex justify-between"><span class="text-secondary">Số tiền:</span><span class="font-bold">₫128,000</span></div>
+                    <div class="flex justify-between"><span class="text-secondary">Đến:</span><span class="font-bold">VCB — NGUYEN VAN WONTON</span></div>
+                    <div class="flex justify-between"><span class="text-secondary">Nội dung:</span><span class="font-bold font-mono text-primary">WNT032</span></div>
+                </div>
+            </div>
+
+            <!-- Waiting for cashier -->
+            <div class="w-full max-w-md bg-amber-50 border border-amber-200/50 rounded-xl p-6 mb-8">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="w-3 h-3 bg-amber-500 rounded-full animate-pulse"></div>
+                    <p class="font-bold text-amber-800">Đang chờ Thu ngân kiểm tra</p>
+                </div>
+                <div class="space-y-3 text-left">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-amber-600 text-lg mt-0.5">schedule</span>
+                        <p class="text-xs text-amber-700">Thu ngân sẽ kiểm tra SMS/app ngân hàng quán và bấm <strong>"Đã nhận tiền"</strong> trên hệ thống.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-amber-600 text-lg mt-0.5">restaurant</span>
+                        <p class="text-xs text-amber-700">Đơn sẽ được gửi bếp <strong>ngay sau khi</strong> Thu ngân xác nhận. Chưa xác nhận = chưa vào bếp.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-amber-600 text-lg mt-0.5">sync</span>
+                        <p class="text-xs text-amber-700">Trang này tự cập nhật mỗi 15 giây. Khi xác nhận xong, bạn sẽ được chuyển sang theo dõi đơn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order summary -->
+            <div class="w-full bg-surface-container-low rounded-xl p-5 mb-8 flex flex-col gap-3 text-left max-w-md border border-surface-container-high border-dashed">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-semibold uppercase tracking-wider">Mã Đơn</span>
+                    <span class="font-black text-primary">WNT-20260407-032</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-secondary font-semibold uppercase tracking-wider">Loại hình</span>
+                    <span class="font-bold">Mang đi (Takeaway)</span>
+                </div>
+            </div>
+
+            <!-- Risk note -->
+            <div class="w-full max-w-md bg-surface-container-low rounded-lg p-4 mb-6 text-left">
+                <div class="flex gap-3 items-start">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">shield</span>
+                    <div>
+                        <p class="text-xs font-bold text-on-surface">Bảo vệ giao dịch</p>
+                        <p class="text-xs text-secondary mt-1">Mỗi lần Thu ngân bấm "Đã nhận tiền", hệ thống ghi log kèm thời gian và mã đơn để đối soát cuối ngày (§3a).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col items-center gap-4">
+                <p class="text-xs text-secondary">Nếu chờ quá 5 phút mà chưa được xác nhận:</p>
+                <div class="flex gap-4">
+                    <button class="flex items-center gap-2 px-6 py-3 rounded-xl border border-surface-container-high font-bold text-sm hover:bg-surface-container-low transition-colors">
+                        <span class="material-symbols-outlined text-sm">support_agent</span>
+                        Gọi Thu ngân kiểm tra
+                    </button>
+                    <a class="flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container-high font-bold text-sm hover:bg-surface-container-highest transition-colors" href="10-notifications-center.html">
+                        <span class="material-symbols-outlined text-sm">headset_mic</span>
+                        Hỗ trợ
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body></html>

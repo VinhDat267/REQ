@@ -16,18 +16,24 @@
         body { font-family: 'Inter', sans-serif; }
 </style>
 </head>
-<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen antialiased overflow-hidden">
-<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] flex flex-col gap-6">
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen antialiased overflow-x-hidden">
+<main class="flex-1 p-4 sm:p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] flex flex-col gap-6">
 
-<div class="mb-2">
+<div class="mb-2 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div>
     <h1 class="text-2xl font-bold tracking-tight text-on-surface">Quản lý Danh Mục & Topping</h1>
     <p class="text-secondary text-sm mt-1">Tuỳ chỉnh danh mục món ăn và các tuỳ chọn gọi thêm</p>
+    </div>
+    <a class="inline-flex items-center justify-center gap-2 bg-white border border-outline-variant/30 hover:bg-surface-container-low text-on-surface px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-sm" href="09-menu-management-list.html">
+        <span class="material-symbols-outlined text-base">restaurant_menu</span>
+        Danh sách món
+    </a>
 </div>
 
-<div class="flex gap-6 h-full min-h-[500px]">
+<div class="flex flex-col xl:flex-row gap-6 h-full min-h-[500px]">
     <!-- COLUMN 1: CATEGORIES -->
     <section class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col overflow-hidden border border-outline-variant/10">
-        <header class="p-5 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/50">
+        <header class="p-5 border-b border-outline-variant/20 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 bg-surface-container-low/50">
             <h2 class="text-lg font-bold text-on-surface flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">category</span>
                 Danh Mục Món Ăn
@@ -37,8 +43,8 @@
             </button>
         </header>
 
-        <div class="overflow-y-auto custom-scrollbar flex-1 relative">
-            <table class="w-full text-left border-collapse">
+        <div class="overflow-auto custom-scrollbar flex-1 relative">
+            <table class="w-full min-w-[420px] text-left border-collapse">
                 <thead class="sticky top-0 bg-surface-container-lowest shadow-sm z-10">
                     <tr class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">
                         <th class="px-5 py-4 font-bold">Tên Danh Mục</th>
@@ -83,6 +89,30 @@
                             </div>
                         </td>
                     </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4 font-bold text-on-surface">MÓN KÈM</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-xs font-bold">2</span>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface-container-low/30 group transition-colors">
+                        <td class="px-5 py-4 font-bold text-on-surface">TRÁNG MIỆNG</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-xs font-bold">1</span>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
+                                <button class="p-1.5 hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -90,7 +120,7 @@
 
     <!-- COLUMN 2: TOPPINGS -->
     <section class="flex-1 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col overflow-hidden border border-outline-variant/10">
-        <header class="p-5 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/50">
+        <header class="p-5 border-b border-outline-variant/20 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 bg-surface-container-low/50">
             <h2 class="text-lg font-bold text-on-surface flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">add_circle</span>
                 Topping Bán Kèm
@@ -100,12 +130,12 @@
             </button>
         </header>
 
-        <div class="overflow-y-auto custom-scrollbar flex-1 relative">
-            <table class="w-full text-left border-collapse">
+        <div class="overflow-auto custom-scrollbar flex-1 relative">
+            <table class="w-full min-w-[460px] text-left border-collapse">
                 <thead class="sticky top-0 bg-surface-container-lowest shadow-sm z-10">
                     <tr class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">
                         <th class="px-5 py-4 font-bold">Tên Topping</th>
-                        <th class="px-5 py-4 font-bold">Giá Cấp</th>
+                        <th class="px-5 py-4 font-bold">Giá Thêm</th>
                         <th class="px-5 py-4 font-bold text-right">Cài Đặt</th>
                     </tr>
                 </thead>
@@ -115,7 +145,7 @@
                             <div class="font-bold text-on-surface">Thêm Hoành Thánh</div>
                             <div class="text-[10px] text-secondary">Mặc định: Phục vụ riêng</div>
                         </td>
-                        <td class="px-5 py-4 text-primary font-bold">VND 15,000</td>
+                        <td class="px-5 py-4 text-primary font-bold">₫15,000</td>
                         <td class="px-5 py-4 text-right">
                             <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
@@ -140,7 +170,7 @@
                             <div class="font-bold text-on-surface">Trân Châu Đen</div>
                             <div class="text-[10px] text-secondary">Áp dụng: ĐỒ UỐNG</div>
                         </td>
-                        <td class="px-5 py-4 text-primary font-bold">VND 10,000</td>
+                        <td class="px-5 py-4 text-primary font-bold">₫10,000</td>
                         <td class="px-5 py-4 text-right">
                             <div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button class="p-1.5 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>

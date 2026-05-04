@@ -101,7 +101,7 @@
                 <select class="w-full bg-surface-container-lowest border-2 border-outline-variant/30 rounded-xl px-4 py-4 pr-10 text-on-surface font-bold text-lg focus:border-primary focus:ring-0 appearance-none cursor-pointer outline-none">
                     <option value="" disabled="" selected="">-- Chọn Bàn --</option>
                     <option value="T-03">T-03 (4 chỗ)</option>
-                    <option value="T-04">T-04 (2 chỗ) - Đang dọn</option>
+                    <option value="T-04" disabled>T-04 (2 chỗ) - ⏳ Đang dọn (~5 phút)</option>
                     <option value="T-08">T-08 (6 chỗ)</option>
                     <option value="T-09">T-09 (2 chỗ)</option>
                 </select>
@@ -109,6 +109,11 @@
                     <span class="material-symbols-outlined text-secondary">expand_more</span>
                 </div>
             </div>
+        </div>
+        <!-- Lý do chuyển bàn (R8) -->
+        <div class="flex flex-col gap-2 mb-6">
+            <label class="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Lý do chuyển bàn <span class="text-error">*</span></label>
+            <textarea class="w-full bg-surface-container-lowest border-2 border-outline-variant/30 rounded-xl px-4 py-3 text-sm focus:border-primary focus:ring-0 resize-none" rows="2" placeholder="Ví dụ: Khách yêu cầu bàn gần cửa sổ, bàn cũ hỏng điện..."></textarea>
         </div>
 
         <div class="space-y-3">

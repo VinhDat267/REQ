@@ -47,7 +47,7 @@
 <section class="space-y-6">
 <div class="relative">
 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1 ml-1">Họ và Tên</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm form-input-focus transition-all" placeholder="e.g. Julian Vong" type="text">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm form-input-focus transition-all" placeholder="Nguyễn Văn A" type="text">
 </div>
 <div class="grid grid-cols-2 gap-4">
 <div class="relative">
@@ -109,6 +109,19 @@
 <p class="text-xs text-slate-500">Màn hình Bếp, xem cập nhật trạng thái đơn hàng</p>
 </div>
 </div>
+<!-- Role Card: Manager (T7/T12) -->
+<div class="group relative flex items-center p-4 rounded-xl border-2 border-transparent bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-all">
+<div class="w-12 h-12 rounded-lg bg-purple-100/50 flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-purple-600">admin_panel_settings</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<p class="font-bold text-on-surface">Quản lý (Manager)</p>
+<div class="w-5 h-5 rounded-full border-2 border-slate-300"></div>
+</div>
+<p class="text-xs text-slate-500">Duyệt hủy đơn, refund, chốt ca, quản lý nhân sự</p>
+</div>
+</div>
 </div>
 <p class="mt-4 text-xs text-slate-500 dark:text-slate-400 italic flex items-center">
 <span class="material-symbols-outlined text-[14px] mr-1" data-icon="info">info</span>
@@ -121,8 +134,8 @@
 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3 ml-1">Bảo Mật Truy Cập</label>
 <div class="flex items-center bg-slate-100 rounded-lg px-4 py-3 group">
 <div class="flex-1">
-<p class="text-xs text-slate-500 uppercase mb-0.5">Mật Khẩu Mặc Định</p>
-<p class="font-mono text-sm tracking-widest font-bold">WONTON-7281-X</p>
+<p class="text-xs text-slate-500 uppercase mb-0.5">Mật Khẩu Khởi Tạo (ngẫu nhiên)</p>
+<p class="font-mono text-sm tracking-widest font-bold">WNT-<span class="text-primary">4f9a</span>-X7kB</p>
 </div>
 <button class="p-2 hover:bg-white rounded-md text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
 <span class="material-symbols-outlined text-[20px]" data-icon="content_copy">content_copy</span>
@@ -137,9 +150,14 @@
 <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
 </button>
 </div>
-<p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Hành động khóa sẽ ngay lập tức chặn quyền truy cập POS.</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Khóa tức thì chặn quyền truy cập POS.</p>
 </div>
 </section>
+<!-- Forced password change note (T11) -->
+<div class="bg-amber-50 border border-amber-200/50 rounded-lg p-3 flex gap-2 items-start">
+<span class="material-symbols-outlined text-amber-600 text-sm mt-0.5">warning</span>
+<p class="text-xs text-amber-800"><strong>Bắt buộc đổi mật khẩu lần đầu đăng nhập.</strong> Mật khẩu khởi tạo chỉ sử dụng 1 lần.</p>
+</div>
 </div>
 <!-- Footer Actions -->
 <div class="mt-12 flex items-center justify-end space-x-4">

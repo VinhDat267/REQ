@@ -63,12 +63,12 @@
             <div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-6 border-4 border-white shadow-sm">
                 <span class="material-symbols-outlined text-3xl text-secondary">qr_code_scanner</span>
             </div>
-            <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Thanh Toán VNPay</h1>
-            <p class="text-secondary max-w-md mx-auto mb-8 font-medium">Vui lòng mở ứng dụng ngân hàng hoặc ví điện tử để quét mã QR bên dưới.</p>
+            <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Thanh Toán VNPay (QR)</h1>
+            <p class="text-secondary max-w-md mx-auto mb-2 font-medium">Mở ứng dụng ngân hàng hoặc ví VNPay để quét mã QR bên dưới.</p>
+            <p class="text-xs text-secondary mb-6">Đơn hàng <strong>Đến Lấy</strong> • Hẹn lấy lúc 12:35 PM</p>
             
-            <div class="p-6 bg-surface-container rounded-2xl mb-8 border border-surface-container-high relative overflow-hidden group">
+            <div class="p-6 bg-surface-container rounded-2xl mb-6 border border-surface-container-high relative overflow-hidden group">
                 <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <!-- Mock link to success state for presentation flow -->
                 <a href="06c-wonton-pos-payment-success.html" title="Nhấn vào QR Code để giả lập thanh toán thành công">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=WontonPOSPaymentTest" alt="QR Code cho Thanh Toán" class="w-64 h-64 mix-blend-multiply opacity-90 mx-auto transition-transform hover:scale-105" />
                 </a>
@@ -77,18 +77,41 @@
             <div class="flex flex-col gap-2 w-full max-w-sm mb-6">
                 <div class="flex justify-between items-center text-sm">
                     <span class="text-secondary">Tổng thanh toán:</span>
-                    <span class="font-bold text-xl text-primary">₫658,000</span>
+                    <span class="font-bold text-xl text-primary">₫128,000</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
                     <span class="text-secondary">Mã đơn hàng:</span>
-                    <span class="font-bold">WNT-20260407-104</span>
+                    <span class="font-bold">WNT-20260407-032</span>
                 </div>
             </div>
 
-            <p class="text-xs text-secondary-fixed-dim italic flex items-center gap-2">
-                <span class="material-symbols-outlined text-[14px] animate-spin">sync</span> 
-                Đang chờ thanh toán (04:59)
-            </p>
+            <!-- Countdown 15 phút với progress bar (§3) -->
+            <div class="w-full max-w-sm mb-4">
+                <div class="flex justify-between items-center text-sm mb-2">
+                    <span class="text-secondary font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+                        Đang chờ thanh toán
+                    </span>
+                    <span class="font-bold text-primary">10:12 / 15:00</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-primary h-2 rounded-full transition-all" style="width: 68%"></div>
+                </div>
+                <p class="text-[10px] text-secondary mt-1">Đơn sẽ tự động hủy nếu chưa thanh toán sau 15 phút.</p>
+            </div>
+
+            <!-- Đổi phương thức / Hủy (§3d) -->
+            <div class="flex gap-4 mt-4">
+                <a class="text-sm font-bold text-primary hover:underline flex items-center gap-1" href="06-wonton-pos-checkout.html">
+                    <span class="material-symbols-outlined text-sm">swap_horiz</span>
+                    Đổi phương thức
+                </a>
+                <span class="text-surface-container-highest">|</span>
+                <a class="text-sm font-bold text-secondary hover:text-error flex items-center gap-1" href="#">
+                    <span class="material-symbols-outlined text-sm">cancel</span>
+                    Hủy đơn
+                </a>
+            </div>
         </section>
     </main>
 </body>

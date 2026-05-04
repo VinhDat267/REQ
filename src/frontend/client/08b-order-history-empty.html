@@ -98,20 +98,20 @@
 <body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased">
 <!-- Client Nav Injected via nav-components.js -->
 <!-- Main Content Canvas -->
-<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
-<div class="flex gap-8 h-[calc(100vh-12rem)]">
+<main class="pt-20 lg:pt-28 pb-10 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 flex-grow">
+<div class="flex flex-col lg:flex-row gap-8 h-auto lg:h-[calc(100vh-12rem)]">
 <!-- Left Column: Order History List (45%) -->
-<section class="w-[45%] flex flex-col space-y-6 overflow-hidden">
+<section class="w-full lg:w-[45%] flex flex-col space-y-6 overflow-hidden">
 <div class="space-y-4">
 <div class="flex justify-between items-center">
-    <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Lịch sử Đơn hàng</h1>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-on-surface">Lịch sử Đơn hàng</h1>
 </div>
 <!-- Tabs -->
-<div class="flex space-x-1 bg-surface-container p-1 rounded-xl">
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg bg-surface-container-lowest text-on-surface shadow-sm transition-all">Tất Cả</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đang chọn</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Hoàn tất</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đã Hủy</button>
+<div class="flex space-x-1 bg-surface-container p-1 rounded-xl overflow-x-auto">
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg bg-surface-container-lowest text-on-surface shadow-sm transition-all">Tất Cả</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đang chọn</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Hoàn tất</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đã Hủy</button>
 </div>
 <!-- Search -->
 <div class="relative group">
@@ -133,9 +133,9 @@
 </section>
 
 <!-- Right Column: Order Detail Empty (55%) -->
-<section class="w-[55%] bg-surface-container-lowest border border-outline-variant/10 rounded-3xl p-10 flex flex-col items-center justify-center shadow-sm relative overflow-hidden opacity-50 pointer-events-none">
+<section class="w-full lg:w-[55%] bg-surface-container-lowest border border-outline-variant/10 rounded-3xl p-5 sm:p-10 flex flex-col items-center justify-center shadow-sm relative overflow-hidden opacity-50 pointer-events-none">
     <!-- Background Decorative Pattern -->
-    <div class="absolute -top-12 -right-12 w-48 h-48 opacity-5">
+    <div class="hidden sm:block absolute -top-12 -right-12 w-48 h-48 opacity-5">
     <img class="w-full h-full object-contain" data-alt="minimalist line art pattern of a chinese dumpling or wonton in a repetitive elegant sequence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCol0n52ucHsx_vlLPphiPqatZt9ILNynsocSVV5Bog46yLwZJpPNbWGt9Fo9C7_hZyeGpKsv94P4Q5TIdlZAl0VYx8ag3NT7Bw1s9TguA1rtXLM3VzvP-NS_yS8QlkFJapxsuisX5sYYWEKITCGpD1Q7ZlomOkdxsj-LgyHnKS911Ic29fNOZZoUZQj9q1TGlx1TtsaEqfwAy9zSlCjaHvmfFNHvLnE27qBPa01z2U79OWuIRvyvS9i8b9N50VavJIL7xox54C7s6p"/>
     </div>
     <div class="w-32 h-32 mb-6 opacity-20">

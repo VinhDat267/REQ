@@ -58,32 +58,50 @@
                 <span class="material-symbols-outlined text-4xl text-error font-bold" style="font-variation-settings: 'FILL' 1;">error</span>
             </div>
             <h1 class="text-3xl font-black text-on-surface mb-3 tracking-tight">Thanh Toán Thất Bại</h1>
-            <p class="text-secondary max-w-md mx-auto mb-10 font-medium">Rất tiếc, giao dịch của bạn không thể hoàn tất. Nguyên nhân có thể do số dư không đủ hoặc kết nối mạng bị gián đoạn.</p>
+            <p class="text-secondary max-w-md mx-auto mb-4 font-medium">Giao dịch không thể hoàn tất. Bạn có thể thử lại hoặc đổi phương thức trên <strong>cùng đơn hàng này</strong>.</p>
+
+            <!-- Error code cụ thể từ gateway -->
+            <div class="bg-error-container/30 border border-error/15 rounded-lg px-4 py-3 mb-8 max-w-md text-left">
+                <p class="text-sm font-bold text-error">Lỗi: VNP-91 — Giao dịch bị từ chối</p>
+                <p class="text-xs text-on-surface mt-1">Nguyên nhân: Số dư tài khoản không đủ hoặc thẻ bị khóa. Vui lòng kiểm tra lại ví/thẻ.</p>
+            </div>
             
-            <div class="w-full bg-surface-container-low rounded-xl p-6 mb-10 flex flex-col gap-4 text-left border border-surface-container-high border-dashed">
+            <div class="w-full bg-surface-container-low rounded-xl p-6 mb-6 flex flex-col gap-4 text-left border border-surface-container-high border-dashed">
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Mã Đơn Hàng</span>
-                    <span class="text-lg font-black text-on-surface">WNT-20260407-104</span>
+                    <span class="text-lg font-black text-on-surface">WNT-20260407-032</span>
                 </div>
                 <div class="w-full h-px bg-surface-container-high"></div>
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Số Tiền</span>
                     <span class="font-bold text-error flex items-center gap-1">
                         <span class="material-symbols-outlined text-sm">payments</span>
-                        ₫658,000 (Chưa thanh toán)
+                        ₫128,000 (Chưa thanh toán)
                     </span>
                 </div>
             </div>
 
+            <!-- Countdown còn lại để retry (§3d) -->
+            <div class="w-full max-w-md mb-6">
+                <div class="flex justify-between items-center text-sm mb-2">
+                    <span class="text-secondary font-medium">Thời gian còn lại để thử lại:</span>
+                    <span class="font-bold text-primary">08:47 / 15:00</span>
+                </div>
+                <div class="w-full bg-surface-container-high rounded-full h-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 42%"></div>
+                </div>
+                <p class="text-[10px] text-secondary mt-1">Đơn sẽ tự động hủy sau 15 phút kể từ lúc đặt. Retry trên cùng đơn — không tạo đơn mới.</p>
+            </div>
+
             <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
                 <a class="lacquered-btn flex-1 py-4 rounded-xl text-white font-black tracking-wide shadow-lg shadow-primary/20 transition-transform active:scale-95 flex items-center justify-center gap-2" href="06b-wonton-pos-payment-status.html" style="cursor: pointer;">
-                    <span class="material-symbols-outlined text-sm">refresh</span> Thử Lại Lần Nữa
+                    <span class="material-symbols-outlined text-sm">refresh</span> Thử Lại (cùng đơn)
                 </a>
                 <a class="flex-1 bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors py-4 rounded-xl font-bold tracking-wide active:scale-95 flex items-center justify-center gap-2" href="06-wonton-pos-checkout.html" style="cursor: pointer;">
                     <span class="material-symbols-outlined text-sm">swap_horiz</span> Đổi Phương Thức
                 </a>
             </div>
-            <a href="05-wonton-pos-cart-review.html" class="mt-8 text-sm font-bold text-secondary hover:text-primary transition-colors underline-offset-4 hover:underline">Quay lại Giỏ hàng</a>
+            <a href="05-wonton-pos-cart-review.html" class="mt-6 text-sm font-bold text-secondary hover:text-primary transition-colors underline-offset-4 hover:underline">Quay lại Giỏ hàng</a>
         </section>
     </main>
 

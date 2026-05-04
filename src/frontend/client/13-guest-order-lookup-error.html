@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Tra cứu đơn vãng lai | Wonton POS</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; background: #f9fafb; color: #191c1d; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-slate-50 antialiased">
+  <!-- Guest lookup shell: no account menu, consistent with guest lookup success and rate-limit states. -->
+  <main class="pt-12 pb-12 px-6 lg:px-12 max-w-[1180px] mx-auto">
+    <section class="grid grid-cols-1 lg:grid-cols-[1fr_430px] gap-6">
+      <div class="bg-white border border-slate-200 rounded-lg p-8">
+        <p class="text-xs font-black tracking-[0.22em] text-red-700 uppercase">UC-11 · Guest tracking</p>
+        <h1 class="mt-2 text-3xl font-black tracking-tight">Tra cứu đơn không thành công</h1>
+        <p class="mt-2 text-sm text-slate-500">Khách vãng lai cần nhập đúng mã đơn và số điện thoại đã dùng khi đặt hàng.</p>
+
+        <div class="mt-8 rounded-lg border border-red-200 bg-red-50 p-5 flex gap-4">
+          <span class="material-symbols-outlined text-red-700 text-3xl">error</span>
+          <div>
+            <h2 class="font-extrabold text-red-800">Không khớp thông tin tra cứu</h2>
+            <p class="mt-1 text-sm text-red-700">Mã #WNT-041 tồn tại, nhưng số điện thoại vừa nhập không trùng với đơn hàng. Vui lòng kiểm tra lại số điện thoại hoặc liên hệ quầy.</p>
+          </div>
+        </div>
+
+        <form class="mt-8 space-y-5">
+          <label class="block">
+            <span class="text-xs font-bold text-slate-500 uppercase">Mã đơn hàng</span>
+            <input class="mt-2 w-full rounded-lg border-red-200 bg-white px-4 py-3 font-bold tracking-widest" value="WNT-041" type="text">
+          </label>
+          <label class="block">
+            <span class="text-xs font-bold text-slate-500 uppercase">Số điện thoại đặt hàng</span>
+            <input class="mt-2 w-full rounded-lg border-red-200 bg-white px-4 py-3" value="0901 222 999" type="tel">
+            <p class="mt-2 text-xs text-red-700 font-semibold">Số điện thoại này không thuộc đơn #WNT-041.</p>
+          </label>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a class="flex-1 text-center px-5 py-4 rounded-lg bg-red-700 text-white font-extrabold" href="07-order-tracking.html">Thử lại</a>
+            <button class="flex-1 px-5 py-4 rounded-lg border border-slate-200 font-bold" type="button">Gửi yêu cầu hỗ trợ</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="space-y-6">
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Các lỗi thường gặp</h2>
+          <div class="mt-5 space-y-4">
+            <div class="flex gap-3">
+              <span class="material-symbols-outlined text-amber-600">pin</span>
+              <div>
+                <p class="font-bold text-sm">Sai mã đơn</p>
+                <p class="text-sm text-slate-500">Mã có dạng WNT-xxx trên màn hình thanh toán hoặc hóa đơn.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="material-symbols-outlined text-amber-600">phone_locked</span>
+              <div>
+                <p class="font-bold text-sm">Sai số điện thoại</p>
+                <p class="text-sm text-slate-500">Guest tracking không hiển thị đơn nếu số điện thoại không khớp.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="material-symbols-outlined text-amber-600">history</span>
+              <div>
+                <p class="font-bold text-sm">Đơn đã quá thời hạn giữ dữ liệu</p>
+                <p class="text-sm text-slate-500">Dữ liệu khách vãng lai được ẩn danh theo chính sách lưu giữ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 text-white rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Cần nhân viên kiểm tra?</h2>
+          <p class="mt-2 text-sm text-slate-300">Chuẩn bị mã giao dịch thanh toán hoặc ảnh hóa đơn để quầy xác minh nhanh hơn.</p>
+          <button class="mt-5 w-full px-5 py-3 rounded-lg bg-white text-slate-900 font-extrabold">Gọi hỗ trợ tại quầy</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

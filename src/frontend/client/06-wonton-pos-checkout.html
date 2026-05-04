@@ -99,19 +99,19 @@
 
 <body class="bg-surface font-body antialiased">
     <!-- TopNavBar Shell Visibility Suppression: Navigation is suppressed to prioritize focus on Thanh toán -->
-    <header class="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-8 py-5">
+    <header class="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-4 lg:px-8 py-3 lg:py-5">
         <div class="flex items-center gap-4">
             <span class="text-xl font-bold text-primary tracking-tight">Wonton POS</span>
         </div>
         <div class="flex items-center gap-6">
-            <div class="flex items-center gap-2 text-secondary">
+            <div class="hidden lg:flex items-center gap-2 text-secondary">
                 <span class="material-symbols-outlined text-xl" data-icon="lock">lock</span>
                 <span class="text-sm font-medium">Thanh Toán Bảo Mật</span>
             </div>
             <span class="material-symbols-outlined text-secondary hover:bg-stone-100 p-2 rounded-full cursor-pointer transition-colors" data-icon="help">help</span>
         </div>
     </header>
-    <main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 max-w-[1440px] flex flex-col lg:flex-row gap-12">
+    <main class="pt-20 lg:pt-28 pb-10 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 max-w-[1440px] flex flex-col lg:flex-row gap-6 lg:gap-12">
         <!-- Left Column: Primary Actions -->
         <div class="w-full lg:w-[60%] flex flex-col gap-16">
             <!-- Section 1: Thông tin Liên lạc -->
@@ -139,11 +139,11 @@
                             <span class="material-symbols-outlined text-primary" data-icon="restaurant">restaurant</span>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Loại Hình Dịch Vụ</h3>
-                            <div class="flex items-center gap-3">
-                                <p class="text-lg font-semibold text-on-surface">Ăn tại quán</p>
-                                <span class="bg-surface-container-high px-2 py-0.5 rounded text-xs font-bold text-on-surface-variant">Đang chọn</span>
-                            </div>
+                                <h3 class="text-xs lg:text-sm font-bold uppercase tracking-widest text-secondary">Loại Hình Dịch Vụ</h3>
+                                <div class="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-3">
+                                    <p class="text-base lg:text-lg font-semibold text-on-surface">Ăn tại quán</p>
+                                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] lg:text-xs font-bold text-on-surface-variant w-fit">Đang chọn</span>
+                                </div>
                         </div>
                     </div>
                     <a class="text-primary font-bold text-sm hover:underline" href="05-wonton-pos-cart-review.html" style="display: inline-block; text-align: center; cursor: pointer;">Thay đổi</a>
@@ -202,6 +202,9 @@
                         <span class="material-symbols-outlined text-tertiary text-xl" data-icon="info">info</span>
                         <p class="text-sm text-tertiary font-medium">Đơn Ăn Tại Quán hỗ trợ thanh toán linh hoạt: trả trước online hoặc thanh toán tại quầy sau khi dùng bữa</p>
                     </div>
+                    <!-- Nhóm 1: Thanh toán qua cổng online (Gateway QR — callback tự động) -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-2 mb-1">Ví điện tử / Cổng thanh toán</p>
+                    <p class="text-xs text-secondary mb-4">Hệ thống tự xác nhận khi cổng thanh toán gửi callback.</p>
                     <div class="flex flex-col gap-4">
                         <!-- Option: MoMo -->
                         <div class="border-2 border-primary/20 bg-surface-container-lowest p-6 rounded-xl flex flex-col gap-6">
@@ -221,8 +224,7 @@
                                 <input class="bg-surface-container border-none p-4 rounded-lg transition-all border-b-2 border-transparent" placeholder="+84 912 345 678" type="tel">
                             </div>
                             <div class="md:col-span-4">
-                                <p class="text-xs text-secondary italic">Bạn sẽ nhận được thông báo xác nhận
-                                    thanh toán MoMo trên điện thoại</p>
+                                <p class="text-xs text-secondary italic">Bạn sẽ nhận được thông báo xác nhận thanh toán MoMo trên điện thoại</p>
                             </div>
                         </div>
                         <!-- Option: VNPay -->
@@ -237,21 +239,33 @@
                             <span class="font-medium text-on-surface">ZaloPay</span>
                             <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="account_balance_wallet">account_balance_wallet</span>
                         </div>
-                        <!-- Option: Cash at Counter (Active for Dine-in) -->
-                        <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
-                                <span class="font-medium text-on-surface">Tiền Mặt Tại Quầy</span>
-                            </div>
-                            <span class="text-xs font-semibold text-tertiary bg-tertiary/10 px-2 py-1 rounded">Thanh toán sau khi ăn</span>
-                        </div>
                     </div>
+
+                    <!-- Nhóm 2: Chuyển khoản ngân hàng (QR Bank Transfer — xác nhận thủ công) -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-6 mb-1">Chuyển khoản ngân hàng</p>
+                    <p class="text-xs text-secondary mb-4">Thu ngân sẽ xác nhận thủ công sau khi kiểm tra tiền về tài khoản quán.</p>
+                    <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
+                        <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                        <span class="font-medium text-on-surface">QR Chuyển khoản ngân hàng</span>
+                        <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="account_balance">account_balance</span>
+                    </div>
+
+                    <!-- Nhóm 3: Tiền mặt tại quầy (chỉ Dine-in) -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-6 mb-1">Tại quầy</p>
+                    <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                            <span class="font-medium text-on-surface">Tiền Mặt / QR tại quầy</span>
+                        </div>
+                        <span class="text-xs font-semibold text-tertiary bg-tertiary/10 px-2 py-1 rounded">Thanh toán sau khi ăn</span>
+                    </div>
+                    <p class="text-xs text-secondary italic mt-2">Nếu chọn thanh toán tại quầy, đơn sẽ được gửi bếp ngay và bạn thanh toán khi dùng xong.</p>
                 </div>
             </section>
         </div>
         <!-- Right Column: Sticky Tóm tắt Đơn hàng -->
         <aside class="w-full lg:w-[40%]">
-            <div class="sticky top-28 bg-white p-8 rounded-2xl shadow-[0px_12px_32px_rgba(91,64,61,0.06)] flex flex-col gap-8">
+            <div class="static lg:sticky lg:top-28 bg-white p-4 lg:p-8 rounded-2xl shadow-sm lg:shadow-[0px_12px_32px_rgba(91,64,61,0.06)] flex flex-col gap-6 lg:gap-8">
                 <h3 class="text-xl font-bold tracking-tight border-b-0 pb-0">Tóm tắt Đơn hàng</h3>
                 <!-- Items List -->
                 <div class="flex flex-col gap-6">
@@ -263,7 +277,7 @@
                             <div>
                                 <h4 class="font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h4>
                                 <p class="text-xs text-secondary mt-1">Kích Cỡ Vừa • Mì Kéo Tay</p>
-                                <p class="text-sm font-semibold mt-1">1 × ₫209,000</p>
+                                <p class="text-sm font-semibold mt-1">1 × ₫65,000</p>
                             </div>
                         </div>
                     </div>
@@ -275,35 +289,45 @@
                             <div>
                                 <h4 class="font-bold text-on-surface leading-tight">Trà Sữa Thái</h4>
                                 <p class="text-xs text-secondary mt-1">Ít Đá • Thêm Trân Châu</p>
-                                <p class="text-sm font-semibold mt-1">2 × ₫65,000</p>
+                                <p class="text-sm font-semibold mt-1">2 × ₫29,000</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Price Breakdown -->
-                <div class="flex flex-col gap-4 border-t border-surface-container pt-6">
+                <!-- Mã giảm giá -->
+                <div class="border-t border-surface-container pt-6">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Mã giảm giá</label>
+                    <div class="flex gap-2 mt-2">
+                        <input class="flex-1 bg-surface-container-low border-2 border-outline-variant/40 p-3 rounded-lg text-sm font-medium transition-all focus:border-primary" placeholder="Nhập mã khuyến mãi" type="text">
+                        <button class="px-5 py-3 rounded-lg bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors">Áp dụng</button>
+                    </div>
+                    <p class="text-xs text-secondary mt-2">Mỗi đơn chỉ áp dụng 1 mã. Mã hết hạn hoặc vượt giới hạn sẽ không được chấp nhận.</p>
+                </div>
+                <!-- Chi tiết giá -->
+                <div class="flex flex-col gap-4 border-t border-surface-container pt-6 mt-4">
                     <div class="flex justify-between text-sm">
                         <span class="text-secondary">Tạm tính</span>
-                        <span class="font-medium">₫339,000</span>
+                        <span class="font-medium">₫123,000</span>
                     </div>
                     <div class="flex justify-between text-sm">
-                        <span class="text-secondary">Phí Dịch vụ (0%)</span>
-                        <span class="font-medium text-primary">Miễn phí</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-secondary">Đóng gói</span>
-                        <span class="font-medium">₫0</span>
+                        <span class="text-secondary">Giảm giá</span>
+                        <span class="font-medium text-secondary">₫0</span>
                     </div>
                     <div class="flex justify-between items-end pt-4 mt-2">
-                        <span class="text-lg font-bold text-on-surface">Tổng cộng</span>
-                        <span class="text-3xl font-black text-primary tracking-tighter">₫339,000</span>
+                        <span class="text-base lg:text-lg font-bold text-on-surface">Tổng cộng</span>
+                        <span class="text-2xl lg:text-3xl font-black text-primary tracking-tighter">₫123,000</span>
                     </div>
                 </div>
                 <!-- Actions -->
                 <div class="flex flex-col gap-4 mt-4">
-                    <a class="lacquered-btn w-full py-5 rounded-xl text-white font-black text-lg tracking-wide uppercase shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform" href="07-order-tracking.html" style="display: inline-block; text-align: center; cursor: pointer;">
-                        Chốt Đơn
+                    <!-- CTA: khi chọn online payment → "Thanh Toán & Đặt Đơn", khi chọn tiền mặt quầy → "Đặt Đơn" -->
+                    <a class="lacquered-btn w-full py-5 rounded-xl text-white font-black text-lg tracking-wide uppercase shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform" href="06b-wonton-pos-payment-status.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Thanh Toán & Đặt Đơn
                     </a>
+                    <p class="text-xs text-center text-tertiary font-medium bg-tertiary/5 rounded-lg px-4 py-2">
+                        ⏱ Nếu chọn thanh toán online, bạn có <strong>15 phút</strong> để hoàn tất. Sau thời gian này đơn sẽ tự động hủy.
+                    </p>
                     <p class="text-[10px] text-center text-secondary-fixed-dim leading-relaxed px-4">
                         Bằng việc đặt đơn hàng này, bạn đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của chúng tôi. Mọi giao dịch
                         điện tử đều được mã hóa và bảo mật an toàn.

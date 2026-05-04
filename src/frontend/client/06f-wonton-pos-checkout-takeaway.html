@@ -202,8 +202,10 @@
                         <span class="material-symbols-outlined text-primary text-xl" data-icon="info">info</span>
                         <p class="text-sm text-primary font-medium">Đơn hành Mang Đi và Đến Lấy yêu cầu thanh toán trước khi Bếp nhận đơn</p>
                     </div>
+                    <!-- Nhóm 1: Ví điện tử / Cổng thanh toán -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-2 mb-1">Ví điện tử / Cổng thanh toán</p>
+                    <p class="text-xs text-secondary mb-4">Hệ thống tự xác nhận khi cổng thanh toán gửi callback.</p>
                     <div class="flex flex-col gap-4">
-                        <!-- Option: MoMo -->
                         <div class="border-2 border-primary/20 bg-surface-container-lowest p-6 rounded-xl flex flex-col gap-6">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
@@ -212,40 +214,44 @@
                                     </div>
                                     <span class="font-bold text-on-surface">Ví MoMo</span>
                                 </div>
-                                <div class="flex gap-2">
-                                    <span class="material-symbols-outlined text-secondary opacity-40" data-icon="account_balance_wallet">account_balance_wallet</span>
-                                </div>
+                                <span class="material-symbols-outlined text-secondary opacity-40" data-icon="account_balance_wallet">account_balance_wallet</span>
                             </div>
-                            <div class="md:col-span-4 flex flex-col gap-2">
+                            <div class="flex flex-col gap-2">
                                 <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Số Điện Thoại MoMo</label>
                                 <input class="bg-surface-container border-none p-4 rounded-lg transition-all border-b-2 border-transparent" placeholder="+84 912 345 678" type="tel">
                             </div>
-                            <div class="md:col-span-4">
-                                <p class="text-xs text-secondary italic">Bạn sẽ nhận được thông báo xác nhận
-                                    thanh toán MoMo trên điện thoại</p>
-                            </div>
                         </div>
-                        <!-- Option: VNPay -->
                         <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
                             <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
                             <span class="font-medium text-on-surface">VNPay (QR)</span>
                             <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="qr_code_2">qr_code_2</span>
                         </div>
-                        <!-- Option: ZaloPay -->
                         <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
                             <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
                             <span class="font-medium text-on-surface">ZaloPay</span>
                             <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="account_balance_wallet">account_balance_wallet</span>
                         </div>
-                        <!-- Option: Cash (Disabled) -->
-                        <div class="border border-surface-container-highest bg-surface-container-low opacity-60 p-6 rounded-xl flex items-center justify-between cursor-not-allowed">
-                            <div class="flex items-center gap-4">
-                                <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
-                                <span class="font-medium text-secondary">Tiền Mặt Tại Quầy</span>
-                            </div>
-                            <span class="text-xs italic text-secondary-fixed-dim">Chỉ áp dụng cho đơn ăn tại quán</span>
-                        </div>
                     </div>
+
+                    <!-- Nhóm 2: QR Chuyển khoản ngân hàng -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-6 mb-1">Chuyển khoản ngân hàng</p>
+                    <p class="text-xs text-secondary mb-4">Thu ngân xác nhận thủ công sau khi kiểm tra tiền về.</p>
+                    <div class="border-2 border-outline-variant/60 bg-surface-container-lowest p-6 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-surface-container-low hover:border-primary/30 transition-all">
+                        <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                        <span class="font-medium text-on-surface">QR Chuyển khoản ngân hàng</span>
+                        <span class="material-symbols-outlined text-secondary/60 ml-auto" data-icon="account_balance">account_balance</span>
+                    </div>
+
+                    <!-- Tiền mặt — disabled cho Takeaway ONLINE (khách không có mặt tại quầy) -->
+                    <p class="text-xs font-bold text-secondary uppercase tracking-widest mt-6 mb-1">Tại quầy</p>
+                    <div class="border border-surface-container-highest bg-surface-container-low opacity-60 p-6 rounded-xl flex items-center justify-between cursor-not-allowed">
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+                            <span class="font-medium text-secondary">Tiền Mặt Tại Quầy</span>
+                        </div>
+                        <span class="text-xs italic text-secondary-fixed-dim">Đơn online cần thanh toán trước</span>
+                    </div>
+                    <p class="text-xs text-secondary mt-2">Nếu bạn đang tại quán, vui lòng đặt Takeaway tại quầy và thanh toán trực tiếp với Thu ngân.</p>
                 </div>
             </section>
         </div>
@@ -258,55 +264,65 @@
                     <div class="flex justify-between items-start">
                         <div class="flex gap-4">
                             <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
-                                <img class="w-full h-full object-cover" data-alt="Close-up of classic wonton noodle soup with spring onions and clear golden broth in a white ceramic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8NEqBDiV9F0eGCqGdeZISTqrBfEIaTc-qDjhq91xhQMqrXCBzJElWgNdisbDnr6PFN6HTTi5Y2Ra-1-UKFCHrbH3xO7V-_VQ3_N3t6kQHaqPYkEtxKonujH4b3EMfT-9UxLYkdmB2jaONCmSI4S7-AQ7WGAUyEHnz2nSEBsnWNpOGWB9bpvjmEDVQ85Ul1IlyzFOBD-QpxE3Cl6_Gt-9PW1IbX5GSI5S-Mva2ca9y0MIhoDsRgBeXvOkSVfAzGE9HhV2FjGRPhzr">
+                                <img class="w-full h-full object-cover" data-alt="Classic wonton noodle soup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8NEqBDiV9F0eGCqGdeZISTqrBfEIaTc-qDjhq91xhQMqrXCBzJElWgNdisbDnr6PFN6HTTi5Y2Ra-1-UKFCHrbH3xO7V-_VQ3_N3t6kQHaqPYkEtxKonujH4b3EMfT-9UxLYkdmB2jaONCmSI4S7-AQ7WGAUyEHnz2nSEBsnWNpOGWB9bpvjmEDVQ85Ul1IlyzFOBD-QpxE3Cl6_Gt-9PW1IbX5GSI5S-Mva2ca9y0MIhoDsRgBeXvOkSVfAzGE9HhV2FjGRPhzr">
                             </div>
                             <div>
                                 <h4 class="font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h4>
                                 <p class="text-xs text-secondary mt-1">Kích Cỡ Vừa • Mì Kéo Tay</p>
-                                <p class="text-sm font-semibold mt-1">1 × ₫209,000</p>
+                                <p class="text-sm font-semibold mt-1">1 × ₫65,000</p>
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-between items-start">
                         <div class="flex gap-4">
                             <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
-                                <img class="w-full h-full object-cover" data-alt="Thai iced tea with vibrant orange color and white milk swirl in a glass with ice cubes" src="../assets/images/tra-sua-thai.png">
+                                <img class="w-full h-full object-cover" data-alt="Thai iced tea" src="../assets/images/tra-sua-thai.png">
                             </div>
                             <div>
                                 <h4 class="font-bold text-on-surface leading-tight">Trà Sữa Thái</h4>
                                 <p class="text-xs text-secondary mt-1">Ít Đá • Thêm Trân Châu</p>
-                                <p class="text-sm font-semibold mt-1">2 × ₫65,000</p>
+                                <p class="text-sm font-semibold mt-1">2 × ₫29,000</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Price Breakdown -->
-                <div class="flex flex-col gap-4 border-t border-surface-container pt-6">
+                <!-- Mã giảm giá -->
+                <div class="border-t border-surface-container pt-6">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-secondary">Mã giảm giá</label>
+                    <div class="flex gap-2 mt-2">
+                        <input class="flex-1 bg-surface-container-low border-2 border-outline-variant/40 p-3 rounded-lg text-sm font-medium transition-all focus:border-primary" placeholder="Nhập mã khuyến mãi" type="text">
+                        <button class="px-5 py-3 rounded-lg bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors">Áp dụng</button>
+                    </div>
+                </div>
+                <!-- Chi tiết giá -->
+                <div class="flex flex-col gap-4 border-t border-surface-container pt-6 mt-4">
                     <div class="flex justify-between text-sm">
                         <span class="text-secondary">Tạm tính</span>
-                        <span class="font-medium">₫339,000</span>
+                        <span class="font-medium">₫123,000</span>
                     </div>
                     <div class="flex justify-between text-sm">
-                        <span class="text-secondary">Phí Dịch vụ (0%)</span>
-                        <span class="font-medium text-primary">Miễn phí</span>
+                        <span class="text-secondary">Đóng gói (Mang về)</span>
+                        <span class="font-medium">₫5,000</span>
                     </div>
                     <div class="flex justify-between text-sm">
-                        <span class="text-secondary">Đóng gói</span>
-                        <span class="font-medium">₫0</span>
+                        <span class="text-secondary">Giảm giá</span>
+                        <span class="font-medium text-secondary">₫0</span>
                     </div>
                     <div class="flex justify-between items-end pt-4 mt-2">
                         <span class="text-lg font-bold text-on-surface">Tổng cộng</span>
-                        <span class="text-3xl font-black text-primary tracking-tighter">₫339,000</span>
+                        <span class="text-3xl font-black text-primary tracking-tighter">₫128,000</span>
                     </div>
                 </div>
                 <!-- Actions -->
                 <div class="flex flex-col gap-4 mt-4">
-                    <a class="lacquered-btn w-full py-5 rounded-xl text-white font-black text-lg tracking-wide uppercase shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform" href="07-order-tracking.html" style="display: inline-block; text-align: center; cursor: pointer;">
-                        Chốt Đơn
+                    <a class="lacquered-btn w-full py-5 rounded-xl text-white font-black text-lg tracking-wide uppercase shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform" href="06b-wonton-pos-payment-status.html" style="display: inline-block; text-align: center; cursor: pointer;">
+                        Thanh Toán & Đặt Đơn Mang Về
                     </a>
+                    <p class="text-xs text-center text-primary font-medium bg-primary/5 rounded-lg px-4 py-2">
+                        ⏱ Bạn có <strong>15 phút</strong> để hoàn tất thanh toán. Sau đó đơn sẽ tự động hủy.
+                    </p>
                     <p class="text-[10px] text-center text-secondary-fixed-dim leading-relaxed px-4">
-                        Bằng việc đặt đơn hàng này, bạn đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của chúng tôi. Mọi giao dịch
-                        điện tử đều được mã hóa và bảo mật an toàn.
+                        Bằng việc đặt đơn hàng này, bạn đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của chúng tôi.
                     </p>
                 </div>
             </div>

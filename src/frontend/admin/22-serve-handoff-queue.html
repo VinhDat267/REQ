@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Phục vụ và xác nhận giao đúng | Wonton POS</title>
+  <script src="../shared/admin-tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+  <main class="ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] p-6 min-h-screen space-y-6">
+    <section class="bg-white border border-outline-variant/40 rounded-lg p-6">
+      <p class="text-xs font-black uppercase tracking-[0.22em] text-primary">UC-23 · Phục vụ và xác nhận giao đúng</p>
+      <h1 class="mt-2 text-3xl font-black tracking-tight">Hàng chờ giao</h1>
+      <p class="mt-2 text-sm text-on-surface-variant">Chỉ hoàn tất khi phục vụ đúng bàn, đúng khách hoặc đúng túi Pickup/Takeaway.</p>
+    </section>
+
+    <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <div class="xl:col-span-2 bg-white border border-outline-variant/40 rounded-lg overflow-hidden">
+        <div class="px-5 py-4 border-b border-outline-variant/30 flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Đơn sẵn sàng</h2>
+          <span class="text-xs font-bold text-on-surface-variant">FIFO · 6 đơn</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
+          <article class="rounded-lg border border-primary/30 bg-primary/5 p-5">
+            <div class="flex items-start justify-between"><div><h3 class="text-xl font-black">#WNT-046</h3><p class="text-sm text-on-surface-variant mt-1">Dine-in · Bàn 7 · 3 món</p></div><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Ready</span></div>
+            <div class="mt-5 space-y-2 text-sm"><p>2x Mì vằn thắn</p><p>1x Há cảo hải sản</p></div>
+            <div class="mt-5 grid grid-cols-2 gap-2"><a class="text-center px-4 py-3 rounded-lg bg-primary text-white font-extrabold" href="19-active-orders-command-center.html">Xác nhận giao đúng</a><a class="text-center px-4 py-3 rounded-lg border border-outline-variant/40 font-bold" href="23-complaint-exception-resolution.html">Báo thiếu/sai</a></div>
+          </article>
+          <article class="rounded-lg border border-outline-variant/40 p-5">
+            <div class="flex items-start justify-between"><div><h3 class="text-xl font-black">#WNT-043</h3><p class="text-sm text-on-surface-variant mt-1">Pickup · 18:30 · túi P-08</p></div><span class="px-2 py-1 rounded bg-amber-100 text-amber-800 text-xs font-bold">Quá hẹn</span></div>
+            <div class="mt-5 space-y-2 text-sm"><p>1x Mì cay Tứ Xuyên</p><p>1x Trà Thái</p></div>
+            <div class="mt-5 grid grid-cols-2 gap-2"><a class="text-center px-4 py-3 rounded-lg bg-slate-900 text-white font-extrabold" href="19-active-orders-command-center.html">Khách đã nhận</a><a class="text-center px-4 py-3 rounded-lg border border-outline-variant/40 font-bold" href="24-pickup-no-show-exception.html">Mở ngoại lệ</a></div>
+          </article>
+          <article class="rounded-lg border border-red-200 bg-red-50 p-5">
+            <div class="flex items-start justify-between"><div><h3 class="text-xl font-black">#WNT-040</h3><p class="text-sm text-red-700 mt-1">Ăn tại quán · Bàn 2 · có khiếu nại mở</p></div><span class="px-2 py-1 rounded bg-red-100 text-red-700 text-xs font-bold">Bị chặn</span></div>
+            <div class="mt-5 space-y-2 text-sm text-red-800"><p>Không được chuyển Completed cho tới khi complaint được xử lý.</p></div>
+            <a class="mt-5 block text-center w-full px-4 py-3 rounded-lg bg-red-700 text-white font-extrabold" href="23-complaint-exception-resolution.html">Chuyển qua khiếu nại</a>
+          </article>
+          <!-- Takeaway card (W8: thiếu Takeaway) -->
+          <article class="rounded-lg border border-outline-variant/40 p-5">
+            <div class="flex items-start justify-between"><div><h3 class="text-xl font-black">#WNT-044</h3><p class="text-sm text-on-surface-variant mt-1">Mang đi · Túi T-03 · 2 món</p></div><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Sẵn sàng</span></div>
+            <div class="mt-5 space-y-2 text-sm"><p>1x Mì vằn thắn</p><p>1x Trà đá</p></div>
+            <div class="mt-5 grid grid-cols-2 gap-2"><a class="text-center px-4 py-3 rounded-lg bg-primary text-white font-extrabold" href="19-active-orders-command-center.html">Đưa khách tại quầy</a><a class="text-center px-4 py-3 rounded-lg border border-outline-variant/40 font-bold" href="23-complaint-exception-resolution.html">Báo thiếu/sai</a></div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="space-y-6">
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Xác nhận đúng khách/bàn</h2>
+          <div class="mt-4 space-y-3">
+            <label class="block"><span class="text-xs font-bold uppercase text-on-surface-variant">Mã đơn đọc lại</span><input class="mt-2 w-full rounded-lg border-outline-variant/50 bg-surface-container-low p-3" value="WNT-046"></label>
+            <label class="block"><span class="text-xs font-bold uppercase text-on-surface-variant">Bàn/túi</span><input class="mt-2 w-full rounded-lg border-outline-variant/50 bg-surface-container-low p-3" value="Bàn 7"></label>
+            <label class="flex items-center gap-3 rounded-lg border border-outline-variant/40 p-3"><input type="checkbox" checked class="text-primary"> <span class="text-sm font-bold">Đã đối chiếu món trên khay/túi</span></label>
+          </div>
+        </div>
+
+        <div class="bg-white border border-outline-variant/40 rounded-lg p-6">
+          <h2 class="text-lg font-extrabold">Sửa giao nhầm</h2>
+          <p class="mt-2 text-sm text-on-surface-variant">Nếu đã bấm Hoàn tất nhầm trong cùng ca, tạo lý do sửa trạng thái và chuyển sang khiếu nại/làm lại/hoàn tiền khi cần.</p>
+          <a class="mt-5 block text-center w-full px-5 py-3 rounded-lg border border-red-200 text-red-700 font-extrabold" href="23-complaint-exception-resolution.html">Sửa Hoàn tất nhầm</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

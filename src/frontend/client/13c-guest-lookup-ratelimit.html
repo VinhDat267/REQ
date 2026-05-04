@@ -1,0 +1,56 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Tra cứu đơn — Quá giới hạn thử | Wonton POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body { font-family: Inter, sans-serif; background: #f9fafb; color: #191c1d; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+</style>
+</head>
+<body class="bg-slate-50 antialiased">
+<!-- Guest lookup shell: no account menu, consistent with guest lookup success and error states. -->
+<main class="pt-12 pb-12 px-6 lg:px-12 max-w-[720px] mx-auto">
+    <!-- Rate Limit Card -->
+    <div class="bg-white border border-slate-200 rounded-xl p-10 text-center shadow-sm">
+        <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-amber-700 text-4xl">lock_clock</span>
+        </div>
+        <h1 class="text-2xl font-black tracking-tight mb-2">Tạm khóa tra cứu</h1>
+        <p class="text-sm text-slate-500 max-w-md mx-auto mb-8">
+            Bạn đã thử tra cứu <strong>5 lần không thành công</strong> trong 15 phút qua. 
+            Để bảo vệ quyền riêng tư khách hàng, chức năng tra cứu tạm thời bị khóa.
+        </p>
+        <!-- Countdown -->
+        <div class="bg-amber-50 border border-amber-200/50 rounded-lg p-6 max-w-sm mx-auto mb-8">
+            <p class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Thử lại sau</p>
+            <p class="text-4xl font-black text-amber-800 tracking-tight">12:47</p>
+            <p class="text-xs text-amber-600 mt-1">phút : giây</p>
+        </div>
+        <!-- Help Options -->
+        <div class="space-y-4">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Trong khi chờ, bạn có thể:</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-slate-200 font-bold text-sm hover:bg-slate-50 transition-colors" href="13b-guest-lookup-success.html">
+                    <span class="material-symbols-outlined text-base">sms</span>
+                    Kiểm tra SMS xác nhận
+                </a>
+                <a class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-colors" href="13-guest-order-lookup-error.html">
+                    <span class="material-symbols-outlined text-base">support_agent</span>
+                    Gọi hỗ trợ tại quầy
+                </a>
+            </div>
+        </div>
+        <!-- Security Note -->
+        <div class="mt-8 flex items-start gap-3 text-left bg-slate-50 rounded-lg p-4">
+            <span class="material-symbols-outlined text-slate-400 text-lg mt-0.5">shield</span>
+            <div>
+                <p class="text-xs font-bold text-slate-600">Tại sao bị giới hạn?</p>
+                <p class="text-xs text-slate-400 mt-1">Chính sách bảo mật yêu cầu giới hạn số lần thử tra cứu để ngăn truy cập trái phép vào thông tin đơn hàng. Mã đơn phải ≥8 ký tự kết hợp với SĐT khớp đúng mới xem được đơn.</p>
+            </div>
+        </div>
+    </div>
+</main>
+</body></html>

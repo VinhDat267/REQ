@@ -91,7 +91,7 @@
 <!-- Top Navigation Bar -->
 <!-- Client Nav Injected via nav-components.js -->
 <!-- Main Content Area -->
-<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow max-w-[1440px]">
+<main class="pt-20 lg:pt-28 pb-10 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 flex-grow">
 <!-- Track Đơn Hàng Của Bạn Lookup Card -->
 <section class="mb-12 flex justify-center">
 <div class="bg-surface-container-lowest p-10 rounded-xl max-w-2xl w-full shadow-[0px_12px_32px_rgba(91,64,61,0.03)]">
@@ -99,7 +99,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-secondary">Mã Đơn Hàng</label>
-<input class="bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="WNT-000000" type="text">
+<input class="bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="WNT-20260407-032" type="text">
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-secondary">Số Điện Thoại</label>
@@ -122,10 +122,15 @@
 <h2 class="text-xl font-bold tracking-tighter">Mã Đơn #WNT-20260407-032</h2>
 <p class="text-sm text-secondary mt-1">Đơn hàng Đến Lấy • Đặt lúc 12:15 PM</p>
 </div>
-<div class="flex items-center gap-3">
+<div class="flex flex-col items-end gap-2">
 <div class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold tracking-tight">
                         Dự kiến Sẵn sàng: ~12:35 PM
                     </div>
+<!-- Dual status: order_status + payment_status (§3 Business Rules) -->
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-on-surface bg-surface-container-high px-3 py-1 rounded-full">Đơn: Đang chế biến</span>
+<span class="text-xs font-bold text-green-700 bg-green-50 px-3 py-1 rounded-full">Thanh toán: Đã thanh toán</span>
+</div>
 </div>
 </div>
 <!-- Horizontal Trạng Thái Thời Gianline -->
@@ -191,6 +196,10 @@
 <div class="z-10">
 <h3 class="text-2xl font-bold tracking-tight mb-2">Đơn hàng của bạn đang được nổi lửa chế biến</h3>
 <p class="text-secondary body-md">Đội ngũ bếp trưởng đang tỉ mỉ gói từng viên hoành thánh tươi. Bạn sẽ nhận được thông báo ngay khi món ăn nóng hổi sẵn sàng.</p>
+<p class="text-xs text-secondary/60 mt-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-size:14px">sync</span>
+Cập nhật lúc 12:22 PM • Trang tự cập nhật mỗi 30 giây
+</p>
 </div>
 <div class="hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2 opacity-20">
 <img class="w-48 h-48 rounded-full object-cover" data-alt="close-up of steaming handmade shrimp wontons in a bamboo steamer basket with vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ruO-UMmrZHKTsDUrmtW3-kKW67JXBDcFwBANkc2nKKUjTSa_aeoSYboANAOTTKDiO0yBwhydXjSLNhUs-VWZsCP0ieE4IRMKW5V4pn84GV13RTSUpi9JT62vWeK1dmFp_m7U121kBRlzQQHdkf7mhUiWfs_pCNyaSfsnPsFRs0p1mGfwG_phvyRQVJ2jsdmhJD8bZAX90Tq2Dnr22K-71CCB4DSJenKopxmwm5iLye-IDOqp0-G9dNW3P8a2wtk1llnr2qrNVRT7">
@@ -208,26 +217,38 @@
 <span class="body-md font-medium text-on-surface">Mì Vằn Thắn Nước Truyền Thống</span>
 <span class="text-[11px] text-secondary">Thêm hành lá, sa tế</span>
 </div>
-<span class="title-sm font-bold">₫209,000</span>
+<span class="title-sm font-bold">₫65,000</span>
 </div>
 <div class="flex justify-between items-start">
 <div class="flex flex-col">
 <span class="body-md font-medium text-on-surface">Trà Sữa Thái</span>
 <span class="text-[11px] text-secondary">Ít đá, 50% đường</span>
 </div>
-<span class="title-sm font-bold">₫65,000</span>
+<span class="title-sm font-bold">2 × ₫29,000</span>
 </div>
 <div class="pt-4 mt-4 border-t border-dashed border-outline-variant/30">
-<div class="flex justify-between items-center font-bold">
+<div class="flex justify-between text-sm text-secondary">
+<span>Đóng gói</span>
+<span>₫5,000</span>
+</div>
+<div class="flex justify-between items-center font-bold mt-2">
 <span>Tổng cộng</span>
-<span class="text-primary text-lg">₫274,000</span>
+<span class="text-primary text-lg">₫128,000</span>
 </div>
 </div>
 </div>
 </div>
 </div>
-<!-- Help Trợ Giúp -->
-<div class="text-center pt-8">
+<!-- Hủy đơn + Trợ giúp -->
+<div class="flex flex-col items-center gap-4 pt-8">
+<!-- Nút hủy đơn: chỉ hiển khi order_status = Pending Confirmation (§3 Business Rules) -->
+<div class="bg-error-container/50 border border-error/20 rounded-xl p-4 w-full max-w-md text-center hidden" id="cancel-section">
+<p class="text-sm text-on-error-container font-medium mb-3">Bạn có thể hủy đơn khi bếp chưa nhận đơn</p>
+<a class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-error text-error font-bold text-sm hover:bg-error/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="cancel">cancel</span>
+Hủy Đơn Hàng
+</a>
+</div>
 <a class="inline-flex items-center gap-2 text-primary font-bold hover:underline transition-all" href="10-notifications-center.html">
 <span class="material-symbols-outlined" data-icon="headset_mic">headset_mic</span>
                     Cần hỗ trợ? Liên hệ trợ giúp

@@ -32,8 +32,15 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            Cập nhật Live • Hệ thống tự động đẩy đơn FIFO
+            Cập nhật Live • FIFO
         </p>
+    </div>
+    <!-- Mini Stats Bar -->
+    <div class="flex items-center gap-4 text-xs">
+        <span class="bg-red-50 text-red-700 px-3 py-1.5 rounded-lg font-bold">📋 Mới: 2</span>
+        <span class="bg-amber-50 text-amber-700 px-3 py-1.5 rounded-lg font-bold">🔥 Nấu: 1</span>
+        <span class="bg-green-50 text-green-700 px-3 py-1.5 rounded-lg font-bold">✅ Xong: 1</span>
+        <span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg font-bold">⏱ Avg: 12 phút</span>
     </div>
     <div class="flex items-center gap-3">
         <!-- Ticket vs Item View Toggle (UC-63) -->
@@ -83,12 +90,24 @@
     </div>
     <div class="space-y-2 mb-4">
         <div class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
-            <span class="font-semibold text-slate-500">Bàn 3 (#WNT-034)</span>
-            <span class="text-on-surface font-bold">x3</span>
+            <div>
+                <span class="font-semibold text-slate-500">Bàn 3 (#WNT-034)</span>
+                <p class="text-[10px] text-slate-400 italic">Ít cay, thêm hành</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-slate-400">12:50</span>
+                <span class="text-on-surface font-bold">x3</span>
+            </div>
         </div>
         <div class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
-            <span class="font-semibold text-slate-500">Mang đi (#WNT-035)</span>
-            <span class="text-on-surface font-bold">x2</span>
+            <div>
+                <span class="font-semibold text-slate-500">Mang đi (#WNT-035)</span>
+                <p class="text-[10px] text-red-600 font-bold">⚠ KHÔNG ĐẬU PHỘNG</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-slate-400">12:55</span>
+                <span class="text-on-surface font-bold">x2</span>
+            </div>
         </div>
     </div>
     <div class="flex gap-2 w-full mt-2">
@@ -105,12 +124,23 @@
     </div>
     <div class="space-y-2 mb-4">
         <div class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
-            <span class="font-semibold text-slate-500">Bàn 6 (#WNT-036)</span>
-            <span class="text-on-surface font-bold">x1</span>
+            <div>
+                <span class="font-semibold text-slate-500">Bàn 6 (#WNT-036)</span>
+                <p class="text-[10px] text-slate-400 italic">Nhiều nước chấm</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-slate-400">12:48</span>
+                <span class="text-on-surface font-bold">x1</span>
+            </div>
         </div>
         <div class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
-            <span class="font-semibold text-slate-500">Giao Hàng (#WNT-037)</span>
-            <span class="text-on-surface font-bold">x1</span>
+            <div>
+                <span class="font-semibold text-slate-500">Đến lấy (#WNT-037)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-slate-400">12:52</span>
+                <span class="text-on-surface font-bold">x1</span>
+            </div>
         </div>
     </div>
     <div class="flex gap-2 w-full mt-2">

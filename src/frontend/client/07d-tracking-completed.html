@@ -1,0 +1,126 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Theo Dõi Đơn — Hoàn Tất | Wonton POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "primary": "#b7131a", "primary-container": "#db322f", "on-primary": "#ffffff",
+                    "on-primary-container": "#fffbff", "secondary": "#5f5e5e", "surface": "#f9f9f9",
+                    "surface-container": "#eeeeee", "surface-container-low": "#f3f3f3",
+                    "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e8",
+                    "surface-container-highest": "#e2e2e2", "on-surface": "#1a1c1c",
+                    "outline-variant": "#e4beb9", "tertiary": "#006578",
+                    "inverse-surface": "#2f3131", "inverse-on-surface": "#f1f1f1",
+                    "background": "#f9f9f9"
+                },
+                "fontFamily": { "headline": ["Inter"], "body": ["Inter"] }
+            }
+        }
+    }
+</script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- Client Nav Injected via nav-components.js -->
+<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+<!-- Tracking View: COMPLETED -->
+<section class="max-w-4xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h2 class="text-xl font-bold tracking-tighter">Mã Đơn #WNT-20260407-032</h2>
+            <p class="text-sm text-secondary mt-1">Đơn hàng Đến Lấy • Đặt lúc 12:15 PM</p>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">Đơn: Hoàn tất</span>
+                <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">Thanh toán: Đã thanh toán</span>
+            </div>
+        </div>
+    </div>
+    <!-- Timeline: ALL steps completed -->
+    <div class="relative py-12 px-4">
+        <div class="absolute top-1/2 left-0 w-full h-[2px] bg-green-600 -translate-y-1/2 z-0"></div>
+        <div class="relative z-10 flex justify-between items-center">
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center"><p class="text-xs font-bold">Đã Tạo Đơn</p><p class="text-[10px] text-secondary">12:15 PM</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center"><p class="text-xs font-bold">Đã Xác Nhận</p><p class="text-[10px] text-secondary">12:16 PM</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center"><p class="text-xs font-bold">Đã Nấu Xong</p><p class="text-[10px] text-secondary">12:32 PM</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                </div>
+                <div class="text-center"><p class="text-xs font-bold">Đã Nhận Món</p><p class="text-[10px] text-secondary">12:40 PM</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-3 bg-surface">
+                <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                </div>
+                <div class="text-center"><p class="text-xs font-bold text-green-700">Hoàn Tất</p><p class="text-[10px] text-secondary">12:40 PM</p></div>
+            </div>
+        </div>
+    </div>
+    <!-- Completed Banner -->
+    <div class="bg-surface-container-lowest p-8 rounded-xl text-center shadow-sm border border-outline-variant/15">
+        <span class="material-symbols-outlined text-green-600 text-5xl mb-3" style="font-variation-settings: 'FILL' 1;">celebration</span>
+        <h3 class="text-2xl font-bold tracking-tight mb-2">Cảm ơn bạn đã đặt món tại Wonton!</h3>
+        <p class="text-secondary text-sm mb-6">Đơn hàng đã hoàn tất lúc 12:40 PM. Chúc bạn ngon miệng! 🍜</p>
+        <!-- CTA: Rating + Reorder -->
+        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <a class="flex-1 bg-gradient-to-r from-primary to-primary-container text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98]" href="09-order-rating-page.html">
+                <span class="material-symbols-outlined">grade</span>
+                Đánh Giá Đơn Này
+            </a>
+            <a class="flex-1 bg-surface-container-highest text-on-surface py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all active:scale-[0.98]" href="11-reorder-menu-drift.html">
+                <span class="material-symbols-outlined">reorder</span>
+                Đặt Lại Đơn Cũ
+            </a>
+        </div>
+        <p class="text-[10px] text-secondary mt-4">Đánh giá trong vòng 7 ngày. Đặt lại sẽ tạo đơn mới với giá hiện tại.</p>
+    </div>
+    <!-- Receipt summary -->
+    <div class="bg-surface-container-lowest p-6 rounded-xl max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h4 class="font-bold text-sm">Tóm tắt hóa đơn</h4>
+            <a class="text-xs text-primary font-bold hover:underline" href="#">Tải PDF</a>
+        </div>
+        <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-secondary">Mì Vằn Thắn × 1</span><span>₫65,000</span></div>
+            <div class="flex justify-between"><span class="text-secondary">Trà Sữa Thái × 2</span><span>₫58,000</span></div>
+            <div class="flex justify-between"><span class="text-secondary">Đóng gói</span><span>₫5,000</span></div>
+            <div class="flex justify-between font-bold pt-2 border-t border-dashed border-outline-variant/30">
+                <span>Tổng cộng</span><span class="text-primary">₫128,000</span>
+            </div>
+            <div class="flex justify-between text-xs text-secondary pt-1">
+                <span>Thanh toán qua</span><span class="font-medium">MoMo</span>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+<script src="../shared/nav-components.js" defer=""></script>
+</body></html>

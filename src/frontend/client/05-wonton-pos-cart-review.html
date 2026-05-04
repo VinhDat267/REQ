@@ -95,14 +95,14 @@
   <!-- Top Navigation Bar -->
   <!-- Client Nav Injected via nav-components.js -->
   <!-- Main Content Canvas -->
-  <main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
+  <main class="pt-20 lg:pt-28 pb-10 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 flex-grow">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       <!-- Left Column: Giỏ Hàng | Wonton POSItems (65%) -->
       <section class="lg:col-span-8">
         <header class="mb-10 flex justify-between items-end">
           <div>
-              <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">Giỏ hàng của bạn</h1>
-              <p class="text-secondary font-medium uppercase tracking-widest text-xs">4 MÓN ĐÃ CHỌN</p>
+              <h1 class="text-3xl lg:text-4xl font-extrabold tracking-tighter text-on-surface mb-1 lg:mb-2">Giỏ hàng của bạn</h1>
+              <p class="text-secondary font-medium uppercase tracking-widest text-[10px] lg:text-xs">4 MÓN ĐÃ CHỌN</p>
           </div>
         </header>
 
@@ -110,34 +110,34 @@
         <div class="space-y-6">
           <!-- Item 1 -->
           <div
-            class="flex items-center gap-6 p-4 bg-surface-container-lowest rounded-xl hover:shadow-sm transition-all duration-300">
-            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-stone-100">
+            class="flex flex-row items-start lg:items-center gap-4 lg:gap-6 p-4 lg:p-6 bg-surface-container-lowest rounded-xl hover:shadow-sm transition-all duration-300">
+            <div class="w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 rounded-lg overflow-hidden bg-stone-100">
               <img class="w-full h-full object-cover"
                 data-alt="overhead shot of a bowl of classic wonton noodle soup with clear broth and green onions in a white ceramic bowl"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdgPcema1JqcZmEQjYJ-uy5-6QVTCGmpdvwPaBabMpokd1qivcQ3jT324MLaL-WXyRvXNIUF67Ga3RNXDBn_QFOuNk6EnuJHqyGGla0uLDMWjcXHkXGmJ30Jk816PiNaQ3Pbgba9NE2BlYhodaeqwDoDGLIbGfsL73_KLuHz7bud8_KvXLaZxAeGJnupgcCpVPNpawZvCIGP5s_hl9tUNYqEnOGGXyewm_KZYtlfdKL4X1frIcvzRJ6Vu6kG9ixKWHH31sO6zUN-xK" />
             </div>
             <div class="flex-grow">
-              <div class="flex justify-between items-start">
-                <h3 class="text-lg font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h3>
-                <span class="text-lg font-semibold text-on-surface">₫418,000</span>
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                <h3 class="text-sm lg:text-lg font-bold text-on-surface leading-tight">Mì Vằn Thắn Nước Truyền Thống</h3>
+                <span class="text-base lg:text-lg font-semibold text-on-surface sm:ml-auto">₫160,000</span>
               </div>
-              <p class="text-secondary text-sm mt-1">Thêm Hoành Thánh, Ít cay</p>
+              <p class="text-secondary text-[11px] lg:text-sm mt-1">Thêm Hoành Thánh, Ít cay</p>
               <div class="flex items-center justify-between mt-4">
                 <div class="flex items-center bg-surface-container rounded-full p-1 border border-transparent">
                   <button
-                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
-                    <span class="material-symbols-outlined text-sm">remove</span>
+                    class="w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-xs lg:text-sm">remove</span>
                   </button>
-                  <span class="px-4 font-bold text-on-surface">2</span>
+                  <span class="px-3 lg:px-4 font-bold text-on-surface text-sm lg:text-base">2</span>
                   <button
-                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
-                    <span class="material-symbols-outlined text-sm">add</span>
+                    class="w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center rounded-full hover:bg-white text-on-surface transition-colors">
+                    <span class="material-symbols-outlined text-xs lg:text-sm">add</span>
                   </button>
                 </div>
-                <button class="text-secondary hover:text-error transition-colors flex items-center gap-1 group">
-                  <span class="material-symbols-outlined text-lg">close</span>
+                <button class="text-secondary hover:text-error transition-colors flex items-center gap-1 group mt-2 sm:mt-0 p-1">
+                  <span class="material-symbols-outlined text-base lg:text-lg">close</span>
                   <span
-                    class="text-xs uppercase tracking-tighter font-bold opacity-0 group-hover:opacity-100 transition-opacity">Xóa</span>
+                    class="text-[10px] lg:text-xs uppercase tracking-tighter font-bold opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">Xóa</span>
                 </button>
               </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="flex-grow">
               <div class="flex justify-between items-start">
                 <h3 class="text-lg font-bold text-on-surface leading-tight">Sủi Cảo Tứ Xuyên Cay Tê</h3>
-                <span class="text-lg font-semibold text-on-surface">₫175,000</span>
+                <span class="text-lg font-semibold text-on-surface">₫75,000</span>
               </div>
               <p class="text-secondary text-sm mt-1">Siêu Cay</p>
               <div class="flex items-center justify-between mt-4">
@@ -189,7 +189,7 @@
             <div class="flex-grow">
               <div class="flex justify-between items-start">
                 <h3 class="text-lg font-bold text-on-surface leading-tight line-through decoration-error/50">Hoành Thánh Chiên Giòn</h3>
-                <span class="text-lg font-semibold text-secondary">₫85,000</span>
+                <span class="text-lg font-semibold text-secondary">₫35,000</span>
               </div>
               <p class="text-error font-medium text-sm mt-1">Xin lỗi, món này vừa hết nguyên liệu</p>
               <div class="flex items-center justify-between mt-4">
@@ -217,16 +217,16 @@
 
       <!-- Right Column: Tóm tắt Đơn hàng -->
       <aside class="lg:col-span-4 lg:sticky lg:top-24 transition-opacity duration-300">
-        <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/15 shadow-sm">
-          <h2 class="text-2xl font-bold tracking-tight text-on-surface mb-8">Tóm tắt Đơn hàng</h2>
+        <div class="bg-surface-container-low rounded-2xl p-4 lg:p-8 border border-outline-variant/15 shadow-sm">
+          <h2 class="text-xl lg:text-2xl font-bold tracking-tight text-on-surface mb-6 lg:mb-8">Tóm tắt Đơn hàng</h2>
           <div class="space-y-4 mb-6">
             <div class="flex justify-between text-on-surface-variant font-medium">
               <span>Tạm tính</span>
-              <span>₫593,000</span>
+              <span>₫235,000</span>
             </div>
             <div class="flex justify-between text-on-surface-variant font-medium">
-              <span>Thuế (8%)</span>
-              <span>₫47,440</span>
+              <span>Thuế (0%)</span>
+              <span>₫0</span>
             </div>
           </div>
           <!-- Promotion Input -->
@@ -247,11 +247,11 @@
             <label class="block text-xs uppercase tracking-widest font-bold text-secondary mb-4">Loại Hình Dịch Vụ</label>
             <div class="grid grid-cols-3 gap-2 bg-surface-container p-1 rounded-xl">
               <a href="06-wonton-pos-checkout.html"
-                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all bg-white text-on-surface shadow-sm text-center">Ăn tại quán</a>
+                class="py-2.5 px-1 lg:px-2 text-[10px] lg:text-xs font-bold rounded-lg transition-all bg-white text-on-surface shadow-sm text-center">Tại quán</a>
               <a href="06f-wonton-pos-checkout-takeaway.html"
-                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Mang đi</a>
+                class="py-2.5 px-1 lg:px-2 text-[10px] lg:text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Mang đi</a>
               <a href="06e-wonton-pos-checkout-pickup.html"
-                class="py-2.5 px-2 text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Đến lấy</a>
+                class="py-2.5 px-1 lg:px-2 text-[10px] lg:text-xs font-bold rounded-lg transition-all hover:bg-white/50 text-secondary text-center">Đến lấy</a>
             </div>
           </div>
 
@@ -261,14 +261,14 @@
           </div>
 
           <div class="pt-6 border-t border-outline-variant/20">
-            <div class="flex justify-between items-end mb-8">
-              <span class="text-secondary uppercase tracking-widest text-xs font-bold">Tổng cộng</span>
-              <span class="text-3xl font-extrabold text-primary">₫640,440</span>
+            <div class="flex justify-between items-end mb-6 lg:mb-8">
+              <span class="text-secondary uppercase tracking-widest text-[10px] lg:text-xs font-bold">Tổng cộng</span>
+              <span class="text-2xl lg:text-3xl font-extrabold text-primary">₫235,000</span>
             </div>
             <a href="06-wonton-pos-checkout.html"
-              class="w-full py-5 rounded-xl text-lg font-extrabold shadow-lg shadow-primary/20 flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-primary-container text-white hover:scale-[1.02] transition-transform tonal-transition group">
+              class="w-full py-4 lg:py-5 rounded-xl text-base lg:text-lg font-extrabold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-white hover:scale-[1.02] transition-transform tonal-transition group">
               Tiến hành Thanh toán
-              <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">payments</span>
+              <span class="material-symbols-outlined text-lg lg:text-2xl group-hover:translate-x-1 transition-transform">payments</span>
             </a>
           </div>
         </div>

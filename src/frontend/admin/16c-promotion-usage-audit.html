@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Lịch sử sử dụng khuyến mãi | Wonton POS</title>
+  <script src="../shared/admin-tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+  <main class="ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] p-6 min-h-screen">
+    <section class="bg-surface-container-lowest border border-outline-variant/40 rounded-lg p-6">
+      <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
+        <div>
+          <p class="text-xs font-black uppercase tracking-[0.22em] text-primary">UC-18 · Quản lý khuyến mãi</p>
+          <h1 class="mt-2 text-3xl font-black tracking-tight">Lịch sử sử dụng mã</h1>
+          <p class="mt-2 text-sm text-on-surface-variant">Theo dõi lượt dùng, giới hạn, khôi phục lượt sau hủy đơn và audit thay đổi mã.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <a class="px-3 py-2 rounded-lg bg-white border border-outline-variant/40 text-on-surface text-xs font-bold hover:bg-surface-container-low transition-colors" href="16-voucher-management-list.html">Danh sách mã</a>
+          <a class="px-3 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary-container transition-colors" href="16b-admin-voucher-add-edit.html">Sửa mã</a>
+          <span class="px-3 py-2 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold">7 mã đang chạy</span>
+          <span class="px-3 py-2 rounded-lg bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold">2 cảnh báo giới hạn</span>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 xl:grid-cols-[1fr_390px] gap-6">
+        <div class="overflow-hidden rounded-lg border border-outline-variant/40">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface-container-low">
+              <tr>
+                <th class="px-4 py-3 text-xs font-black text-on-surface-variant uppercase">Mã</th>
+                <th class="px-4 py-3 text-xs font-black text-on-surface-variant uppercase">Đơn hàng</th>
+                <th class="px-4 py-3 text-xs font-black text-on-surface-variant uppercase">Khách</th>
+                <th class="px-4 py-3 text-xs font-black text-on-surface-variant uppercase">Kết quả</th>
+                <th class="px-4 py-3 text-xs font-black text-on-surface-variant uppercase text-right">Giảm</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/30 bg-white">
+              <tr>
+                <td class="px-4 py-4 font-extrabold">LUNCH20</td>
+                <td class="px-4 py-4">#WNT-052</td>
+                <td class="px-4 py-4">Vinh Đạt</td>
+                <td class="px-4 py-4"><span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Đã áp dụng</span></td>
+                <td class="px-4 py-4 text-right font-bold">24,000 ₫</td>
+              </tr>
+              <tr class="bg-amber-50/60">
+                <td class="px-4 py-4 font-extrabold">PICKUP30</td>
+                <td class="px-4 py-4">#WNT-049</td>
+                <td class="px-4 py-4">Guest · 0903-xxx-xxx</td>
+                <td class="px-4 py-4"><span class="px-2 py-1 rounded bg-amber-100 text-amber-800 text-xs font-bold">Khôi phục do hủy</span></td>
+                <td class="px-4 py-4 text-right font-bold">31,000 ₫</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-4 font-extrabold">FIRST50</td>
+                <td class="px-4 py-4">#WNT-047</td>
+                <td class="px-4 py-4">Le Lan</td>
+                <td class="px-4 py-4"><span class="px-2 py-1 rounded bg-red-50 text-red-700 text-xs font-bold">Không hợp lệ</span></td>
+                <td class="px-4 py-4 text-right font-bold">0 ₫</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-4 font-extrabold">COMBO10</td>
+                <td class="px-4 py-4">#WNT-044</td>
+                <td class="px-4 py-4">Nguyen An</td>
+                <td class="px-4 py-4"><span class="px-2 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold">Bị chặn stacking</span></td>
+                <td class="px-4 py-4 text-right font-bold">0 ₫</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="space-y-6">
+          <div class="rounded-lg border border-outline-variant/40 bg-white p-5">
+            <h2 class="text-lg font-extrabold">PICKUP30</h2>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+              <div class="rounded-lg bg-surface-container-low p-3">
+                <p class="text-xs font-bold text-on-surface-variant">Giới hạn/ngày</p>
+                <p class="mt-1 text-xl font-black">50</p>
+              </div>
+              <div class="rounded-lg bg-surface-container-low p-3">
+                <p class="text-xs font-bold text-on-surface-variant">Đã dùng</p>
+                <p class="mt-1 text-xl font-black">49</p>
+              </div>
+              <div class="rounded-lg bg-surface-container-low p-3">
+                <p class="text-xs font-bold text-on-surface-variant">Khôi phục</p>
+                <p class="mt-1 text-xl font-black">3</p>
+              </div>
+              <div class="rounded-lg bg-surface-container-low p-3">
+                <p class="text-xs font-bold text-on-surface-variant">Bị chặn</p>
+                <p class="mt-1 text-xl font-black">8</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-outline-variant/40 bg-white p-5">
+            <h2 class="text-lg font-extrabold">Audit gần nhất</h2>
+            <div class="mt-4 space-y-3 text-sm">
+              <p><span class="font-bold">15:08</span> · Manager tăng giới hạn từ 40 lên 50 · lý do: tăng slot Pickup.</p>
+              <p><span class="font-bold">14:55</span> · #WNT-049 hủy trước bếp nhận · hoàn lại 1 lượt dùng.</p>
+              <p><span class="font-bold">13:42</span> · Chặn stacking với COMBO10 theo policy.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>

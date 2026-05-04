@@ -2,359 +2,788 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wonton POS — Danh mục màn hình</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wonton POS - Prototype Screen Catalog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f9f9f9;
-            color: #1a1c1c;
-            padding: 40px;
-        }
+    body {
+      font-family: Inter, sans-serif;
+      background: #f8f9fa;
+      color: #191c1d;
+      padding: 40px;
+    }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
+    header {
+      max-width: 1180px;
+      margin: 0 auto 36px;
+    }
 
-        .subtitle {
-            color: #5b403d;
-            margin-bottom: 40px;
-            font-size: 0.95rem;
-        }
+    h1 {
+      font-size: 2.25rem;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
 
-        .section {
-            margin-bottom: 48px;
-        }
+    .subtitle {
+      margin-top: 10px;
+      color: #5b403d;
+      max-width: 880px;
+      line-height: 1.55;
+    }
 
-        h2 {
-            font-size: 1.25rem;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #E53935;
-            display: inline-block;
-        }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 16px;
-        }
+    .stat {
+      background: #fff;
+      border: 1px solid #e4beb9;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
 
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s;
-            border: 1px solid #e4beb9;
-        }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
 
-        .card:hover {
-            box-shadow: 0 4px 20px rgba(26, 28, 28, 0.08);
-            transform: translateY(-2px);
-            border-color: #E53935;
-        }
+    section {
+      margin-top: 36px;
+    }
 
-        .card .num {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #E53935;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #b7131a;
+      padding-bottom: 10px;
+    }
 
-        .card .title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 4px 0;
-        }
+    h2 {
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
 
-        .card .uc {
-            font-size: 0.8rem;
-            color: #906f6c;
-        }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      font-weight: 900;
+      background: #ffdad6;
+      color: #93000d;
+      white-space: nowrap;
+    }
 
-        .card .size {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-top: 8px;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
 
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 126px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.18s ease;
+    }
 
-        .badge-client {
-            background: #ffdad6;
-            color: #93000d;
-        }
+    .card:hover {
+      border-color: #b7131a;
+      box-shadow: 0 12px 28px rgba(25, 28, 29, 0.08);
+      transform: translateY(-2px);
+    }
 
-        .badge-admin {
-            background: #afecff;
-            color: #004e5d;
-        }
+    .num {
+      color: #b7131a;
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
 
-        .notes {
-            margin-top: 48px;
-            padding: 24px;
-            background: #fff0ee;
-            border-radius: 8px;
-        }
+    .title {
+      font-weight: 850;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
 
-        .notes h3 {
-            margin-bottom: 12px;
-        }
+    .desc {
+      color: #5b403d;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
 
-        .notes ul {
-            padding-left: 20px;
-        }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
 
-        .notes li {
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            color: #5b403d;
-        }
-    </style>
+    .tag {
+      border-radius: 6px;
+      padding: 4px 7px;
+      font-size: 0.68rem;
+      font-weight: 850;
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .tag.flow {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .tag.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .tag.ops {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .notes {
+      margin-top: 44px;
+      background: #fff;
+      border: 1px solid #e4beb9;
+      border-radius: 8px;
+      padding: 22px;
+      line-height: 1.55;
+    }
+
+    .notes h3 {
+      margin-bottom: 10px;
+    }
+
+    .notes ul {
+      padding-left: 20px;
+      color: #5b403d;
+    }
+
+    .notes li {
+      margin: 6px 0;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>🍜 Wonton POS — Danh mục màn hình</h1>
-    <p class="subtitle">24 màn hình được thiết kế bằng Gemini 3.1 Pro trên Google Stitch · Tối giản hiện đại · Điểm nhấn đỏ
-        #E53935</p>
-
-    <div class="section">
-        <h2>🛍️ Ứng dụng khách hàng <span class="badge badge-client">20 màn hình</span></h2>
-        <div class="grid">
-            <a href="client/02-wonton-pos-landing-page.html" class="card">
-                <div class="num">Màn hình 01</div>
-                <div class="title">Trang chủ</div>
-                <div class="uc">Hero + loại hình phục vụ + nút kêu gọi hành động</div>
-            </a>
-            <a href="client/01-wonton-pos-auth-page.html" class="card">
-                <div class="num">Màn hình 02</div>
-                <div class="title">Đăng nhập tài khoản</div>
-                <div class="uc">Xác thực · Form đăng nhập</div>
-            </a>
-            <a href="client/01b-wonton-pos-auth-register.html" class="card">
-                <div class="num">Màn hình 02b</div>
-                <div class="title">Đăng ký tài khoản</div>
-                <div class="uc">Xác thực · Form đăng ký</div>
-            </a>
-            <a href="client/01c-wonton-pos-auth-forgot.html" class="card">
-                <div class="num">Màn hình 02c</div>
-                <div class="title">Khôi phục mật khẩu</div>
-                <div class="uc">Xác thực · Form quên mật khẩu</div>
-            </a>
-            <a href="client/03-wonton-pos-menu-browse.html" class="card">
-                <div class="num">Màn hình 03</div>
-                <div class="title">Duyệt & tìm kiếm thực đơn</div>
-                <div class="uc">UC-01 · Danh mục, thẻ món, món tạm hết</div>
-            </a>
-            <a href="client/04-wonton-item-detail-customize.html" class="card">
-                <div class="num">Màn hình 04</div>
-                <div class="title">Chi tiết món & tùy chỉnh</div>
-                <div class="uc">UC-01 · Topping, độ cay, số lượng</div>
-            </a>
-            <a href="client/05-wonton-pos-cart-review.html" class="card">
-                <div class="num">Màn hình 05</div>
-                <div class="title">Giỏ hàng & xem lại đơn</div>
-                <div class="uc">UC-01 · Chọn loại hình phục vụ</div>
-            </a>
-            <a href="client/05b-wonton-pos-cart-empty.html" class="card">
-                <div class="num">Màn hình 05b</div>
-                <div class="title">Giỏ hàng rỗng</div>
-                <div class="uc">UI State · Cảnh báo / Điều hướng</div>
-            </a>
-            <a href="client/06-wonton-pos-checkout.html" class="card">
-                <div class="num">Màn hình 06</div>
-                <div class="title">Thanh toán & chi trả</div>
-                <div class="uc">UC-01, UC-02, UC-03 · Thanh toán form</div>
-            </a>
-            <a href="client/06b-wonton-pos-payment-status.html" class="card">
-                <div class="num">Màn hình 06b</div>
-                <div class="title">Chờ thanh toán QR</div>
-                <div class="uc">UC-02 · Mã QR và đếm ngược</div>
-            </a>
-            <a href="client/06c-wonton-pos-payment-success.html" class="card">
-                <div class="num">Màn hình 06c</div>
-                <div class="title">Thanh toán thành công</div>
-                <div class="uc">UC-02 · Thành công & Trở về trang chủ</div>
-            </a>
-            <a href="client/06d-wonton-pos-payment-failed.html" class="card">
-                <div class="num">Màn hình 06d</div>
-                <div class="title">Thanh toán thất bại</div>
-                <div class="uc">UC-02 · Báo lỗi & Thử lại / Đổi phương thức</div>
-            </a>
-            <a href="client/06e-wonton-pos-checkout-pickup.html" class="card">
-                <div class="num">Màn hình 06e</div>
-                <div class="title">Thanh toán (Pickup Mode)</div>
-                <div class="uc">UC-02 / UI State · Chọn ngày giờ đến lấy</div>
-            </a>
-            <a href="client/06f-wonton-pos-checkout-takeaway.html" class="card">
-                <div class="num">Màn hình 06f</div>
-                <div class="title">Thanh toán (Takeaway Mode)</div>
-                <div class="uc">UC-02 / UI State · Trạng thái mua mang về</div>
-            </a>
-            <a href="client/07-order-tracking.html" class="card">
-                <div class="num">Màn hình 07</div>
-                <div class="title">Theo dõi đơn + tra cứu khách vãng lai</div>
-                <div class="uc">UC-11 · Tiến trình trạng thái, mã đơn + số điện thoại</div>
-            </a>
-            <a href="client/07b-order-tracking-cancelled.html" class="card">
-                <div class="num">Màn hình 07b</div>
-                <div class="title">Đơn hàng bị hủy</div>
-                <div class="uc">UI State · Thông báo hủy đơn & Liên hệ</div>
-            </a>
-            <a href="client/08-order-history-detail.html" class="card">
-                <div class="num">Màn hình 08</div>
-                <div class="title">Lịch sử đơn & chi tiết</div>
-                <div class="uc">UC-04 · Danh sách lịch sử</div>
-            </a>
-            <a href="client/08b-order-history-empty.html" class="card">
-                <div class="num">Màn hình 08b</div>
-                <div class="title">Lịch sử đơn rỗng</div>
-                <div class="uc">UI State · Rỗng / Mời đặt hàng</div>
-            </a>
-            <a href="client/09-order-rating-page.html" class="card">
-                <div class="num">Màn hình 09</div>
-                <div class="title">Đánh giá đơn</div>
-                <div class="uc">UC-15 · 3 tiêu chí sao, nhận xét</div>
-            </a>
-            <a href="client/10-notifications-center.html" class="card">
-                <div class="num">Màn hình 10</div>
-                <div class="title">Trung tâm thông báo</div>
-                <div class="uc">UC-16 · Đã đọc/chưa đọc, bộ lọc</div>
-            </a>
-        </div>
+  <header>
+    <h1>Wonton POS - Danh mục prototype HTML</h1>
+    <p class="subtitle">Catalog phục vụ import từng màn hình sang Figma. Bộ màn hình này bám final-project business
+      baseline: Dine-in, Takeaway, Pickup; không có Delivery; Takeaway/Pickup cần prepayment; order_status tách
+      payment_status; có thêm main flow, subflow và exception flow vận hành.</p>
+    <div class="stats">
+      <div class="stat">67 màn hình HTML</div>
+      <div class="stat">35 Client WebApp</div>
+      <div class="stat">32 Admin WebApp</div>
+      <div class="stat">UC-01..UC-26 final lane + edge-flow baseline</div>
     </div>
+  </header>
 
-    <div class="section">
-        <h2>🏪 Ứng dụng quản trị <span class="badge badge-admin">18 màn hình</span></h2>
-        <div class="grid">
-            <a href="admin/01-wonton-pos-admin-login.html" class="card">
-                <div class="num">Màn hình 01</div>
-                <div class="title">Đăng nhập quản trị</div>
-                <div class="uc">Xác thực nhân viên</div>
-            </a>
-            <a href="admin/02-admin-dashboard-overview.html" class="card">
-                <div class="num">Màn hình 02</div>
-                <div class="title">Tổng quan bảng điều khiển</div>
-                <div class="uc">KPI, đơn gần đây, biểu đồ</div>
-            </a>
-            <a href="admin/04-create-in-store-order.html" class="card">
-                <div class="num">Màn hình 03</div>
-                <div class="title">Tạo đơn tại quán</div>
-                <div class="uc">UC-09 · Thực đơn POS + bảng giỏ hàng</div>
-            </a>
-            <a href="admin/03-order-management.html" class="card">
-                <div class="num">Màn hình 04</div>
-                <div class="title">Quản lý đơn & chi tiết</div>
-                <div class="uc">UC-09, UC-10 · Bố cục master-detail</div>
-            </a>
-            <a href="admin/05-process-payment---order-wnt-032.html" class="card">
-                <div class="num">Màn hình 05</div>
-                <div class="title">Xử lý thanh toán</div>
-                <div class="uc">UC-10 · Tiền mặt/Thẻ/QR + hóa đơn</div>
-            </a>
-            <a href="admin/07-table-management---floor-plan-view.html" class="card">
-                <div class="num">Màn hình 06</div>
-                <div class="title">Quản lý bàn (sơ đồ)</div>
-                <div class="uc">UC-08 · Sơ đồ tổ chức bàn</div>
-            </a>
-            <a href="admin/07b-admin-table-add-edit.html" class="card">
-                <div class="num">Màn hình 06b</div>
-                <div class="title">Biểu mẫu TKB Bàn</div>
-                <div class="uc">UC-08 · Thêm / Sửa / Khóa bàn</div>
-            </a>
-            <a href="admin/08-assign-order-to-table.html" class="card">
-                <div class="num">Màn hình 07</div>
-                <div class="title">Gán đơn vào bàn</div>
-                <div class="uc">UC-12 · Chọn bàn từ sơ đồ</div>
-            </a>
-            <a href="admin/08b-admin-table-change.html" class="card">
-                <div class="num">Màn hình 07b</div>
-                <div class="title">Chuyển bàn (Modal)</div>
-                <div class="uc">UC-12 · Cửa sổ chuyển đổi bàn</div>
-            </a>
-            <a href="admin/06-kitchen-display-system-kds.html" class="card">
-                <div class="num">Màn hình 08</div>
-                <div class="title">Màn hình bếp (KDS)</div>
-                <div class="uc">UC-13, UC-14 · Phiếu Kanban</div>
-            </a>
-            <a href="admin/09-menu-management-list.html" class="card">
-                <div class="num">Màn hình 09</div>
-                <div class="title">Danh sách thực đơn</div>
-                <div class="uc">UC-05 · Xóa, tạm hết</div>
-            </a>
-            <a href="admin/09b-menu-categories-toppings.html" class="card">
-                <div class="num">Màn hình 09b</div>
-                <div class="title">Quản lý danh mục & Topping</div>
-                <div class="uc">UC-05 · Thiết lập mở rộng</div>
-            </a>
-            <a href="admin/10-add-new-menu-item-form.html" class="card">
-                <div class="num">Màn hình 10</div>
-                <div class="title">Thêm/Sửa món</div>
-                <div class="uc">UC-05 · Biểu mẫu món đầy đủ</div>
-            </a>
-            <a href="admin/11-staff-management-list.html" class="card">
-                <div class="num">Màn hình 11</div>
-                <div class="title">Danh sách quản lý nhân viên</div>
-                <div class="uc">UC-06 · Nhãn đa vai trò</div>
-            </a>
-            <a href="admin/12-add-new-staff-member-form.html" class="card">
-                <div class="num">Màn hình 12</div>
-                <div class="title">Biểu mẫu thêm/sửa nhân viên</div>
-                <div class="uc">UC-06 · Ô chọn vai trò</div>
-            </a>
-            <a href="admin/14-revenue-statistics-reports.html" class="card">
-                <div class="num">Màn hình 13</div>
-                <div class="title">Thống kê doanh thu & báo cáo</div>
-                <div class="uc">UC-07 · Biểu đồ, món bán chạy, giờ cao điểm</div>
-            </a>
-            <a href="admin/13-admin-notifications-overview.html" class="card">
-                <div class="num">Màn hình 14</div>
-                <div class="title">Thông báo quản trị</div>
-                <div class="uc">UC-16 · Nhóm khẩn cấp/cảnh báo/thông tin</div>
-            </a>
-            <a href="admin/15-admin-notifications-dropdown-figma.html" class="card">
-                <div class="num">Màn hình 15</div>
-                <div class="title">Drop-down thông báo</div>
-                <div class="uc">UI Component · Khay thông báo</div>
-            </a>
-        </div>
-    </div>
+  <main>
+    <section>
+      <div class="section-head">
+        <h2>Client WebApp</h2>
+        <span class="badge">35 màn hình</span>
+      </div>
+      <div class="grid">
+        <a class="card" href="client/02-wonton-pos-landing-page.html">
+          <div>
+            <div class="num">Client 01</div>
+            <div class="title">Trang chủ</div>
+            <p class="desc">Entry point cho khách hàng, loại hình phục vụ và CTA đặt món.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Main</span></div>
+        </a>
+        <a class="card" href="client/01-wonton-pos-auth-page.html">
+          <div>
+            <div class="num">Client 02</div>
+            <div class="title">Đăng nhập</div>
+            <p class="desc">Form xác thực tài khoản khách hàng.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-25</span></div>
+        </a>
+        <a class="card" href="client/01b-wonton-pos-auth-register.html">
+          <div>
+            <div class="num">Client 02b</div>
+            <div class="title">Đăng ký</div>
+            <p class="desc">Tạo tài khoản tùy chọn, không chặn Guest Checkout.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-25</span></div>
+        </a>
+        <a class="card" href="client/01c-wonton-pos-auth-forgot.html">
+          <div>
+            <div class="num">Client 02c</div>
+            <div class="title">Quên mật khẩu</div>
+            <p class="desc">Khôi phục mật khẩu qua OTP/email.</p>
+          </div>
+          <div class="tags"><span class="tag error">Recovery</span></div>
+        </a>
+        <a class="card" href="client/03-wonton-pos-menu-browse.html">
+          <div>
+            <div class="num">Client 03</div>
+            <div class="title">Duyệt menu</div>
+            <p class="desc">Danh mục, tìm kiếm, lọc món và trạng thái khả dụng.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-01</span></div>
+        </a>
+        <a class="card" href="client/04-wonton-item-detail-customize.html">
+          <div>
+            <div class="num">Client 04</div>
+            <div class="title">Chi tiết món</div>
+            <p class="desc">Topping, ghi chú, số lượng và thêm vào giỏ.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-01</span></div>
+        </a>
+        <a class="card" href="client/05-wonton-pos-cart-review.html">
+          <div>
+            <div class="num">Client 05</div>
+            <div class="title">Giỏ hàng</div>
+            <p class="desc">Review món, số lượng, ghi chú và tổng tiền.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-26</span></div>
+        </a>
+        <a class="card" href="client/05b-wonton-pos-cart-empty.html">
+          <div>
+            <div class="num">Client 05b</div>
+            <div class="title">Giỏ hàng rỗng</div>
+            <p class="desc">Empty state trước khi khách chọn món.</p>
+          </div>
+          <div class="tags"><span class="tag error">Empty</span></div>
+        </a>
+        <a class="card" href="client/06-wonton-pos-checkout.html">
+          <div>
+            <div class="num">Client 06</div>
+            <div class="title">Checkout Dine-in</div>
+            <p class="desc">Dine-in có thể trả trước hoặc thanh toán tại quầy sau khi dùng bữa.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-26</span></div>
+        </a>
+        <a class="card" href="client/06b-wonton-pos-payment-status.html">
+          <div>
+            <div class="num">Client 06b</div>
+            <div class="title">Chờ thanh toán QR</div>
+            <p class="desc">QR payment countdown và trạng thái chờ xác nhận.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-02</span></div>
+        </a>
+        <a class="card" href="client/06b2-payment-bank-transfer.html">
+          <div>
+            <div class="num">Client 06b2</div>
+            <div class="title">Chuyển khoản ngân hàng</div>
+            <p class="desc">QR chuyển khoản cần thu ngân xác nhận thủ công trước khi gửi bếp.</p>
+          </div>
+          <div class="tags"><span class="tag">Manual QR</span></div>
+        </a>
+        <a class="card" href="client/06b3-payment-timeout.html">
+          <div>
+            <div class="num">Client 06b3</div>
+            <div class="title">Hết thời gian thanh toán</div>
+            <p class="desc">Đơn tự hủy khi không hoàn tất thanh toán trong thời gian giữ đơn.</p>
+          </div>
+          <div class="tags"><span class="tag error">Timeout</span></div>
+        </a>
+        <a class="card" href="client/06c-wonton-pos-payment-success.html">
+          <div>
+            <div class="num">Client 06c</div>
+            <div class="title">Thanh toán thành công</div>
+            <p class="desc">Paid status và điều hướng sang tracking.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Success</span></div>
+        </a>
+        <a class="card" href="client/06c2-payment-success-bank-pending.html">
+          <div>
+            <div class="num">Client 06c2</div>
+            <div class="title">Chờ thu ngân xác nhận</div>
+            <p class="desc">Khách đã gửi chuyển khoản, đơn chưa vào bếp cho tới khi quầy xác nhận.</p>
+          </div>
+          <div class="tags"><span class="tag">Pending Manual Confirm</span></div>
+        </a>
+        <a class="card" href="client/06d-wonton-pos-payment-failed.html">
+          <div>
+            <div class="num">Client 06d</div>
+            <div class="title">Thanh toán thất bại</div>
+            <p class="desc">Retry, đổi phương thức và không gửi bếp khi chưa Paid.</p>
+          </div>
+          <div class="tags"><span class="tag error">Error</span></div>
+        </a>
+        <a class="card" href="client/06e-wonton-pos-checkout-pickup.html">
+          <div>
+            <div class="num">Client 06e</div>
+            <div class="title">Checkout Pickup</div>
+            <p class="desc">Chọn slot, kiểm tra sức chứa và prepayment.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-03</span></div>
+        </a>
+        <a class="card" href="client/06f-wonton-pos-checkout-takeaway.html">
+          <div>
+            <div class="num">Client 06f</div>
+            <div class="title">Checkout Takeaway</div>
+            <p class="desc">Takeaway cần thanh toán trước khi gửi bếp.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Prepay</span></div>
+        </a>
+        <a class="card" href="client/07-order-tracking.html">
+          <div>
+            <div class="num">Client 07</div>
+            <div class="title">Theo dõi đơn</div>
+            <p class="desc">Registered hoặc Guest tracking bằng mã đơn + số điện thoại.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-11</span></div>
+        </a>
+        <a class="card" href="client/07a-tracking-pending.html">
+          <div>
+            <div class="num">Client 07a</div>
+            <div class="title">Tracking chờ xác nhận</div>
+            <p class="desc">Order pending confirmation, payment đã tách khỏi trạng thái đơn.</p>
+          </div>
+          <div class="tags"><span class="tag">Pending</span></div>
+        </a>
+        <a class="card" href="client/07b-order-tracking-cancelled.html">
+          <div>
+            <div class="num">Client 07b</div>
+            <div class="title">Đơn đã hủy</div>
+            <p class="desc">Cancelled state, thông báo lý do và bước tiếp theo.</p>
+          </div>
+          <div class="tags"><span class="tag error">Cancelled</span></div>
+        </a>
+        <a class="card" href="client/07c-tracking-ready.html">
+          <div>
+            <div class="num">Client 07c</div>
+            <div class="title">Tracking đơn sẵn sàng</div>
+            <p class="desc">Ready state cho Pickup/Takeaway, hướng dẫn khách đến nhận.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Ready</span></div>
+        </a>
+        <a class="card" href="client/07d-tracking-completed.html">
+          <div>
+            <div class="num">Client 07d</div>
+            <div class="title">Tracking hoàn tất</div>
+            <p class="desc">Completed state, mở lối đánh giá hoặc xem chi tiết đơn.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Completed</span></div>
+        </a>
+        <a class="card" href="client/07e-tracking-cancelled.html">
+          <div>
+            <div class="num">Client 07e</div>
+            <div class="title">Tracking hủy chi tiết</div>
+            <p class="desc">Cancelled tracking với lý do, thanh toán và bước hỗ trợ tiếp theo.</p>
+          </div>
+          <div class="tags"><span class="tag error">Cancelled</span></div>
+        </a>
+        <a class="card" href="client/07f-tracking-dine-in.html">
+          <div>
+            <div class="num">Client 07f</div>
+            <div class="title">Tracking Dine-in</div>
+            <p class="desc">Theo dõi đơn ăn tại quán, phục vụ bàn và trạng thái thanh toán sau bữa.</p>
+          </div>
+          <div class="tags"><span class="tag">Dine-in</span></div>
+        </a>
+        <a class="card" href="client/08-order-history-detail.html">
+          <div>
+            <div class="num">Client 08</div>
+            <div class="title">Lịch sử và chi tiết đơn</div>
+            <p class="desc">Post-purchase detail, rating và reorder entry.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-04</span></div>
+        </a>
+        <a class="card" href="client/08b-order-history-empty.html">
+          <div>
+            <div class="num">Client 08b</div>
+            <div class="title">Lịch sử rỗng</div>
+            <p class="desc">Empty state cho khách chưa có đơn.</p>
+          </div>
+          <div class="tags"><span class="tag error">Empty</span></div>
+        </a>
+        <a class="card" href="client/08c-order-history-cancelled.html">
+          <div>
+            <div class="num">Client 08c</div>
+            <div class="title">Chi tiết đơn đã hủy</div>
+            <p class="desc">Lịch sử đơn canceled, refund status và khả năng đặt lại khi hợp lệ.</p>
+          </div>
+          <div class="tags"><span class="tag error">History Cancelled</span></div>
+        </a>
+        <a class="card" href="client/09-order-rating-page.html">
+          <div>
+            <div class="num">Client 09</div>
+            <div class="title">Đánh giá đơn</div>
+            <p class="desc">3 tiêu chí sao và nhận xét sau khi Completed.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-15</span></div>
+        </a>
+        <a class="card" href="client/10-notifications-center.html">
+          <div>
+            <div class="num">Client 10</div>
+            <div class="title">Trung tâm thông báo</div>
+            <p class="desc">Thông báo trạng thái đơn, thanh toán và pickup.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-16</span></div>
+        </a>
+        <a class="card" href="client/11-reorder-menu-drift.html">
+          <div>
+            <div class="num">Client 11</div>
+            <div class="title">Đặt lại khi menu thay đổi</div>
+            <p class="desc">Reorder từ đơn Completed với giá mới, món 86'd và topping đã ngưng.</p>
+          </div>
+          <div class="tags"><span class="tag flow">UC-17</span><span class="tag error">Menu drift</span></div>
+        </a>
+        <a class="card" href="client/12-customer-account-profile.html">
+          <div>
+            <div class="num">Client 12</div>
+            <div class="title">Hồ sơ và bảo mật</div>
+            <p class="desc">Cập nhật thông tin, đổi mật khẩu, phiên đăng nhập.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-25</span></div>
+        </a>
+        <a class="card" href="client/13-guest-order-lookup-error.html">
+          <div>
+            <div class="num">Client 13</div>
+            <div class="title">Guest lookup lỗi</div>
+            <p class="desc">Sai mã đơn/số điện thoại, bảo vệ thông tin khách vãng lai.</p>
+          </div>
+          <div class="tags"><span class="tag error">Guest error</span></div>
+        </a>
+        <a class="card" href="client/13b-guest-lookup-success.html">
+          <div>
+            <div class="num">Client 13b</div>
+            <div class="title">Guest lookup thành công</div>
+            <p class="desc">Tra cứu đúng mã đơn và số điện thoại, hiển thị tracking ở chế độ guest.</p>
+          </div>
+          <div class="tags"><span class="tag flow">Guest success</span></div>
+        </a>
+        <a class="card" href="client/13c-guest-lookup-ratelimit.html">
+          <div>
+            <div class="num">Client 13c</div>
+            <div class="title">Guest lookup bị giới hạn</div>
+            <p class="desc">Rate limit sau nhiều lần nhập sai để bảo vệ thông tin đơn hàng.</p>
+          </div>
+          <div class="tags"><span class="tag error">Rate limit</span></div>
+        </a>
+        <a class="card" href="client/14-payment-recovery-refund-status.html">
+          <div>
+            <div class="num">Client 14</div>
+            <div class="title">Late payment và refund</div>
+            <p class="desc">Thanh toán đến sau auto-cancel, không tạo ticket bếp trùng.</p>
+          </div>
+          <div class="tags"><span class="tag error">Refund Pending</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Admin WebApp</h2>
+        <span class="badge">32 màn hình</span>
+      </div>
+      <div class="grid">
+        <a class="card" href="admin/01-wonton-pos-admin-login.html">
+          <div>
+            <div class="num">Admin 01</div>
+            <div class="title">Đăng nhập Admin</div>
+            <p class="desc">Form đăng nhập ở trạng thái bình thường (chưa nhập).</p>
+          </div>
+          <div class="tags"><span class="tag">UC-71</span></div>
+        </a>
+        <a class="card" href="admin/01b-login-error.html">
+          <div>
+            <div class="num">Admin 01b</div>
+            <div class="title">Đăng nhập – Sai mật khẩu</div>
+            <p class="desc">Trạng thái lỗi: hiển thị banner cảnh báo khi sai mật khẩu hoặc tài khoản không tồn tại.</p>
+          </div>
+          <div class="tags"><span class="tag error">Error</span><span class="tag">UC-71</span></div>
+        </a>
+        <a class="card" href="admin/02-admin-dashboard-overview.html">
+          <div>
+            <div class="num">Admin 02</div>
+            <div class="title">Dashboard tổng quan</div>
+            <p class="desc">KPI, cảnh báo vận hành và đơn gần đây.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-19</span></div>
+        </a>
+        <a class="card" href="admin/03-order-management.html">
+          <div>
+            <div class="num">Admin 03</div>
+            <div class="title">Quản lý đơn</div>
+            <p class="desc">Danh sách đơn, detail và action thanh toán/hủy.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-20</span></div>
+        </a>
+        <a class="card" href="admin/03b-order-management-cancel-modal.html">
+          <div>
+            <div class="num">Admin 03b</div>
+            <div class="title">Hủy đơn</div>
+            <p class="desc">Modal chọn lý do hủy và ảnh hưởng refund.</p>
+          </div>
+          <div class="tags"><span class="tag error">Cancel</span></div>
+        </a>
+        <a class="card" href="admin/04-create-in-store-order.html">
+          <div>
+            <div class="num">Admin 04</div>
+            <div class="title">Tạo đơn tại quầy</div>
+            <p class="desc">Counter POS cho dine-in và takeaway.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-09</span></div>
+        </a>
+        <a class="card" href="admin/05-process-payment---order-wnt-032.html">
+          <div>
+            <div class="num">Admin 05</div>
+            <div class="title">Xử lý thanh toán</div>
+            <p class="desc">Cash, QR, hóa đơn và settlement tại quầy.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-10</span></div>
+        </a>
+        <a class="card" href="admin/06-kitchen-display-system-kds.html">
+          <div>
+            <div class="num">Admin 06</div>
+            <div class="title">KDS theo đơn</div>
+            <p class="desc">FIFO, nhận đơn và cập nhật ready.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-13</span></div>
+        </a>
+        <a class="card" href="admin/06b-kitchen-display-system-item-view.html">
+          <div>
+            <div class="num">Admin 06b</div>
+            <div class="title">KDS theo món</div>
+            <p class="desc">Grouped item update và batch handling.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-14</span></div>
+        </a>
+        <a class="card" href="admin/07-table-management---floor-plan-view.html">
+          <div>
+            <div class="num">Admin 07</div>
+            <div class="title">Sơ đồ bàn</div>
+            <p class="desc">Theo dõi bàn trống/đang dùng.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-08</span></div>
+        </a>
+        <a class="card" href="admin/07b-admin-table-add-edit.html">
+          <div>
+            <div class="num">Admin 07b</div>
+            <div class="title">Thêm/sửa bàn</div>
+            <p class="desc">Dữ liệu bàn, sức chứa, vị trí.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-08</span></div>
+        </a>
+        <a class="card" href="admin/08-assign-order-to-table.html">
+          <div>
+            <div class="num">Admin 08</div>
+            <div class="title">Gán đơn vào bàn</div>
+            <p class="desc">Liên kết order với bàn dine-in.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-12</span></div>
+        </a>
+        <a class="card" href="admin/08b-admin-table-change.html">
+          <div>
+            <div class="num">Admin 08b</div>
+            <div class="title">Chuyển bàn</div>
+            <p class="desc">Chuyển toàn bộ đơn mở của cùng party khi cần.</p>
+          </div>
+          <div class="tags"><span class="tag ops">Transfer</span></div>
+        </a>
+        <a class="card" href="admin/09-menu-management-list.html">
+          <div>
+            <div class="num">Admin 09</div>
+            <div class="title">Danh sách menu</div>
+            <p class="desc">Quản lý món, trạng thái và archive/deactivate.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-05</span></div>
+        </a>
+        <a class="card" href="admin/09b-menu-categories-toppings.html">
+          <div>
+            <div class="num">Admin 09b</div>
+            <div class="title">Danh mục và topping</div>
+            <p class="desc">Thiết lập danh mục, topping và giá.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-05</span></div>
+        </a>
+        <a class="card" href="admin/10-add-new-menu-item-form.html">
+          <div>
+            <div class="num">Admin 10</div>
+            <div class="title">Form món ăn</div>
+            <p class="desc">Thêm/sửa thông tin món và topping khả dụng.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-05</span></div>
+        </a>
+        <a class="card" href="admin/11-staff-management-list.html">
+          <div>
+            <div class="num">Admin 11</div>
+            <div class="title">Nhân sự</div>
+            <p class="desc">Danh sách nhân viên và trạng thái tài khoản.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-06</span></div>
+        </a>
+        <a class="card" href="admin/12-add-new-staff-member-form.html">
+          <div>
+            <div class="num">Admin 12</div>
+            <div class="title">Form nhân viên</div>
+            <p class="desc">Vai trò, quyền truy cập và thông tin liên hệ.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-06</span></div>
+        </a>
+        <a class="card" href="admin/13-admin-notifications-overview.html">
+          <div>
+            <div class="num">Admin 13</div>
+            <div class="title">Thông báo Admin</div>
+            <p class="desc">Đơn mới, món hết, đơn ready và exception alert.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-74</span></div>
+        </a>
+        <a class="card" href="admin/14-revenue-statistics-reports.html">
+          <div>
+            <div class="num">Admin 14</div>
+            <div class="title">Báo cáo doanh thu</div>
+            <p class="desc">Thống kê, payment filter và export.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-07</span></div>
+        </a>
+        <a class="card" href="admin/15-admin-notifications-dropdown-figma.html">
+          <div>
+            <div class="num">Admin 15</div>
+            <div class="title">Dropdown thông báo</div>
+            <p class="desc">Notification component dành cho header.</p>
+          </div>
+          <div class="tags"><span class="tag">Component</span></div>
+        </a>
+        <a class="card" href="admin/16-voucher-management-list.html">
+          <div>
+            <div class="num">Admin 16</div>
+            <div class="title">Danh sách khuyến mãi</div>
+            <p class="desc">Mã giảm giá, trạng thái và thời hạn.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-18</span></div>
+        </a>
+        <a class="card" href="admin/16b-admin-voucher-add-edit.html">
+          <div>
+            <div class="num">Admin 16b</div>
+            <div class="title">Form khuyến mãi</div>
+            <p class="desc">Điều kiện, giới hạn, giá trị và thời hạn.</p>
+          </div>
+          <div class="tags"><span class="tag">UC-18</span></div>
+        </a>
+        <a class="card" href="admin/16c-promotion-usage-audit.html">
+          <div>
+            <div class="num">Admin 16c</div>
+            <div class="title">Lịch sử dùng mã</div>
+            <p class="desc">Usage limit, stacking, restore usage after cancel và audit.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-18</span></div>
+        </a>
+        <a class="card" href="admin/17-pickup-schedule-management.html">
+          <div>
+            <div class="num">Admin 17</div>
+            <div class="title">Lịch Pickup</div>
+            <p class="desc">Slot, capacity và khóa khung quá tải.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-03</span></div>
+        </a>
+        <a class="card" href="admin/18-admin-settings-profile.html">
+          <div>
+            <div class="num">Admin 18</div>
+            <div class="title">Cài đặt hồ sơ Admin</div>
+            <p class="desc">Thông tin tài khoản nhân viên và cài đặt hệ thống.</p>
+          </div>
+          <div class="tags"><span class="tag">Settings</span></div>
+        </a>
+        <a class="card" href="admin/19-active-orders-command-center.html">
+          <div>
+            <div class="num">Admin 19</div>
+            <div class="title">Đơn đang hoạt động</div>
+            <p class="desc">Order status tách payment status, cảnh báo sửa sau bếp nhận.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-20</span><span class="tag error">Exception</span></div>
+        </a>
+        <a class="card" href="admin/20-shift-close-reconciliation.html">
+          <div>
+            <div class="num">Admin 20</div>
+            <div class="title">Chốt ca và đối soát</div>
+            <p class="desc">Cash drawer, QR thủ công, gateway, refund, comp, forfeited, write-off.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-21</span></div>
+        </a>
+        <a class="card" href="admin/21-menu-availability-86d.html">
+          <div>
+            <div class="num">Admin 21</div>
+            <div class="title">86'd và khả dụng món</div>
+            <p class="desc">Ẩn món khỏi đơn mới, low stock và audit availability.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-22</span></div>
+        </a>
+        <a class="card" href="admin/22-serve-handoff-queue.html">
+          <div>
+            <div class="num">Admin 22</div>
+            <div class="title">Phục vụ và handoff</div>
+            <p class="desc">Ready queue, xác nhận đúng bàn/túi và wrong handoff correction.</p>
+          </div>
+          <div class="tags"><span class="tag ops">UC-23</span></div>
+        </a>
+        <a class="card" href="admin/23-complaint-exception-resolution.html">
+          <div>
+            <div class="num">Admin 23</div>
+            <div class="title">Complaint và ngoại lệ</div>
+            <p class="desc">Remake, goodwill, partial refund, comp và write-off decision.</p>
+          </div>
+          <div class="tags"><span class="tag error">UC-24</span></div>
+        </a>
+        <a class="card" href="admin/24-pickup-no-show-exception.html">
+          <div>
+            <div class="num">Admin 24</div>
+            <div class="title">Pickup late/no-show</div>
+            <p class="desc">Hold, remake, refund hoặc forfeited cho đơn Pickup đã thanh toán.</p>
+          </div>
+          <div class="tags"><span class="tag error">Pickup exception</span></div>
+        </a>
+        <a class="card" href="admin/25-outage-recovery-workbench.html">
+          <div>
+            <div class="num">Admin 25</div>
+            <div class="title">Manual recovery sau sự cố</div>
+            <p class="desc">KDS/printer/network/payment outage, đối chiếu phiếu giấy và chống duplicate.</p>
+          </div>
+          <div class="tags"><span class="tag error">Recovery</span></div>
+        </a>
+      </div>
+    </section>
 
     <div class="notes">
-        <h3>📝 Ghi chú phát triển</h3>
-        <ul>
-            <li>✅ <s>Ký hiệu tiền tệ</s> — Đã sửa: thống nhất định dạng ₫</li>
-            <li>✅ <s>Thuế 8%</s> — Đã sửa: đổi về 0% (BRD không có thuế)</li>
-            <li>✅ <s>Navbar khách hàng "Inventory"</s> — Đã sửa: thay bằng "Lịch sử đơn hàng"</li>
-            <li>✅ <s>Năm 2024</s> — Đã sửa: cập nhật thành 2026</li>
-            <li>✅ <s>Nhận diện "Culinary Editorial"</s> — Đã sửa: toàn bộ đã thay bằng "Wonton POS"</li>
-            <li>✅ <s>Số điện thoại/Địa chỉ</s> — Đã sửa: dùng định dạng Việt Nam (+84, TP. Hồ Chí Minh)</li>
-            <li>✅ <s>Câu chữ quá mầu mè</s> — Đã sửa: đơn giản hóa về giọng văn chuyên nghiệp</li>
-            <li>⬜ <strong>Hình ảnh:</strong> Thay ảnh AI của Stitch bằng ảnh món ăn thật khi có sẵn</li>
-            <li>⬜ <strong>Điều hướng:</strong> Nối liên kết giữa các màn hình (hiện vẫn đang chạy độc lập)</li>
-            <li>⬜ <strong>Hiển thị đáp ứng:</strong> Mỗi trang hiện tối ưu cho desktop 1440px — mobile chưa nằm trong phạm vi</li>
-            <li><strong>Hệ thiết kế:</strong> Màu chính #B7131A, font Inter, bề mặt trắng ấm</li>
-            <li><strong>Dự án Stitch:</strong> Khách hàng=16638119201620437339 · Quản trị=11775798348543732415</li>
-        </ul>
+      <h3>Ghi chú nghiệp vụ đã bổ sung</h3>
+      <ul>
+        <li>Catalog hiện bao phủ đủ `67` màn HTML trong `client/` và `admin/`, bao gồm các state page thanh toán,
+          tracking và guest lookup mới.</li>
+        <li>Đã thêm các màn hình phủ `UC-17..UC-26` còn thiếu trên prototype, đặc biệt active orders, chốt ca, 86'd,
+          handoff và complaint.</li>
+        <li>Đã đưa các exception flow quan trọng lên UI: late payment callback, guest lookup mismatch, Pickup
+          late/no-show, wrong handoff, refund pending và manual recovery sau sự cố.</li>
+        <li>Không thêm Delivery hoặc capability ngoài scope khóa 2026-04-17.</li>
+      </ul>
     </div>
+  </main>
 </body>
 
 </html>

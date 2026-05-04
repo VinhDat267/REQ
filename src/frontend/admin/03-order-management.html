@@ -13,16 +13,16 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
 <!-- SideNavBar Integration -->
 
 <!-- TopAppBar Integration -->
 
 <!-- Main Content Grid -->
 
-<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex gap-6 overflow-hidden">
+<main class="flex-1 p-4 sm:p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col xl:flex-row gap-6 overflow-visible xl:overflow-hidden">
 <!-- Left Panel: Orders List (55%) -->
-<section class="flex-[1.15] min-w-0 flex flex-col h-full bg-surface-container-low p-6 overflow-hidden rounded-2xl">
+<section class="flex-[1.15] min-w-0 flex flex-col h-auto xl:h-full bg-surface-container-low p-4 sm:p-6 overflow-hidden rounded-2xl">
 <!-- Action Bar -->
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-lg font-bold tracking-tight">Danh Sách Đơn Hàng</h3>
@@ -33,14 +33,16 @@ Tạo Đơn Mới
 </div>
 <!-- Filter Tabs -->
 <div class="flex items-center gap-6 mb-6 overflow-x-auto pb-1">
-<button class="pb-2 border-b-2 border-primary text-on-surface font-bold text-sm tracking-tight">Tất Cả</button>
-<button class="pb-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 font-semibold text-sm transition-all">Đang chọn</button>
-<button class="pb-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 font-semibold text-sm transition-all">Chờ Thanh Toán</button>
-<button class="pb-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 font-semibold text-sm transition-all">Hoàn tất</button>
-<button class="pb-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 font-semibold text-sm transition-all">Đã Hủy</button>
+<a href="03-order-management.html" class="pb-2 border-b-2 border-primary text-on-surface font-bold text-sm tracking-tight">Tất Cả</a>
+<a href="03a-order-management-pending.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Chờ Xác Nhận</a>
+<a href="03c-order-management-cooking.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Đang Chế Biến</a>
+<a href="03d-order-management-ready.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Sẵn Sàng</a>
+<a href="03e-order-management-unpaid.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Chờ Thanh Toán</a>
+<a href="03f-order-management-completed.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Hoàn tất</a>
+<a href="03g-order-management-cancelled.html" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-600 font-semibold text-sm transition-all">Đã Hủy</a>
 </div>
 <!-- List Controls -->
-<div class="flex justify-between items-center mb-6">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
 <div class="flex items-center bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm border border-outline-variant/10">
 <span class="material-symbols-outlined text-sm text-slate-500 dark:text-slate-400 mr-2" data-icon="calendar_today">calendar_today</span>
 <span class="text-xs font-semibold text-on-surface">7 Tháng 4, 2026 - 8 Tháng 4, 2026</span>
@@ -55,102 +57,79 @@ Tạo Đơn Mới
 </div>
 </div>
 <!-- Data Table Canvas -->
-<div class="flex-1 overflow-y-auto rounded-2xl bg-surface-container-lowest border border-outline-variant/5">
-<table class="w-full text-left border-collapse">
+<div class="flex-1 overflow-auto rounded-2xl bg-surface-container-lowest border border-outline-variant/5">
+<table class="w-full min-w-[760px] text-left border-collapse">
 <thead class="sticky top-0 bg-surface-container-lowest z-10">
 <tr class="border-b border-surface-container-low">
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Mã Đơn</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Khách Hàng</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Hình Thức</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-right">Thành Tiền (VND)</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Trạng Thái</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Lệnh</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Mã Đơn</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Khách</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Loại</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Bàn</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Tiền (₫)</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Đơn</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Thanh Toán</th>
+<th class="px-3 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest"></th>
 </tr>
 </thead>
 <tbody class="divide-y divide-surface-container-low">
 <tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
-<td class="px-4 py-4 font-bold text-xs text-on-surface">#WNT-034</td>
-<td class="px-4 py-4">
-<div class="text-xs font-semibold">Minh Tuan</div>
-<div class="text-xs text-slate-500 dark:text-slate-400">0932-xxx-xxx</div>
-</td>
-<td class="px-4 py-4">
-<span class="px-2 py-1 rounded bg-blue-50 text-blue-600 text-xs font-black uppercase">Ăn tại quán</span>
-</td>
-<td class="px-4 py-4 text-right text-xs font-bold">245,000</td>
-<td class="px-4 py-4">
-<div class="flex items-center text-xs font-bold text-amber-600">
-<span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>Đang Nấu
-                                </div>
-</td>
-<td class="px-4 py-4">
-<span class="material-symbols-outlined text-red-500 text-lg" data-icon="error">error</span>
-</td>
+<td class="px-3 py-4 font-bold text-xs text-on-surface">#WNT-034</td>
+<td class="px-3 py-4"><div class="text-xs font-semibold">Minh Tuan</div></td>
+<td class="px-3 py-4"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">Dine-in</span></td>
+<td class="px-3 py-4 text-xs font-bold text-primary">B.08</td>
+<td class="px-3 py-4 text-right text-xs font-bold">140,000</td>
+<td class="px-3 py-4"><span class="flex items-center text-xs font-bold text-amber-600"><span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>Chế biến</span></td>
+<td class="px-3 py-4"><span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">Chưa trả</span></td>
+<td class="px-3 py-4"><span class="material-symbols-outlined text-slate-400 text-lg cursor-pointer hover:text-primary">more_horiz</span></td>
 </tr>
 <!-- Selected Row -->
 <tr class="bg-primary/5 border-l-4 border-primary">
-<td class="px-4 py-4 font-bold text-xs text-on-surface">#WNT-032</td>
-<td class="px-4 py-4">
-<div class="text-xs font-semibold">Khách Vãng Lai</div>
-<div class="text-xs text-slate-500 dark:text-slate-400">0912-xxx-xxx</div>
-</td>
-<td class="px-4 py-4">
-<span class="px-2 py-1 rounded bg-blue-50 text-blue-600 text-xs font-black uppercase">Ăn tại quán</span>
-</td>
-<td class="px-4 py-4 text-right text-xs font-bold">745,000</td>
-<td class="px-4 py-4">
-<div class="flex items-center text-xs font-bold text-amber-600">
-<span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>Đang Nấu
-                                </div>
-</td>
-<td class="px-4 py-4">
-<span class="material-symbols-outlined text-red-500 text-lg" data-icon="error">error</span>
-</td>
+<td class="px-3 py-4 font-bold text-xs text-on-surface">#WNT-032</td>
+<td class="px-3 py-4"><div class="text-xs font-semibold">Khách Vãng Lai</div></td>
+<td class="px-3 py-4"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">Dine-in</span></td>
+<td class="px-3 py-4 text-xs font-bold text-primary">B.05</td>
+<td class="px-3 py-4 text-right text-xs font-bold">205,000</td>
+<td class="px-3 py-4"><span class="flex items-center text-xs font-bold text-amber-600"><span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>Chế biến</span></td>
+<td class="px-3 py-4"><span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">Chưa trả</span></td>
+<td class="px-3 py-4"><span class="material-symbols-outlined text-slate-400 text-lg cursor-pointer hover:text-primary">more_horiz</span></td>
 </tr>
 <tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
-<td class="px-4 py-4 font-bold text-xs text-on-surface">#WNT-031</td>
-<td class="px-4 py-4">
-<div class="text-xs font-semibold">Nguyen An</div>
-<div class="text-xs text-slate-500 dark:text-slate-400">0901-xxx-xxx</div>
-</td>
-<td class="px-4 py-4">
-<span class="px-2 py-1 rounded bg-orange-50 text-orange-600 text-xs font-black uppercase">Mang đi</span>
-</td>
-<td class="px-4 py-4 text-right text-xs font-bold">274,000</td>
-<td class="px-4 py-4">
-<div class="flex items-center text-xs font-bold text-tertiary">
-<span class="w-2 h-2 rounded-full bg-tertiary mr-2"></span>Sẵn sàng
-                                </div>
-</td>
-<td class="px-4 py-4">
-<span class="material-symbols-outlined text-tertiary text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-</td>
+<td class="px-3 py-4 font-bold text-xs text-on-surface">#WNT-031</td>
+<td class="px-3 py-4"><div class="text-xs font-semibold">Nguyen An</div></td>
+<td class="px-3 py-4"><span class="px-2 py-0.5 rounded bg-orange-50 text-orange-600 text-[10px] font-bold">Mang đi</span></td>
+<td class="px-3 py-4 text-xs text-slate-400">—</td>
+<td class="px-3 py-4 text-right text-xs font-bold">133,000</td>
+<td class="px-3 py-4"><span class="flex items-center text-xs font-bold text-tertiary"><span class="w-2 h-2 rounded-full bg-tertiary mr-1.5"></span>Sẵn sàng</span></td>
+<td class="px-3 py-4"><span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded">Đã trả</span></td>
+<td class="px-3 py-4"><span class="material-symbols-outlined text-tertiary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+</tr>
+<!-- Completed + Unpaid — nhấp nháy cảnh báo §3 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer bg-red-50/30">
+<td class="px-3 py-4 font-bold text-xs text-on-surface">#WNT-030</td>
+<td class="px-3 py-4"><div class="text-xs font-semibold">Le Lan</div></td>
+<td class="px-3 py-4"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">Dine-in</span></td>
+<td class="px-3 py-4 text-xs font-bold text-primary">B.03</td>
+<td class="px-3 py-4 text-right text-xs font-bold">195,000</td>
+<td class="px-3 py-4"><span class="flex items-center text-xs font-bold text-green-600"><span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span>Hoàn tất</span></td>
+<td class="px-3 py-4"><span class="text-xs font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded animate-pulse">⚠ Chưa trả</span></td>
+<td class="px-3 py-4"><span class="material-symbols-outlined text-red-500 text-lg">priority_high</span></td>
 </tr>
 <tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
-<td class="px-4 py-4 font-bold text-xs text-on-surface">#WNT-030</td>
-<td class="px-4 py-4">
-<div class="text-xs font-semibold">Le Lan</div>
-<div class="text-xs text-slate-500 dark:text-slate-400">0944-xxx-xxx</div>
-</td>
-<td class="px-4 py-4">
-<span class="px-2 py-1 rounded bg-purple-50 text-purple-600 text-xs font-black uppercase">Đến lấy</span>
-</td>
-<td class="px-4 py-4 text-right text-xs font-bold">850,000</td>
-<td class="px-4 py-4">
-<div class="flex items-center text-xs font-bold text-slate-500">
-<span class="w-2 h-2 rounded-full bg-slate-400 mr-2"></span>Hoàn tất
-                                </div>
-</td>
-<td class="px-4 py-4">
-<span class="material-symbols-outlined text-tertiary text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-</td>
+<td class="px-3 py-4 font-bold text-xs text-on-surface">#WNT-029</td>
+<td class="px-3 py-4"><div class="text-xs font-semibold">Tran Hai</div></td>
+<td class="px-3 py-4"><span class="px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-[10px] font-bold">Đến lấy</span></td>
+<td class="px-3 py-4 text-xs text-slate-400">—</td>
+<td class="px-3 py-4 text-right text-xs font-bold">128,000</td>
+<td class="px-3 py-4"><span class="flex items-center text-xs font-bold text-green-600"><span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span>Hoàn tất</span></td>
+<td class="px-3 py-4"><span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded">Đã trả</span></td>
+<td class="px-3 py-4"><span class="material-symbols-outlined text-tertiary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
 <!-- Right Panel: Order Detail (45%) -->
-<section class="flex-[0.95] min-w-0 h-full bg-surface-container-lowest border border-surface-container-high rounded-2xl flex flex-col overflow-hidden">
+<section class="flex-[0.95] min-w-0 h-auto xl:h-full bg-surface-container-lowest border border-surface-container-high rounded-2xl flex flex-col overflow-hidden">
 <!-- Detail Header -->
 <div class="p-8 border-b border-surface-container-low">
 <div class="flex justify-between items-start mb-4">
@@ -186,7 +165,7 @@ Tạo Đơn Mới
 <p class="text-xs text-slate-500 mt-1 italic">Thêm há cảo hải sản, Mì chính ít</p>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 490,000</span>
+<span class="text-sm font-bold text-on-surface">₫130,000</span>
 </div>
 </div>
 <!-- Item 2 -->
@@ -199,7 +178,7 @@ Tạo Đơn Mới
 <p class="text-xs text-slate-500 mt-1 italic">Ít cay</p>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 175,000</span>
+<span class="text-sm font-bold text-on-surface">₫75,000</span>
 </div>
 </div>
 <!-- Item 3 -->
@@ -211,7 +190,7 @@ Tạo Đơn Mới
 <h4 class="text-sm font-bold text-on-surface">Trà Lài Đá</h4>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 80,000</span>
+<span class="text-sm font-bold text-on-surface">₫58,000</span>
 </div>
 </div>
 </div>
@@ -220,15 +199,11 @@ Tạo Đơn Mới
 <div class="space-y-2 mb-8">
 <div class="flex justify-between text-xs text-slate-500">
 <span>Tạm tính</span>
-<span>VND 745,000</span>
-</div>
-<div class="flex justify-between text-xs text-slate-500">
-<span>Thuế (0%)</span>
-<span>VND 0</span>
+<span>₫263,000</span>
 </div>
 <div class="flex justify-between items-center pt-2">
 <span class="text-sm font-black text-on-surface uppercase tracking-tight">Tổng cộng</span>
-<span class="text-xl font-black text-primary">VND 745,000</span>
+<span class="text-xl font-black text-primary">₫263,000</span>
 </div>
 </div>
 <div class="grid grid-cols-1 gap-3">

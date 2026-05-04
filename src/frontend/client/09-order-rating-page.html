@@ -95,6 +95,11 @@
       <section class="text-center mb-12">
         <h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Đánh Giá Trải Nghiệm</h1>
         <p class="text-secondary text-sm font-medium">Mã đơn #WNT-20260405-028 — 05/04/2026</p>
+        <!-- Hạn 7 ngày đánh giá (§5 Business Rules) -->
+        <div class="mt-4 inline-flex items-center gap-2 bg-tertiary/10 text-tertiary px-4 py-2 rounded-full text-xs font-bold">
+          <span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span>
+          Bạn còn <strong>5 ngày</strong> để đánh giá (hết hạn 12/04/2026)
+        </div>
       </section>
       <!-- Tóm tắt Đơn hàng Section (Tonal Layering) -->
       <section class="bg-surface-container-lowest rounded-xl p-6 mb-10 shadow-sm">
@@ -110,19 +115,19 @@
                 <p class="text-sm text-secondary">SL: 1</p>
               </div>
             </div>
-            <span class="font-semibold text-on-surface">₫209,000</span>
+            <span class="font-semibold text-on-surface">₫65,000</span>
           </div>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-4">
               <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
-                <img alt="Signature Shrimp Wontons" class="w-full h-full object-cover" data-alt="Glistening handmade shrimp wontons arranged elegantly on a ceramic plate with decorative microgreens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUhPsL_Onvm6ZDZLp0smTcldSnIT6eoNl6E4ZPppNN6rsuFWRXOo8kMK-aV3Zjgl-q7ZhWNMeDwWJm_-TToq0ypV4eZ9iKilxvH9GMeZ35oU5o-wm6C_3-AYUmK2kzDmc38nGXvQ2TiNE5TCGQla0FkqyZW_cvOW_S3nJScaQ_CUIlpl4UeBi_bz7CYhIvVV3c-aPVzT2IYXdXfiIThqHUM0PsatKy5PNq-1zSHSLSoX5IEj6LRngAekviYMjGyB9BtL9Ya2YXIVoc">
+                <img alt="Signature Shrimp Wontons" class="w-full h-full object-cover" data-alt="Glistening handmade shrimp wontons" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUhPsL_Onvm6ZDZLp0smTcldSnIT6eoNl6E4ZPppNN6rsuFWRXOo8kMK-aV3Zjgl-q7ZhWNMeDwWJm_-TToq0ypV4eZ9iKilxvH9GMeZ35oU5o-wm6C_3-AYUmK2kzDmc38nGXvQ2TiNE5TCGQla0FkqyZW_cvOW_S3nJScaQ_CUIlpl4UeBi_bz7CYhIvVV3c-aPVzT2IYXdXfiIThqHUM0PsatKy5PNq-1zSHSLSoX5IEj6LRngAekviYMjGyB9BtL9Ya2YXIVoc">
               </div>
               <div>
                 <h3 class="font-bold text-on-surface">Hoành Thánh Tôm Thịt Đặc Biệt</h3>
                 <p class="text-sm text-secondary">SL: 2</p>
               </div>
             </div>
-            <span class="font-semibold text-on-surface">₫245,000</span>
+            <span class="font-semibold text-on-surface">2 × ₫55,000</span>
           </div>
         </div>
       </section>
@@ -165,13 +170,20 @@
       <!-- Feedback Section -->
       <section class="mb-12">
         <div class="flex justify-between items-center mb-2">
-          <label class="text-sm font-semibold text-on-surface">Chia sẻ trải nghiệm của bạn (tùy chọn)</label>
-          <span class="text-xs text-secondary font-medium">127/500</span>
+          <label class="text-sm font-semibold text-on-surface">Chia sẽ trải nghiệm của bạn (tùy chọn)</label>
+          <!-- Character counter với max 500 ký tự (§5 Business Rules) -->
+          <span class="text-xs font-medium px-2 py-1 rounded bg-surface-container-high"><span class="text-on-surface">127</span><span class="text-secondary">/500</span></span>
         </div>
-        <textarea class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300 resize-none" rows="4">Mì vằn thắn siêu ngon! Khẩu phần ăn rất hào phóng và nước dùng lại vô cùng đậm đà.</textarea>
-        <div class="mt-3 flex items-center gap-2 text-secondary">
-          <span class="material-symbols-outlined text-base">info</span>
-          <p class="text-xs">Khảo sát chỉ đánh giá một lần và không thể chỉnh sửa</p>
+        <textarea class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300 resize-none" maxlength="500" rows="4">Mì vằn thắn siêu ngon! Khẩu phần ăn rất hào phóng và nước dùng lại vô cùng đậm đà.</textarea>
+        <div class="mt-3 flex flex-col gap-2">
+          <div class="flex items-center gap-2 text-secondary">
+            <span class="material-symbols-outlined text-base">info</span>
+            <p class="text-xs">Khảo sát chỉ đánh giá một lần và không thể chỉnh sửa</p>
+          </div>
+          <div class="flex items-center gap-2 text-secondary">
+            <span class="material-symbols-outlined text-base">text_fields</span>
+            <p class="text-xs">Tối đa 500 ký tự. Nội dung vi phạm sẽ bị ẩn.</p>
+          </div>
         </div>
       </section>
       <!-- Action Buttons -->

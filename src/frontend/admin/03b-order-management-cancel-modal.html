@@ -13,16 +13,16 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<body class="text-on-surface bg-slate-50 dark:bg-slate-950 flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
 <!-- SideNavBar Integration -->
 
 <!-- TopAppBar Integration -->
 
 <!-- Main Content Grid -->
 
-<main class="flex-1 p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex gap-6 overflow-hidden">
+<main class="flex-1 p-4 sm:p-6 ml-0 lg:ml-64 w-full lg:w-[calc(100%_-_16rem)] transition-all duration-300 min-h-[calc(100vh-4rem)] text-slate-900 dark:text-slate-100 flex flex-col xl:flex-row gap-6 overflow-visible xl:overflow-hidden">
 <!-- Left Panel: Orders List (55%) -->
-<section class="flex-[1.15] min-w-0 flex flex-col h-full bg-surface-container-low p-6 overflow-hidden rounded-2xl">
+<section class="flex-[1.15] min-w-0 flex flex-col h-auto xl:h-full bg-surface-container-low p-4 sm:p-6 overflow-hidden rounded-2xl">
 <!-- Action Bar -->
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-lg font-bold tracking-tight">Danh Sách Đơn Hàng</h3>
@@ -40,7 +40,7 @@ Tạo Đơn Mới
 <button class="pb-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 font-semibold text-sm transition-all">Đã Hủy</button>
 </div>
 <!-- List Controls -->
-<div class="flex justify-between items-center mb-6">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
 <div class="flex items-center bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm border border-outline-variant/10">
 <span class="material-symbols-outlined text-sm text-slate-500 dark:text-slate-400 mr-2" data-icon="calendar_today">calendar_today</span>
 <span class="text-xs font-semibold text-on-surface">7 Tháng 4, 2026 - 8 Tháng 4, 2026</span>
@@ -55,14 +55,14 @@ Tạo Đơn Mới
 </div>
 </div>
 <!-- Data Table Canvas -->
-<div class="flex-1 overflow-y-auto rounded-2xl bg-surface-container-lowest border border-outline-variant/5">
-<table class="w-full text-left border-collapse">
+<div class="flex-1 overflow-auto rounded-2xl bg-surface-container-lowest border border-outline-variant/5">
+<table class="w-full min-w-[680px] text-left border-collapse">
 <thead class="sticky top-0 bg-surface-container-lowest z-10">
 <tr class="border-b border-surface-container-low">
 <th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Mã Đơn</th>
 <th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Khách Hàng</th>
 <th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Hình Thức</th>
-<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-right">Thành Tiền (VND)</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-right">Thành Tiền (₫)</th>
 <th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Trạng Thái</th>
 <th class="px-4 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Lệnh</th>
 </tr>
@@ -150,7 +150,7 @@ Tạo Đơn Mới
 </div>
 </section>
 <!-- Right Panel: Order Detail (45%) -->
-<section class="flex-[0.95] min-w-0 h-full bg-surface-container-lowest border border-surface-container-high rounded-2xl flex flex-col overflow-hidden">
+<section class="flex-[0.95] min-w-0 h-auto xl:h-full bg-surface-container-lowest border border-surface-container-high rounded-2xl flex flex-col overflow-hidden">
 <!-- Detail Header -->
 <div class="p-8 border-b border-surface-container-low">
 <div class="flex justify-between items-start mb-4">
@@ -186,7 +186,7 @@ Tạo Đơn Mới
 <p class="text-xs text-slate-500 mt-1 italic">Thêm há cảo hải sản, Mì chính ít</p>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 490,000</span>
+<span class="text-sm font-bold text-on-surface">₫130,000</span>
 </div>
 </div>
 <!-- Item 2 -->
@@ -199,7 +199,7 @@ Tạo Đơn Mới
 <p class="text-xs text-slate-500 mt-1 italic">Ít cay</p>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 175,000</span>
+<span class="text-sm font-bold text-on-surface">₫75,000</span>
 </div>
 </div>
 <!-- Item 3 -->
@@ -211,7 +211,7 @@ Tạo Đơn Mới
 <h4 class="text-sm font-bold text-on-surface">Trà Lài Đá</h4>
 </div>
 </div>
-<span class="text-sm font-bold text-on-surface">VND 80,000</span>
+<span class="text-sm font-bold text-on-surface">₫58,000</span>
 </div>
 </div>
 </div>
@@ -220,15 +220,15 @@ Tạo Đơn Mới
 <div class="space-y-2 mb-8">
 <div class="flex justify-between text-xs text-slate-500">
 <span>Tạm tính</span>
-<span>VND 745,000</span>
+<span>₫263,000</span>
 </div>
 <div class="flex justify-between text-xs text-slate-500">
 <span>Thuế (0%)</span>
-<span>VND 0</span>
+<span>₫0</span>
 </div>
 <div class="flex justify-between items-center pt-2">
 <span class="text-sm font-black text-on-surface uppercase tracking-tight">Tổng cộng</span>
-<span class="text-xl font-black text-primary">VND 745,000</span>
+<span class="text-xl font-black text-primary">₫263,000</span>
 </div>
 </div>
 <div class="grid grid-cols-1 gap-3">
@@ -256,24 +256,52 @@ Tạo Đơn Mới
             <h3 class="text-xl font-black text-on-surface tracking-tight flex items-center gap-2 mb-2">
                 <span class="material-symbols-outlined text-error">warning</span> Hủy Đơn Hàng #WNT-032
             </h3>
-            <p class="text-sm text-slate-500 mb-6 font-medium">Xin vui lòng chọn lý do hủy đơn. Việc này sẽ hoàn phí nếu khách đã thanh toán.</p>
-            <div class="space-y-3 mb-6">
-                <label class="flex items-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
+            <!-- Payment status context -->
+            <div class="flex gap-2 mb-4">
+                <span class="px-2 py-1 text-[10px] font-bold rounded bg-amber-50 text-amber-700">Đơn: Đang Chế Biến</span>
+                <span class="px-2 py-1 text-[10px] font-bold rounded bg-red-50 text-red-600">Thanh toán: Chưa trả</span>
+            </div>
+            <!-- Warning: Cooking order needs Manager §3 -->
+            <div class="bg-amber-50 border border-amber-200/50 rounded-lg p-3 mb-4">
+                <div class="flex gap-2 items-start">
+                    <span class="material-symbols-outlined text-amber-600 text-sm mt-0.5">admin_panel_settings</span>
+                    <p class="text-xs text-amber-800"><strong>Đơn đang chế biến</strong> — cần Quản lý xác nhận hủy. Bếp sẽ được báo dừng chế biến ngay (§3).</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-500 mb-4 font-medium">Lý do hủy đơn:</p>
+            <div class="space-y-2 mb-4">
+                <label class="flex items-center p-3 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
                     <input type="radio" name="cancel_reason" class="text-primary focus:ring-primary h-4 w-4 mr-3">
                     <span class="text-sm font-bold">Khách hàng đổi ý</span>
                 </label>
-                <label class="flex items-center p-4 rounded-xl border-2 border-primary bg-primary/5 cursor-pointer transition-colors">
+                <label class="flex items-center p-3 rounded-xl border-2 border-primary bg-primary/5 cursor-pointer transition-colors">
                     <input type="radio" name="cancel_reason" checked="" class="text-primary focus:ring-primary h-4 w-4 mr-3">
-                    <span class="text-sm font-bold">Hết nguyên liệu</span>
+                    <span class="text-sm font-bold">Hết nguyên liệu (86'd)</span>
                 </label>
-                <label class="flex items-center p-4 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
+                <label class="flex items-center p-3 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
+                    <input type="radio" name="cancel_reason" class="text-primary focus:ring-primary h-4 w-4 mr-3">
+                    <span class="text-sm font-bold">Khách rời quán không thanh toán</span>
+                </label>
+                <label class="flex items-center p-3 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
+                    <input type="radio" name="cancel_reason" class="text-primary focus:ring-primary h-4 w-4 mr-3">
+                    <span class="text-sm font-bold">Lỗi nhập đơn (nhân viên)</span>
+                </label>
+                <label class="flex items-center p-3 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
+                    <input type="radio" name="cancel_reason" class="text-primary focus:ring-primary h-4 w-4 mr-3">
+                    <span class="text-sm font-bold">Đơn trùng</span>
+                </label>
+                <label class="flex items-center p-3 rounded-xl border-2 border-outline-variant hover:border-primary cursor-pointer transition-colors">
                     <input type="radio" name="cancel_reason" class="text-primary focus:ring-primary h-4 w-4 mr-3">
                     <span class="text-sm font-bold">Lý do khác...</span>
                 </label>
             </div>
+            <!-- Refund impact note -->
+            <div class="bg-surface-container-low rounded-lg p-3 mb-4">
+                <p class="text-xs text-slate-600"><span class="material-symbols-outlined text-xs mr-1 align-middle">info</span> Đơn này <strong>chưa thanh toán</strong> — không phát sinh hoàn tiền. Nếu đơn đã trả online, hệ thống sẽ tự động tạo yêu cầu hoàn tiền (§3b).</p>
+            </div>
             <div class="flex gap-3">
-                <a class="flex-1 py-3 text-slate-500 font-bold text-sm rounded-xl hover:bg-surface-container-high transition-colors" href="03-order-management.html" style="cursor: pointer;">Đóng</a>
-                <a class="flex-1 py-3 bg-error text-white font-bold text-sm rounded-xl shadow-lg shadow-error/20 hover:opacity-90 transition-opacity" href="03-order-management.html" style="cursor: pointer;">Xác Nhận Hủy</a>
+                <a class="flex-1 py-3 text-slate-500 font-bold text-sm rounded-xl hover:bg-surface-container-high transition-colors text-center" href="03-order-management.html" style="cursor: pointer;">Đóng</a>
+                <a class="flex-1 py-3 bg-error text-white font-bold text-sm rounded-xl shadow-lg shadow-error/20 hover:opacity-90 transition-opacity text-center" href="03-order-management.html" style="cursor: pointer;">Gửi Yêu Cầu Hủy (Chờ QL)</a>
             </div>
         </div>
     </div>

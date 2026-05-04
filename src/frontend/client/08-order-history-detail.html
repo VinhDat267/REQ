@@ -97,20 +97,20 @@
 <body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased">
 <!-- Client Nav Injected via nav-components.js -->
 <!-- Main Content Canvas -->
-<main class="pt-28 pb-24 w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex-grow">
-<div class="flex gap-8 h-[calc(100vh-12rem)]">
+<main class="pt-20 lg:pt-28 pb-10 lg:pb-24 w-full max-w-[1440px] mx-auto px-4 lg:px-12 flex-grow">
+<div class="flex flex-col lg:flex-row gap-8 h-auto lg:h-[calc(100vh-12rem)]">
 <!-- Left Column: Order History List (45%) -->
-<section class="w-[45%] flex flex-col space-y-6 overflow-hidden">
+<section class="w-full lg:w-[45%] flex flex-col space-y-6 overflow-hidden">
 <div class="space-y-4">
 <div class="flex justify-between items-center">
-    <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Lịch sử Đơn hàng</h1>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-on-surface">Lịch sử Đơn hàng</h1>
 </div>
 <!-- Tabs -->
-<div class="flex space-x-1 bg-surface-container p-1 rounded-xl">
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg bg-surface-container-lowest text-on-surface shadow-sm transition-all">Tất Cả</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đang chọn</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Hoàn tất</button>
-<button class="flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đã Hủy</button>
+<div class="flex space-x-1 bg-surface-container p-1 rounded-xl overflow-x-auto">
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg bg-surface-container-lowest text-on-surface shadow-sm transition-all">Tất Cả</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đang chọn</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Hoàn tất</button>
+<button class="flex-none sm:flex-1 py-2 px-4 text-sm font-medium rounded-lg text-secondary hover:text-on-surface transition-colors">Đã Hủy</button>
 </div>
 <!-- Search -->
 <div class="relative group">
@@ -138,7 +138,7 @@
 <span class="text-xs text-secondary">3 món</span>
 </div>
 </div>
-<div class="text-lg font-extrabold text-on-surface">₫544,000</div>
+<div class="text-lg font-extrabold text-on-surface">₫195,000</div>
 </div>
 </div>
 <!-- Other Order Cards -->
@@ -179,19 +179,24 @@
 </div>
 </section>
 <!-- Right Column: Order Detail (55%) -->
-<section id="order-detail-pane" class="w-[55%] bg-surface-container-lowest rounded-3xl p-10 flex flex-col shadow-sm relative overflow-hidden transition-opacity">
+<section id="order-detail-pane" class="w-full lg:w-[55%] bg-surface-container-lowest rounded-3xl p-5 sm:p-10 flex flex-col shadow-sm relative overflow-hidden transition-opacity">
 <!-- Background Decorative Pattern -->
-<div class="absolute -top-12 -right-12 w-48 h-48 opacity-5">
+<div class="hidden sm:block absolute -top-12 -right-12 w-48 h-48 opacity-5">
 <img class="w-full h-full object-contain" data-alt="minimalist line art pattern of a chinese dumpling or wonton in a repetitive elegant sequence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCol0n52ucHsx_vlLPphiPqatZt9ILNynsocSVV5Bog46yLwZJpPNbWGt9Fo9C7_hZyeGpKsv94P4Q5TIdlZAl0VYx8ag3NT7Bw1s9TguA1rtXLM3VzvP-NS_yS8QlkFJapxsuisX5sYYWEKITCGpD1Q7ZlomOkdxsj-LgyHnKS911Ic29fNOZZoUZQj9q1TGlx1TtsaEqfwAy9zSlCjaHvmfFNHvLnE27qBPa01z2U79OWuIRvyvS9i8b9N50VavJIL7xox54C7s6p">
 </div>
 <div class="flex-grow">
 <header class="flex justify-between items-start mb-8">
-<div class="space-y-1">
+<div class="space-y-2">
 <div class="flex items-center gap-3">
 <h2 class="text-2xl font-extrabold tracking-tighter text-on-surface">#WNT-20260405-028</h2>
-<span class="material-symbols-outlined text-green-600" data-weight="fill">check_circle</span>
+<span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
 </div>
-<p class="text-sm text-secondary font-medium">Hoàn tất • Thanh toán qua MoMo</p>
+<!-- Dual status badges (§3 Business Rules) -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">Đơn: Hoàn tất</span>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">Thanh toán: Đã thanh toán</span>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container text-secondary">MoMo</span>
+</div>
 </div>
 <div class="text-right text-secondary/80">
 <div class="text-sm font-bold text-on-surface">05/04/2026</div>
@@ -223,7 +228,7 @@
 <p class="text-xs text-secondary">Thêm sa tế, Không ngò</p>
 </div>
 </div>
-<span class="font-bold">₫209,000</span>
+<span class="font-bold">₫65,000</span>
 </div>
 <div class="flex justify-between items-start">
 <div class="flex gap-4">
@@ -235,7 +240,7 @@
 <p class="text-xs text-secondary">Độ Cay Vừa</p>
 </div>
 </div>
-<span class="font-bold">₫175,000</span>
+<span class="font-bold">₫75,000</span>
 </div>
 <div class="flex justify-between items-start">
 <div class="flex gap-4">
@@ -246,7 +251,7 @@
 <div class="font-bold text-on-surface">Hoành Thánh Thịt Heo Truyền Thống (6 viên) <span class="text-secondary font-normal ml-2">x1</span></div>
 </div>
 </div>
-<span class="font-bold">₫160,000</span>
+<span class="font-bold">₫55,000</span>
 </div>
 </div>
 </div>
@@ -254,24 +259,43 @@
 <div class="mt-8 pt-8 border-t border-surface-container/50 space-y-4">
 <div class="flex justify-between text-sm text-secondary">
 <span>Tạm tính</span>
-<span>₫544,000</span>
+<span>₫195,000</span>
 </div>
 <div class="flex justify-between items-center">
 <span class="text-xl font-extrabold tracking-tight">Tổng cộng</span>
-<span class="text-3xl font-black text-primary">₫544,000</span>
+<span class="text-3xl font-black text-primary">₫195,000</span>
 </div>
-<div class="flex gap-4 mt-6">
+<!-- Hóa đơn -->
+<div class="flex gap-3 mt-4">
+<a class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg border border-outline-variant/30 text-sm font-bold text-secondary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-base">receipt_long</span>
+Xem hóa đơn
+</a>
+<a class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg border border-outline-variant/30 text-sm font-bold text-secondary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-base">download</span>
+Tải PDF
+</a>
+</div>
+<!-- Actions -->
+<div class="flex gap-4 mt-4">
+<!-- Đánh giá: check hạn 7 ngày (§5 Business Rules) -->
 <a class="flex-1 bg-gradient-to-r from-primary to-primary-container text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98]" href="09-order-rating-page.html" style="cursor: pointer;">
 <span class="material-symbols-outlined">grade</span>
-                            Đánh Giá Đơn Này
-                        </a>
+Đánh Giá Đơn Này
+</a>
+<!-- Reorder: chỉ hiện cho đơn Completed (§2a Business Rules) -->
 <div class="flex-1 relative group">
-<a class="w-full bg-surface-container-highest text-on-surface py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all active:scale-[0.98]" href="03-wonton-pos-menu-browse.html" style="cursor: pointer;">
+<a class="w-full bg-surface-container-highest text-on-surface py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all active:scale-[0.98]" href="11-reorder-menu-drift.html" style="cursor: pointer;">
 <span class="material-symbols-outlined">reorder</span>
-                                Đặt Lại Đơn Cũ
-                            </a>
+Đặt Lại Đơn Cũ
+</a>
+<!-- Tooltip: chỉ đơn Completed mới được reorder -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] font-medium px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+Chỉ áp dụng cho đơn "Hoàn tất"
 </div>
 </div>
+</div>
+<p class="text-[10px] text-center text-secondary mt-2">Đánh giá trong vòng 7 ngày kể từ khi hoàn tất. Đặt lại chỉ áp dụng cho đơn Hoàn tất.</p>
 </div>
 </section>
 </div>

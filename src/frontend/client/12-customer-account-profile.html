@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Tài khoản khách hàng | Wonton POS</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, sans-serif; background: #f9fafb; color: #191c1d; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-slate-50 antialiased">
+  <main class="pt-20 lg:pt-28 pb-10 lg:pb-12 px-4 lg:px-12 max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+      <aside class="bg-white border border-slate-200 rounded-lg p-5 h-fit">
+        <div class="flex items-center gap-3 pb-5 border-b border-slate-100">
+          <div class="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center font-black">VD</div>
+          <div>
+            <p class="font-extrabold">Vinh Đạt</p>
+            <p class="text-xs text-slate-500">Thành viên từ 03/2026</p>
+          </div>
+        </div>
+        <nav class="mt-5 space-y-2">
+          <a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-red-50 text-red-700 font-bold" href="#profile"><span class="material-symbols-outlined">person</span>Hồ sơ</a>
+          <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 font-semibold hover:bg-slate-50" href="#security"><span class="material-symbols-outlined">lock</span>Bảo mật</a>
+          <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 font-semibold hover:bg-slate-50" href="08-order-history-detail.html"><span class="material-symbols-outlined">receipt_long</span>Lịch sử đơn</a>
+          <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 font-semibold hover:bg-slate-50" href="10-notifications-center.html"><span class="material-symbols-outlined">notifications</span>Thông báo</a>
+        </nav>
+      </aside>
+
+      <section class="space-y-6">
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          <p class="text-xs font-black tracking-[0.22em] text-red-700 uppercase">UC-25 · Tài khoản và xác thực</p>
+          <h1 class="mt-2 text-3xl font-black tracking-tight">Quản lý tài khoản</h1>
+          <p class="mt-2 text-sm text-slate-500">Cập nhật thông tin liên hệ, đổi mật khẩu và kiểm soát phiên đăng nhập.</p>
+        </div>
+
+        <div id="profile" class="bg-white border border-slate-200 rounded-lg p-6">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-extrabold">Thông tin cá nhân</h2>
+              <p class="mt-1 text-sm text-slate-500">Số điện thoại dùng cho tra cứu đơn và thông báo trạng thái.</p>
+            </div>
+            <span class="px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-bold">SĐT đã xác minh</span>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <label class="block">
+              <span class="text-xs font-bold text-slate-500 uppercase">Họ tên</span>
+              <input class="mt-2 w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" value="Nguyễn Đạt Vinh" type="text">
+            </label>
+            <label class="block">
+              <span class="text-xs font-bold text-slate-500 uppercase">Số điện thoại</span>
+              <div class="mt-2 flex gap-2">
+                <input class="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" value="0912 345 678" type="tel">
+                <button class="px-4 rounded-lg border border-slate-200 font-bold text-sm">Đổi</button>
+              </div>
+            </label>
+            <label class="block">
+              <span class="text-xs font-bold text-slate-500 uppercase">Email</span>
+              <input class="mt-2 w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" value="dat.vinh@example.com" type="email">
+            </label>
+            <label class="block">
+              <span class="text-xs font-bold text-slate-500 uppercase">Kênh nhận thông báo</span>
+              <select class="mt-2 w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3">
+                <option>Web push + Email</option>
+                <option>Chỉ Web push</option>
+                <option>Chỉ Email</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="mt-6 flex justify-end gap-3">
+            <button class="px-5 py-3 rounded-lg border border-slate-200 font-bold">Hủy thay đổi</button>
+            <button class="px-5 py-3 rounded-lg bg-red-700 text-white font-extrabold">Lưu hồ sơ</button>
+          </div>
+        </div>
+
+        <div id="security" class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <section class="bg-white border border-slate-200 rounded-lg p-6">
+            <h2 class="text-xl font-extrabold">Đổi mật khẩu</h2>
+            <div class="mt-5 space-y-4">
+              <input class="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" placeholder="Mật khẩu hiện tại" type="password">
+              <input class="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" placeholder="Mật khẩu mới" type="password">
+              <input class="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-3" placeholder="Nhập lại mật khẩu mới" type="password">
+            </div>
+            <button class="mt-5 w-full px-5 py-3 rounded-lg bg-slate-900 text-white font-extrabold">Cập nhật mật khẩu</button>
+          </section>
+
+          <section class="bg-white border border-slate-200 rounded-lg p-6">
+            <h2 class="text-xl font-extrabold">Phiên đăng nhập</h2>
+            <div class="mt-5 space-y-3">
+              <div class="flex items-center justify-between rounded-lg border border-slate-200 p-4">
+                <div>
+                  <p class="font-bold">Chrome · TP. Hồ Chí Minh</p>
+                  <p class="text-xs text-slate-500 mt-1">Đang hoạt động · 24/04/2026 15:02</p>
+                </div>
+                <span class="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold">Hiện tại</span>
+              </div>
+              <div class="flex items-center justify-between rounded-lg border border-slate-200 p-4">
+                <div>
+                  <p class="font-bold">Safari · iPhone</p>
+                  <p class="text-xs text-slate-500 mt-1">Lần cuối 23/04/2026 20:14</p>
+                </div>
+                <button class="text-red-700 text-sm font-bold">Đăng xuất</button>
+              </div>
+            </div>
+            <a class="mt-5 flex items-center justify-center gap-2 px-5 py-3 rounded-lg border border-red-200 text-red-700 font-extrabold" href="02-wonton-pos-landing-page.html">
+              <span class="material-symbols-outlined">logout</span>Đăng xuất khỏi tài khoản
+            </a>
+          </section>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../shared/nav-components.js" defer></script>
+</body>
+</html>
